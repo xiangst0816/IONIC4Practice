@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.controllers')
-        .controller('registerSuccessCtrl', ['$scope', '$timeout', '$ionicNavBarDelegate', '$ionicBackdrop', function ($scope, $timeout, $ionicNavBarDelegate, $ionicBackdrop) {
+        .controller('registerSuccessCtrl', ['$scope', '$timeout', '$ionicNavBarDelegate', '$ionicBackdrop', '$setShareContent', function ($scope, $timeout, $ionicNavBarDelegate, $ionicBackdrop, $setShareContent) {
             //注册成功后不显示返回按钮
             $ionicNavBarDelegate.showBackButton(false);
 
@@ -15,9 +15,15 @@
                 if (Internal.isInWeiXin) {
                     $ionicBackdrop.retain();
                     angular.element(document.getElementById('showShareDark')).addClass('action');
-                } else if (Internal.isInApp) {
-                    alert("在app中分享")
                 }
+                //设置分享
+                $setShareContent({
+                    title: "成为怡丰城会员,尽享更多礼遇!",
+                    desc: "分享后引导进入注册页面",
+                    imgUrl: "http://vivocity.smartac.co:82/img/other/default.png",
+                    type: "link",
+                    dataUrl: ""
+                }, "subNav.register", null);
             };
             /**
              * 点击分享图片消失提示

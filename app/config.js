@@ -14,16 +14,50 @@
                 appid: "1",
                 appsecret: "123",
 
-                //微信公众号的AppID(应用ID)
+
+                /**
+                 * 微信配置, 微信公众号的AppID(应用ID)
+                 * */
                 wxAppID: "wx1f9f586691e432d2",
                 //微信公众号的原始ID(公众号ID)
                 accountid: "gh_4144bdb0571b",
                 // wxAppID: "HEDV35FASG-DGW423A-34TGGW53AAD66",
                 cfid: "HEDV35FASG-DGW423A-34TGGW53AAD66",
-                //商场id(商场->商户)HEDV35FASG-DGW423A-34TGGW53AAD66
+
+
+                /**
+                 * 商场id(商场->商户)
+                 */
                 orgid: "1",
-                //客服电话
-                serviceTel:"1234567890"
+
+
+                /**
+                 * 客服电话
+                 * */
+                serviceTel:"1234567890",
+
+
+                /**
+                 * 分享配置
+                 * */
+                shareInfo:{
+                    //app地址
+                    url:"http://vivocity.smartac.co/webapp/index.html"
+                },
+
+                /**
+                 * 微信默认分享,分享注册页,进入home后自动跳转到注册
+                 * */
+                defalutShareContent:{
+                    directToState:"subNav.register",
+                    content:{
+                        title: "成为怡丰城会员,尽享更多礼遇!",
+                        desc: "分享后引导进入注册页面",
+                        imgUrl: "http://vivocity.smartac.co:82/img/other/default.png",
+                        type: "link",
+                        dataUrl: ""
+                    }
+                }
             }
         })
 

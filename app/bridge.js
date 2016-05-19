@@ -11,9 +11,9 @@
 /**
  * 代码容错,进入判断是否有smartAPP变量
  * */
-try{
+try {
     smartApp
-}catch (e){
+} catch (e) {
     var smartApp = null;
 
 }
@@ -57,7 +57,7 @@ var nativePlugin = {
     // 1. 判断当前版本是否支持指定 JS 接口
     getAppVersion: function () {
         if (Internal.isInWeiXin) {
-        } else if (Internal.isInApp) {
+        } else if (Internal.isInApp && !!smartApp) {
             alert("此功能需要检查,bridge.js")
             return Internal.appVersion;
         }
@@ -70,7 +70,7 @@ var nativePlugin = {
                 current: current || '',  // 当前显示的图片链接
                 urls: urls || []  // 需要预览的图片链接列表
             });
-        } else if (Internal.isInApp) {
+        } else if (Internal.isInApp && !!smartApp) {
             smartApp.previewImage({
                 current: current || '',
                 urls: urls || []
@@ -89,7 +89,7 @@ var nativePlugin = {
                     // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
                 }
             })
-        } else if (Internal.isInApp) {
+        } else if (Internal.isInApp && !!smartApp) {
             smartApp.checkJSAvailability({
                 success: function (res) {
                     callback(res);
@@ -110,7 +110,7 @@ var nativePlugin = {
                     callback && callback(res);
                 }
             });
-        } else if (Internal.isInApp) {
+        } else if (Internal.isInApp && !!smartApp) {
             smartApp.scanBarCode({
                 scanType: ['qrCode', 'barCode'],
                 success: function (res) {
@@ -145,7 +145,7 @@ var nativePlugin = {
     // 4. 打印接口
     print: function (obj) {
         if (Internal.isInWeiXin) {
-        } else if (Internal.isInApp) {
+        } else if (Internal.isInApp && !!smartApp) {
             smartApp.print(JSON.stringify(obj));
         }
     },
@@ -154,7 +154,7 @@ var nativePlugin = {
     //5. 打开数字键盘
     showKeyboard: function (callback) {
         if (Internal.isInWeiXin) {
-        } else if (Internal.isInApp) {
+        } else if (Internal.isInApp && !!smartApp) {
             smartApp.showKeyboard(callback)
         }
     },
@@ -163,7 +163,7 @@ var nativePlugin = {
     //6. 蓝牙配置API
     configBluetooth: function () {
         if (Internal.isInWeiXin) {
-        } else if (Internal.isInApp) {
+        } else if (Internal.isInApp && !!smartApp) {
             smartApp.configBluetooth();
         }
     },
@@ -203,8 +203,6 @@ var nativePlugin = {
                     shareContent.cancel && shareContent.cancel();
                 }
             });
-        } else if (Internal.isInApp) {
-
         }
     },
 
@@ -227,8 +225,6 @@ var nativePlugin = {
                     shareContent.cancel && shareContent.cancel();
                 }
             })
-        } else if (Internal.isInApp) {
-
         }
     },
 
@@ -249,8 +245,6 @@ var nativePlugin = {
                     shareContent.cancel && shareContent.cancel();
                 }
             });
-        } else if (Internal.isInApp) {
-
         }
     },
 
@@ -271,8 +265,6 @@ var nativePlugin = {
                     shareContent.cancel && shareContent.cancel();
                 }
             });
-        } else if (Internal.isInApp) {
-
         }
     },
 
@@ -293,44 +285,39 @@ var nativePlugin = {
                     shareContent.cancel && shareContent.cancel();
                 }
             });
-        } else if (Internal.isInApp) {
-
         }
     },
 
     //分享（app专用）
-    shareWithPanel: function(shareContent) {
-        if (Internal.isInApp) {
-            if(!!smartApp){
-                smartApp.shareWithPanel({
-                    title: shareContent.title, // 分享标题
-                    desc: shareContent.desc, // 分享描述
-                    link: shareContent.link, // 分享链接
-                    imgUrl: shareContent.imgUrl, // 分享图标
-                    type: shareContent.type, // 分享类型,music、video或link，不填默认为link
-                    dataUrl: shareContent.dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
-                    success: function () {
-                        // 用户确认分享后执行的回调函数
-                        shareContent.success && shareContent.success();
-                    },
-                    cancel: function () {
-                        // 用户取消分享后执行的回调函数
-                        shareContent.cancel && shareContent.cancel();
-                    }
-                });
-            }else{
-                (function () {
-                    var _log = console.log;
-                    _log.call(console, '%c' + [].slice.call(arguments).join(' '), 'color: red;')
-                })('smartApp链接的js当前不可用,请注意!!');
-            }
-
+    shareWithPanel: function (shareContent) {
+        if (Internal.isInApp && !!smartApp) {
+            smartApp.shareWithPanel({
+                title: shareContent.title, // 分享标题
+                desc: shareContent.desc, // 分享描述
+                link: shareContent.link, // 分享链接
+                imgUrl: shareContent.imgUrl, // 分享图标
+                type: shareContent.type, // 分享类型,music、video或link，不填默认为link
+                dataUrl: shareContent.dataUrl, // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                    shareContent.success && shareContent.success();
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                    shareContent.cancel && shareContent.cancel();
+                }
+            });
+        } else {
+            (function () {
+                var _log = console.log;
+                _log.call(console, '%c' + [].slice.call(arguments).join(' '), 'color: red;')
+            })('smartApp链接的js当前不可用,请注意!!');
         }
     },
 
     //获取正在使用语言
     getLanguage: function (successCallback, errorCallback) {
-        if (Internal.isInApp) {
+        if (Internal.isInApp && !!smartApp) {
             //alert(smartApp.getLanguage)
             smartApp.getLanguage({
                 success: function (res) {
@@ -345,7 +332,7 @@ var nativePlugin = {
 
     //设置正在使用语言(切换语言)
     setLanguage: function (param) {
-        if (Internal.isInApp) {
+        if (Internal.isInApp && !!smartApp) {
             smartApp.setLanguage(param)
         }
     },
@@ -353,36 +340,37 @@ var nativePlugin = {
 
     //注册登录时的传入的设备id(注册登录(deviceid))
     registerPushService: function (callback) {
-        if (Internal.isInApp) {
+        if (Internal.isInApp && !!smartApp) {
             try {
                 smartApp.registerPushService({
                     success: function (res) {
                         callback(res);
                     }
                 })
-            } catch(e) {}
+            } catch (e) {
+            }
         }
     },
 
 
-    //获取推送用的设备令牌,主要是mac地址(地图)
+    //获取设备无线网络接口MAC地址,主要是mac地址(地图)
     wifiMac: function (callback) {
-        if (Internal.isInApp) {
+        if (Internal.isInApp && !!smartApp) {
             smartApp.wifiMac({
                 success: function (res) {
-                    callback(res);
+                    //{"mac":"123123:112:3:433"}
+                    callback(res.mac);
                 }
             })
         }
     },
-    //开启左滑回到上个页面功能
-    enableBackGesture: function () {
-        if (Internal.isInApp) {
-            smartApp.enableBackGesture();
-        }
-    }
-
-}
+    // //开启左滑回到上个页面功能
+    // enableBackGesture: function () {
+    //     if (Internal.isInApp) {
+    //         smartApp.enableBackGesture();
+    //     }
+    // }
+};
 
 
 /**
@@ -415,6 +403,20 @@ var nativePlugin = {
     var u = window.navigator.userAgent;
     Internal.isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
     Internal.isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+    //配置app
+
+    alert(Internal.isInApp + ":" +JSON.stringify(smartApp))
+    if (Internal.isInApp && !!smartApp) {
+        //滑动返回
+        smartApp.enableBackGesture();
+        //隐藏导航栏
+        alert("setBarHidden")
+        smartApp.setBarHidden({
+            hidden:true
+        });
+    }
+
 })();
 
 

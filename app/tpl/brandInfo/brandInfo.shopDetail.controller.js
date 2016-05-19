@@ -4,20 +4,20 @@
  */
 (function () {
     angular.module('smartac.controllers')
-        .controller('shopDetailCtrl', ['$sessionStorage', '$scope', '$stateParams', '$ionicBackdrop', '$ionicLoading', 'AJAX', 'api', '$ionicToast', '$shopCollect', '$checkAuthorize', '$shopList','$setShareContent','$getUrlParams','$timeout', function ($sessionStorage, $scope, $stateParams, $ionicBackdrop, $ionicLoading, AJAX, api, $ionicToast, $shopCollect, $checkAuthorize, $shopList,$setShareContent,$getUrlParams,$timeout) {
+        .controller('shopDetailCtrl', ['$sessionStorage', '$scope', '$stateParams', '$ionicBackdrop', '$ionicLoading', 'AJAX', 'api', '$ionicToast', '$shopCollect', '$checkAuthorize', '$shopList', '$setShareContent', '$getUrlParams', '$timeout', function ($sessionStorage, $scope, $stateParams, $ionicBackdrop, $ionicLoading, AJAX, api, $ionicToast, $shopCollect, $checkAuthorize, $shopList, $setShareContent, $getUrlParams, $timeout) {
 
             var shopID = $stateParams.detail;
             //如果不是从list中来的
-            if(!shopID){
+            if (!shopID) {
                 //如果url中携带参数
                 var stateParams = $getUrlParams().stateParams;
-                if(!!stateParams){
+                if (!!stateParams) {
                     shopID = stateParams;
-                }else{
+                } else {
                     $ionicToast.show("抱歉,未查到此店铺信息");
-                   $timeout(function () {
-                       window.history.back();
-                   },1300,false);
+                    $timeout(function () {
+                        window.history.back();
+                    }, 1300, false);
                     return false;
                 }
             }
@@ -41,16 +41,7 @@
                 }
             }).then(function (data) {
                 $scope.item = data[0];
-               // alert(JSON.stringify(data[0]));
-
-                //设置分享当前页面
-                $setShareContent({
-                    title: $scope.item.name,
-                    desc: $scope.item.desc,
-                    imgUrl: $scope.item.logourl,
-                    type: 'link',
-                    dataUrl: ""
-                }, 'subNav.brandDetail', $scope.item.shopid);
+                // alert(JSON.stringify(data[0]));
 
             }).finally(function () {
                 $ionicLoading.hide();
@@ -81,9 +72,16 @@
                 if (Internal.isInWeiXin) {
                     $ionicBackdrop.retain();
                     angular.element(document.getElementById('showShareDark')).addClass('action');
-                } else if (Internal.isInApp) {
-                    alert("在app中分享")
                 }
+
+                //设置分享当前页面
+                $setShareContent({
+                    title: $scope.item.name,
+                    desc: $scope.item.desc,
+                    imgUrl: $scope.item.logourl,
+                    type: 'link',
+                    dataUrl: ""
+                }, 'subNav.brandDetail', $scope.item.shopid);
 
                 /**
                  * 点击分享图片消失提示
