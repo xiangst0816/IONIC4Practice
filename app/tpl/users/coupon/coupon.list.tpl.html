@@ -1,0 +1,111 @@
+<ion-view title="礼品卡券" class="goupon">
+
+    <smart-tap-box class="bar-subheader">
+        <tap-select>
+            <tap-header>
+                <span ng-bind="typeName"></span>&ensp;<i class="icon-subtitle icon-arrow-down"></i>
+            </tap-header>
+            <tap-list>
+                <tap-item ng-click="setTypeName(item)" ng-repeat="item in typeNameArr track by $index"
+                          ng-bind="::item.name"></tap-item>
+            </tap-list>
+        </tap-select>
+        <tap-select>
+            <tap-header>
+                <span ng-bind="statusName"></span>&ensp;<i class="icon-subtitle icon-arrow-down"></i>
+            </tap-header>
+            <tap-list>
+                <tap-item ng-click="setStatusName(item)" ng-repeat="item in statusNameArr track by $index"
+                          ng-bind="::item.name"></tap-item>
+            </tap-list>
+        </tap-select>
+    </smart-tap-box>
+
+    <ion-content id="scroll-content" class="has-subheader" overflow-scroll="true">
+        <div class="list gouponList">
+            <section>
+                <!--isCoupon each-->
+                <div class="eachItems" ng-repeat="item in dataToDisplay | filter:{isCoupon:true} track by $index">
+                    <!--将item内容传入子页面-->
+                    <section class="layer1 clearfix" ui-sref="subNav.memberCouponDetail({detail:item})">
+                        <img class="placeholder_43_2" ng-src="{{::item.image_url | addImgPrefix}}" err-src="">
+                        <div class="layer1-center">
+                            <h2><span ng-bind="::item.name"></span><span
+                                    ng-bind="::item.category_value | couponCategoryToName"></span></h2>
+                            <p>序列号: <span ng-bind="::item.code"></span></p>
+                        </div>
+                        <div class="layer1-right">
+                            <!--折扣-->
+                            <p ng-if="::item.category_value == 'coupon_category_1'">
+                                <span ng-bind="::item.limit_max_discount"></span>折</p>
+                            <!--抵用-->
+                            <p ng-if="::item.category_value == 'coupon_category_2'">￥<span
+                                    ng-bind="::item.face_value"></span></p>
+                            <!--现金-->
+                            <p ng-if="::item.category_value == 'coupon_category_3'">￥<span
+                                    ng-bind="::item.face_value"></span></p>
+                            <!--兑换-->
+                            <p ng-if="::item.category_value == 'coupon_category_4'">￥<span
+                                    ng-bind="::item.face_value"></span></p>
+                            <p>满<i ng-bind="::item.limit_fee"></i>可用</p>
+                        </div>
+                    </section>
+                    <section class="layer2">
+                        <p>有效期限:<span ng-bind="::item.limit_time_begin.low | yyyyMMdd_dot"></span> ~ <span ng-bind="::item.limit_time_end.low |
+                            yyyyMMdd_dot"></span></p>
+                        <!--未使用未过期-->
+                        <div ng-if="::item.useState == 2" ng-click="usedNow(item.code + '|' + item.customer_id)">立即使用
+                        </div>
+                        <!--已使用或已过期-->
+                        <div class="forbidden" ng-if="::item.useState == 1">已使用</div>
+                        <div class="forbidden" ng-if="::item.useState == 3">已过期</div>
+                    </section>
+                </div>
+                <!--each end-->
+                <!--isGift each-->
+                <div class="eachItems" ng-repeat="item in dataToDisplay | filter:{isCoupon:false} track by $index">
+                    <!--将item内容传入子页面-->
+                    <section class="layer1 clearfix" ui-sref="subNav.memberCouponDetail({detail:item})">
+                        <div class="imgBox placeholder_43_2">
+                            <img class="" ng-src="{{::item.imageurl | addImgPrefix}}" err-src="{{::errImg.errImg43_1}}">
+                        </div>
+                        <div class="layer1-center">
+                            <h2><span ng-bind="::item.giftname"></span><span>礼品</span></h2>
+                            <p>序列号: <span ng-bind="::item.exchangeid"></span></p>
+                        </div>
+                        <!--<div class="layer1-right">-->
+                        <!--</div>-->
+                    </section>
+                    <section class="layer2">
+                        <p>有效期限:<span ng-bind="::item.starttime"></span> ~ <span ng-bind="::item.endtime"></span></p>
+                        <!--未使用未过期-->
+                        <div ng-if="::item.useState == 2" ng-click="usedNow(item.sendid)">立即使用</div>
+                        <!--已使用或已过期-->
+                        <div class="forbidden" ng-if="::item.useState == 1">已使用</div>
+                        <div class="forbidden" ng-if="::item.useState == 3">已过期</div>
+                    </section>
+                </div>
+                <!--each end-->
+                <!--抱歉,暂无数据!-->
+                <div ng-include="::'tpl/noDataToDisplay.comp.html'"></div>
+            </section>
+        </div>
+
+        <ion-infinite-scroll ng-show="moreDataCanBeLoaded" distance="1%" on-infinite="loadMore()"></ion-infinite-scroll>
+    </ion-content>
+
+
+</ion-view>
+
+
+<!--<script id="useGougon.html" type="text/ng-template">-->
+<!--<ion-popover-view class="showCode2D">-->
+<!--<div class=showCode2DInnerBox>-->
+<!--<div class="imgBox">-->
+<!--<ion-spinner icon="lines" class="imgLoadSpinner"></ion-spinner>-->
+<!--<img ng-src="{{::useGougon4CodeImg}}" alt="">-->
+<!--</div>-->
+<!--<p>{{useGougon4Code}}</p>-->
+<!--</div>-->
+<!--</ion-popover-view>-->
+<!--</script>-->

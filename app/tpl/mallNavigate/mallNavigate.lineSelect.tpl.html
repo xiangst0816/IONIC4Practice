@@ -1,0 +1,63 @@
+<ion-view title="导航路径" class="navigateSelect">
+    <ion-content>
+
+        <div>
+            <div class="inputBox">
+                <!--从-->
+                <div class="inputBoxEach">
+                    <span>从</span>
+                    <input type="text" placeholder="请输入您所在的位置">
+                </div>
+                <!--btns-->
+                <div class="inputBoxBtns">
+                    <span>例如:&emsp;</span>
+                    <ul>
+                        <li>星巴克 c23</li>
+                        <li>麦当劳</li>
+                    </ul>
+                    <div ng-click="demo()">地图上选点</div>
+                    <div ng-click="demo()">我的位置</div>
+                </div>
+                <!--至-->
+                <div class="inputBoxEach">
+                    <span>至</span>
+                    <input type="text" placeholder="请输入您要到达的位置">
+                </div>
+                <!--btns-->
+                <div class="inputBoxBtns">
+                    <div ng-click="demo()">地图上选点</div>
+                    <!--<div>我的位置</div>-->
+                </div>
+                <!--<tap-select ng-click="status = 2" ng-class="{'active':status == 2}">-->
+                <div class="youxian">
+                    <div ng-class="{'active':status == 1}" ng-click="youxianSelect(1)">
+                        <div class="imgBox">
+                            <img class="nonActive" src="img/mallNavigate/zhiti.png" alt="">
+                            <img class="active" src="img/mallNavigate/zhitiActive.png" alt="">
+                        </div>
+                        <span>直梯优先</span>
+                    </div>
+                    <div ng-class="{'active':status == 2}" ng-click="youxianSelect(2)">
+                        <div class="imgBox">
+                            <img class="nonActive" src="img/mallNavigate/futi.png" alt="">
+                            <img class="active" src="img/mallNavigate/futiActive.png" alt="">
+                        </div>
+                        <span>扶梯优先</span>
+                    </div>
+                    <div ng-class="{'active':status == 3}" ng-click="youxianSelect(3)">
+                        <div class="imgBox">
+                            <img class="nonActive" src="img/mallNavigate/buti.png" alt="">
+                            <img class="active" src="img/mallNavigate/butiActive.png" alt="">
+                        </div>
+                        <span>步梯优先</span>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="btnBox">
+            <div class="btnBoxInner" ng-click="demo()">导航路径</div>
+        </div>
+    </ion-content>
+</ion-view>

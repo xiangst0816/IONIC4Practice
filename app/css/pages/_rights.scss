@@ -1,0 +1,40 @@
+/*member rights*/
+.memberRights{
+  padding:0 0.234rem;
+  color:#fff;
+  border:1px solid transparent;
+  .rightsHeader{
+    border-bottom:1px solid #fff;
+    margin-top:0.63rem;
+    h3{
+      color:#fff;
+      font-size:0.37rem;
+      margin-bottom:0;
+      font-weight: bold;
+    }
+    p{
+      font-size:0.26rem;
+    }
+  }
+  .rightsContent{
+    h4{
+      font-size: 0.33rem;
+      color:#fff;
+      margin-top:0.35rem;
+      margin-bottom:0.16rem;
+      font-weight: bold;
+    }
+    section{
+      p{
+        font-size: 0.33rem;
+        line-height:0.445rem;
+        margin-bottom:0.12rem;
+        a{
+          color:#f6ff00;
+          text-decoration: underline;;
+        }
+      }
+    }
+  }
+
+}

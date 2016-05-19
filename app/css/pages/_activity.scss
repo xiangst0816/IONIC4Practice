@@ -1,0 +1,19 @@
+//丰树资讯
+.activities{
+  .activitiesTabs{
+    .active{
+      color:$stable;
+    }
+  }
+  .activitiesContent{
+    padding:0.17rem 0.2rem;
+    background-color:#e8ecf0;
+    img{
+      width:100%;
+      margin-bottom:0.35rem;
+      box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);
+    }
+
+  }
+
+}

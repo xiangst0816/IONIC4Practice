@@ -1,0 +1,15 @@
+<ion-view title="会员卡" class="memberCard" overflow-scroll="true">
+    <!--<ion-content class="memberCard">-->
+
+    <div class="memberCardImg has-header content">
+        <img ng-src="{{::params.cardImg}}" err-src="">
+    </div>
+    <div class="memberCardErwei">
+        <img ng-src="{{::params.card2DCode}}" err-src="">
+    </div>
+    <div class="memberCardInfo">
+        <p class="wordLine" ng-show="::params.fullname">用户名: <span ng-bind="::params.fullname"></span></p>
+        <p class="wordLine" ng-show="::params.cardno">卡号: <span ng-bind="::params.cardno"></span></p>
+    </div>
+    <!--</ion-content>-->
+</ion-view>

@@ -1,0 +1,710 @@
+/*关于积分-我的积分-自助查询-积分商场*/
+//我的积分
+.integralItems {
+  @include display-flex;
+  @include justify-content(space-around);
+  @include align-items(center);
+  @include flex-wrap(wrap);
+
+  //display: flex;
+  //justify-content: space-around;
+  //align-items: center;
+  //flex-wrap: wrap;
+  padding-top: 0.68rem;
+  .integralItemsRow {
+    @include display-flex;
+    @include justify-content(space-around);
+    //display: flex;
+    //justify-content: space-around;
+    margin: 0 0 0.63rem;
+    .each {
+      width: 2.65rem;
+      border: 2px solid $stable;
+      height: 2.65rem;
+      border-radius: 100%;
+      @include display-flex;
+      @include justify-content(center);
+      @include align-content(center);
+      @include flex-wrap(wrap);
+      //display: flex;
+      //justify-content: center;
+      //align-content: center;
+      //flex-wrap: wrap;
+
+      i {
+        color: $stable;
+        //font-size: 43px;
+      }
+      div {
+        color: $stable;
+        font-size: 0.4rem;
+        width: 100%;
+        margin-top: 0.18rem;
+        font-weight: bolder;
+        line-height: 100%;
+      }
+    }
+    .pleaseHolder {
+      border: 1px solid transparent;
+    }
+  }
+
+}
+
+//自助积分
+.selfIntegral {
+  height: 100%;
+  position: relative;
+
+  .infoTitle {
+    color: $stable;
+    margin: 0;
+    padding-top: 0.4212rem;
+    padding-bottom: 0.2106rem;
+    //font-size: 17px;
+    font-size: 0.3978rem;
+  }
+  //.showTitle{
+  //  opacity: 1;
+  //}
+  //.hideTitle{
+  //  opacity: 0;
+  //}
+
+  .selfIntegral-contentBox {
+    @include display-flex;
+    @include flex-wrap(wrap);
+    //display: flex;
+    //flex-wrap: wrap;
+
+    height: 100%;
+    position: absolute;
+    top: -1.0296rem;
+    //padding-top:;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 2.0826rem 0.5rem 0;
+
+    .selfIntegral-content {
+
+      //min-height:7.5rem;
+      //max-height: 8.83rem;
+      //height: 8.83rem;
+      width: 100%;
+
+      position: relative;
+      .selfIntegral-content-inner {
+        width: 85%;
+        height: 100%;
+        position: relative;
+        z-index: 10;
+        margin-left: auto;
+        margin-right: auto;
+        .slider {
+
+          width: 100%;
+          height: 100%;
+          .slider-slides {
+            //width: 100%;
+            height: 100%;
+            .slider-slide {
+              //margin-right:30px;
+              .box {
+                height: 100%;
+                @include display-flex;
+                @include justify-content(center);
+                @include align-items(center);
+                //display: flex;
+                //justify-content: center;
+                //align-items: center;
+                img {
+                  text-align: center;
+                  //max-height: 8.83rem;
+                  height: 100%;
+                }
+              }
+            }
+
+          }
+
+        }
+
+        //滚动条的颜色
+        .swiper-scrollbar {
+          background: rgba(183, 20, 136, 0.41);
+          .swiper-scrollbar-drag {
+            background: $stable;
+          }
+        }
+      }
+
+    }
+    .selfIntegral-btn {
+      width: 6.53rem;
+      height: 0.93rem;
+      line-height: 0.93rem;
+      color: #fff;
+      background-color: $stable;
+      font-size: 0.38rem;
+      margin-top: 0.4rem;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+  }
+  .arrow {
+    position: absolute;
+    z-index: 9;
+    top: 40%;
+    font-size: 1rem;
+    margin-top: -0.5rem;
+    width: 100%;
+    @include display-flex;
+    @include justify-content(space-between);
+
+    //display: flex;
+    //justify-content: space-between;
+
+    .arrow-left {
+      color: rgba(169, 31, 127, 0.3);
+      transition: color ease 300ms;
+      padding-left: 0.5rem;
+    }
+    .arrow-right {
+      color: rgba(169, 31, 127, 0.3);
+      transition: color ease 300ms;
+      padding-right: 0.5rem;
+    }
+    .active {
+      color: $stable;
+    }
+
+  }
+}
+
+//扫码积分
+.scannerIntegral {
+  overflow: hidden;
+  .scannerIntegralBox {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%;
+    overflow: hidden;
+    .centerScanner {
+      width: 5.46rem;
+      height: 5.46rem;
+      display: block;
+      position: relative;
+      box-sizing: content-box;
+
+      //margin-left:auto;
+      //margin-right: auto;
+      $scanBorderColor: rgba(0, 0, 0, 0.4);
+      border-top: 1rem solid $scanBorderColor;
+      border-right: 1.02rem solid $scanBorderColor;
+      border-left: 1.02rem solid $scanBorderColor;
+      border-bottom: 10rem solid $scanBorderColor;
+
+      .subPart {
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: relative;
+        $scan4CornerColor: #0ca8ef !default;
+        $scan4CornerWidth: 2px;
+        & > div {
+          position: absolute;
+          height: 0.3rem;
+          width: 0.3rem;
+          border-color: $scan4CornerColor;
+          border-style: solid;
+        }
+        & > div:nth-child(1) {
+          left: 0;
+          top: 0;
+          border-left-width: $scan4CornerWidth;
+          border-top-width: $scan4CornerWidth;
+        }
+        & > div:nth-child(2) {
+          right: 0;
+          top: 0;
+          border-right-width: $scan4CornerWidth;
+          border-top-width: $scan4CornerWidth;
+        }
+        & > div:nth-child(3) {
+          left: 0;
+          bottom: 0;
+          border-left-width: $scan4CornerWidth;
+          border-bottom-width: $scan4CornerWidth;
+        }
+        & > div:nth-child(4) {
+          right: 0;
+          bottom: 0;
+          border-right-width: $scan4CornerWidth;
+          border-bottom-width: $scan4CornerWidth;
+        }
+      }
+      .subPartInfo {
+        margin-top: 0.45rem;
+        color: #fff;
+        text-align: center;
+        font-size: 0.3rem;
+
+      }
+
+    }
+    .bottomInfo {
+      height: 1.48rem;
+      position: absolute;
+      bottom: 1.0296rem;
+      background-color: rgba(0, 0, 0, 0.5);
+      width: 100%;
+      font-size: 0.36rem;
+      color: #fff;
+      @include display-flex;
+      @include justify-content(center);
+      @include align-items(center);
+      //display: flex;
+      //justify-content: center;
+      //align-items: center;
+      text-align: center;
+      font-weight: bold;
+    }
+  }
+}
+
+//拍照积分
+.photoIntegral {
+  height: 100%;
+
+  .imgBox {
+    height: 100%;
+    padding: 0.34rem;
+    @include display-flex;
+    @include justify-content(space-between);
+    @include flex-wrap(wrap);
+    @include align-content(flex-start);
+
+    //display: flex;
+    //justify-content: space-between;
+    //flex-wrap: wrap;
+    //align-content: flex-start;
+    padding-bottom: 1.74rem;
+    div {
+      width: 3.23rem;
+      height: 3.23rem;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      overflow: hidden;
+      margin-bottom: 0.34rem;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .addPhoto {
+      background: url(../img/integral/photo-placeholder.png) no-repeat center center/cover;
+      input {
+        width: 100%;
+        height: 100%;
+        -webkit-appearance: none;
+        opacity: 0;
+      }
+    }
+  }
+  .confirmBtnBox {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-top: 0.2rem;
+    background: #fff;
+    padding-bottom: 0.74rem;
+    .btn {
+      margin-left: auto;
+      margin-right: auto;
+      width: 6.53rem;
+      height: 0.93rem;
+      background-color: $stable;
+      color: #fff;
+      font-size: 0.3rem;
+      text-align: center;
+      line-height: 0.93rem;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+  }
+
+}
+
+//积分查询
+.integralQuery {
+  padding: 0 0.4rem;
+  .stateNow {
+    color: #fff;
+    width: 100%;
+    background-color: $stable;
+    height: 0.89rem;
+    line-height: 0.89rem;
+    font-size: 0.3rem;
+    border-radius: 5px;
+    padding: 0 0.17rem;
+    @include display-flex;
+    @include justify-content(flex-start);
+    @include align-items(center);
+
+    //display: flex;
+    //justify-content: flex-start;
+    //align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid transparent;
+    margin-top: 0.4rem;
+    i {
+      margin-right: 0.32rem;
+    }
+    span {
+      font-size: 0.3rem;
+
+    }
+
+  }
+  .stateInfo {
+    //color: $stable;;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.17rem;
+    p {
+
+      margin-bottom: 0;
+      color: $stable;
+    }
+    p:nth-child(1) {
+      font-size: 0.18rem;
+      line-height: 100%;
+
+    }
+    p:nth-child(2) {
+      font-size: 0.3rem;
+      line-height: 170%;
+      //text-decoration: underline;
+      //text-align: left;
+      text-decoration: underline;
+      margin-bottom: 0.15rem;
+      top: -0.1rem;
+      position: relative;
+    }
+
+  }
+  .queryBox {
+    @include display-flex;
+    @include justify-content(space-between);
+    @include align-items(center);
+
+    //display: flex;
+    //justify-content: space-between;
+    //align-items: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+    div {
+      display: inline-block;
+      border-radius: 5px;
+      border: 2px solid $stable;
+      height: 0.7rem;
+      text-align: center;
+      line-height: 0.7rem;
+      box-sizing: content-box;
+      input {
+        width: 2rem;
+        text-align: center;
+        padding: 0;
+        -webkit-appearance: none;
+        font-size: 0.24rem;
+        line-height: 0.7rem;
+        height: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+
+      }
+
+    }
+    .dateFrom {
+      //padding:0 0.39rem;
+
+    }
+    .dateDivider {
+      width: 0.46rem;
+      border-top: 2px solid $stable;
+      height: 1px;
+
+    }
+    .dateTo {
+      //padding:0 0.39rem;
+    }
+    .dateBtn {
+      width: 0.7rem;
+      @include display-flex;
+      @include justify-content(center);
+      @include align-items(center);
+
+      //display: flex;
+      //justify-content: center;
+      //align-items: center;
+      font-size: 0.5rem;
+      color: $stable;
+      i {
+        width: 0.38rem;
+        height: 0.38rem;
+        display: inline-block;
+      }
+
+    }
+
+  }
+  .queryList {
+    margin-top: 0.48rem;
+    .queryListEach {
+      border: 2px solid #434343;
+      padding: 0.13rem 0.17rem;
+      margin-bottom: 0.234rem;
+      p {
+        margin-bottom: 0;
+      }
+      .queryListEach-l1 {
+        @include display-flex;
+        @include justify-content(space-between);
+        //display: flex;
+        //justify-content: space-between;
+        font-size: 0.48rem;
+        line-height: 0.585rem;
+        color: #434343;
+      }
+      .queryListEach-l2 {
+        @include display-flex;
+        @include justify-content(space-between);
+        //display: flex;
+        //justify-content: space-between;
+        font-size: 0.24rem;
+        color: #434343;
+      }
+
+    }
+  }
+}
+
+//积分商城
+.integralMall {
+  .bar-subheader {
+
+  }
+
+  .integralMallList {
+
+    .integral {
+      color: #666666;
+      font-size: 0.3rem;
+      text-align: center;
+      height: 0.94rem;
+      line-height: 0.94rem;
+      padding: 0;
+      //top:-1px;
+      .integralNum {
+        color: $stable;
+        font-weight: bolder;
+      }
+      i {
+        text-align: right;
+      }
+
+    }
+    .eachItems {
+      position: relative;
+      .goodsEach {
+        @include display-flex;
+        @include flex-wrap(wrap);
+        @include align-content(space-between);
+
+        //display: flex;
+        //flex-wrap: wrap;
+        //align-content: space-between;
+        height: 2.43rem;
+        padding: 0.22rem 0.22rem 0.22rem 3rem;
+        box-sizing: border-box;
+        .imgBox {
+          position: absolute;
+          width: 2.57rem;
+          height: 1.95rem;
+          //background:url(../img/other/placeholder/placeholder4-3@2x.png) no-repeat center center/cover;
+          top: 0.22rem;
+          left: 0.22rem;
+          img {
+            width: 100%;
+            height: 100%;
+            //width: 2.57rem;
+            //height: 1.95rem;
+            //top: 0.22rem;
+            max-width: 2.57rem;
+            max-height: 1.95rem;
+            //background:url(../img/other/placeholder/placeholder4-3@1x.png) no-repeat center center/cover;
+          }
+        }
+        .goodsEach-right {
+          height: 100%;
+          position: relative;
+          width: 100%;
+          @include display-flex;
+          @include justify-content(flex-start);
+          @include align-content(space-between);
+          @include flex-wrap(wrap);
+          //display: flex;
+          //justify-content: flex-start;
+          //align-content: space-between;
+          //flex-wrap: wrap;
+          h2 {
+            //font-weight: bolder;
+            width: 100%;
+            font-size: 0.32rem;
+          }
+          p {
+            font-size: 0.23rem;
+            width: 100%;
+            color: #9d9d9d;
+            .integralNum {
+              color: $stable;
+              font-size: 0.37rem;
+              font-weight: bolder;
+            }
+
+          }
+          .goodsEach-info {
+            font-size: 0.23rem;
+            color: #9d9d9d;
+            width: 100%;
+            float: left;
+            line-height: 0.3rem;
+          }
+
+        }
+
+      }
+      .btns {
+        position: absolute;
+        z-index: 999;
+        bottom: 0.22rem;
+        right: 0.22rem;;
+        height: 1.15rem;
+        width: 1.42rem;
+        //height:30px;
+
+        @include display-flex;
+        @include justify-content(flex-end);
+        @include align-content(space-between);
+        @include flex-wrap(wrap);
+        //display: flex;
+        //justify-content: flex-end;
+        //align-content: space-between;
+        //flex-wrap: wrap;
+
+        .gouponTop {
+          font-size: 0.3rem;
+          height: 0.4rem;
+          line-height: 0.4rem;
+          color: #fff;
+          text-align: center;
+          box-sizing: content-box;
+          padding: 0 0.07rem;
+          position: relative;
+          overflow: hidden;
+        }
+        .zhekou {
+          background-color: #00911c;
+        }
+        .diyong {
+          background-color: #0082d0;
+        }
+        .xianjin {
+          background-color: #d07800;
+        }
+        .duihuan {
+          background-color: #00d0c6;
+        }
+        .lipin {
+          background-color: #00a9d0;
+        }
+
+        .convertBtn {
+          height: 0.59rem;
+          padding: 0 0.38rem;
+          border-radius: 3px;
+          text-align: center;
+          line-height: 0.59rem;
+          color: #fff;
+          background-color: $stable;
+        }
+
+      }
+    }
+  }
+}
+
+//弹出确认框的样式
+.convertRequestBox {
+  .popup-body {
+    min-height: auto !important;
+    text-align: center;
+    .title {
+      height: 0.49rem;
+      line-height: 0.49rem;
+      font-size: 0.36rem !important;
+      color: #000;
+      box-sizing: border-box;
+      position: relative;
+      display: block;
+      input {
+        box-sizing: border-box;
+        position: relative;
+        width: 1.02rem;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        top: -1px;
+        display: inline-block;
+        border: 1px solid #000;
+        text-align: center;
+        -webkit-appearance: none;
+        background-color: transparent;
+        border-radius: 0;
+      }
+      input::-webkit-input-placeholder {
+        background: transparent !important;
+      }
+    }
+    .subTitle {
+      font-size: 0.24rem;
+      span {
+        font-size: 0.24rem !important;
+        line-height: 0.24rem !important;
+      }
+      color: #000;
+    }
+  }
+
+  .popup-buttons {
+    width: 95% !important;
+    .noticePopupBtn {
+      margin-right: 0.23rem;
+    }
+
+  }
+
+}

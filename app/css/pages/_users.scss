@@ -1,0 +1,356 @@
+/*member-usercenter*/
+
+.red-bg {
+  background: url(../img/member/member-bg.png) no-repeat center center/cover;
+}
+
+.platform-ios {
+  .showMember.member {
+    transform: translatey(100%) !important;
+  }
+}
+
+.platform-android {
+  .showMember.member {
+    transform: translatey(100%) !important;
+  }
+}
+
+.member {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: -100%;
+  z-index: 1;
+  transition: -webkit-transform ease-in-out 500ms;
+
+  //demo end
+  color: #fff;
+  .memberBox {
+    @include display-flex;
+    @include justify-content(center);
+    @include align-items(center);
+    @include flex-wrap(wrap);
+    @include align-content(space-between);
+
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
+    //flex-wrap: wrap;
+    //align-content: space-between;
+
+    overflow: hidden;
+    height: 100%;
+    //flex-direction:column;
+
+    //  section1
+    .section1 {
+      width: 100%;
+      @include display-flex;
+      @include justify-content(space-around);
+      @include align-items(center);
+
+      //display: flex;
+      //justify-content: space-around;
+      //align-items: center;
+
+      margin-top: 0.8rem;
+      margin-bottom: 0.3rem;
+      max-height: 3.336rem;
+      //height:3.336rem;
+      min-height: 1.88rem;
+
+      .chat, .notice {
+        font-size: 0.7rem;
+        @include display-flex;
+        @include justify-content(center);
+        @include align-items(center);
+
+        //display: flex;
+        //justify-content: center;
+        //align-items: center;
+        width: 0.819rem;
+        height: 0.819rem;
+        //border-radius: 100%;
+        text-align: center;
+        position: relative;
+        .num {
+          position: absolute;
+          display: block;
+          width: 0.4rem;
+          height: 0.4rem;
+          background-color: yellow;
+          border-radius: 100%;
+          text-align: center;
+          line-height: 0.4rem;
+          color: $stable;
+          font-size: 0.35rem;
+          right: -0.2rem;
+          top: 0;
+        }
+      }
+      .headerImg {
+        border: 2px solid #fff;
+        border-radius: 100%;
+        //background-color: #8d8d8d;
+        width: 1.88rem;
+        height: 1.88rem;
+        text-align: center;
+
+        @include display-flex;
+        @include justify-content(center);
+        @include align-items(center);
+
+        //display: flex;
+        //justify-content: center;
+        //align-items: center;
+        overflow: hidden;
+        background: url(../img/other/headerImg_default.png) no-repeat center center/cover;
+        img {
+          max-width: 100%;
+          max-height: 100%;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    //  section2
+    .section2 {
+      padding: 0 0.468rem;
+      @include display-flex;
+      @include justify-content(space-around);
+      @include align-items(center);
+
+      //display: flex;
+      //justify-content: space-around;
+      //align-items: center;
+      width: 100%;
+      div {
+        border: 1px solid #fff;
+        font-size: 0.26rem;
+        height: 0.53rem;
+        width: 2.19rem;
+        border-radius: 0.117rem;
+        line-height: 0.468rem;
+        box-sizing: content-box;
+        text-align: center;
+
+        @include display-flex;
+        @include justify-content(center);
+        @include align-items(center);
+
+        //display: flex;
+        //justify-content: center;
+        //align-items: center;
+
+      }
+    }
+
+    .section3 {
+      height: 1.17rem;
+      //padding:13px 10px;
+      //box-sizing: content-box;
+      padding-left: 0.234rem;
+      padding-right: 0.234rem;
+      margin-top: 0.3rem;
+      margin-bottom: 0.1rem;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
+
+      //第一层
+      .vipState-lay1 {
+        text-align: right;
+        padding-right: 1.17rem;
+        font-size: 0.24rem;
+        line-height: 100%;
+        height: 0.468rem;
+        span {
+          display: inline-block;
+        }
+
+        .icon-vipState {
+          height: 0.468rem;
+          width: 0.585rem;
+          font-size: 0.61rem;
+          position: relative;
+          //top:3px;
+          margin-right: 0.07rem;
+          display: inline-block;
+        }
+
+      }
+      //第二层
+      .vipState-lay2 {
+        margin: 0.11rem 0;
+        .vipState-lay2-bg {
+          height: 0.14rem;
+          width: 100%;
+          background-color: #cdd149;
+          overflow: hidden;
+          .vipState-lay2-progress {
+            background-color: #e0922f;
+            float: left;
+            height: 100%;
+            width: 0;
+            //transition: width 800ms  ease 800ms;
+          }
+        }
+      }
+      //第三层
+      .vipState-lay3 {
+        font-size: 0.24rem;
+        line-height: 0.3rem;
+        position: relative;
+        .stateText {
+          @include display-flex;
+          @include justify-content(space-between);
+
+          //display: flex;
+          //justify-content: space-between;
+
+          width: 100%;
+          text-align: right;
+          //position: absolute;
+          top: 0;
+        }
+        .stateTextVip {
+          width: 100%;
+          text-align: right;
+          position: absolute;
+          top: 0;
+          justify-content: flex-end;
+          display: block;
+          .stateTextVipBtn {
+            border: 1px solid #fff;
+            padding: 0 0.15rem;
+            border-radius: 0.08rem;
+          }
+
+        }
+
+      }
+
+    }
+    //.section4 {
+    //  width: 100%;
+    //display: flex;
+    //flex-wrap: wrap;
+    //justify-content: flex-start;
+    //align-content: space-around;
+    //align-items: center;
+    //margin-bottom:0.4rem;
+    //
+    //padding: 0 0.3rem;
+    //
+    //max-height: 6rem;
+    //min-height: 4.5rem;
+    .rowEach {
+      text-align: center;
+      padding: 0 0.4rem;
+      min-height: 1.8rem;
+
+      .colEach {
+        position: relative;
+
+        @include display-flex;
+        @include justify-content(center);
+        @include align-content(center);
+        @include flex-wrap(wrap);
+
+        //display: flex;
+        //justify-content: center;
+        //align-content: center;
+        //flex-wrap: wrap;
+        box-sizing: border-box;
+        width: 2.25rem;
+        i {
+          //font-size:30px;
+        }
+        div {
+          margin-top: 0.234rem;
+          width: 100%;
+          font-size: 0.3rem;
+          display: block;
+          font-weight: bold;
+          text-align: center;
+        }
+
+      }
+      .colEach::after {
+        content: '';
+        height: 0.27rem;
+        border-right: 2px solid #fff;
+        position: absolute;
+        right: 0;
+        top: 0.7956rem;
+      }
+      .colEach:nth-child(3n)::after {
+        border-right: 2px solid transparent;
+      }
+      .colEach-noDivider::after {
+        border-right: 2px solid transparent !important;
+      }
+
+    }
+    //}
+
+    //}
+    .section5 {
+      //position: absolute;
+      position: relative;
+      //top: -0.45rem;
+      //top: -0.65rem;
+      height: 0.7rem;
+      //bottom: 0;
+      width: 100%;
+      font-size: 0.3rem;
+      margin-bottom: 0.4rem;
+    }
+  }
+
+  //顶部usercenter
+  .home-member {
+    width: 100%;
+    //height:20px;
+    text-align: center;
+
+    @include display-flex;
+    @include justify-content(center);
+    @include align-items(center);
+
+
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
+
+    z-index: 999;
+    position: absolute;
+    bottom: -1rem;
+    span {
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: $stable;;
+      width: 1rem;
+      height: 1rem;
+      color: #fff;
+      font-size: 0.3rem;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      z-index: 999;
+      @include display-flex;
+      @include align-items(center);
+      @include justify-content(center);
+
+      //display: flex;
+      //align-items: center;
+      //justify-content: center;
+    }
+  }
+}
+
+

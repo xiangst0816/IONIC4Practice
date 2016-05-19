@@ -1,0 +1,70 @@
+<ion-view title="停车缴费" class="">
+  <ion-content class="selfParkToPay">
+    <ul class="parkInfo">
+      <li>
+        <span>停车券编号</span>
+        <span ng-bind="::payInfo.ticketNumber"></span>
+      </li>
+      <li>
+        <span>停车时间</span>
+        <span ng-bind="::payInfo.entryTime"></span>
+      </li>
+      <li>
+        <span>取车时间</span>
+        <span ng-bind="::payInfo.nowTime"></span>
+      </li>
+      <li>
+        <span>停车费用</span>
+        <span>￥<span ng-bind="::payInfo.price"></span></span>
+      </li>
+    </ul>
+    <div class="payList">
+      <div id="couponItem">
+        <div class="payItem" ng-click="showParkingCoupon()">
+          <span>电子卡券</span>
+          <i class="icon ion-ios-arrow-right"></i>
+        </div>
+        <!--卡券列表-->
+        <div class="couponList">
+          <div class="payItem" ng-click="selectParkingCoupon($event,coupon)" ng-repeat="coupon in finnalCouponArr track by $index">
+            <span><span ng-bind="::coupon.face_value"></span>元<span ng-bind="::coupon.category_value | couponCategoryToName"></span></span>
+            <i class="icon-selfPark-select"></i>
+          </div>
+      </div>
+      </div>
+      <div class="payItem">
+        <span>积分抵扣</span>
+        <div class="jifendikou">
+          <!--使用积分-->
+          <span class="canUse" ng-bind="integralUsed"></span>
+          <!--积分说明-->
+          <span class="useInfo">
+            当前积分<span ng-bind="::integralCanUse"></span>,满<span ng-bind="::needIntegral"></span>可抵扣￥<span ng-bind="::relatedMoney"></span></span>
+        </div>
+
+      </div>
+      <div class="payItem" ng-click="selectWXToPay()">
+        <span>微信支付</span>
+        <i class="icon-selfPark-select" ng-class="{true:'icon-select',false:''}[wxSelected]"></i>
+      </div>
+      <div ng-if="::Internal.isInWeiXin" class="payItem" ng-click="selectZFBToPay()">
+        <span>支付宝支付</span>
+        <i class="icon-selfPark-select" ng-class="{true:'icon-select',false:''}[zfbSelected]"></i>
+      </div>
+    </div>
+
+
+  </ion-content>
+
+  <div class="btnBox">
+    <div class="hasChoose">
+      <span ng-if="integralUsed">已选择:积分抵扣<span ng-bind="exchengedMoney"></span>元</span>
+      <span ng-if="selectedCouponValue">,卡券抵扣<span ng-bind="selectedCouponValue"></span>元</span>
+      <span ng-if="wxSelected">,微信支付</span>
+    </div>
+    <div class="btnBoxInner" ng-click="confirmToPay()">
+      <span ng-if="finalPrice">￥<span ng-bind="finalPrice"></span></span>
+      <!--￥20.00-->
+      确认支付</div>
+  </div>
+</ion-view>

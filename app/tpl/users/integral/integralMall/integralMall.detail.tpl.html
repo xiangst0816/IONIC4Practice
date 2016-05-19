@@ -1,0 +1,65 @@
+<ion-view title="积分商城">
+  <ion-content class="integralMallDetail">
+    <!--礼券详情-->
+    <section ng-if="::item.isCoupon">
+      <div class="shopImg placeholder_43_2">
+        <img ng-src="{{::item.image_url | addImgPrefix}}" err-src="">
+      </div>
+      <div class="cardDetails" ng-switch="::item.category_name">
+        <strong ng-bind="::item.name"></strong>
+        <p ng-switch-when="::coupon_category_1"><span ng-bind="::item.coupon_value"></span>折<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
+        <p ng-switch-when="::coupon_category_2"><span ng-bind="::item.coupon_value"></span>元<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
+        <p ng-switch-when="::coupon_category_3"><span ng-bind="::item.coupon_value"></span>元<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
+        <p ng-switch-when="::coupon_category_4"><span ng-bind="::item.coupon_value"></span>元<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
+      </div>
+      <div class="detailInfo">
+        <div class="detailBox">
+          <div class="detailTitle"><strong>使用时间:</strong></div>
+          <span ng-if="::item.valid_type_code == 2">有效天数: <span ng-bind="::item.valid_days"></span>天</span>
+          <span ng-if="::item.valid_type_code == 1"><span ng-bind="::item.valid_start_time"></span> 至 <span ng-bind="::item.valid_end_time"></span></span>
+        </div>
+        <div class="detailBox">
+          <div class="detailTitle"><strong>使用规则: </strong></div>
+          <div class="innerBox" ng-bind-html="::item.detailrule | withoutStyle"></div>
+          <!--<li>限{{item.org_name}}使用</li>-->
+          <!--&lt;!&ndash;<li>店铺名称:{{item.shop[0].name}},位置:{{item.shop[0].area}}</li>&ndash;&gt;-->
+          <!--<li ng-if="::item.cust_type_id">限{{item.cust_type_id | cardLevelIDToName}}会员使用</li>-->
+          <!--<li>抵用券每次只能使用一张</li>-->
+          <!--<li>不兑换</li>-->
+          <!--<li>不可与其他优惠券同时使用</li>-->
+        </div>
+      </div>
+    </section>
+    <!--礼品详情-->
+    <section ng-if="::!item.isCoupon">
+      <div class="shopImg placeholder_43_2">
+        <img ng-src="{{::item.imageurl | addImgPrefix}}" err-src="">
+      </div>
+      <div class="cardDetails">
+        <strong ng-bind="::item.giftname"></strong>
+        <p>礼品</p>
+      </div>
+      <div class="detailInfo">
+        <div class="detailBox">
+          <div class="detailTitle"><strong>使用时间:</strong></div>
+          <span><span ng-bind="::item.starttime"></span> 至 <span ng-bind="::item.endtime"></span></span>
+        </div>
+        <div class="detailBox">
+          <div class="detailTitle"><strong>使用规则: </strong></div>
+          <div class="innerBox" ng-bind-html="::item.usedremarks | withoutStyle"></div>
+        </div>
+      </div>
+    </section>
+  </ion-content>
+  <div class="convertNowBtn">
+    <div ng-click="rewardCouponBtn()">立即兑换</div>
+  </div>
+</ion-view>
+
+<!--<script id="convertRequest.html" type="text/ng-template">-->
+  <!--<div class="convertRequestBox" ng-switch="::data.detail.valid_type_code">-->
+    <!--<p class="title">确认兑换该礼券&ensp;<input id="convertNum" min="0" ng-model="data.convertNum" type="number">&ensp;张?</p>-->
+    <!--<p ng-switch-when="1" class="subTitle">(使用有效期截止 <span ng-bind="::data.detail.valid_end_time"></span>)</p>-->
+    <!--<p ng-switch-when="2" class="subTitle">(从兑换开始: <span ng-bind="::data.detail.valid_days"></span>天内有效)</p>-->
+  <!--</div>-->
+<!--</script>-->

@@ -1,0 +1,11 @@
+$stable:                          #a91f7f !default;
+
+$touched: #fafafa;
+
+.touched{
+  background-color:$touched;
+}
+.activated{
+  //background-color:$touched!important;
+  //transition: all ease 300ms;
+}

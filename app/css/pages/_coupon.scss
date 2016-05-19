@@ -1,0 +1,135 @@
+//礼品卡券
+.goupon {
+  .gouponList {
+    .eachItems {
+      background: url(../img/goupon/stamp_huang.png) repeat-x center top/0.13rem auto;
+      padding-top: 0.376rem;
+      padding-bottom: 0.25rem;
+      $borderColor: #eaeaea;
+      section {
+        padding-left: 0.26rem;
+        padding-right: 0.26rem;
+      }
+      .layer1 {
+        height: 1.25rem;
+        position: relative;
+        border-bottom: 1px solid $borderColor;
+        padding-bottom: 0.25rem;
+        .imgBox {
+          height: 1rem;
+          width: 1.32rem;
+          float: left;
+          position: relative;
+          display: inline;
+        }
+        img {
+          height: 1rem;
+          width: 1.32rem;
+        }
+        .layer1-center {
+          @include display-flex;
+          @include align-content(space-between);
+          @include flex-wrap(wrap);
+          //display: flex;
+          //align-content: space-between;
+          //flex-wrap: wrap;
+          float: left;
+          width: 4.3rem;
+          padding-left: 0.2rem;
+          height: 100%;
+
+          h2 {
+            font-size: 0.34rem;
+            color: #000;
+            line-height: 170%;
+            margin: 0;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          p {
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 0.3rem;
+            color: #6a6a6a;
+            margin: 0;
+            line-height: 110%;
+          }
+        }
+        .layer1-right {
+          //display: inline-block;
+          background-color: #fff;
+          float: right;
+          color: #fda729;
+          width: 1.8rem;
+          @include display-flex;
+          @include align-content(center);
+          @include flex-wrap(wrap);
+          @include justify-content(flex-end);
+
+          //display: flex;
+          //align-content: center;
+          //flex-wrap: wrap;
+          //justify-content: flex-end;
+          position: absolute;
+          right: 0;
+          bottom: 0.1rem;
+          height: 1.2rem;
+          border-left: 1px solid $borderColor;
+          p {
+            font-size: 0.24rem;
+            line-height: 100%;
+            margin-bottom: 0;
+            width: 100%;
+            //padding-right: 0.26rem;;
+            text-align: center;
+            white-space: nowrap;
+          }
+          & > p:nth-child(1) {
+            margin-bottom: 0.1rem;
+          }
+          span {
+            font-size: 0.65rem;
+            line-height: 100%;
+            font-weight: 500;
+          }
+
+        }
+
+      }
+      .layer2 {
+        height: 0.81rem;
+        line-height: 0.81rem;
+        position: relative;
+        border-bottom: 1px solid $borderColor;
+        p {
+          color: #999;
+          font-size: 0.24rem;
+        }
+        div {
+          position: absolute;
+          line-height: 0.58rem;
+          padding: 0 0.26rem;
+          right: 0.24rem;
+          top: 0.115rem;
+          font-size: 0.32rem;
+          color: #fff;
+          background-color: $stable;
+          border-radius: 3px;
+        }
+
+        .forbidden {
+          background-color: #636363;
+          color: #FFF;
+        }
+      }
+    }
+
+  }
+
+}
+
+

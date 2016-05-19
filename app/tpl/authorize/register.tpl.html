@@ -1,0 +1,65 @@
+<ion-view title="注册" class="white-bg">
+  <ion-content class="register">
+    <div class="logo-vivoCtiy"></div>
+    <div class="list login-list">
+      <label for="telephone" class="item item-input">
+        <i class="ion-authorize ion-phone"></i>
+        <input type="tel" name="telephone" id="telephone" ng-model="register.telephone" placeholder="手机号" maxlength="11">
+      </label>
+
+      <div class="item-inline ">
+        <label for="registerNum" class="item-input-wrapper">
+          <i class="ion-authorize ion-yanzhengma"></i>
+          <input type="text" id="registerNum" name="registerTel" placeholder="验证码" ng-model="register.verificationCode" maxlength="6">
+        </label>
+        <div ng-click="getVerificationCode()" class="verificationCode" id="verificationCode">{{codeBtnText || '发送验证码'}}</div>
+      </div>
+
+
+      <label for="psw" class="item item-input">
+        <i class="ion-authorize ion-psw"></i>
+        <input type="password" name="psw" id="psw" placeholder="输入密码" ng-model="register.password">
+      </label>
+      <label for="pswRept" class="item item-input">
+        <i class="ion-authorize ion-psw"></i>
+        <input type="password" name="pswRept" id="pswRept" placeholder="确认密码" ng-model="register.pswRept">
+      </label>
+
+      <div class="registerCheckBox">
+        <label for="negotiate">
+          <input ng-class="{true:'selected',false:''}[ischecked]" ng-click="checked()" type="checkbox" id="negotiate" name="negotiate">
+          注册即视为同意
+        </label>
+        《<span ng-click="custRight()" class="xieyishuoming">用户服务协议</span>》
+      </div>
+
+      <div class="loginButton" ng-click="submitForm()">注册</div>
+      <!--<div class="loginButton" ui-sref="subNav.registerSuccess">注册</div>-->
+    </div>
+  </ion-content>
+</ion-view>
+
+
+<script id="my-modal.html" type="text/ng-template">
+  <ion-modal-view class="modal4ParkingRule">
+    <ion-header-bar class=header>
+      <h1 class="title">用户服务协议</h1>
+    </ion-header-bar>
+    <ion-content class="content has-subheader">
+      <ul>
+        <li>当日开具的发票实行30分钟内免费停车，其他车辆停放15分钟内免费。</li>
+        <li>停车每小时收费1.5元，超过免费时间不足1小时者按1小时收费1.5元。</li>
+        <li>停车12小时收费4.5元，超过3小时不足12小时的按12小时收费4.5元。</li>
+        <li>包月车辆按300元/月的标准实行收费。</li>
+        <li>连续停放超过12小时的按每12小时4.5元的标准累加收费。</li>
+        <li>停车每小时收费1.5元，超过免费时间不足1小时者按1小时收费1.5元。</li>
+        <li>停车12小时收费4.5元，超过3小时不足12小时的按12小时收费4.5元。</li>
+        <li>包月车辆按300元/月的标准实行收费。</li>
+        <li>连续停放超过12小时的按每12小时4.5元的标准累加收费。</li>
+      </ul>
+    </ion-content>
+    <div class="closeBtn" ng-click="closeModal()">
+      <div class="closeBtnInner closeBtnIcon"></div>
+    </div>
+  </ion-modal-view>
+</script>

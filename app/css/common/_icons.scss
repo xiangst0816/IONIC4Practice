@@ -1,0 +1,387 @@
+//nav-home-icon
+.icon-nav-home {
+  height: 0.5rem;
+  width: 0.515rem;
+  position: relative;
+  top: 0.04rem;
+  right: 0.234rem;
+  display: inline-block;
+  background: url(../img/home/icon-home.png) no-repeat center center/100% auto;
+}
+
+.icon-nav-back {
+  height: 0.4rem;
+  width: 0.23rem;
+  position: relative;
+  left: 0.24rem;
+  top: 0.1rem;
+  display: inline-block;
+  background: url(../img/home/icon-back.png) no-repeat center center/100% auto;
+}
+
+//home-usercenter
+.ion-usercenter {
+  height: 0.43rem;
+  width: 0.41rem;
+  display: inline-block;
+  background: url(../img/home/user-icon.png) no-repeat center center/100% auto;
+}
+
+//home
+.iconHome {
+  height: 0.76rem !important;
+  width: 0.75rem !important;
+  display: inline-block;
+  &.ion-daohangzhi {
+    background: url(../img/home/daohang.png) no-repeat center center/100% auto;
+  }
+  &.ion-zixun {
+    background: url(../img/home/zixun.png) no-repeat center center/100% auto;
+  }
+  &.ion-tingche {
+    background: url(../img/home/tingche.png) no-repeat center center/100% auto;
+  }
+  &.ion-tuiguang {
+    background: url(../img/home/tuiguang.png) no-repeat center center/100% auto;
+  }
+  &.ion-pinpai {
+    background: url(../img/home/pinpai.png) no-repeat center center/100% auto;
+  }
+  &.ion-shangchang {
+    background: url(../img/home/shangchang.png) no-repeat center center/100% auto;
+  }
+}
+
+//member-chat-notice
+.ion-chat-notice {
+  display: block;
+  width: 100%;
+  height: 100%;
+  &.ion-chat {
+    background: url(../img/member/ion-chat.png) no-repeat center center/100% auto;
+  }
+  &.ion-notice {
+    background: url(../img/member/ion-notice.png) no-repeat center center/100% auto;
+  }
+}
+
+//member right
+.ion-memberCR {
+  width: 0.43rem;
+  height: 0.37rem;
+  display: inline-block;
+
+  &.ion-memmberCard {
+    background: url(../img/member/ion-card.png) no-repeat center center/100% auto;
+  }
+  &.ion-memmberRight {
+    background: url(../img/member/ion-quanyi.png) no-repeat center center/auto 100%;
+  }
+}
+
+//icon-memberItems
+.icon-memberItems {
+  height: 0.47rem;
+  display: inline-block;
+  width: 0.75rem;
+
+  &.ion-jifen {
+    background: url(../img/member/ion-jifen.png) no-repeat center center/auto 100%;
+  }
+  &.ion-lipin {
+    background: url(../img/member/ion-lipin.png) no-repeat center center/auto 100%;
+  }
+  &.ion-fuwu {
+    background: url(../img/member/ion-fuwu.png) no-repeat center center/auto 100%;
+  }
+  &.ion-shanghu {
+    background: url(../img/member/ion-shanghu.png) no-repeat center center/auto 100%;
+  }
+  &.ion-perinfo {
+    background: url(../img/member/ion-perinfo.png) no-repeat center center/auto 100%;
+  }
+  &.ion-chpsw {
+    background: url(../img/member/ion-chpsw.png) no-repeat center center/auto 100%;
+  }
+  &.ion-logout {
+    background: url(../img/member/ion-logout.png) no-repeat center center/auto 100%;
+  }
+}
+
+//ion-vip
+.ion-vips {
+  &.ion-vip1 {
+    background: url(../img/member/vip-1.png) no-repeat center center/auto 100%;
+  }
+  &.ion-vip2 {
+    background: url(../img/member/vip-2.png) no-repeat center center/auto 100%;
+  }
+  &.ion-vip3 {
+    background: url(../img/member/vip-3.png) no-repeat center center/auto 100%;
+  }
+}
+
+//login register userinfo icon->form
+.ion-authorize {
+  width: 0.54rem;
+  height: 0.54rem;
+  display: inline-block;
+  position: relative;
+  left: -0.187rem;
+
+  &.ion-phone {
+    background: url(../img/authorize/icon-phone.png) no-repeat center center/auto 100%;
+  }
+  &.ion-psw {
+    background: url(../img/authorize/icon-psw.png) no-repeat center center/auto 100%;
+  }
+  &.ion-yanzhengma {
+    width: 0.505rem;
+    height: 0.48rem;
+    background: url(../img/authorize/icon-yanzhengma.png) no-repeat center center/auto 100%;
+  }
+  &.ion-persion {
+    background: url(../img/authorize/icon-persion.png) no-repeat center center/100% auto;
+  }
+  &.ion-dizhi {
+    background: url(../img/authorize/icon-location.png) no-repeat center center/auto 100%;
+  }
+  &.ion-peoples {
+    background: url(../img/authorize/icon-peoples.png) no-repeat center center/100% auto;
+  }
+  &.ion-select {
+    display: block;
+    position: absolute;
+    left: 0.187rem;
+    top: 0.14rem;
+    //z-index: 999;
+  }
+  &.ion-select-right {
+    width: 0.3rem;
+    height: 0.538rem;
+    display: block;
+    position: absolute;
+    right: 0.12rem;
+    top: 0.14rem;
+    left:auto;
+    //z-index: 999;
+  }
+  &.ion-arrow-down {
+    background: url(../img/authorize/icon-arrow-down.png) no-repeat center center/100% auto;
+  }
+  &.ion-headimg {
+    width: 100%;
+    height: 100%;
+    background: url(../img/authorize/icon-headerimg.png) no-repeat center center/cover;
+  }
+
+}
+
+//
+.mallNavigate {
+  .ion-select-right {
+    width: 0.3rem;
+    height: 0.47rem;
+    display: block;
+    position: absolute;
+    right: 0.12rem;
+    top: 0;
+    z-index: 0;
+    //z-index: 999;
+  }
+  .ion-arrow-down {
+    background: url(../img/authorize/icon-arrow-down.png) no-repeat center center/100% auto;
+  }
+  .ion-select-left {
+    width: 0.38rem;
+    height: 0.47rem;
+    display: block;
+    position: absolute;
+    left: 0.2rem;
+    top: 0;
+    z-index: 0;
+  }
+  .icon-heart {
+    background: url(../img/mallNavigate/icon-heart.png) no-repeat center center/100% auto;
+  }
+}
+
+//integral home
+.icon-integral {
+  width: 0.76rem;
+  height: 0.73rem;
+  display: inline-block;
+  position: relative;
+  &.ion-selfIntegral {
+    background: url(../img/integral/icon-selfIntegral.png) no-repeat center center/auto 100%;
+  }
+  &.ion-selfQuery {
+    background: url(../img/integral/icon-list.png) no-repeat center center/auto 100%;
+  }
+  &.ion-selfMall {
+    background: url(../img/integral/icon-mall.png) no-repeat center center/auto 100%;
+  }
+  &.ion-searchCar {
+    background: url(../img/server/icon-searchCar.png) no-repeat center center/100% auto;
+  }
+}
+
+.icon-integralQuery {
+  width: 0.4rem;
+  height: 0.4rem;
+  display: inline-block;
+  position: relative;
+  &.ion-selfIntegral {
+    background: url(../img/integral/icon-selfIntegral-white.png) no-repeat center center/auto 100%;
+  }
+
+}
+
+.icon-integralQuerySearch {
+  background: url(../img/integral/icon-search.png) no-repeat center center/auto 100%;
+}
+
+//subtitle icon
+.icon-subtitle {
+  width: 0.23rem;
+  height: 0.23rem;
+  display: inline-block;
+  position: relative;
+  &.icon-arrow-down {
+    transition: -webkit-transform ease 200ms;
+    background: url(../img/other/down-arrow.png) no-repeat center center/100% auto;
+  }
+}
+
+.icon-arrow-right {
+  display: block;
+  height: 0.3rem;
+  width: 0.3rem;
+  text-align: center;
+  //float: right;
+  position: absolute;
+  top: 0.33rem;
+  right: 0.34rem;
+  background: url(../img/other/right-arrow.png) no-repeat center center/auto 100%;
+}
+
+//star from collected sign
+//.collected{
+//  .whiteStar{
+//    background:url(../img/collection/white-star.png) no-repeat center center/cover;
+//  }
+//}
+
+.whiteStar {
+  background: url(../img/collection/white-star.png) no-repeat center center/cover;
+}
+
+.collected {
+  .redStar {
+    background: url(../img/collection/red-star.png) no-repeat center center/cover !important;
+  }
+}
+
+//searchBox universal component
+.icon-search {
+  width: 0.47rem;
+  height: 100%;
+  background: url(../img/other/search.png) no-repeat center center/ 100% auto;
+}
+
+.icon-close {
+  //height:100%;
+  //width:100%;
+  background: url(../img/other/close.png) no-repeat center center/ 100% auto;
+}
+
+//.icon-close-1{
+//  background:url(../img/other/close-1.png) no-repeat center center/ 100% auto;
+//}
+
+//自助停车
+.icon-selfPark {
+  &.ion-findCar {
+    background: url(../img/selfPark/findCar.png) no-repeat center center/auto 100%;
+  }
+  &.ion-findMap {
+    background: url(../img/selfPark/findMap.png) no-repeat center center/auto 100%;
+  }
+  &.ion-selfPay {
+    background: url(../img/selfPark/selfPay.png) no-repeat center center/auto 100%;
+  }
+  &.ion-car {
+    background: url(../img/selfPark/car.png) no-repeat center center/auto 100%;
+  }
+
+}
+
+//chat
+.icon-chat-phone {
+  background: url(../img/chat/phone.png) no-repeat center center/100% auto;
+}
+
+.icon-chat-camera {
+  background: url(../img/chat/camera.png) no-repeat center center/100% auto;
+}
+
+//self-park select
+.icon-selfPark-select {
+  width: 0.4rem !important;
+  height: 0.4rem !important;
+  display: block;
+  background: url(../img/selfpark/noneselect.png) no-repeat center center/100% auto;
+  &.icon-select {
+    background: url(../img/selfpark/select.png) no-repeat center center/100% auto !important;
+  }
+}
+
+.modal4ParkingRule {
+  .closeBtn {
+    .closeBtnInner.closeBtnIcon {
+      background: url(../img/selfpark/close-2.png) no-repeat center center/100% auto !important;
+    }
+  }
+}
+
+.detailInfo {
+  .icon {
+    width: 0.4rem;
+    height: 0.65rem;
+    display: inline-block;
+    &.ion-renjun {
+      background: url(../img/collection/renjun.png) no-repeat center center/100% auto !important;
+    }
+    &.ion-area {
+      background: url(../img/collection/area.png) no-repeat center center/100% auto !important;
+    }
+    &.ion-phone {
+      background: url(../img/collection/phone.png) no-repeat center center/100% auto !important;
+    }
+
+  }
+}
+
+.wowBox {
+  .icon {
+    height: 0.34rem;
+    width: 0.35rem;
+    display: block;
+    bottom:0.03rem;
+    position: relative;
+    &.ion-wow {
+      background: url(../img/collection/wow.png) no-repeat center center/auto 100% !important;
+    }
+  }
+}
+
+.shareBox {
+  .icon {
+    height: 0.28rem;
+    width: 0.38rem;
+    display: block;
+    &.ion-shared {
+      background: url(../img/collection/share.png) no-repeat center center/auto 100% !important;
+    }
+  }
+}

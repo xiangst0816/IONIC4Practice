@@ -1,0 +1,53 @@
+
+@charset "UTF-8";
+*{
+  //outline:1px solid #998;
+}
+//*:active{
+//  background-color:#ddd;
+//}
+
+
+//common
+@import "ionic/mixins";
+@import "common/skin";
+
+//tools 排版相关
+@import "common/typography";
+
+
+@import "common/icons";
+@import "common/component";
+
+//theme
+@import "common/mobile";
+@import "common/placeholdImg";
+
+
+//susbPage style
+
+@import "pages/_home.scss";
+@import "pages/_authorize.scss";
+@import "pages/_users.scss";
+@import "pages/_integral.scss";
+@import "pages/_notice.scss";
+@import "pages/_card.scss";
+@import "pages/_rights.scss";
+@import "pages/_coupon.scss";
+@import "pages/_myService.scss";
+@import "pages/_collection.scss";
+@import "pages/_brandInfo.scss";
+@import "pages/_mallNews.scss";
+@import "pages/_activity.scss";
+@import "pages/_navigateTo.scss";
+@import "pages/_mallNavigate.scss";
+@import "pages/_selfPark.scss";
+@import "pages/_chat.scss";
+
+
+
+
+
+
+
+

@@ -1,0 +1,83 @@
+<ion-view title="礼品卡券">
+    <ion-content class="gouponDetail">
+        <!--礼券详情-->
+        <section ng-if="::item.isCoupon">
+            <div class="shopImg placeholder_43_2">
+                <img class="placeholder_43_2" ng-src="{{::item.image_url | addImgPrefix}}" err-src="">
+            </div>
+            <div class="cardDetails" ng-switch="::item.category_value">
+                <strong ng-bind="::item.name"></strong>
+                <p ng-switch-when="::coupon_category_1"><span ng-bind="::item.limit_max_discount"></span>折<span
+                        ng-bind="::item.category_value | couponCategoryToName"></span></p>
+                <p ng-switch-when="coupon_category_2"><span ng-bind="::item.face_value"></span>元<span
+                        ng-bind="::item.category_value | couponCategoryToName"></span></p>
+                <p ng-switch-when="coupon_category_3"><span ng-bind="::item.face_value"></span>元<span
+                        ng-bind="::item.category_value | couponCategoryToName"></span></p>
+                <p ng-switch-when="coupon_category_4"><span ng-bind="::item.face_value"></span>元<span
+                        ng-bind="::item.category_value | couponCategoryToName"></span></p>
+            </div>
+            <div class="detailInfo">
+                <div class="detailBox">
+                    <div class="detailTitle"><strong>使用时间:</strong></div>
+                    <span>{{::item.limit_time_begin.low | yyyyMd_cn}}至{{::item.limit_time_end.low | yyyyMd_cn}}</span>
+                </div>
+                <div class="detailBox">
+                    <div class="detailTitle"><strong>使用规则: </strong></div>
+                    <div class="innerBox" ng-bind-html="::item.detailrule | withoutStyle"></div>
+                </div>
+                <div class="detailBox">
+                    <div class="detailTitle"><strong>使用状态: </strong></div>
+                    <!--未使用未过期-->
+                    <span ng-if="::item.useState == 2">未使用</span>
+                    <!--未使用已过期-->
+                    <span ng-if="::item.useState == 3">已过期</span>
+                    <!--已使用-->
+                    <span ng-if="::item.useState == 1">已使用</span>
+                </div>
+            </div>
+        </section>
+        <!--礼品详情-->
+        <section ng-if="::!item.isCoupon">
+            <div class="shopImg placeholder_43_2" >
+                <img ng-src="{{::item.imageurl | addImgPrefix}}" err-src="{{::errImg.errImg43_1}}">
+            </div>
+            <div class="cardDetails">
+                <strong ng-bind="::item.giftname"></strong>
+                <p>礼品</p>
+            </div>
+            <div class="detailInfo">
+                <div class="detailBox">
+                    <div class="detailTitle"><strong>使用时间:</strong></div>
+                    <span>{{::item.starttime}}至{{::item.endtime}}</span>
+                </div>
+                <div class="detailBox">
+                    <div class="detailTitle"><strong>使用规则: </strong></div>
+                    <div class="innerBox" ng-bind-html="::item.usedremarks | withoutStyle"></div>
+                </div>
+                <div class="detailBox">
+                    <div class="detailTitle"><strong>使用状态: </strong></div>
+                    <!--未使用未过期-->
+                    <span ng-if="::item.useState == 2">未使用</span>
+                    <!--未使用已过期-->
+                    <span ng-if="::item.useState == 3">已过期</span>
+                    <!--已使用-->
+                    <span ng-if="::item.useState == 1">已使用</span>
+                </div>
+            </div>
+        </section>
+
+    </ion-content>
+    <div class="convertNowBtn" ng-if="::item.useState == 2">
+        <!--礼券的-->
+        <div ng-if="::item.isCoupon" ng-click="usedNow(item.code + '|' + item.customer_id)">
+            立即使用
+        </div>
+        <!--礼品的-->
+        <div ng-if="::!item.isCoupon" ng-click="usedNow(item.sendid)">
+            立即使用
+        </div>
+        <!--已使用或已过期-->
+        <!--<div class="forbidden" ng-if="item.is_used == 0 && item.is_expired == 1">已过期</div>-->
+        <!--<div class="forbidden" ng-if="item.is_used == 1">已使用</div>-->
+    </div>
+</ion-view>

@@ -1,0 +1,58 @@
+<ion-view title="商场导航" class="mallNavigate">
+    <!--searchBox为通用控件-->
+    <smart-search-box class="has-header">
+        <smart-search-input class="searchBoxInput">
+            <i class="icon-search"></i>
+            <input type="text" placeholder="请输入商铺名/商品/关键词" id="searchBoxInput" ng-model="searchFor">
+            <smart-clean-input class="closeBtnBox">
+                <div class="closeBtn icon-close"></div>
+            </smart-clean-input>
+        </smart-search-input>
+        <smart-search-btn class="searchBoxBtn">搜索</smart-search-btn>
+    </smart-search-box>
+    <!--smart-tap-box为通用控件-->
+    <ion-content class="has-tabs-top has-bottomBtn">
+        <section class="centerMap">
+            <img width="100%" src="img/mallNavigate/detail-1.png" alt="">
+            <!--<img ng-click="demo()" width="100%" src="img/mallNavigate/detail-12.png" alt="">-->
+        </section>
+
+    </ion-content>
+    <section class="bottomBtns">
+        <div class="eachBtn res">
+            <i class="ion-select-left icon-heart"></i>
+            <span>优惠商户</span>
+        </div>
+        <div class="eachBtn">
+            <i class="ion-select-right ion-arrow-down"></i>
+            <select>
+                <option>公共设施1</option>
+                <option>公共设施2</option>
+                <option>公共设施3</option>
+            </select>
+
+        </div>
+        <div class="eachBtn reverse" ui-sref="subNav.mallNavigateLine">导航路径</div>
+        <div class="eachBtn">
+            <i class="ion-authorize ion-select-right ion-arrow-down"></i>
+            <select>
+                <option>1层</option>
+                <option>2层</option>
+                <option>3层</option>
+            </select>
+        </div>
+
+    </section>
+</ion-view>
+
+<!--searach history-->
+<smart-history-box class="searchHistoryBox has-tabs-top" storage-name="shopSearchedHistory">
+    <div class="historyTitle" ng-click="deleteHistory(-1)">清除所有搜索记录</div>
+    <ul class="historyList">
+        <li ng-repeat="history in historyList track by $index">
+            <span ng-click="searchThis(history)" ng-bind="history"></span>
+            <span class="closeBtn" ng-click="deleteHistory($index)"></span>
+        </li>
+    </ul>
+</smart-history-box>
+<!--searach history end-->

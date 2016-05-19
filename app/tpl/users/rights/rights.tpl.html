@@ -1,0 +1,17 @@
+<ion-view title="会员权益" class="red-bg">
+  <ion-content class="memberRights ">
+    <div class="rightsHeader">
+      <h3>当前状态: <span>{{::params.vipLevel | cardLevelIDToName}}</span></h3>
+      <p ng-if="::params.nextLevel != 4">下一级别: <span>{{::params.nextLevel | cardLevelIDToName}}</span></p>
+    </div>
+    <div class="rightsContent">
+      <h4>{{::params.vipLevel | cardLevelIDToName}}会员权益</h4>
+      <section>
+        <span ng-bind-html="VIP_Right"></span>
+      </section>
+    </div>
+
+
+
+  </ion-content>
+</ion-view>
