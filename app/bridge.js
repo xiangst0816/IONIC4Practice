@@ -292,6 +292,7 @@ var nativePlugin = {
     shareWithPanel: function (shareContent) {
         if (Internal.isInApp && !!smartApp) {
             smartApp.shareWithPanel({
+                // platformList:["WeiXin","QQZone"],
                 title: shareContent.title, // 分享标题
                 desc: shareContent.desc, // 分享描述
                 link: shareContent.link, // 分享链接
@@ -338,16 +339,18 @@ var nativePlugin = {
     },
 
 
-    //注册登录时的传入的设备id(注册登录(deviceid))
+    //注册登录时的传入的设备id(注册登录(deviceid)),自执行直接返回结果
     registerPushService: function (callback) {
         if (Internal.isInApp && !!smartApp) {
             try {
                 smartApp.registerPushService({
                     success: function (res) {
-                        callback(res);
+                        //{"deviceToken":"123123123123"}
+                        callback(res.deviceToken);
                     }
                 })
             } catch (e) {
+                callback(null);
             }
         }
     },
@@ -406,16 +409,20 @@ var nativePlugin = {
 
     //配置app
 
-    alert(Internal.isInApp + ":" +JSON.stringify(smartApp))
-    if (Internal.isInApp && !!smartApp) {
-        //滑动返回
-        smartApp.enableBackGesture();
-        //隐藏导航栏
-        alert("setBarHidden")
-        smartApp.setBarHidden({
-            hidden:true
-        });
-    }
+
+    setTimeout(function () {
+        // alert(Internal.isInApp + ":" +JSON.stringify(smartApp))
+        if (Internal.isInApp && !!smartApp) {
+            //滑动返回
+            smartApp.enableBackGesture();
+            //隐藏导航栏
+            // alert("setBarHidden")
+            smartApp.setBarHidden({
+                hidden:true
+            });
+        }
+    },5000)
+
 
 })();
 

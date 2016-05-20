@@ -108,7 +108,8 @@
                             "orgid": "",//商场id
                             "openid": "",//用户openid
                             "accountid": "",//cfid(和微信公众号还不太一样)
-                            "mac": ""//mac地址
+                            "mac": "",//mac地址
+                            "deviceid":""//设备id,获取设备推送的令牌
                         }
                     }
                 };
@@ -183,7 +184,10 @@
                             defer.resolve(data.content);
                         } else {
                             var errText;
-                            switch (data.code) {
+                            switch (parseInt(data.code)) {
+                                case 7001:
+                                    errText = "验证码错误,请检查";
+                                    break;
                                 case 8012:
                                     errText = "验证码错误,请检查";
                                     break;

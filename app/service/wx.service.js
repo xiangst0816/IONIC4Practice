@@ -145,56 +145,44 @@
         //     }
         // }])
 
-        //    /**
-        //     * 由openid获取微信用户的信息
-        //     * $wxGetUserInfo({
-        // *     "openid": openid//微信openid
-        // * }).then(function (data) {
-        // *     console.log('wx userinfo data')
-        // *    console.log(data)
-        // * }, function (err) {
-        // *
-        // * })
-        //     * */
-        // .factory("$wxGetUserInfo", ['AJAX', 'api', '$q', '$errCode2Str', function (AJAX, api, $q, $errCode2Str) {
-        //     return function (options) {
-        //         if (!angular.isObject(options)) {
-        //             options = {};
-        //         }
-        //         var defer = $q.defer();
-        //         var params = {
-        //             "method": "userinfo",
-        //             "openid": ""//微信openid
-        //         };
-        //         //数据合并
-        //         angular.deepExtend(params, options);
-        //         AJAX({
-        //             url: api.signatureUrl,
-        //             method: "post",
-        //             data: params,
-        //             success: function (data) {
-        //                 console.log('$wxGetUserInfo data')
-        //                 // alert(JSON.stringify(data));
-        //                 if (data.code == "7001") {
-        //                     //标志服务器返回消息成功
-        //                     if (data.content.errcode) {
-        //                         //返回错误码,表示openid错误
-        //                         defer.reject(data.content.errcode)
-        //                     } else {
-        //                         //返回正常数据,包含订阅与否和微信用户信息
-        //                         defer.resolve(data.content);
-        //                     }
-        //                 } else {
-        //                     defer.reject($errCode2Str(data.code));
-        //                 }
-        //             },
-        //             error: function (errText) {
-        //                 defer.reject(errText);
-        //             }
-        //         });
-        //         return defer.promise;
-        //     }
-        // }])
+           /**
+            * 由code和微信公众号id获取微信用户的信息
+            * 用于判断用户是否关注
+            * */
+        .factory("$wxGetUserInfo", ['AJAX', 'api', '$q','$log','$ionicToast', function (AJAX, api, $q,$log,$ionicToast) {
+            return function (options) {
+                if (!angular.isObject(options)) {
+                    options = {};
+                }
+                var defer = $q.defer();
+                var params = {
+                    "method": "queryVivo",
+                    "conditions": {
+                        "wechatcode":"",
+                        "accountid":""
+                    }
+                };
+                //数据合并
+                angular.deepExtend(params, options); 
+                AJAX({
+                    url: api.customerUrl,
+                    method: "post",
+                    data: params,
+                    success: function (data) {
+                        $log.debug("微信用户的信息结果:"+JSON.stringify(data));
+                        if (data.code == "7001") {
+                            defer.resolve(data.members[0]);
+                        } else {
+                            defer.reject(data.code);
+                        }
+                    },
+                    error: function (errText) {
+                        defer.reject(errText);
+                    }
+                });
+                return defer.promise;
+            }
+        }])
 
 
        

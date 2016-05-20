@@ -67,7 +67,7 @@
 
         /**
          * 用户信息更新
-         * 执行$getUserInfo,同步更新到localstorage中
+         * 执行$getUserInfo,同步更新到$sessionStorage中
          * */
         .factory("$updateUserInfo", ['AJAX', 'api', '$q','$getUserInfo','$sessionStorage','$log','$ionicToast', function (AJAX, api, $q,$getUserInfo,$sessionStorage,$log,$ionicToast){
             return function (options) {

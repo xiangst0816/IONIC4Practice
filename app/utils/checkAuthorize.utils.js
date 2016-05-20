@@ -21,7 +21,7 @@
  *      "wxLevel_AttOnly":需要关注,不需注册
  */
 (function () {
-    angular.module('smartac.utils').factory("$checkAuthorize", ['$q', '$getUserInfo', 'baseInfo', '$sessionStorage', '$ionicLoading', '$getUrlParams', '$ionicPopup', '$state', '$ionicToast', '$ocLazyLoad','$timeout','$log', function ($q, $getUserInfo, baseInfo, $sessionStorage, $ionicLoading, $getUrlParams, $ionicPopup, $state, $ionicToast, $ocLazyLoad,$timeout,$log) {
+    angular.module('smartac.utils').factory("$checkAuthorize", ['$q', '$getUserInfo', 'baseInfo', '$sessionStorage', '$ionicLoading', '$getUrlParams', '$ionicPopup', '$state', '$ionicToast', '$ocLazyLoad','$timeout','$log','$wxGetUserInfo', function ($q, $getUserInfo, baseInfo, $sessionStorage, $ionicLoading, $getUrlParams, $ionicPopup, $state, $ionicToast, $ocLazyLoad,$timeout,$log,$wxGetUserInfo) {
         return function (level) {
             $ionicLoading.show({
                 hideOnStateChange: true,

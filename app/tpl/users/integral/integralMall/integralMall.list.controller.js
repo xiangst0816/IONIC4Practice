@@ -4,10 +4,24 @@
  */
 (function () {
     angular.module('smartac.controllers')
-        .controller('integralMallCtrl', ['$scope', '$ionicPopup', '$q', 'api', '$sessionStorage', 'AJAX', '$ionicToast', '$ionicLoading','$integralInfo','$couponList','$giftList','$rewardCoupons','$rewardGifts','$ionicScrollDelegate', function ($scope, $ionicPopup, $q, api, $sessionStorage, AJAX, $ionicToast, $ionicLoading,$integralInfo,$couponList,$giftList,$rewardCoupons,$rewardGifts,$ionicScrollDelegate) {
+        .controller('integralMallCtrl', ['$scope', '$ionicPopup', '$q', 'api', '$sessionStorage', 'AJAX', '$ionicToast', '$ionicLoading','$integralInfo','$couponList','$rewardCoupons','$rewardGifts','$ionicScrollDelegate', function ($scope, $ionicPopup, $q, api, $sessionStorage, AJAX, $ionicToast, $ionicLoading,$integralInfo,$couponList,$rewardCoupons,$rewardGifts,$ionicScrollDelegate) {
+
+            /**
+             * 数据显示Arr
+             * */
+            var getCouponArr = [];
+            var getGiftArr = [];
+            var totalArr = [];
+            $scope.dataToDisplay = [];
+
+            var start = 0;
+            var findNum = 10;
+
+
+
             //类型配需相关
             $scope.typeName = '类型';
-            var typeCode = 'all';
+            var typeCode = null;
             $scope.setTypeName = function (item) {
                 $scope.typeName = item.name;
                 typeCode = item.code;
@@ -17,19 +31,19 @@
             $scope.typeNameArr = [
                 {
                     name: "不限",
-                    code: "all"
+                    code: null
                 }
                 , {
                     name: "卡券",
-                    code: "couponList"
+                    code: 1
                 }
                 , {
                     name: "礼品",
-                    code: "giftList"
+                    code: 2
                 }
             ];
             //状态
-            $scope.orderName = '排序';
+            $scope.orderName = '积分排序';
             var orderCode = 'desc';
             $scope.setOrderName = function (item) {
                 $scope.orderName = item.name;
@@ -39,15 +53,15 @@
             };
             $scope.orderNameArr = [
                 {
-                    name: "不限",
+                    name: "默认",
                     code: "desc"
                 }
                 , {
-                    name: "积分从高到低",
+                    name: "降序",
                     code: "desc"
                 }
                 , {
-                    name: "积分从低到高",
+                    name: "升序",
                     code: "asc"
                 }
             ];
@@ -144,16 +158,7 @@
 
 
 
-            /**
-             * 数据显示Arr
-             * */
-            var getCouponArr = [];
-            var getGiftArr = [];
-            var totalArr = [];
-            $scope.dataToDisplay = [];
 
-            var start = 0;
-            var findNum = 10;
 
             /**
              * 页面进入需要准备项目:获取我的积分值
@@ -161,7 +166,7 @@
             $ionicLoading.show();
 
             $scope.moreDataCanBeLoaded = true;
-            $q.all([getIntegral(), getCouponList(), getGiftList()]).then(function () {
+            $q.all([getIntegral(), getCouponList()]).then(function () {
                 //卡券和礼品数据汇总$scope.dataToDisplay
                 totalArr.extend(getCouponArr, getGiftArr);
 

@@ -4,9 +4,12 @@
  */
 (function () {
     angular.module('smartac.controllers')
-        .controller('memberInfoCtrl', ['$rootScope', '$scope', '$sessionStorage', 'api', '$http', 'verification', '$ionicLoading', 'AJAX', '$ionicToast', 'cityInfo','$updateUserInfo','$log', function ($rootScope, $scope, $sessionStorage, api, $http, verification, $ionicLoading, AJAX, $ionicToast, cityInfo,$updateUserInfo,$log) {
+        .controller('memberInfoCtrl', ['$rootScope', '$scope', '$sessionStorage', 'api', '$http', 'verification', '$ionicLoading', 'AJAX', '$ionicToast', 'cityInfo','$updateUserInfo','$log','$ionicNavBarDelegate', function ($rootScope, $scope, $sessionStorage, api, $http, verification, $ionicLoading, AJAX, $ionicToast, cityInfo,$updateUserInfo,$log,$ionicNavBarDelegate) {
 
-
+            /**
+             * 完善个人信息显示返回按钮
+             * */
+            $ionicNavBarDelegate.showBackButton(true);
             /**
              * 从sessionstorage中读取数据,并填充到表单中
              * photo
@@ -183,7 +186,7 @@
                         }
                         return $scope.year + "-" + month + "-" + day;
                     } else {
-                        console.log('生日未保存:' + $scope.year + $scope.month + $scope.day)
+                        $log.debug('生日未保存:' + $scope.year + $scope.month + $scope.day)
                         return "";
                     }
                 }
@@ -248,12 +251,16 @@
                     $ionicToast.show('请填写正确的手机号码');
                     return;
                 }
+                if (!$scope.params.fullname) {
+                    $ionicToast.show('请填写姓名');
+                    return;
+                }
 
                 $ionicLoading.show();
                 $updateUserInfo({
                     "customer":{
                         "customerid": $sessionStorage.userInfo.customerid,
-                        "photo": $scope.params.photo,
+                        "photo": $scope.params.photo || '',
                         "fullname": $scope.params.fullname,
                         "mobile": $scope.params.mobile,
                         "provincecode": $scope.params.provincecode || '',

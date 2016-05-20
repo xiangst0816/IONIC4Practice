@@ -62,6 +62,15 @@
 
 
             /**
+             * 获取设备id
+             * */
+            var deviceid;
+            nativePlugin.registerPushService(function (id) {
+                deviceid = id;
+            });
+
+
+            /**
              * 注册提交按钮
              */
             $scope.submitForm = function () {
@@ -98,6 +107,11 @@
                     return;
                 }
 
+                if (!deviceid && Internal.isInApp && !!smartApp) {
+                    $ionicToast.show('未获取到设备id!');
+                    return;
+                }
+
                 //显示loading
                 $ionicLoading.show();
                 //设置发送参数
@@ -126,7 +140,8 @@
                                 "validatecode": $scope.register.verificationCode,
                                 "mobile": $scope.register.telephone,
                                 "password": $scope.register.password,
-                                "orgid": baseInfo.orgid
+                                "orgid": baseInfo.orgid,
+                                "deviceid":deviceid
                             }
                         }
                     }
@@ -181,30 +196,6 @@
                         // $ionicToast.show("无法获取您的信息,请稍后再试!");
                         $ionicLoading.hide();
                     });
-                }, function (errCode) {
-
-                    // var errText;
-                    // switch (parseInt(errCode)) {
-                    //     case 8001:
-                    //         errText = "验证码错误!";
-                    //         break;
-                    //     case 8002:
-                    //         errText = "此手机号已注册过会员了，请直接登录!";
-                    //         break;
-                    //     case 8003:
-                    //         errText = "当前微信号已被绑定!";
-                    //         break;
-                    //     case 8004:
-                    //         errText = "系统内部异常,请稍后重试!";
-                    //         break;
-                    //     case 8007:
-                    //         errText = "系统内部异常,请稍后重试!";
-                    //         break;
-                    //     default:
-                    //         errText = "系统内部异常,请稍后重试!";
-                    //         break;
-                    // }
-                    // $ionicToast.show(errText);
                 }).finally(function () {
                     $ionicLoading.hide();
                 });
