@@ -4,16 +4,37 @@
  */
 (function () {
     angular.module('smartac.controllers')
-        .controller('integralMallDetailCtrl', ['$scope','$stateParams','$ionicPopup','$sessionStorage','$q','AJAX','api','$filter','$ionicToast','$rewardCoupons','$rewardGifts', function ($scope,$stateParams,$ionicPopup,$sessionStorage,$q,AJAX,api,$filter,$ionicToast,$rewardCoupons,$rewardGifts) {
+        .controller('integralMallDetailCtrl', ['$scope','$stateParams','$ionicPopup','$sessionStorage','$q','AJAX','api','$filter','$ionicToast','$rewardCoupons','$rewardGifts','$couponDetail','$ionicLoading','$timeout','$rootScope', function ($scope,$stateParams,$ionicPopup,$sessionStorage,$q,AJAX,api,$filter,$ionicToast,$rewardCoupons,$rewardGifts,$couponDetail,$ionicLoading,$timeout,$rootScope) {
             // console.log('integralMallDetailCtrl')
-            $scope.item = $stateParams.detail;
+            // $scope.item = $stateParams.detail;
+            var couponid = $stateParams.couponid;
+            var typecode = $stateParams.typecode;
+            console.log('$stateParams')
+            console.log($stateParams.couponid)
+            console.log($stateParams.typecode)
             // console.log($scope.item);
+
+            $ionicLoading.show();
+            $couponDetail({
+                "conditions": {
+                    "couponid": couponid,
+                    "typecode":typecode
+                }
+            }).then(function (data) {
+                $scope.item = data;
+            }, function () {
+                $timeout(function () {
+                    $rootScope.goBack();
+                }, 1300, false);
+            }).finally(function () {
+                $ionicLoading.hide();
+            });
 
             /**
              * 兑换弹出框
              * */
             $scope.rewardCouponBtn = function () {
-                var detail = $stateParams.detail;
+                var detail = $scope.item;
                 //判断title
                 if (detail.category_name && detail.category_name.indexOf('coupon') > -1) {
                     var title = '礼券';
@@ -32,7 +53,7 @@
                 $scope.data.convertNum || ($scope.data.convertNum = 1);
 
                 var convertRequest = {
-                    title: "兑换"+title,
+                    title: "兑换" + title,
                     cssClass: 'noticePopup convertRequestBox',
                     subTitle: '',
                     templateUrl: 'tpl/convertRequest.comp.html',
@@ -47,10 +68,18 @@
                                 //如果没输入兑换数量则保持不动
                                 e.preventDefault();
                             } else {
+                                $ionicLoading.show({
+                                    //返回按钮
+                                    hideOnStateChange: true,
+                                    template: '<ion-spinner icon="ripple" class="spinner-light"></ion-spinner>' +
+                                    '<br>' +
+                                    '<div style="margin-top:0.2rem">正在处理请求</div>'
+                                });
                                 //发送数据
-                                if(detail.category_name && detail.category_name.indexOf('coupon') > -1){
+                                if (detail.category_name && detail.category_name.indexOf('coupon') > -1) {
                                     //如果是兑换礼券
                                     rewardCoupons(detail, convertNum).then(function (codeText) {
+                                        $ionicLoading.hide();
                                         //兑换成功,这里返回7001
                                         // console.log(code)
                                         angular.extend(convertResult, {
@@ -59,12 +88,15 @@
                                         });
                                         $ionicPopup.show(convertResult);
                                     }, function (codeText) {
-                                        angular.extend(convertResult, {title: "兑换失败",template: codeText});
+                                        $ionicLoading.hide();
+                                        angular.extend(convertResult, {title: "兑换失败", template: codeText});
                                         $ionicPopup.show(convertResult);
                                     })
-                                } else{
+                                } else {
                                     //如果是兑换礼品
+
                                     rewardGifts(detail, convertNum).then(function (codeText) {
+                                        $ionicLoading.hide();
                                         //兑换成功,这里返回7001
                                         // console.log(code)
                                         angular.extend(convertResult, {
@@ -73,14 +105,19 @@
                                         });
                                         $ionicPopup.show(convertResult);
                                     }, function (codeText) {
+                                        $ionicLoading.hide();
                                         // console.log(code)
-                                        angular.extend(convertResult, {title: "兑换失败",template: codeText});
+                                        angular.extend(convertResult, {title: "兑换失败", template: codeText});
                                         $ionicPopup.show(convertResult);
                                     })
                                 }
+
                             }
                         }
-                    }, {text: '取消', type: 'noticePopupBtn', onTap: function (e) {}}
+                    }, {
+                        text: '取消', type: 'noticePopupBtn', onTap: function (e) {
+                        }
+                    }
                     ]
                 };
                 //显示兑换请求
@@ -112,7 +149,7 @@
                         "point": detail.point
                     }
                 });
-            };
+            }
 
             /**
              * 礼品兑换-积分兑换礼品
@@ -123,9 +160,9 @@
                 return $rewardGifts({
                     "conditions": {
                         "custid": $sessionStorage.userInfo.customerid,
-                        "giftid": detail.innerid,
+                        "giftid": detail.couponid,
                         "quantity": quantity,
-                        "point": detail.quantity
+                        "point": detail.point
                     }
                 });
             }

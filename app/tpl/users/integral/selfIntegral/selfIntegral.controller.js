@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.controllers')
-        .controller('selfIntegralCtrl', ['$scope', '$ionicActionSheet', '$state', '$ionicSlideBoxDelegate', '$ionicPopup', '$toDateFormat', '$filter','$createWithInvoice','$sessionStorage','$ionicLoading','$ionicToast', function ($scope, $ionicActionSheet, $state, $ionicSlideBoxDelegate, $ionicPopup, $toDateFormat, $filter,$createWithInvoice,$sessionStorage,$ionicLoading,$ionicToast) {
+        .controller('selfIntegralCtrl', ['$scope', '$ionicActionSheet', '$state', '$ionicSlideBoxDelegate', '$ionicPopup', '$toDateFormat', '$filter','$createTrade','$sessionStorage','$ionicLoading','$ionicToast', function ($scope, $ionicActionSheet, $state, $ionicSlideBoxDelegate, $ionicPopup, $toDateFormat, $filter,$createTrade,$sessionStorage,$ionicLoading,$ionicToast) {
 
             /**
              * 左右两个箭头切换silder
@@ -75,24 +75,23 @@
                         return
                     }
                     var params = {
-                        "detail": {
-                            "custid": $sessionStorage.userInfo.customerid,//是
-                            "tradeno": arr[1],//是
-                            "orgid": "",
-                            "shopid": arr[2],
-                            "tradeamount": parseFloat(arr[4]),//是
-                            "typeid": 1,//1 交易 ，2 退货  	Int32	是
-                            "apptradeid": parseInt(arr[0]),//小票记录表主键	int	是
-                            "tradetime": $filter('yyyyMMdd_HHmmss_minus')(arr[3]),
-                            "remark": "交易补录form扫码积分",
-                            "createid":"移动app",//创建人	String 否
-                            "createdtime":$filter('yyyyMMdd_HHmmss_minus')(new Date())//创建时间	String	否
-                        }
+                        "custid": $sessionStorage.userInfo.customerid,//是
+                        "tradeno": arr[1],//是
+                        "tradeamount": parseFloat(arr[4]),//是
+                        "typeid": 1,//1 交易 ，2 退货  	Int32	是
+                        "shopid": arr[2],
+
+                        "orgid": "",
+                        // "apptradeid": parseInt(arr[0]),//小票记录表主键	int	是
+                        "tradetime": $filter('yyyyMMdd_HHmmss_minus')(arr[3]),
+                        "remark": "交易补录form扫码积分",
+                        "createid":1,//创建人	String 否
+                        "createdtime":$filter('yyyyMMdd_HHmmss_minus')(new Date())//创建时间	String	否
                     };
                     // alert(JSON.stringify(params));
                     //交易消息补录 数据操作
                     $ionicLoading.show();
-                    $createWithInvoice(params).then(function (data) {
+                    $createTrade(params).then(function (data) {
                         //成功
                         // console.log('createWithInvoice')
                         // console.log(data);

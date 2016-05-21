@@ -4,34 +4,30 @@
  */
 (function () {
     angular.module('smartac.controllers')
-        .controller('integralMallCtrl', ['$scope', '$ionicPopup', '$q', 'api', '$sessionStorage', 'AJAX', '$ionicToast', '$ionicLoading','$integralInfo','$couponList','$rewardCoupons','$rewardGifts','$ionicScrollDelegate', function ($scope, $ionicPopup, $q, api, $sessionStorage, AJAX, $ionicToast, $ionicLoading,$integralInfo,$couponList,$rewardCoupons,$rewardGifts,$ionicScrollDelegate) {
+        .controller('integralMallCtrl', ['$scope', '$ionicPopup', '$q', 'api', '$sessionStorage', 'AJAX', '$ionicToast', '$ionicLoading', '$integralInfo', '$couponList', '$rewardCoupons', '$rewardGifts', function ($scope, $ionicPopup, $q, api, $sessionStorage, AJAX, $ionicToast, $ionicLoading, $integralInfo, $couponList, $rewardCoupons, $rewardGifts) {
 
             /**
              * 数据显示Arr
              * */
-            var getCouponArr = [];
-            var getGiftArr = [];
-            var totalArr = [];
             $scope.dataToDisplay = [];
 
             var start = 0;
             var findNum = 10;
 
 
-
             //类型配需相关
             $scope.typeName = '类型';
-            var typeCode = null;
+            var typeCode = 0;
             $scope.setTypeName = function (item) {
                 $scope.typeName = item.name;
                 typeCode = item.code;
                 //改变后执行查询
-                querySelected();
+                reloadMore();
             };
             $scope.typeNameArr = [
                 {
                     name: "不限",
-                    code: null
+                    code: 0
                 }
                 , {
                     name: "卡券",
@@ -49,7 +45,7 @@
                 $scope.orderName = item.name;
                 orderCode = item.code;
                 //改变后执行查询
-                querySelected();
+                reloadMore();
             };
             $scope.orderNameArr = [
                 {
@@ -80,16 +76,16 @@
                 }
                 //兑换请求
                 $scope.data = {
-                    title:title,
-                    suffix:suffix,
-                    detail:detail
+                    title: title,
+                    suffix: suffix,
+                    detail: detail
                 };
 
                 //默认为1
                 $scope.data.convertNum || ($scope.data.convertNum = 1);
 
                 var convertRequest = {
-                    title: "兑换"+title,
+                    title: "兑换" + title,
                     cssClass: 'noticePopup convertRequestBox',
                     subTitle: '',
                     templateUrl: 'tpl/convertRequest.comp.html',
@@ -104,10 +100,18 @@
                                 //如果没输入兑换数量则保持不动
                                 e.preventDefault();
                             } else {
+                                $ionicLoading.show({
+                                    //返回按钮
+                                    hideOnStateChange: true,
+                                    template: '<ion-spinner icon="ripple" class="spinner-light"></ion-spinner>' +
+                                    '<br>' +
+                                    '<div style="margin-top:0.2rem">正在处理请求</div>'
+                                });
                                 //发送数据
-                                if(detail.category_name && detail.category_name.indexOf('coupon') > -1){
+                                if (detail.category_name && detail.category_name.indexOf('coupon') > -1) {
                                     //如果是兑换礼券
                                     rewardCoupons(detail, convertNum).then(function (codeText) {
+                                        $ionicLoading.hide();
                                         //兑换成功,这里返回7001
                                         // console.log(code)
                                         angular.extend(convertResult, {
@@ -116,12 +120,15 @@
                                         });
                                         $ionicPopup.show(convertResult);
                                     }, function (codeText) {
-                                        angular.extend(convertResult, {title: "兑换失败",template: codeText});
+                                        $ionicLoading.hide();
+                                        angular.extend(convertResult, {title: "兑换失败", template: codeText});
                                         $ionicPopup.show(convertResult);
                                     })
-                                } else{
+                                } else {
                                     //如果是兑换礼品
+
                                     rewardGifts(detail, convertNum).then(function (codeText) {
+                                        $ionicLoading.hide();
                                         //兑换成功,这里返回7001
                                         // console.log(code)
                                         angular.extend(convertResult, {
@@ -130,15 +137,19 @@
                                         });
                                         $ionicPopup.show(convertResult);
                                     }, function (codeText) {
+                                        $ionicLoading.hide();
                                         // console.log(code)
-                                        angular.extend(convertResult, {title: "兑换失败",template: codeText});
+                                        angular.extend(convertResult, {title: "兑换失败", template: codeText});
                                         $ionicPopup.show(convertResult);
                                     })
                                 }
 
                             }
                         }
-                    }, {text: '取消', type: 'noticePopupBtn', onTap: function (e) {}}
+                    }, {
+                        text: '取消', type: 'noticePopupBtn', onTap: function (e) {
+                        }
+                    }
                     ]
                 };
                 //显示兑换请求
@@ -157,153 +168,88 @@
             };
 
 
-
-
-
             /**
-             * 页面进入需要准备项目:获取我的积分值
+             * 每次页面进入刷新列表
              * */
-            $ionicLoading.show();
-
-            $scope.moreDataCanBeLoaded = true;
-            $q.all([getIntegral(), getCouponList()]).then(function () {
-                //卡券和礼品数据汇总$scope.dataToDisplay
-                totalArr.extend(getCouponArr, getGiftArr);
-
-                //需要手动启动一次
-                reloadMore();
-                $ionicLoading.hide();
+            $scope.$on("$stateChangeSuccess", function (event, toState) {
+                if (toState.name == 'subNav.memberIntegralMall') {
+                    $ionicLoading.show();
+                    reloadMore().finally(function () {
+                        $ionicLoading.hide();
+                    })
+                }
             });
+
 
 
             /**
              * loadMore
              * */
             $scope.loadMore = function () {
-                if($scope.moreDataCanBeLoaded){
-                    var totleHistoryRecord = totalArr.length;
-
-                    //一次加载数量
-                    var findNumInArr = findNum;
-                    if (totleHistoryRecord < (start * findNumInArr + findNumInArr)) {
-                        // console.log(totleHistoryRecord)
-                        findNumInArr = totleHistoryRecord - ((start - 1) * findNumInArr + findNumInArr);
-                        //最后一次加载
+                if ($scope.moreDataCanBeLoaded) {
+                    return getCouponList(start, findNum).then(function (data) {
+                        if (!data.length) {
+                            $scope.moreDataCanBeLoaded = false;
+                        } else {
+                            $scope.dataToDisplay.extend(data);
+                        }
+                    }, function () {
+                        //如果错误
                         $scope.moreDataCanBeLoaded = false;
-                    }
-                    for (var i = start * findNumInArr; (start * findNumInArr + findNumInArr) > i; i++) {
-                        $scope.dataToDisplay.push(totalArr[i]);
-                    }
-                    start++;
-                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                    }).finally(function () {
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                    });
                 }
             };
-
-            /**
-             * 获取我的积分值
-             * */
-            function getIntegral() {
-                return $integralInfo().then(function (data) {
-                    $scope.currenttotalnum = $sessionStorage.integralInfo.currenttotalnum;
-                },function (errText) {
-                    $ionicToast.show("积分信息获取失败," +errText);
-                });
-            }
-
-            /**
-             * 获取卡券列表
-             * */
-            function getCouponList() {
-                var defer = $q.defer();
-                $couponList({
-                    "sort": {
-                        "column": "point",
-                        "type": orderCode
-                    }
-                }).then(function (data) {
-                    getCouponArr = data;
-                    //为卡券添加标示字段
-                    getCouponArr.forEach(function (v) {
-                        v.isCoupon = true;
-                    });
-                    defer.resolve(getCouponArr);
-                });
-                return defer.promise;
-            }
-
-            /**
-             * 获取礼品列表
-             * */
-            function getGiftList() {
-                var defer = $q.defer();
-                $giftList({
-                    "sort": {
-                        "column": "quantity",
-                        "type": orderCode
-                    }
-                }).then(function (data) {
-                    // console.log(data)
-                    getGiftArr = data;
-                    //为卡券添加标示字段
-                    getGiftArr.forEach(function (v) {
-                        v.isCoupon = false;
-                    });
-                    defer.resolve(getGiftArr);
-                });
-                return defer.promise;
-            }
-
-            /**
-             * 选择tab后进行查询
-             * */
-            function querySelected() {
-                $ionicLoading.show();
-                totalArr = [];
-                if (typeCode == 'all') {
-                    $q.all([getCouponList(), getGiftList()])
-                        .then(function () {
-                            totalArr.extend(getCouponArr);
-                            totalArr.extend(getGiftArr);
-                        }).finally(function () {
-                        reloadMore();
-                    })
-                } else if (typeCode == 'couponList') {
-                    getCouponList()
-                        .then(function () {
-                            totalArr.extend(getCouponArr);
-                        }).finally(function () {
-                        reloadMore();
-                    })
-
-                } else if (typeCode == 'giftList') {
-                    getGiftList()
-                        .then(function () {
-                            totalArr.extend(getGiftArr);
-                            // console.log(totalArr)
-                        }).finally(function () {
-                        reloadMore();
-                    })
-                }
-                $ionicLoading.hide();
-            }
-
-
 
             /**
              * reloadMore,用再次调用
              * */
             function reloadMore() {
                 //设置开始值
-                start=0;
-                //返回顶部
-                $ionicScrollDelegate.scrollTop(true);
+                start = 1;
                 //清空结果
                 $scope.dataToDisplay = [];
                 //可加载
                 $scope.moreDataCanBeLoaded = true;
                 //执行
-                $scope.loadMore();
+                return $scope.loadMore();
             }
+
+
+            /**
+             * 获取我的积分值
+             * */
+            // function getIntegral() {
+            $integralInfo().then(function (data) {
+                $scope.currenttotalnum = $sessionStorage.integralInfo.currenttotalnum;
+            }, function (errText) {
+                $ionicToast.show("积分信息获取失败," + errText);
+            });
+            // }
+
+            /**
+             * 获取卡券列表
+             * */
+            function getCouponList(_start, _findNum) {
+                _start || (_start = 1);
+                _findNum || (_findNum = 999);
+                start++;
+                return $couponList({
+                    "conditions": {
+                        "typecode": parseInt(typeCode),
+                        "page": {
+                            "index": _start,
+                            "num": _findNum
+                        },
+                        "sort": {
+                            "column": "point",
+                            "type": orderCode
+                        }
+                    }
+                })
+            }
+
 
 
             /**
@@ -331,9 +277,9 @@
                 return $rewardGifts({
                     "conditions": {
                         "custid": $sessionStorage.userInfo.customerid,
-                        "giftid": detail.innerid,
+                        "giftid": detail.couponid,
                         "quantity": quantity,
-                        "point": detail.quantity
+                        "point": detail.point
                     }
                 });
             }

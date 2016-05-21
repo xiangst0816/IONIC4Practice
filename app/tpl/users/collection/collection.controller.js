@@ -15,14 +15,7 @@
             $scope.levelArr = [{name: "不限", code: ''}];
             //筛选出 楼层/类型 信息,返回楼层arr
             $shopFloor().then(function (levelArr) {
-                if (!levelArr) {
-                    $ionicToast.show("获取楼层信息出错!");
-                } else {
-                    $scope.levelArr.extend(levelArr);
-                    // $scope.levelArr = levelArr;
-                }
-            },function (errText) {
-                $ionicToast.show("获取楼层信息出错!");
+                $scope.levelArr.extend(levelArr);
             });
             //类型
             $scope.typeName = '类型';
@@ -57,19 +50,19 @@
             /**
              * tab筛选对象(这部分只能通过在总列表中筛选)
              * */
-            function statusFilterFn() {
-                var datafilter = {
-                    // industryid:$scope.typeCode
-                };
-                getShopList().then(function () {
-                    // console.log(collectedList)
-                    collectedList = $filter('filter')(collectedList,datafilter);
-                    // console.log(collectedList)
-                    collectedList = $quickSort(collectedList,$scope.orderCode,"collectdate");
-                    $scope.dataToDisplay = collectedList;
-                    // console.log($scope.dataToDisplay)
-                })
-            }
+            // function statusFilterFn() {
+            //     var datafilter = {
+            //         // industryid:$scope.typeCode
+            //     };
+            //     getShopList().then(function () {
+            //         // console.log(collectedList)
+            //         collectedList = $filter('filter')(collectedList,datafilter);
+            //         // console.log(collectedList)
+            //         collectedList = $quickSort(collectedList,$scope.orderCode,"collectdate");
+            //         $scope.dataToDisplay = collectedList;
+            //         // console.log($scope.dataToDisplay)
+            //     })
+            // }
 
 
             /**

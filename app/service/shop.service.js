@@ -75,7 +75,17 @@
                 var params = {
                     "method": "queryCollection",
                     "conditions": {
-                        "custid": $sessionStorage.userInfo.customerid
+                        "custid": $sessionStorage.userInfo.customerid,
+                        "floor":null,
+                        "industryid_code":null,
+                        "sort": {
+                            "column": "",
+                            "type": "desc"
+                        },
+                        "page": {
+                            "index": 1,
+                            "num": 10
+                        }
                     }
                 };
                 //数据合并
@@ -85,13 +95,13 @@
                     url: api.customerUrl,
                     data: params,
                     success: function (data) {
-                        if (data.code == 7001) {
+                        if (data.code == 7001 && !!data.content) {
                             defer.resolve(data.content);
                             $log.debug("$userCollectedShopList获取成功,共" + data.content.length + "条")
                         } else {
                             // console.log(data);
-                            defer.reject("请稍后再试!");
-                            $log.debug("$userCollectedShopList获取失败");
+                            defer.resolve([]);
+                            $log.debug("$userCollectedShopList获取失败,返回空");
                         }
                     },
                     error: function (errText) {

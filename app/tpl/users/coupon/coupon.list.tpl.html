@@ -25,16 +25,19 @@
         <div class="list gouponList">
             <section>
                 <!--isCoupon each-->
-                <div class="eachItems" ng-repeat="item in dataToDisplay | filter:{isCoupon:true} track by $index">
+                <div class="eachItems" ng-repeat="item in dataToDisplay track by $index">
                     <!--将item内容传入子页面-->
-                    <section class="layer1 clearfix" ui-sref="subNav.memberCouponDetail({detail:item})">
-                        <img class="placeholder_43_2" ng-src="{{::item.image_url | addImgPrefix}}" err-src="">
+                    <section class="layer1 clearfix" ui-sref="subNav.memberCouponDetail({couponid:item.id,typecode:item.type_code})">
+                        <div class="imgBox placeholder_43_2">
+                            <img class="" ng-src="{{::item.image_url | addImgPrefix}}"
+                                 err-src="{{::errImg.errImg43_1}}">
+                        </div>
                         <div class="layer1-center">
                             <h2><span ng-bind="::item.name"></span><span
                                     ng-bind="::item.category_value | couponCategoryToName"></span></h2>
                             <p>序列号: <span ng-bind="::item.code"></span></p>
                         </div>
-                        <div class="layer1-right">
+                        <div class="layer1-right" ng-if="::item.type_code == 1">
                             <!--折扣-->
                             <p ng-if="::item.category_value == 'coupon_category_1'">
                                 <span ng-bind="::item.limit_max_discount"></span>折</p>
@@ -54,37 +57,37 @@
                         <p>有效期限:<span ng-bind="::item.limit_time_begin.low | yyyyMMdd_dot"></span> ~ <span ng-bind="::item.limit_time_end.low |
                             yyyyMMdd_dot"></span></p>
                         <!--未使用未过期-->
-                        <div ng-if="::item.useState == 2" ng-click="usedNow(item.code + '|' + item.customer_id)">立即使用
+                        <div ng-if="::item.status_code == 2" ng-click="usedNow(item.code + '|' + item.customer_id)">立即使用
                         </div>
                         <!--已使用或已过期-->
-                        <div class="forbidden" ng-if="::item.useState == 1">已使用</div>
-                        <div class="forbidden" ng-if="::item.useState == 3">已过期</div>
+                        <div class="forbidden" ng-if="::item.status_code == 1">已使用</div>
+                        <div class="forbidden" ng-if="::item.status_code == 3">已过期</div>
                     </section>
                 </div>
                 <!--each end-->
                 <!--isGift each-->
-                <div class="eachItems" ng-repeat="item in dataToDisplay | filter:{isCoupon:false} track by $index">
-                    <!--将item内容传入子页面-->
-                    <section class="layer1 clearfix" ui-sref="subNav.memberCouponDetail({detail:item})">
-                        <div class="imgBox placeholder_43_2">
-                            <img class="" ng-src="{{::item.imageurl | addImgPrefix}}" err-src="{{::errImg.errImg43_1}}">
-                        </div>
-                        <div class="layer1-center">
-                            <h2><span ng-bind="::item.giftname"></span><span>礼品</span></h2>
-                            <p>序列号: <span ng-bind="::item.exchangeid"></span></p>
-                        </div>
-                        <!--<div class="layer1-right">-->
-                        <!--</div>-->
-                    </section>
-                    <section class="layer2">
-                        <p>有效期限:<span ng-bind="::item.starttime"></span> ~ <span ng-bind="::item.endtime"></span></p>
-                        <!--未使用未过期-->
-                        <div ng-if="::item.useState == 2" ng-click="usedNow(item.sendid)">立即使用</div>
-                        <!--已使用或已过期-->
-                        <div class="forbidden" ng-if="::item.useState == 1">已使用</div>
-                        <div class="forbidden" ng-if="::item.useState == 3">已过期</div>
-                    </section>
-                </div>
+                <!--<div class="eachItems" ng-repeat="item in dataToDisplay  track by $index">-->
+                <!--&lt;!&ndash;将item内容传入子页面&ndash;&gt;-->
+                <!--<section class="layer1 clearfix" ui-sref="subNav.memberCouponDetail({detail:item})">-->
+                <!--<div class="imgBox placeholder_43_2">-->
+                <!--<img class="" ng-src="{{::item.imageurl | addImgPrefix}}" err-src="{{::errImg.errImg43_1}}">-->
+                <!--</div>-->
+                <!--<div class="layer1-center">-->
+                <!--<h2><span ng-bind="::item.giftname"></span><span>礼品</span></h2>-->
+                <!--<p>序列号: <span ng-bind="::item.exchangeid"></span></p>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;<div class="layer1-right">&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--</section>-->
+                <!--<section class="layer2">-->
+                <!--<p>有效期限:<span ng-bind="::item.starttime"></span> ~ <span ng-bind="::item.endtime"></span></p>-->
+                <!--&lt;!&ndash;未使用未过期&ndash;&gt;-->
+                <!--<div ng-if="::item.useState == 2" ng-click="usedNow(item.sendid)">立即使用</div>-->
+                <!--&lt;!&ndash;已使用或已过期&ndash;&gt;-->
+                <!--<div class="forbidden" ng-if="::item.useState == 1">已使用</div>-->
+                <!--<div class="forbidden" ng-if="::item.useState == 3">已过期</div>-->
+                <!--</section>-->
+                <!--</div>-->
                 <!--each end-->
                 <!--抱歉,暂无数据!-->
                 <div ng-include="::'tpl/noDataToDisplay.comp.html'"></div>

@@ -4,9 +4,13 @@
  */
 (function () {
     angular.module('smartac.controllers')
-        .controller('couponDetailCtrl', ['$scope','AJAX','api','$sessionStorage','$stateParams','$ionicPopover', function ($scope,AJAX,api,$sessionStorage,$stateParams,$ionicPopover) {
-            $scope.item = $stateParams.detail;
-            console.log($stateParams.detail)
+        .controller('couponDetailCtrl', ['$scope', 'AJAX', 'api', '$sessionStorage', '$stateParams', '$ionicPopover', '$timeout', '$rootScope', '$couponDetail','$ionicLoading', function ($scope, AJAX, api, $sessionStorage, $stateParams, $ionicPopover, $timeout, $rootScope, $couponDetail,$ionicLoading) {
+
+            var couponid = $stateParams.couponid;
+            var typecode = $stateParams.typecode;
+            console.log('$stateParams')
+            console.log($stateParams.couponid)
+            console.log($stateParams.typecode)
 
             /**
              * 优惠券立即使用 usedNow
@@ -23,6 +27,24 @@
             }).then(function (popover) {
                 $scope.popover = popover;
             });
+
+
+            $ionicLoading.show();
+            $couponDetail({
+                "conditions": {
+                    "couponid": couponid,
+                    "typecode":typecode
+                }
+            }).then(function (data) {
+                $scope.item = data;
+            }, function () {
+                $timeout(function () {
+                    $rootScope.goBack();
+                }, 1300, false);
+            }).finally(function () {
+                $ionicLoading.hide();
+            });
+
 
         }]);
 })();

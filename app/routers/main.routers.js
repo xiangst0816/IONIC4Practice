@@ -83,7 +83,8 @@
                 //会员中心-积分商城-详情
                 .state('subNav.memberIntegralMallDetail', {
                     params:{
-                        "detail":null
+                        'couponid': null,
+                        'typecode': null
                     },
                     url: '/memberIntegralMallDetail',
                     templateUrl: 'tpl/integralMall.detail.tpl.html',
@@ -100,7 +101,8 @@
                 //会员中心-礼品卡券-detail
                 .state('subNav.memberCouponDetail', {
                     params: {
-                        'detail': null
+                        'couponid': null,
+                        'typecode': null
                     },
                     url: '/memberCouponDetail',
                     templateUrl: 'tpl/coupon.detail.tpl.html',

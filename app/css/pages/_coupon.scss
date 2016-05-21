@@ -15,6 +15,10 @@
         position: relative;
         border-bottom: 1px solid $borderColor;
         padding-bottom: 0.25rem;
+        @include display-flex;
+        @include align-content(center);
+        @include justify-content(flex-start);
+
         .imgBox {
           height: 1rem;
           width: 1.32rem;
@@ -34,10 +38,10 @@
           //align-content: space-between;
           //flex-wrap: wrap;
           float: left;
-          width: 4.3rem;
+          //width: 4.3rem;
           padding-left: 0.2rem;
           height: 100%;
-
+          max-width: 5.5rem;
           h2 {
             font-size: 0.34rem;
             color: #000;

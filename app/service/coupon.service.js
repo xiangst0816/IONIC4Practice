@@ -39,11 +39,14 @@
                 };
                 //数据合并
                 angular.deepExtend(params, options);
+                console.log(params)
                 AJAX({
                     url: api.couponUrl,
                     method: "post",
                     data: params,
                     success: function (data) {
+                        console.log('queryListVivo')
+                        console.log(data)
                         if (data.code == 7001) {
                             defer.resolve(data.content);
                         } else {
@@ -63,7 +66,7 @@
 
 
         /**
-         * 用户的卡券列表(users)(ok)
+         * 用户的卡券和礼品列表(users)
          * */
         .factory("$userCouponList", ['AJAX', 'api', '$q','$ionicToast','$sessionStorage', function (AJAX, api, $q,$ionicToast,$sessionStorage) {
             return function (options) {
@@ -75,22 +78,23 @@
                     "method": "queryCoupon",
                     "conditions": {
                         "custid": $sessionStorage.userInfo.customerid.toString(),
-                        "categorycode": null,
-                        "typecode": null,
-                        "statuscode": null,
+                        "categorycode": "",
+                        "typecode": 0,
+                        "statuscode": 0,
                         "querytype": "main",
                         "page": {
                             "index": 1,
                             "num": 10
                         },
                         "sort": {
-                            "column": "statuscode",
+                            "column": "id",
                             "type": "desc"
                         }
                     }
                 };
                 //数据合并
                 angular.deepExtend(params, options);
+                console.log(params)
                 AJAX({
                     url: api.couponUrl,
                     method: 'post',
@@ -102,7 +106,7 @@
                             defer.resolve(data.content);
                         } else {
                             defer.resolve([]);
-                            $ionicToast.show("卡券列表获取失败,请稍后再试!");
+                            $ionicToast.show("列表获取失败,请稍后再试!");
                         }
                     },
                     error: function (errText) {
@@ -196,7 +200,7 @@
 
 
         /**
-         * 礼品兑换-积分兑换礼品(ok)
+         * 礼品兑换-积分兑换礼品()
          * */
         .factory("$rewardGifts", ['AJAX', 'api', '$q', '$ionicToast', '$log', function (AJAX, api, $q, $ionicToast, $log) {
             return function (options) {
@@ -257,9 +261,50 @@
                         }
                     },
                     error: function (errText) {
-                        $ionicToast.show("系统繁忙,请稍后再试!");
+                        // $ionicToast.show("系统繁忙,请稍后再试!");
                         $log.debug("兑换失败,code:" + JSON.stringify(errText));
+                        defer.reject("系统繁忙,请稍后再试!");
+                    }
+                });
+                return defer.promise;
+            }
+        }])
+
+        /**
+         * 礼品卡券详情
+         * */
+        .factory("$couponDetail", ['AJAX', 'api', '$q','$ionicToast','$sessionStorage', function (AJAX, api, $q,$ionicToast,$sessionStorage) {
+            return function (options) {
+                if (!angular.isObject(options)) {
+                    options = {};
+                }
+                var defer = $q.defer();
+                var params = {
+                    "method": "queryInfoVivo",
+                    "conditions": {
+                        "couponid": null,
+                        "typecode":null
+                    }
+                };
+                //数据合并
+                angular.deepExtend(params, options);
+                AJAX({
+                    url: api.couponUrl,
+                    method: 'post',
+                    data: params,
+                    success: function (data) {
+                        console.log('$couponDetail');
+                        console.log(data);
+                        if (data.code == 7001 && !!data.content) {
+                            defer.resolve(data.content);
+                        } else {
+                            $ionicToast.show("明细获取失败,请稍后再试!");
+                            defer.reject(null);
+                        }
+                    },
+                    error: function (errText) {
                         defer.reject(errText);
+                        $ionicToast.show("系统繁忙,请稍后再试!");
                     }
                 });
                 return defer.promise;

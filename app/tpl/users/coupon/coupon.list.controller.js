@@ -153,15 +153,11 @@
                 start++;
                 return $userCouponList({
                     "conditions": {
-                        "typecode": $scope.typeCode,
-                        "statuscode": $scope.statusCode,
+                        "typecode": parseInt($scope.typeCode),
+                        "statuscode": parseInt($scope.statusCode),
                         "page": {
                             "index": _start,
                             "num": _findNum
-                        },
-                        "sort": {
-                            "column": "statuscode",
-                            "type": "desc"
                         }
                     }
                 })
