@@ -6,6 +6,33 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <meta name="format-detection" content="telephone=no email=no"/>
     <title></title>
+    <!--动态调整html元素的font-size大小, 全局使用rem单位-->
+    <script>
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                    recalc = function () {
+                        var clientWidth = docEl.clientWidth;
+                        var clientHeight = docEl.clientHeight;
+                        if (!clientWidth) return;
+                        var tmp;
+                        (clientWidth < clientHeight) ? (tmp = clientWidth) : (tmp = clientHeight);
+                        //
+                        if (tmp > 414) {
+                            tmp = 414;
+                        }
+                        //横屏时,高度为基准;竖屏时,宽度为基准
+                        docEl.dataset.width = tmp;
+                        docEl.dataset.percent = 100 * (tmp / 750);
+                        //由屏幕宽度得到basefont大小,并将其写入html标签中,文档总的尺寸由rem确定
+                        docEl.style.fontSize = 100 * (tmp / 750) + 'px';
+                        doc.getElementsByTagName('html')[0].removeAttribute('class');
+                    };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
     <!--<link href="lib/ionic/css/ionic.css" rel="stylesheet">-->
     <!--<link href="css/ionic.app.css" rel="stylesheet">-->
     <link href="css/ionic.app.debug.css" rel="stylesheet">
@@ -35,33 +62,7 @@
             text-align: center;
         }
     </style>
-    <!--动态调整html元素的font-size大小, 全局使用rem单位-->
-    <script>
-        (function (doc, win) {
-            var docEl = doc.documentElement,
-                    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-                    recalc = function () {
-                        var clientWidth = docEl.clientWidth;
-                        var clientHeight = docEl.clientHeight;
-                        if (!clientWidth) return;
-                        var tmp;
-                        (clientWidth < clientHeight) ? (tmp = clientWidth) : (tmp = clientHeight);
-                        //
-                        if (tmp > 414) {
-                            tmp = 414;
-                        }
-                        //横屏时,高度为基准;竖屏时,宽度为基准
-                        docEl.dataset.width = tmp;
-                        docEl.dataset.percent = 100 * (tmp / 750);
-                        //由屏幕宽度得到basefont大小,并将其写入html标签中,文档总的尺寸由rem确定
-                        docEl.style.fontSize = 100 * (tmp / 750) + 'px';
-                        doc.getElementsByTagName('html')[0].removeAttribute('class');
-                    };
-            if (!doc.addEventListener) return;
-            win.addEventListener(resizeEvt, recalc, false);
-            doc.addEventListener('DOMContentLoaded', recalc, false);
-        })(document, window);
-    </script>
+
     <!--微信接口-->
     <!--<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>-->
     <script src="lib/jweixin-1.0.0.js"></script>
@@ -70,15 +71,15 @@
 
 
     <!-- ionic/angularjs js -->
-    <!--<script src="lib/ionic.bundle.min.js"></script>-->
+    <script src="lib/ionic.bundle.min.js"></script>
 
     <!--拆分-->
-    <script src="lib/angular.min.js"></script>
-    <script src="lib/angular-animate.min.js"></script>
-    <script src="lib/angular-sanitize.min.js"></script>
-    <script src="lib/angular-ui-router.min.js"></script>
-    <script src="lib/ionic.min.js"></script>
-    <script src="lib/ionic-angular.min.js"></script>
+    <!--<script src="lib/angular.min.js"></script>-->
+    <!--<script src="lib/angular-animate.min.js"></script>-->
+    <!--<script src="lib/angular-sanitize.min.js"></script>-->
+    <!--<script src="lib/angular-ui-router.min.js"></script>-->
+    <!--<script src="lib/ionic.min.js"></script>-->
+    <!--<script src="lib/ionic-angular.min.js"></script>-->
 
     <!-- cordova script (this will be a 404 during development) -->
     <!--<script src="cordova.js"></script>-->
