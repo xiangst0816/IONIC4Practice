@@ -63,7 +63,7 @@ $ gulp default
 
 其中tpl将根据页面进行层级划分,将与当前页面相关的HTML、controller、service、directive、filter等放在一起。
 
-### 微信导航栏与APP导航栏同步
+### [微信导航栏与APP导航栏同步](https://github.com/xiangsongtao/IONIC4Practice/blob/master/doc/NavigateSync.md)
 
 ionic使用的导航方式永远都是在新增历史记录,而浏览器原生的导航则是在历史记录中有前有后的跳转,因而会在用户操作的过
 程出现不同步的现象,这里实现了"后退"和"返回首页"两个方法,方法挂载到mainCtrl根控制器的$rootScope下,这样的话在
