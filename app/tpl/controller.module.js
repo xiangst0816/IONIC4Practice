@@ -39,8 +39,8 @@ angular.module('smartac.controllers', ['smartac.services']);
                         $rootScope.HistoryArr.push(currentPath);
                     }
                 }
-                console.log($rootScope.HistoryArr);
-                console.log($rootScope.HistoryArr.length);
+                // console.log($rootScope.HistoryArr);
+                // console.log($rootScope.HistoryArr.length);
             });
 
             /**

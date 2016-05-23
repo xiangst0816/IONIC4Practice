@@ -4,29 +4,44 @@
  */
 (function () {
     angular.module('smartac.controllers')
-        .controller('collectionCtrl', ["$scope", "$q", "$sessionStorage", 'AJAX', 'api', '$ionicLoading', '$ionicToast', '$userCollectedShopList', '$shopCollect', '$filter', '$shopFloor','$quickSort', function ($scope, $q, $sessionStorage, AJAX, api, $ionicLoading, $ionicToast, $userCollectedShopList, $shopCollect, $filter, $shopFloor,$quickSort) {
+        .controller('collectionCtrl', ["$scope", "$q", "$sessionStorage", 'AJAX', 'api', '$ionicLoading', '$ionicToast', '$userCollectedShopList', '$shopCollect', '$filter', '$shopFloor', '$quickSort', function ($scope, $q, $sessionStorage, AJAX, api, $ionicLoading, $ionicToast, $userCollectedShopList, $shopCollect, $filter, $shopFloor, $quickSort) {
+
+            /**
+             * 向外显示的列表
+             * */
+            $scope.dataToDisplay = [];
+
+            /**
+             * 页面进入的时候,查询会员的卡券列表和礼品列表
+             * */
+            var findNum = 6;
+            var start = 1;
+
+
             //类型配需相关
             //楼层
             $scope.levelName = '楼层';
+            var levelCode = null;
             $scope.setLevelName = function (item) {
                 $scope.levelName = item.name;
-                $scope.levelCode = item.code;
+                levelCode = item.code;
+                reloadMore();
             };
-            $scope.levelArr = [{name: "不限", code: ''}];
+            $scope.levelArr = [{name: "不限", code: null}];
             //筛选出 楼层/类型 信息,返回楼层arr
             $shopFloor().then(function (levelArr) {
                 $scope.levelArr.extend(levelArr);
             });
             //类型
             $scope.typeName = '类型';
-            $scope.typeCode = '';
+            var typeCode = null;
             $scope.setTypeName = function (item) {
                 $scope.typeName = item.name;
-                $scope.typeCode = item.code;
-                statusFilterFn();
+                typeCode = item.code;
+                reloadMore();
             };
             $scope.typeArr = [
-                {name: $filter('industryCodeToName')(''), code: ''}
+                {name: $filter('industryCodeToName')(''), code: null}
                 , {name: $filter('industryCodeToName')('sc_industry_1'), code: 1}
                 , {name: $filter('industryCodeToName')('sc_industry_2'), code: 2}
                 , {name: $filter('industryCodeToName')('sc_industry_3'), code: 3}
@@ -35,11 +50,11 @@
             ];
             //收藏时间
             $scope.orderName = '收藏时间';
-            $scope.orderCode = 'asc';
+            var orderCode = 'asc';
             $scope.setOrderName = function (item) {
                 $scope.orderName = item.name;
-                $scope.orderCode = item.code;
-                statusFilterFn();
+                orderCode = item.code;
+                reloadMore();
             };
             $scope.orderArr = [
                 {name: "默认", code: "asc"},
@@ -47,23 +62,49 @@
                 {name: "降序", code: "desc"}
             ];
 
-            /**
-             * tab筛选对象(这部分只能通过在总列表中筛选)
-             * */
-            // function statusFilterFn() {
-            //     var datafilter = {
-            //         // industryid:$scope.typeCode
-            //     };
-            //     getShopList().then(function () {
-            //         // console.log(collectedList)
-            //         collectedList = $filter('filter')(collectedList,datafilter);
-            //         // console.log(collectedList)
-            //         collectedList = $quickSort(collectedList,$scope.orderCode,"collectdate");
-            //         $scope.dataToDisplay = collectedList;
-            //         // console.log($scope.dataToDisplay)
-            //     })
-            // }
 
+
+            /**
+             * loadMore
+             * 返回promise
+             * */
+            $scope.loadMore = function () {
+                console.log("dfefdfd")
+                if ($scope.moreDataCanBeLoaded) {
+                    return getShopList(start, findNum).then(function (data) {
+                        if (!data.length) {
+                            $scope.moreDataCanBeLoaded = false;
+                        } else {
+                            if(data.length < findNum){
+                                $scope.moreDataCanBeLoaded = false;
+                            }
+                            $scope.dataToDisplay.extend(data);
+                        }
+                    },function () {
+                        //如果错误
+                        $scope.moreDataCanBeLoaded = false;
+                    }).finally(function () {
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                        $ionicLoading.hide();
+                    });
+                }
+                $ionicLoading.hide();
+            };
+
+            /**
+             * reloadMore,用再次调用
+             * 返回promise
+             * */
+            function reloadMore() {
+                //设置开始值
+                start = 1;
+                //清空结果
+                $scope.dataToDisplay = [];
+                //可加载
+                $scope.moreDataCanBeLoaded = true;
+                //执行
+                return $scope.loadMore();
+            }
 
             /**
              * 取消收藏,收藏按钮操作
@@ -71,40 +112,55 @@
              * */
             $scope.changeCollectionState = function ($event, item) {
                 $ionicLoading.show();
-                var $target =  angular.element($event.target);
+                var $target = angular.element($event.target);
                 $shopCollect($target, item).finally(function () {
                     $ionicLoading.hide();
                 });
             };
 
-            /**
-             * 获取个人收藏列表
-             * */
-            $scope.dataToDisplay = [];
-            var collectedList = [];
 
-            function getShopList() {
-                $ionicLoading.show();
-                return $userCollectedShopList().then(function (data) {
-                    collectedList = data;
-                    angular.forEach(collectedList, function (value, index) {
-                        value.iscollect = 1;
-                    });
-                }, function (errText) {
-                    $ionicToast.show("获取个人收藏列表失败!")
-                }).finally(function () {
-                    $ionicLoading.hide();
-                });
+            /**
+             * 查询某人的卡券列表
+             * categorycode:string,卡券类型值，如有多个，以逗号区分，如‘1,2,4’;传null或者空，则会获取所有卡券类型
+             * column:排序的字段名称
+             * type:降序desc,升序asc
+             * */
+            function getShopList(_start, _findNum) {
+                _start || (_start = 1);
+                _findNum || (_findNum = 999);
+                start++;
+                return $userCollectedShopList({
+                    "conditions":{
+                        "floor":levelCode,
+                        "industryid":typeCode,
+                        "sort": {
+                            "column": "collectdate",
+                            "type": orderCode
+                        },
+                        "page": {
+                            "index": _start,
+                            "num": _findNum
+                        }
+                    }
+                })
             }
 
             /**
              * 每次页面切换刷新列表
              * */
-            $scope.$on("$stateChangeSuccess", function (event,toState, toParams, fromState, fromParams, error) {
-                if(toState.name == 'subNav.memberCollection'){
-                    statusFilterFn();
+            $scope.$on("$stateChangeSuccess", function (event, toState) {
+                if (toState.name == 'subNav.memberCollection') {
+                    $ionicLoading.show();
+                    reloadMore().finally(function () {
+                        $ionicLoading.hide();
+                    });
                 }
             });
+            // $scope.$on("destroy",function () {
+            //     $scope.moreDataCanBeLoaded = true;
+            //     $scope.dataToDisplay = [];
+            //     alert("dfe")
+            // })
 
 
         }]);

@@ -73,7 +73,7 @@
              
                 // domain: "http://115.29.249.215:3300",   //接口地址
                 // domain: "http://127.0.0.1:3300",   //接口地址,本机
-                domain: "http://172.16.6.60:3300",   //接口地址,映射的地址 
+                domain: "http://172.16.6.19:3300",   //接口地址,映射的地址
                 // domain: "http://vivocity.smartac.co:3300",   //接口地址,映射的地址
                 socketChatUrl: "115.29.249.215:8087",  //客服聊天地址
                 resourceDomain: "http://192.168.99.111:8000/resource/"  //图片资源地址
