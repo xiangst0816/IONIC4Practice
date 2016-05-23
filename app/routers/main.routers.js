@@ -102,7 +102,10 @@
                 .state('subNav.memberCouponDetail', {
                     params: {
                         'couponid': null,
-                        'typecode': null
+                        'typecode': null,
+                        'statuscode':null,
+                        'customerid':null,
+                        'code':null
                     },
                     url: '/memberCouponDetail',
                     templateUrl: 'tpl/coupon.detail.tpl.html',

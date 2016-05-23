@@ -39,7 +39,10 @@
                     method: "post",
                     data: angular.deepExtend(params, options),
                     success: function (data) {
-                        if (data.code == "7001" && angular.isArray(data.members) && data.members.length) {
+                        /**
+                         * 如果用户的卡被禁用(data.members[0].cardno),则禁止用户进入
+                         * */
+                        if (data.code == "7001" && angular.isArray(data.members) && data.members.length && !!data.members[0].cardno) {
                             //设置时间戳
                             data.members[0].time = new Date().getTime();
                             //状态数据存储

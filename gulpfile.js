@@ -282,13 +282,14 @@ var serviceMap = {
 var controllerMap = {
     src: [
         path.src + '/tpl/controller.module.js',
-        path.src + '/tpl/activity/**/*.controller.js',
-        path.src + '/tpl/authorize/**/*.controller.js',
-        path.src + '/tpl/home/**/*.controller.js',
-        path.src + '/tpl/mallNavigate/**/*.controller.js',
-        path.src + '/tpl/mallNews/**/*.controller.js',
-        path.src + '/tpl/navigateTo/**/*.controller.js',
-        path.src + '/tpl/selfPark/**/*.controller.js'
+        path.src + '/tpl/**/*.controller.js',
+        // path.src + '/tpl/activity/**/*.controller.js',
+        // path.src + '/tpl/authorize/**/*.controller.js',
+        // path.src + '/tpl/home/**/*.controller.js',
+        // path.src + '/tpl/mallNavigate/**/*.controller.js',
+        // path.src + '/tpl/mallNews/**/*.controller.js',
+        // path.src + '/tpl/navigateTo/**/*.controller.js',
+        // path.src + '/tpl/selfPark/**/*.controller.js'
     ],
     dist: path.dist + '/js'
 };
@@ -379,10 +380,10 @@ var pageCssMap = {
 };
 var ionicCssMap = {
     src: [
-        path.src + '/css/ionic.app.scss',
+        path.src + '/css/ionic.scss',
         path.src + '/css/ionic/**/*.scss'
     ],
-    main: path.src + '/css/ionic.app.scss'
+    main: path.src + '/css/ionic.scss'
 };
 //编译sass文件,将raw文件转到dist中
 gulp.task('pageCss', function () {

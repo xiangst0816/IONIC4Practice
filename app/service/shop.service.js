@@ -37,15 +37,16 @@
                 };
                 //数据合并 
                 angular.deepExtend(params, options);
-                console.log(params)
+                // console.log(params);
                 AJAX({
                     url: api.shopUrl,
                     method: "post",
                     data: params,
                     success: function (data) {
                         if (data.code == 7001) {
+
                             defer.resolve(data.content);
-                            console.log(data.content)
+                            console.log(data.content);
                             $log.debug("商铺列表获取成功,数据:" + data.content.length + "条")
                         } else {
                             defer.resolve([]);
@@ -90,14 +91,21 @@
                 };
                 //数据合并
                 angular.deepExtend(params, options);
+                console.log('params');
+                console.log(params);
                 AJAX({
                     method: "post",
                     url: api.customerUrl,
                     data: params,
                     success: function (data) {
                         if (data.code == 7001 && !!data.content) {
-                            defer.resolve(data.content);
-                            $log.debug("$userCollectedShopList获取成功,共" + data.content.length + "条")
+                            var collectedList = data.content;
+                            angular.forEach(collectedList, function (value, index) {
+                                value.iscollect = 1;
+                            });
+                            console.log(collectedList)
+                            defer.resolve(collectedList);
+                            $log.debug("$userCollectedShopList获取成功,共" + collectedList.length + "条")
                         } else {
                             // console.log(data);
                             defer.resolve([]);
