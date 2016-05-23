@@ -105,6 +105,8 @@
              * */
             $scope.$on("$stateChangeSuccess", function (event, toState) {
                 if (toState.name == 'subNav.brandInfo') {
+                    // $ionicLoading.show();
+                    // $scope.moreDataCanBeLoaded = true;
                     $ionicLoading.show();
                     reloadMore().finally(function () {
                         $ionicLoading.hide();
@@ -162,6 +164,7 @@
                         }
                     }).finally(function () {
                         $scope.$broadcast('scroll.infiniteScrollComplete');
+                        $ionicLoading.hide();
                     });
                 }
             };
