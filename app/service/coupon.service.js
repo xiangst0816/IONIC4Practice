@@ -21,7 +21,7 @@
                         "orgid": "",
                         "area": null,
                         "typecode":null,//1,卡券 2,礼品 int
-                        "applicablechannel": 1,//适用渠道 1 积分商城 2活动（摇一摇，抽奖，围栏...）3奖赏引擎 4推送 int
+                        "applicablechannel": 0,//适用渠道 1 积分商城 2活动（摇一摇，抽奖，围栏...）3奖赏引擎 4推送 int
                         "querytype": "main",
                         "page": {
                             "index": 1,
@@ -293,8 +293,8 @@
                     method: 'post',
                     data: params,
                     success: function (data) {
-                        console.log('$couponDetail');
-                        console.log(data);
+                        // console.log('$couponDetail');
+                        // console.log(data.content);
                         if (data.code == 7001 && !!data.content) {
                             defer.resolve(data.content);
                         } else {

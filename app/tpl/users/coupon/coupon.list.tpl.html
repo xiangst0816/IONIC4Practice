@@ -27,7 +27,7 @@
                 <!--isCoupon each-->
                 <div class="eachItems" ng-repeat="item in dataToDisplay track by $index">
                     <!--将item内容传入子页面-->
-                    <section class="layer1 clearfix" ui-sref="subNav.memberCouponDetail({couponid:item.id,typecode:item.type_code})">
+                    <section class="layer1 clearfix" ui-sref="subNav.memberCouponDetail({couponid:item.templet_id,typecode:item.type_code,statuscode:item.status_code,customerid:item.customer_id,code:item.code})">
                         <div class="imgBox placeholder_43_2">
                             <img class="" ng-src="{{::item.image_url | addImgPrefix}}"
                                  err-src="{{::errImg.errImg43_1}}">

@@ -81,6 +81,8 @@
              * */
             $scope.$on("$stateChangeSuccess", function (event, toState) {
                 if (toState.name == 'subNav.memberCoupon') {
+                    // $ionicLoading.show();
+                    // $scope.moreDataCanBeLoaded = true;
                     $ionicLoading.show();
                     reloadMore().finally(function () {
                         $ionicLoading.hide();
@@ -94,7 +96,7 @@
              * */
             $scope.usedNow = function (code) {
                 $scope.useGougon4Code = code;
-                $scope.useGougon4CodeImg = '';
+                $scope.useGougon4CodeImg = null;
                 $scope.useGougon4CodeImg = api.generateQrcodeUrl + api.scancodeVerificationUrl + code;
                 $scope.popover.show();
             };
@@ -122,6 +124,7 @@
                         $scope.moreDataCanBeLoaded = false;
                     }).finally(function () {
                         $scope.$broadcast('scroll.infiniteScrollComplete');
+                        $ionicLoading.hide();
                     });
                 }
             };
