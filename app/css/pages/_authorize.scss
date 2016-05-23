@@ -136,6 +136,7 @@
       left:0.046rem;
       position: relative;
       font-size:0.3rem;
+      background-color:transparent;
     }
     .selected::after{
       content: '';
@@ -147,6 +148,7 @@
       left:0.07rem;
       top:0.07rem;
     }
+
     .xieyishuoming{
       font-size:0.28rem;
       text-decoration: underline;
