@@ -173,10 +173,7 @@
              * */
             $scope.$on("$stateChangeSuccess", function (event, toState) {
                 if (toState.name == 'subNav.memberIntegralMall') {
-                    $ionicLoading.show();
-                    reloadMore().finally(function () {
-                        $ionicLoading.hide();
-                    })
+                    reloadMore();
                 }
             });
 
@@ -198,8 +195,10 @@
                         $scope.moreDataCanBeLoaded = false;
                     }).finally(function () {
                         $scope.$broadcast('scroll.infiniteScrollComplete');
+                        $ionicLoading.hide();
                     });
                 }
+
             };
 
             /**
@@ -212,8 +211,12 @@
                 $scope.dataToDisplay = [];
                 //可加载
                 $scope.moreDataCanBeLoaded = true;
+
+                $ionicLoading.show();
                 //执行
-                return $scope.loadMore();
+                return $scope.loadMore().finally(function () {
+                    $ionicLoading.hide();
+                });
             }
 
 
@@ -226,7 +229,6 @@
             }, function (errText) {
                 $ionicToast.show("积分信息获取失败," + errText);
             });
-            // }
 
             /**
              * 获取卡券列表

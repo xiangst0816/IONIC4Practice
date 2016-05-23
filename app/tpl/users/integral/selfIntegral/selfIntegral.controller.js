@@ -4,7 +4,8 @@
  */
 (function () {
     angular.module('smartac.controllers')
-        .controller('selfIntegralCtrl', ['$scope', '$ionicActionSheet', '$state', '$ionicSlideBoxDelegate', '$ionicPopup', '$toDateFormat', '$filter','$createTrade','$sessionStorage','$ionicLoading','$ionicToast', function ($scope, $ionicActionSheet, $state, $ionicSlideBoxDelegate, $ionicPopup, $toDateFormat, $filter,$createTrade,$sessionStorage,$ionicLoading,$ionicToast) {
+        .controller('selfIntegralCtrl', ['$scope', '$ionicActionSheet', '$state', '$ionicSlideBoxDelegate', '$ionicPopup', '$toDateFormat', '$filter','$createTrade','$sessionStorage','$ionicLoading','$ionicToast','$base64', function ($scope, $ionicActionSheet, $state, $ionicSlideBoxDelegate, $ionicPopup, $toDateFormat, $filter,$createTrade,$sessionStorage,$ionicLoading,$ionicToast,$base64) {
+           // console.log( $base64.encode("10000"))
 
             /**
              * 左右两个箭头切换silder

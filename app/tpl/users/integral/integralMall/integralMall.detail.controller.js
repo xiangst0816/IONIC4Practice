@@ -21,6 +21,7 @@
                     "typecode":typecode
                 }
             }).then(function (data) {
+                console.log(data)
                 $scope.item = data;
             }, function () {
                 $timeout(function () {

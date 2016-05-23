@@ -59,7 +59,7 @@
              * */
             //获得积分过期时间
             $scope.deadline = {
-                year: new Date().getFullYear(),
+                year: '',
                 month: '',
                 day: ''
             };
@@ -69,9 +69,9 @@
              * 首次加载需要确定数据获取成功,使用$q函数
              * */
             $ionicLoading.show();
-            $q.all([getIntegralDeadline(),totalIntegral()]).then(function () {
+            $q.all([getIntegralDeadline(), totalIntegral()]).then(function () {
                 //预设时间,四个月前
-                $scope.params.datefrom = new Date((parseInt((new Date().getTime() / 1000) - parseInt(60 * 60 * 24 * 30 * 4)))*1000);
+                $scope.params.datefrom = new Date((parseInt((new Date().getTime() / 1000) - parseInt(60 * 60 * 24 * 30 * 4))) * 1000);
                 $scope.params.dateto = new Date();
                 //查询
                 reloadMore();
@@ -163,19 +163,39 @@
                     "keyname": "pointreset"
                 }).then(function (codeList) {
                     if (codeList.length > 0) {
-                        for(var i=0,len = codeList.length;len>i;i++){
-                            if(codeList[i].keyname == 'pointreset_date'){
+                        for (var i = 0, len = codeList.length; len > i; i++) {
+                            if (codeList[i].keyname == 'pointreset_date') {
                                 var deadline = codeList[i].keycode.toString();
                                 break;
                             }
                         }
-                        $scope.deadline.month = deadline.substr(0, 2);
-                        $scope.deadline.day = deadline.substr(2, 2);
+                        //处理月日
+                        if (deadline.length == 3) {
+                            //203的情况2月3日
+                            $scope.deadline.month = parseInt(deadline.substr(0, 1));
+                            $scope.deadline.day = parseInt(deadline.substr(1, 2));
+                        } else {
+                            //1203的情况12月3日
+                            $scope.deadline.month = parseInt(deadline.substr(0, 2));
+                            $scope.deadline.day = parseInt(deadline.substr(2, 2));
+                        }
+                        //处理年
+                        var monthNow = parseInt(new Date().getMonth() + 1);
+                        var dayNow = parseInt(new Date().getDate());
+                        if($scope.deadline.month >monthNow && $scope.deadline.day > dayNow){
+                            $scope.deadline.year = parseInt(new Date().getFullYear());
+                        }else{
+                            $scope.deadline.year = parseInt(new Date().getFullYear()) + 1;
+                        }
+                        
                     } else {
                         //默认值
+                        $scope.deadline.year = new Date().getFullYear();
                         $scope.deadline.month = 12;
                         $scope.deadline.day = 30;
                         $log.debug("获得积分过期时间失败,当前使用默认日期,12.30");
+
+
                     }
                 }, function (err) {
                     $ionicToast.show("积分过期时间获取失败," + err);

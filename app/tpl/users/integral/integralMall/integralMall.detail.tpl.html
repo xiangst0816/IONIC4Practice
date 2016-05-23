@@ -3,14 +3,14 @@
     <!--礼券详情-->
     <section>
       <div class="shopImg placeholder_43_2">
-        <img ng-src="{{::item.image_url | addImgPrefix}}" err-src="">
+        <img ng-src="{{item.image_url | addImgPrefix}}" err-src="">
       </div>
-      <div class="cardDetails" ng-switch="::item.category_name" ng-if="item.type_code == 1">
+      <div class="cardDetails" ng-switch="item.category_name" ng-if="item.type_code == 1">
         <strong ng-bind="::item.name"></strong>
-        <p ng-switch-when="::coupon_category_1"><span ng-bind="::item.coupon_value"></span>折<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
-        <p ng-switch-when="::coupon_category_2"><span ng-bind="::item.coupon_value"></span>元<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
-        <p ng-switch-when="::coupon_category_3"><span ng-bind="::item.coupon_value"></span>元<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
-        <p ng-switch-when="::coupon_category_4"><span ng-bind="::item.coupon_value"></span>元<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
+        <p ng-switch-when="coupon_category_1"><span ng-bind="::item.coupon_value"></span>折<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
+        <p ng-switch-when="coupon_category_2"><span ng-bind="::item.coupon_value"></span>元<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
+        <p ng-switch-when="coupon_category_3"><span ng-bind="::item.coupon_value"></span>元<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
+        <p ng-switch-when="coupon_category_4"><span ng-bind="::item.coupon_value"></span>元<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
       </div>
       <div class="cardDetails" ng-if="item.type_code == 2">
         <strong ng-bind="::item.name"></strong>
@@ -29,7 +29,7 @@
         <div class="detailBox">
           <div class="detailTitle"><strong>使用规则: </strong></div>
           <!--<div class="innerBox" ng-bind-html="::item.detail_rule | withoutStyle"></div>-->
-          <div ng-if="item.type_code == 1" class="innerBox" ng-bind-html="::item.detailrule"></div>
+          <div ng-if="item.type_code == 1" class="innerBox" ng-bind-html="::item.detail_rule"></div>
           <div ng-if="item.type_code == 2" class="innerBox" ng-bind-html="::item.detail_rule"></div>
           <!--<li>限{{item.org_name}}使用</li>-->
           <!--&lt;!&ndash;<li>店铺名称:{{item.shop[0].name}},位置:{{item.shop[0].area}}</li>&ndash;&gt;-->
