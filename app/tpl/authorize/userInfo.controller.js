@@ -231,6 +231,9 @@
                 }).success(function (data) {
                     if (data.code == 0) {
                         $scope.params.photo = data.uuid;
+                    } else {
+                        $ionicToast.show('上传出错,请稍后再试');
+                        $log.error('上传资源服务器出错,返回码:' + data.code);
                     }
                 }).error(function (response) {
                     $ionicToast.show('上传出错,请稍后再试');

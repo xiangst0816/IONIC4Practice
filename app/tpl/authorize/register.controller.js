@@ -92,6 +92,11 @@
                     return;
                 }
 
+                if (verification.isPassword($scope.register.password)) {
+                    $ionicToast.show('密码格式不对');
+                    return;
+                }
+
                 if (verification.isEmpty($scope.register.pswRept)) {
                     $ionicToast.show('请输入密码');
                     return;

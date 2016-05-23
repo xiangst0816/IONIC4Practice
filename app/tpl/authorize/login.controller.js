@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.controllers')
-        .controller('loginCtrl', ['$scope', 'verification', '$ionicLoading', 'AJAX', 'api', '$ionicToast', '$login', '$getUserInfo','$rootScope', function ($scope, verification, $ionicLoading, AJAX, api, $ionicToast, $login, $getUserInfo,$rootScope) {
+        .controller('loginCtrl', ['$scope', 'verification', '$ionicLoading', '$ionicToast', '$login', '$getUserInfo','$rootScope', function ($scope, verification, $ionicLoading, $ionicToast, $login, $getUserInfo,$rootScope) {
 
             /**
              * 提交按钮
