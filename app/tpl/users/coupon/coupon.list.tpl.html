@@ -33,8 +33,9 @@
                                  err-src="{{::errImg.errImg43_1}}">
                         </div>
                         <div class="layer1-center">
-                            <h2><span ng-bind="::item.name"></span><span
-                                    ng-bind="::item.category_value | couponCategoryToName"></span></h2>
+                            <h2><span ng-bind="::item.name"></span>
+                                <!--<span ng-bind="::item.category_value | couponCategoryToName"></span>-->
+                            </h2>
                             <p>序列号: <span ng-bind="::item.code"></span></p>
                         </div>
                         <div class="layer1-right" ng-if="::item.type_code == 1">

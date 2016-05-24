@@ -11,9 +11,10 @@
         .factory("$wxGetConfig", ['AJAX', 'api', '$q', 'baseInfo', '$ionicToast', '$sessionStorage', '$log', function (AJAX, api, $q, baseInfo, $ionicToast, $sessionStorage, $log) {
 
             /**
-             * 配置微信config
+             * 配置微信环境
              * */
-            function setConfig(data) {
+            function setENV(data,CallBack) {
+                //设置config
                 wx.config({
                     debug: false,
                     // debug: true,
@@ -60,6 +61,27 @@
                         'openCard'
                     ]
                 });
+
+                wx.ready(function () {
+
+                    //设置分享按钮显示
+                    // 要显示的菜单项，所有menu项见附录3
+                    wx.hideMenuItems({
+                        menuList: [
+                            "menuItem:share:qq",
+                            "menuItem:share:facebook",
+                            // "menuItem:share:weiboApp",
+                            "menuItem:share:email",
+                            "menuItem:openWithSafari"
+                        ]
+                    });
+
+                    !!CallBack && CallBack();
+                });
+
+
+
+                //如果错误
                 wx.error(function (res) {
                     defer.reject(false);
                     $log.debug('微信JSSDK获取失败,' + res);
@@ -86,8 +108,9 @@
                         success: function (data) {
                             if (data.code == "7001") {
                                 $sessionStorage.wxConfig = data.content;
-                                setConfig(data.content);
-                                defer.resolve(true);
+                                setENV(data.content,function () {
+                                    defer.resolve(true);
+                                });
                             } else {
                                 defer.reject(data.code);
                                 $log.debug('微信配置失败,code:' + data.code);

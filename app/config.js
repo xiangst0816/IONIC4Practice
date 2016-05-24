@@ -73,10 +73,17 @@
              
                 // domain: "http://115.29.249.215:3300",   //接口地址
                 // domain: "http://127.0.0.1:3300",   //接口地址,本机
-                domain: "http://172.16.6.19:3300",   //接口地址,映射的地址
+                domain: "http://172.16.6.43:3300",   //接口地址,映射的地址
                 // domain: "http://vivocity.smartac.co:3300",   //接口地址,映射的地址
                 socketChatUrl: "115.29.249.215:8087",  //客服聊天地址
-                resourceDomain: "http://192.168.99.111:8000/resource/"  //图片资源地址
+                resourceDomain: "http://192.168.99.111:8000/resource/",  //图片资源地址
+
+                //二维码的生成地址
+                generateQrcodeUrl: "http://srdemo1.smartac.co/dqcodegen?symbology=58&size=300&fg_color=000000&bg_color=ffffff&case=1&margin=0&level=0&hint=2&ver=2&txt=",
+                // generateQrcodeUrl: "http://vivocity.smartac.co:15433/barcode?symbology=58&size=645&s_fg_color=000000&s_bg_color=ffffff&margin=0&level=2&ecc_level=1&hint=1&ver=0&transparent=1&txt=",
+                generateBarcodeUrl: "http://srdemo1.smartac.co/dqcodegen?symbology=20&size=1&case=1&txt=",
+
+                scancodeVerificationUrl: 'http://vivocity.smartac.co:3300/api/rewardsprogram/customerusecoupon_xc/',
             }
         }])
 

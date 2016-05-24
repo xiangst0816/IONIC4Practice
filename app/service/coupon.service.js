@@ -142,6 +142,7 @@
                 };
                 //数据合并
                 angular.deepExtend(params, options);
+                console.log(params)
                 AJAX({
                     method: 'post',
                     url: api.couponUrl,

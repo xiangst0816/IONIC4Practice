@@ -17,7 +17,6 @@
     margin-left:auto;
     margin-right:auto;
     background:url(../img/authorize/logo-vivocity.png) no-repeat center center /auto 100%;
-
   }
 
   .login-list{
@@ -34,6 +33,7 @@
       input{
         color:$stable;
         font-size:0.3rem;
+        line-height: normal;
       }
       input::-webkit-input-placeholder{
         color:$stable;

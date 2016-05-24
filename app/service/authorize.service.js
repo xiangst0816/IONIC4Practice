@@ -186,10 +186,7 @@
                             var errText;
                             switch (data.code) {
                                 case 8012:
-                                    errText = "验证码错误,请检查";
-                                    break;
-                                case 8004:
-                                    errText = "无此手机号,请核对";
+                                    errText = "验证码或手机号码错误,请检查";
                                     break;
                                 default:
                                     errText = "系统错误,请稍后再试";

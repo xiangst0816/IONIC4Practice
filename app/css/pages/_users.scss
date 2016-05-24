@@ -29,10 +29,10 @@
   color: #fff;
   .memberBox {
     @include display-flex;
-    @include justify-content(center);
+    @include justify-content(space-between);
     @include align-items(center);
-    @include flex-wrap(wrap);
-    @include align-content(space-between);
+    @include flex-direction(column);
+    //@include align-content(space-between);
 
     //display: flex;
     //justify-content: center;
@@ -48,8 +48,9 @@
     .section1 {
       width: 100%;
       @include display-flex;
-      @include justify-content(space-around);
+      @include justify-content(center);
       @include align-items(center);
+      //@include flex-direction(row);
 
       //display: flex;
       //justify-content: space-around;
@@ -98,6 +99,8 @@
         height: 1.88rem;
         text-align: center;
 
+        margin: 0 1.15rem;
+
         @include display-flex;
         @include justify-content(center);
         @include align-items(center);
@@ -120,9 +123,9 @@
     .section2 {
       padding: 0 0.468rem;
       @include display-flex;
-      @include justify-content(space-around);
+      @include justify-content(center);
       @include align-items(center);
-
+      //@include flex-direction(row);
       //display: flex;
       //justify-content: space-around;
       //align-items: center;
@@ -133,17 +136,24 @@
         height: 0.53rem;
         width: 2.19rem;
         border-radius: 0.117rem;
-        line-height: 0.468rem;
+        //line-height: 0.468rem;
         box-sizing: content-box;
         text-align: center;
+
+        margin:0 0.5rem;
 
         @include display-flex;
         @include justify-content(center);
         @include align-items(center);
+        @include flex-direction(row);
 
         //display: flex;
         //justify-content: center;
         //align-items: center;
+
+        span{
+          line-height: 0.53rem;
+        }
 
       }
     }
@@ -208,7 +218,7 @@
         .stateText {
           @include display-flex;
           @include justify-content(space-between);
-
+          @include flex-direction(row);
           //display: flex;
           //justify-content: space-between;
 
@@ -258,8 +268,8 @@
 
         @include display-flex;
         @include justify-content(center);
-        @include align-content(center);
-        @include flex-wrap(wrap);
+        @include align-items(center);
+        @include flex-direction(column);
 
         //display: flex;
         //justify-content: center;
@@ -268,7 +278,6 @@
         box-sizing: border-box;
         width: 2.25rem;
         i {
-          //font-size:30px;
         }
         div {
           margin-top: 0.234rem;
@@ -318,9 +327,9 @@
     //height:20px;
     text-align: center;
 
-    @include display-flex;
-    @include justify-content(center);
-    @include align-items(center);
+    //@include display-flex;
+    //@include justify-content(center);
+    //@include align-items(center);
 
 
     //display: flex;
@@ -329,19 +338,22 @@
 
     z-index: 999;
     position: absolute;
-    bottom: -1rem;
-    span {
+    bottom: -1.13rem;
+    div {
       position: relative;
       margin-left: auto;
       margin-right: auto;
-      background-color: $stable;;
-      width: 1rem;
-      height: 1rem;
+      background-color: $stable;
+      width: 1.26rem;
+      height: 1.13rem;
       color: #fff;
-      font-size: 0.3rem;
-      border-bottom-left-radius: 5px;
-      border-bottom-right-radius: 5px;
+      //font-size: 0.3rem;
+      border-bottom-left-radius: 0.15rem;
+      border-bottom-right-radius: 0.15rem;
       z-index: 999;
+
+      //top: 13px;
+
       @include display-flex;
       @include align-items(center);
       @include justify-content(center);

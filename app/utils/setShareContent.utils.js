@@ -52,7 +52,7 @@
             }
 
             /**
-             * 设置分享
+             * 进行分享
              * */
             function launchShare(shareContent) {
                 //当前地址签名,签名一次就好

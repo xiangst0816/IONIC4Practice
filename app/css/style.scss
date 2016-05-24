@@ -1,7 +1,7 @@
 
 @charset "UTF-8";
 *{
-  //outline:1px solid #998;
+  // outline:1px solid #998;
 }
 //*:active{
 //  background-color:#ddd;
@@ -22,6 +22,9 @@
 //theme
 @import "common/mobile";
 @import "common/placeholdImg";
+
+//animation
+@import "common/_animation";
 
 
 //susbPage style

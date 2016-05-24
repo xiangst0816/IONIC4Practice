@@ -153,7 +153,33 @@
                         swiperInnerBox[c].style.opacity = 0;
 
                         console.log(whichTop)
+
+                        applyAnimation(whichTop)
                     }
+
+            /**
+             * 增加顶上元素果冻动画效果
+             *
+             */
+            function applyAnimation(whichTop){
+
+                var which;
+
+                //计算出顶上元素在数组中的位置
+                if(whichTop === 0){
+                    which = 0
+                }else{
+                    which = 6 - whichTop
+                }
+
+                //将NodeList转成真正数组
+                var swiperInnerBoxArr = Array.prototype.slice.call(swiperInnerBox);
+
+                //增加动画类
+                swiperInnerBoxArr.forEach(function(box, i){
+                    i === which ? box.classList.add("animation-jelly") : box.classList.remove("animation-jelly")
+                })
+            }
 
                 }]
             }

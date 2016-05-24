@@ -187,7 +187,7 @@
                 var defer = $q.defer();
                 var params = {
                     "method": "getParkingFee",
-                    "ticketInfo": "苏E66666"//停车小票扫码出来的信息
+                    "ticketInfo": ""//停车小票扫码出来的信息
                 };
                 //数据合并
                 angular.deepExtend(params, options);

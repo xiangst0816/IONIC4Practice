@@ -208,6 +208,7 @@
          * 微信当前地址签名 及 设置 app 和 微信分享内容
          * */
         .run(['$setShareContent', function ($setShareContent) {
+
             $setShareContent();
         }])
 

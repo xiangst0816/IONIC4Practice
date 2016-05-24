@@ -39,10 +39,9 @@ angular.module('smartac.services', []);
                 parkingUrl: domain + "/sbp",
 
                 //二维码的生成地址
-                generateQrcodeUrl: "http://srdemo1.smartac.co/dqcodegen?symbology=58&size=300&fg_color=000000&bg_color=ffffff&case=1&margin=0&level=0&hint=2&ver=2&txt=",
-                generateBarcodeUrl: "http://srdemo1.smartac.co/dqcodegen?symbology=20&size=1&case=1&txt=",
-
-                scancodeVerificationUrl: domain + '/api/rewardsprogram/customerusecoupon_xc/',
+                generateQrcodeUrl: baseUrl.generateQrcodeUrl,
+                generateBarcodeUrl: baseUrl.generateBarcodeUrl,
+                scancodeVerificationUrl: baseUrl.scancodeVerificationUrl
 
 
             }

@@ -20,11 +20,11 @@
         <div class="detailBox" ng-if="item.type_code == 1">
           <div class="detailTitle"><strong>使用时间:</strong></div>
           <span ng-if="::item.valid_type_code == 2">有效天数: <span ng-bind="::item.valid_days"></span>天</span>
-          <span ng-if="::item.valid_type_code == 1"><span ng-bind="::item.valid_start_time"></span> 至 <span ng-bind="::item.valid_end_time"></span></span>
+          <span ng-if="::item.valid_type_code == 1"><span ng-bind="::item.valid_start_time | yyyyMd_cn"></span> 至 <span ng-bind="::item.valid_end_time | yyyyMd_cn"></span></span>
         </div>
         <div class="detailBox" ng-if="item.type_code == 2">
           <div class="detailTitle"><strong>使用时间:</strong></div>
-          <span><span ng-bind="::item.valid_start_time"></span> 至 <span ng-bind="::item.valid_end_time"></span></span>
+          <span><span ng-bind="::item.valid_start_time | yyyyMd_cn"></span> 至 <span ng-bind="::item.valid_end_time | yyyyMd_cn"></span></span>
         </div>
         <div class="detailBox">
           <div class="detailTitle"><strong>使用规则: </strong></div>

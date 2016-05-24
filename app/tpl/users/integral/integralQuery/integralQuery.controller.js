@@ -182,7 +182,7 @@
                         //处理年
                         var monthNow = parseInt(new Date().getMonth() + 1);
                         var dayNow = parseInt(new Date().getDate());
-                        if($scope.deadline.month >monthNow && $scope.deadline.day > dayNow){
+                        if($scope.deadline.month >=monthNow && $scope.deadline.day >= dayNow){
                             $scope.deadline.year = parseInt(new Date().getFullYear());
                         }else{
                             $scope.deadline.year = parseInt(new Date().getFullYear()) + 1;

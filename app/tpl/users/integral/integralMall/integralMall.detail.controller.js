@@ -36,8 +36,10 @@
              * */
             $scope.rewardCouponBtn = function () {
                 var detail = $scope.item;
+                console.log('detail');
+                console.log(detail);
                 //判断title
-                if (detail.category_name && detail.category_name.indexOf('coupon') > -1) {
+                if (detail.type_code == 1) {
                     var title = '礼券';
                     var suffix = '张';
                 } else {
