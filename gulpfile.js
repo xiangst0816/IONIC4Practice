@@ -39,39 +39,18 @@ gulp.task('clean:dist', function () {
 /**
  * ---tpl模板转移--------------------------------------------------------------
  * */
-var tplMap = {
-    src:[
-        path.src + '/tpl/**/*.html',
-        path.src + '/index.html'
-    ],
-    tpl: [
-        path.src + '/tpl/**/*.html'
-    ],
-    index: path.src + '/index.html',
-    dist: path.dist + '/tpl'
-};
 gulp.task('move:tpl', function () {
-    var tpl =  gulp.src(tplMap.tpl)
+    return gulp.src(path.src + '/page/**/*.html')
         .pipe(rename({dirname: ''}))
-        .pipe(gulp.dest(tplMap.dist));
-
-    var base = gulp.src(tplMap.index)
-        .pipe(gulp.dest(path.dist));
-    return merge(tpl, base);
+        .pipe(gulp.dest(path.dist + '/tpl'));
 });
+
 /**
- * ---根路径js文件--------------------------------------------------------------
- * (app,config,bridge)
+ * ---根路径文件--------------------------------------------------------------
+ * (app,config,bridge,index)
  * */
-var baseJs = {
-    src:[
-        path.src + '/app.js',
-        path.src + '/config.js',
-        path.src + '/bridge.js'
-    ]
-};
-gulp.task('move:baseJs', function () {
-    var stream = gulp.src(baseJs.src);
+gulp.task('move:base', function () {
+    var stream = gulp.src(path.src + '/*.*');
     if (ENV == "PRO") {
         return stream.pipe(uglify())
             // .pipe(md5(10, path.dist + '/index.html'))
@@ -84,40 +63,16 @@ gulp.task('move:baseJs', function () {
 /**
  * ---其余资源转移--------------------------------------------------------------
  * */
-gulp.task('move:resource', function () {
-    var moveLib = {
-        src: [
-            path.src + '/lib/ionic/js/*.min.js',
-            path.src + '/lib/ngStorage.min.js',
-            path.src + '/lib/ocLazyLoad.min.js',
-            path.src + '/lib/socket.min.js',
-            path.src + '/lib/socket.io.min.js',
-            path.src + '/lib/jweixin-1.0.0.js'
-        ],
-        dist: path.dist + '/lib'
-    };
-    // var moveImg = {
-    //     src: [
-    //         path.src + '/img/**/*.{png,jpg,jpeg,gif,svg}'
-    //     ],
-    //     dist: path.dist + '/img'
-    // };
-    var moveFont = {
-        src: [
-            path.src + '/fonts/**/*.*'
-        ],
-        dist: path.dist + '/fonts'
-    };
+gulp.task('move:lib', function () {
+    var stream =  gulp.src(path.src + '/lib/*.min.js').pipe(concat('core.js'))
+    if (ENV == "PRO") {
+        return stream.pipe(uglify())
+        // .pipe(md5(10, path.dist + '/index.html'))
+            .pipe(gulp.dest(path.dist + '/js'));
+    } else {
+        return stream.pipe(gulp.dest(path.dist + '/js'));
+    }
 
-
-    var lib = gulp.src(moveLib.src)
-        .pipe(gulp.dest(moveLib.dist));
-    // var img = gulp.src(moveImg.src)
-    //     .pipe(imagemin())
-    //     .pipe(gulp.dest(moveImg.dist));
-    var font = gulp.src(moveFont.src)
-        .pipe(gulp.dest(moveFont.dist));
-    return merge(lib, font);
 });
 
 /**
@@ -141,34 +96,12 @@ gulp.task('img:min', function () {
 });
 
 
-
-// gulp.task('jsmin', function () {
-//     return gulp.src('./app/lib/socket.io.js')
-//         .pipe(concat('socket.io.min.js'))
-//         .pipe(uglify())
-//         .pipe(gulp.dest(path.dist + '/js'));
-// });
-
-
 /**
- * ---1. 需要按需加载到模块--------------------------------------------------------------
- * user/brandInfo
- * 上述需要关注公账号(微信)或者(登陆后)才能访问,
- * 故将此资源提取出来进行按需加载.
- * 触发动作为"鉴权操作".
+ * ---2. 公共模块--------------------------------------------------------------
+ * controller/filter/directives/utils/routers
  * */
-
-/**
- * 定义lazyLoad资源的map
- * */
-var lazyLoadMap = [
-    path.src + '/tpl/users/**/*.controller.js',
-    path.src + '/tpl/brandInfo/**/*.controller.js'
-    // path.src + '/service/users/**/*.service.js',
-    // path.src + '/service/brandInfo/**/*.service.js'
-];
-gulp.task('resource:lazyLoadMap', function () {
-    var stream = gulp.src(lazyLoadMap).pipe(concat('lazyLoadMap.resource.js'));
+gulp.task('commonJS', function () {
+    var stream = gulp.src(path.src + '/common/**/*.js').pipe(concat('commonJS.js'));
     if (ENV == "PRO") {
         return stream.pipe(uglify())
             // .pipe(md5(10, path.dist + '/index.html'))
@@ -177,190 +110,19 @@ gulp.task('resource:lazyLoadMap', function () {
         return stream.pipe(gulp.dest(path.dist + '/js'));
     }
 });
-
-// var userMap = [
-//     path.src + '/tpl/users/**/*.controller.js',
-//     path.src + '/service/users/**/*.service.js'
-// ];
-// gulp.task('resource:users', function () {
-//     var stream = gulp.src(userMap).pipe(concat('users.resource.js'));
-//     if (ENV == "PRO") {
-//         return stream.pipe(uglify())
-//             // .pipe(md5(10, path.dist + '/index.html'))
-//             .pipe(gulp.dest(path.dist + '/js'));
-//     } else {
-//         return stream.pipe(gulp.dest(path.dist + '/js'));
-//     }
-// });
-
 /**
- * 定义brandInfo资源的map
+ * ---3. 页面模块--------------------------------------------------------------
+ * controller/filter/directives/utils/routers
  * */
-// var brandInfoMap = [
-//     path.src + '/tpl/brandInfo/**/*.controller.js',
-//     path.src + '/service/brandInfo/**/*.service.js'
-// ];
-// gulp.task('resource:brandInfo', function () {
-//     var stream = gulp.src(brandInfoMap).pipe(concat('brandInfo.resource.js'));
-//     if (ENV == "PRO") {
-//         return stream.pipe(uglify())
-//             // .pipe(md5(10, path.dist + '/index.html'))
-//             .pipe(gulp.dest(path.dist + '/js'))
-//     } else {
-//         return stream.pipe(gulp.dest(path.dist + '/js'));
-//     }
-// });
-
-// /**
-//  * 定义selfPark资源的map
-//  * */
-// var selfParkMap = [
-//     path.src + '/tpl/selfPark/controller.selfPark.module.js',
-//     path.src + '/tpl/selfPark/**/*.controller.js',
-//     path.src + '/service/selfPark/parking.service.module.js',
-//     path.src + '/service/selfPark/**/*.service.js'
-// ];
-// gulp.task('resource:selfPark', function () {
-//     var stream = gulp.src(selfParkMap).pipe(concat('selfPark.resource.js'));
-//     if (ENV == "PRO") {
-//         return stream.pipe(uglify())
-//             // .pipe(md5(10, path.dist + '/index.html'))
-//             .pipe(gulp.dest(path.dist + '/js'));
-//     } else {
-//         return stream.pipe(gulp.dest(path.dist + '/js'));
-//     }
-// });
-
-/**
- * ---2. 其余首屏就加载的模块--------------------------------------------------------------
- * filter/directives/utils/routers
- * 定义其余资源的map(首屏加载部分)
- * */
-
-//filters
-var filterMap = {
-    src: [
-        path.src + '/filters/filters.module.js',
-        path.src + '/filters/**/*.filter.js'
-    ],
-    dist: path.dist + '/js'
-};
-//directives
-var directiveMap = {
-    src: [
-        path.src + '/directives/directive.module.js',
-        path.src + '/directives/**/*.directive.js'
-    ],
-    dist: path.dist + '/js'
-};
-//utils
-var utilsMap = {
-    src: [
-        path.src + '/utils/utils.module.js',
-        path.src + '/utils/**/*.utils.js'
-    ],
-    dist: path.dist + '/js'
-};
-//routers
-var routerMap = {
-    src: [
-        path.src + '/routers/routers.module.js',
-        path.src + '/routers/**/*.routers.js'
-    ],
-    dist: path.dist + '/js'
-};
-//service
-var serviceMap = {
-    src: [
-        path.src + '/service/services.module.js',
-        path.src + '/service/**/*.service.js'
-    ],
-    dist: path.dist + '/js'
-};
-//controller
-//检查controller不生效是因为这个嘛?
-var controllerMap = {
-    src: [
-        path.src + '/tpl/controller.module.js',
-        path.src + '/tpl/**/*.controller.js',
-        // path.src + '/tpl/activity/**/*.controller.js',
-        // path.src + '/tpl/authorize/**/*.controller.js',
-        // path.src + '/tpl/home/**/*.controller.js',
-        // path.src + '/tpl/mallNavigate/**/*.controller.js',
-        // path.src + '/tpl/mallNews/**/*.controller.js',
-        // path.src + '/tpl/navigateTo/**/*.controller.js',
-        // path.src + '/tpl/selfPark/**/*.controller.js'
-    ],
-    dist: path.dist + '/js'
-};
-gulp.task('resource:otherJS', function () {
-    var filter = (function () {
-        var stream = gulp.src(filterMap.src).pipe(concat('filters.js'));
-        if (ENV == "PRO") {
-            return stream.pipe(uglify())
-                .pipe(md5(10, path.dist + '/index.html'))
-                .pipe(gulp.dest(filterMap.dist));
-        } else {
-            return stream.pipe(gulp.dest(filterMap.dist));
-        }
-    })();
-
-    var directive = (function () {
-        var stream = gulp.src(directiveMap.src).pipe(concat('directives.js'));
-        if (ENV == "PRO") {
-            return stream.pipe(uglify())
-                .pipe(md5(10, path.dist + '/index.html'))
-                .pipe(gulp.dest(directiveMap.dist));
-        } else {
-            return stream.pipe(gulp.dest(directiveMap.dist));
-        }
-    })();
-
-    var utils = (function () {
-        var stream = gulp.src(utilsMap.src).pipe(concat('utils.js'));
-        if (ENV == "PRO") {
-            return stream.pipe(uglify())
-                .pipe(md5(10, path.dist + '/index.html'))
-                .pipe(gulp.dest(utilsMap.dist));
-        } else {
-            return stream.pipe(gulp.dest(utilsMap.dist));
-        }
-    })();
-
-    var router = (function () {
-        var stream = gulp.src(routerMap.src).pipe(concat('routers.js'));
-        if (ENV == "PRO") {
-            return stream.pipe(uglify())
-                .pipe(md5(10, path.dist + '/index.html'))
-                .pipe(gulp.dest(routerMap.dist));
-        } else {
-            return stream.pipe(gulp.dest(routerMap.dist));
-        }
-    })();
-
-    var service = (function () {
-        var stream = gulp.src(serviceMap.src).pipe(concat('services.js'));
-        if (ENV == "PRO") {
-            return stream.pipe(uglify())
-                .pipe(md5(10, path.dist + '/index.html'))
-                .pipe(gulp.dest(serviceMap.dist));
-        } else {
-            return stream.pipe(gulp.dest(serviceMap.dist));
-        }
-    })();
-
-    var controller = (function () {
-        var stream = gulp.src(controllerMap.src).pipe(concat('controllers.js'));
-        if (ENV == "PRO") {
-            return stream.pipe(uglify())
-                .pipe(md5(10, path.dist + '/index.html'))
-                .pipe(gulp.dest(controllerMap.dist));
-        } else {
-            return stream.pipe(gulp.dest(controllerMap.dist));
-        }
-    })();
-
-    return merge(filter, directive, utils, router, service, controller);
+gulp.task('pageJS', function () {
+    var stream = gulp.src(path.src + '/page/**/*.js').pipe(concat('pageJS.js'));
+    if (ENV == "PRO") {
+        return stream.pipe(uglify())
+        // .pipe(md5(10, path.dist + '/index.html'))
+            .pipe(gulp.dest(path.dist + '/js'));
+    } else {
+        return stream.pipe(gulp.dest(path.dist + '/js'));
+    }
 });
 
 
@@ -437,23 +199,24 @@ gulp.task('default', gulpSequence(
     [
         //移动tpl
         'move:tpl',
-        //移动根目录js文件
-        'move:baseJs',
+        //移动根目录文件
+        'move:base',
         //移动准备必须的资源
-        'move:resource',
+        'move:lib',
         //css合并
         'pageCss',
         'ionicCss',
         //首次加载的js资源(service/routers/filters/utils/dierctives)
-        'resource:otherJS',
+        'commonJS',
         //延迟加载部分(user,brandInfo,selfPark)
-        'resource:lazyLoadMap',
+        'pageJS',
         'img:min'
         // 'resource:brandInfo',
         // 'resource:selfPark'
-    ],
+    ]
     //watch
-    'watch'));
+    // 'watch'
+));
 
 
 /**

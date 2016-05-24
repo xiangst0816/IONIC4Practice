@@ -11,11 +11,7 @@
     angular.module('smartac', [
         'ionic'
         , 'smartac.config'
-        , 'smartac.services'
-        , 'smartac.directives'
-        , 'smartac.filters'
-        , 'smartac.utils'
-        , 'smartac.routers'
+        , 'smartac.page'
         , 'ngStorage'
         , 'oc.lazyLoad'
         , 'btford.socket-io'
@@ -223,6 +219,7 @@
             '<br>' +
             '<div style="margin-top:0.2rem">正在进入</div>'
         })
+
 
 
 })();

@@ -73,8 +73,8 @@
              
                 // domain: "http://115.29.249.215:3300",   //接口地址
                 // domain: "http://127.0.0.1:3300",   //接口地址,本机
-                domain: "http://172.16.6.43:3300",   //接口地址,映射的地址
-                // domain: "http://vivocity.smartac.co:3300",   //接口地址,映射的地址
+                // domain: "http://172.16.6.43:3300",   //接口地址,映射的地址
+                domain: "http://vivocity.smartac.co:3300",   //接口地址,映射的地址
                 socketChatUrl: "115.29.249.215:8087",  //客服聊天地址
                 resourceDomain: "http://192.168.99.111:8000/resource/",  //图片资源地址
 
@@ -87,7 +87,43 @@
             }
         }])
 
+        /**
+         * api接口地址
+         * */
+        .factory('api', ['baseUrl', function (baseUrl) {
+            var domain = baseUrl.domain;
+            return {
+                // getJsJDKConfigUrl: domain + "/api/weiapp/GetJsJDKConfig",
+                //
+                // signatureUrl: domain + "/signature",
+                signatureUrl: domain + "/signature",
 
+                authenticateUrl: domain + "/authenticate",
+
+                couponUrl: domain + "/coupons",
+                giftUrl: domain + "/gifts",
+                pointUrl: domain + "/point",
+                customerUrl: domain + "/customers",
+                // addressUrl: domain + "/customer/address",
+                codeUrl: domain + "/code",
+                shopUrl: domain + "/shops",
+                // feedbackUrl: domain + "/feedback",
+
+                parkingUrl: domain + "/sbp",
+                tradeUrl: domain + "/trade",
+
+                // addTradeUrl: domain + "/trade/add/simple",
+                imgDomainUrl: baseUrl.resourceDomain,
+
+                //二维码的生成地址
+                generateQrcodeUrl: baseUrl.generateQrcodeUrl,
+                generateBarcodeUrl: baseUrl.generateBarcodeUrl,
+                scancodeVerificationUrl: baseUrl.scancodeVerificationUrl
+
+
+            }
+        }
+        ])
         /**
          * 卡等级的图片
          * */
