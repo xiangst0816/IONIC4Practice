@@ -12,10 +12,6 @@
              * 点击分享按钮,微信和app操作不同
              * */
             $scope.shareBtn = function () {
-                if (Internal.isInWeiXin) {
-                    $ionicBackdrop.retain();
-                    angular.element(document.getElementById('showShareDark')).addClass('action');
-                }
                 //设置分享
                 $setShareContent({
                     title: "成为怡丰城会员,尽享更多礼遇!",
@@ -25,14 +21,5 @@
                     dataUrl: ""
                 }, "subNav.register", null);
             };
-            /**
-             * 点击分享图片消失提示
-             * */
-            document.getElementById('showShareDark').addEventListener("touchstart", function () {
-                $ionicBackdrop.release();
-                angular.element(document.getElementById('showShareDark')).removeClass('action');
-                // $miniDOM.removeClass(document.getElementById('showShareDark'), "action");
-            })
-
         }]);
 })();
