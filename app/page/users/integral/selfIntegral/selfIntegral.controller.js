@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('selfIntegralCtrl', ['$scope', '$ionicActionSheet', '$state', '$ionicSlideBoxDelegate', '$ionicPopup', '$toDateFormat', '$filter','$createTrade','$sessionStorage','$ionicLoading','$ionicToast','$base64', function ($scope, $ionicActionSheet, $state, $ionicSlideBoxDelegate, $ionicPopup, $toDateFormat, $filter,$createTrade,$sessionStorage,$ionicLoading,$ionicToast,$base64) {
+        .controller('selfIntegralCtrl', ['$scope', '$ionicActionSheet', '$state', '$ionicSlideBoxDelegate', '$ionicPopup', '$toDateFormat', '$filter','$createTrade','$sessionStorage','$ionicLoading','$ionicToast','$base64','baseInfo', function ($scope, $ionicActionSheet, $state, $ionicSlideBoxDelegate, $ionicPopup, $toDateFormat, $filter,$createTrade,$sessionStorage,$ionicLoading,$ionicToast,$base64,baseInfo) {
            // console.log( $base64.encode("10000"))
 
             /**
@@ -60,8 +60,10 @@
 
             /**
              * 微信扫一扫测试
-             * 数据格式:apptradeid|tradeno|shopid|tradetime|tradeamount
-             * 数据格式：小票id|交易号|商铺id|交易时间(时间戳-不限单位)|交易金额
+             *
+             * 数据格式: cardno|tradeno|shopid|tradetime|tradeamount
+             * 数据格式：会员卡号|交易号|商铺id|交易时间(时间戳-不限单位)|交易金额
+             * demo: 0000507915|234234234990|1|1473394332000|88888
              * 位数为4,第三个和第四个为数字
              * */
             function scanNow() {
@@ -71,37 +73,31 @@
                     // alert("扫出来的数据:"+JSON.stringify(result));
                     data = result.resultStr;
                     var arr = data.split('|');
-                    if (arr.length !== 5 || isNaN(arr[4]) || isNaN(arr[3])) {
+                    if (arr.length !== 5) {
                         alert("二维码数据格式出错,请联系开发人员!");
                         return
                     }
                     var params = {
-                        "custid": $sessionStorage.userInfo.customerid,//是
+                        "cardno": $base64.encode(arr[0]),//是
                         "tradeno": arr[1],//是
-                        "tradeamount": parseFloat(arr[4]),//是
-                        "typeid": 1,//1 交易 ，2 退货  	Int32	是
                         "shopid": arr[2],
-
-                        "orgid": "",
-                        // "apptradeid": parseInt(arr[0]),//小票记录表主键	int	是
                         "tradetime": $filter('yyyyMMdd_HHmmss_minus')(arr[3]),
-                        "remark": "交易补录form扫码积分",
-                        "createid":1,//创建人	String 否
+                        "tradeamount": $base64.encode(arr[4]),//是
+                        "typeid": 1,//1 交易 ，2 退货  	Int32	是
+                        "orgid": baseInfo.orgid,
+                        "remark": "来自APP【扫码积分】的交易补录信息",
+                        "createid":$sessionStorage.userInfo.customerid.toString(),//创建人	String 否
                         "createdtime":$filter('yyyyMMdd_HHmmss_minus')(new Date())//创建时间	String	否
                     };
-                    // alert(JSON.stringify(params));
+                    // alert("发送到数据:"+JSON.stringify(params));
                     //交易消息补录 数据操作
                     $ionicLoading.show();
                     $createTrade(params).then(function (data) {
-                        //成功
-                        // console.log('createWithInvoice')
-                        // console.log(data);
                         showNoticeInfo({
                             title:"积分成功",
                             template:"您已成功积分,请到【积分查询】查看结果!"
                         });
                     }, function (errText) {
-                        // $ionicToast.show("积分操作失败," +errText);
                         showNoticeInfo({
                             title:"积分失败",
                             // template:"您已小票已积分,此操作无效!" + errText

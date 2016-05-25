@@ -33,11 +33,11 @@
                     data: params,
                     success: function (data) {
                         //
-                        alert(JSON.stringify(data))
+                        // alert(JSON.stringify(data))
                         //
 
                         if (data.code == 7001) {
-                            defer.resolve(data.content);
+                            defer.resolve(data.id);
                         } else {
                             var errText;
                             switch (parseInt(data.code)) {
@@ -57,14 +57,14 @@
                                     errText = "系统异常!";
                                     break;
                                 default:
-                                    errText = code;
+                                    errText = data.code;
                                     break;
                             }
                             defer.reject(errText);
                         }
                     },
                     error: function (errText) {
-                        defer.reject(errText);
+                        defer.reject("系统错误,请稍后再试!");
                     }
                 });
                 return defer.promise;

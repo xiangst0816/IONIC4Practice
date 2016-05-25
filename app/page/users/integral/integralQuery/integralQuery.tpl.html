@@ -9,6 +9,10 @@
     <p>其中&ensp;<span ng-bind="::totalIntegral"></span>&ensp;积分将在&ensp;<span ng-bind="deadline.year"></span>年<span ng-bind="deadline.month"></span>月<span ng-bind="deadline.day"></span>日过期</p>
     <p class="text-right" ui-sref="subNav.memberRights">如何获得积分</p>
   </div>
+  <div class="buttonGroup">
+    <div class="selfIntegral" ui-sref="subNav.memberSelfIntegral"><span class="icon"></span><span>自助积分</span></div>
+    <div class="integralMall" ui-sref="subNav.memberIntegralMall"><span class="icon"></span><span>积分商城</span></div>
+  </div>
   <div class="queryBox">
     <div class="dateFrom">
       <input type="date" name="datefrom" id="datefrom" placeholder="yyyy-MM-dd" ng-model="params.datefrom" required>
