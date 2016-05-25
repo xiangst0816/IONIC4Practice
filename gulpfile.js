@@ -50,21 +50,24 @@ gulp.task('move:tpl', function () {
  * (app,config,bridge,index)
  * */
 gulp.task('move:base', function () {
-    var stream = gulp.src(path.src + '/*.*');
+    var stream = gulp.src([path.src + '/*.*']);
     if (ENV == "PRO") {
         return stream.pipe(uglify())
-            // .pipe(md5(10, path.dist + '/index.html'))
+        // .pipe(md5(10, path.dist + '/index.html'))
             .pipe(gulp.dest(path.dist));
     } else {
         return stream.pipe(gulp.dest(path.dist));
     }
 });
-
+gulp.task('move:font', function () {
+    var stream = gulp.src([path.src + '/fonts/*.*']);
+    return stream.pipe(gulp.dest(path.dist + '/fonts'));
+});
 /**
  * ---其余资源转移--------------------------------------------------------------
  * */
 gulp.task('move:lib', function () {
-    var stream =  gulp.src(path.src + '/lib/*.min.js').pipe(concat('core.js'))
+    var stream = gulp.src(path.src + '/lib/*.min.js').pipe(concat('core.js'))
     if (ENV == "PRO") {
         return stream.pipe(uglify())
         // .pipe(md5(10, path.dist + '/index.html'))
@@ -78,21 +81,21 @@ gulp.task('move:lib', function () {
 /**
  * imgMin
  * */
+var moveImg = {
+    src: [
+        path.src + '/img/**/*.*'
+    ],
+    dist: path.dist + '/img'
+};
 gulp.task('img:min', function () {
-    var moveImg = {
-        src: [
-            path.src + '/img/**/*.*'
-        ],
-        dist: path.dist + '/img'
-    };
     if (ENV == "PRO") {
         return gulp.src(moveImg.src)
             .pipe(imagemin())
             .pipe(gulp.dest(moveImg.dist));
-    }else{
+    } else {
         return gulp.src(moveImg.src).pipe(gulp.dest(moveImg.dist));
     }
-    
+
 });
 
 
@@ -104,7 +107,7 @@ gulp.task('commonJS', function () {
     var stream = gulp.src(path.src + '/common/**/*.js').pipe(concat('commonJS.js'));
     if (ENV == "PRO") {
         return stream.pipe(uglify())
-            // .pipe(md5(10, path.dist + '/index.html'))
+        // .pipe(md5(10, path.dist + '/index.html'))
             .pipe(gulp.dest(path.dist + '/js'));
     } else {
         return stream.pipe(gulp.dest(path.dist + '/js'));
@@ -152,7 +155,7 @@ gulp.task('pageCss', function () {
     var stream = gulp.src(pageCssMap.main).pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
             // browsers: ['IE 7'],
-            browsers: ['Android >=2.1','last 2 versions'],
+            browsers: ['Android >=2.1', 'last 2 versions'],
             cascade: false
         }));
     if (ENV == "PRO") {
@@ -168,7 +171,7 @@ gulp.task('ionicCss', function () {
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer({
             // browsers: ['IE 7'],
-            browsers: ['Android >=2.1','last 2 versions'],
+            browsers: ['Android >=2.1', 'last 2 versions'],
             cascade: false
         }))
         .pipe(px2rem({
@@ -201,6 +204,7 @@ gulp.task('default', gulpSequence(
         'move:tpl',
         //移动根目录文件
         'move:base',
+        'move:font',
         //移动准备必须的资源
         'move:lib',
         //css合并
@@ -211,11 +215,11 @@ gulp.task('default', gulpSequence(
         //延迟加载部分(user,brandInfo,selfPark)
         'pageJS',
         'img:min'
-        // 'resource:brandInfo',
+        // 'resource:brandInfo', 
         // 'resource:selfPark'
-    ]
+    ],
     //watch
-    // 'watch'
+    'watch'
 ));
 
 
@@ -226,19 +230,13 @@ gulp.task('watch', function () {
     //css
     gulp.watch(pageCssMap.src, ['pageCss']);
     gulp.watch(ionicCssMap.src, ['ionicCss']);
+    gulp.watch(moveImg.src, ['img:min']);
 
-    gulp.watch(tplMap.src, ['move:tpl']);
-    gulp.watch(baseJs.src, ['move:baseJs']);
+    gulp.watch([path.src + '/page/**/*.html'], ['move:tpl']);
+    gulp.watch([path.src + '/*.*'], ['move:base']);
 
-    gulp.watch(lazyLoadMap, ['resource:lazyLoadMap']);
-    // gulp.watch(brandInfoMap, ['resource:brandInfo']);
-    // gulp.watch(selfParkMap, ['resource:selfPark']);
+    gulp.watch([path.src + '/common/**/*.js'], ['commonJS']);
+    gulp.watch([path.src + '/page/**/*.js'], ['pageJS']);
 
-    gulp.watch(filterMap.src, ['resource:otherJS']);
-    gulp.watch(directiveMap.src, ['resource:otherJS']);
-    gulp.watch(utilsMap.src, ['resource:otherJS']);
-    gulp.watch(routerMap.src, ['resource:otherJS']);
-    gulp.watch(serviceMap.src, ['resource:otherJS']);
-    gulp.watch(controllerMap.src, ['resource:otherJS']);
 
 });

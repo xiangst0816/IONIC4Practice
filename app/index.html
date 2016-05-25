@@ -3,9 +3,16 @@
 <html style="font-size: 50px;">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="viewport"
+          content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <meta name="format-detection" content="telephone=no email=no"/>
+    <!--苹果机上的设置：-->
+    <!--用来定义应用全屏展示-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!--设置状态栏的属性值-->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title></title>
+    <script src="loader.js"></script>
     <!--动态调整html元素的font-size大小, 全局使用rem单位-->
     <script>
         (function (doc, win) {
@@ -33,10 +40,8 @@
             doc.addEventListener('DOMContentLoaded', recalc, false);
         })(document, window);
     </script>
-    <!--<link href="lib/ionic/css/ionic.css" rel="stylesheet">-->
-    <!--<link href="css/ionic.app.css" rel="stylesheet">-->
-    <link href="css/ionic.debug.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <!--<link href="css/ionic.debug.css" rel="stylesheet">-->
+    <!--<link href="css/style.css" rel="stylesheet">-->
     <style>
         body {
             margin: 0;
@@ -45,66 +50,171 @@
         .wx_loading {
             display: flex;
             justify-content: center;
+            flex-direction: column;
             align-items: center;
-            flex-wrap: wrap;
-            align-content: center;
             position: absolute;
+            top: 0;
             width: 100%;
             height: 100%;
-            background-color: #ddd;
             color: #000;
             font-size: 0.5rem;
+            z-index: 999;
+            background: transparent url(./img/loading/loadingBg.png) no-repeat center center/cover;
+            transition: opacity ease 500ms;
+
         }
 
-        .wx_loading p {
+        .wx_loading .wx_loading_bg {
+            width: 4.50rem;
+            height: 2.11rem;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: visible;
+            margin-bottom: 0.66rem;
+        }
+
+        .wx_loading .wx_loading_bg img {
             width: 100%;
-            margin: 0 0 0.1rem 0;
-            text-align: center;
+            height: 100%;
+        }
+
+        .wx_loading .wx_loading_icon {
+            width: 1.2rem;
+            height: 1.2rem;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 38.2%;
+
+        }
+
+        .wx_loading .wx_loading_icon img {
+            width: 100%;
+            display: block;
+            position: absolute;
+            left: 0;
+            animation: revolve 2s linear infinite reverse;
+        }
+
+        .wx_loading .wx_loading_icon p {
+            display: block;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            font-size: 0.28rem;
+        }
+
+        @-webkit-keyframes revolve {
+            from {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            to {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes revolve {
+            from {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            to {
+                -webkit-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
         }
     </style>
 
+
     <!--微信接口-->
     <!--<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>-->
-    <script src="./jweixin-1.0.0.js"></script>
-    <!--Internal:程序运行环境判断-->
-    <script src="./bridge.js"></script>
-
-
-    <!-- ionic/angularjs js -->
-    <script src="js/core.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <!--<script src="cordova.js"></script>-->
 
-    <!--配置信息-->
-    <script src="./config.js"></script>
-    <!-- your app's js -->
-    <script src="./app.js"></script>
-
-    <!--parts-->
-    <script src="js/commonJS.js"></script>
-    <script src="js/pageJS.js"></script>
-
-
 </head>
-<!--<body ng-controller="mainCtrl">-->
-<body ng-app="smartac" ng-controller="mainCtrl">
-
+<body ng-controller="mainCtrl">
 <!--微信模式下,出现loading画面-->
-<!--<div class="wx_loading">-->
-    <!--<p>正在加载,请稍后!</p>-->
-    <!--<p>已下载: <span id="wx-loading-js">0%</span></p>-->
-<!--</div>-->
+<div class="wx_loading" id="wx-loading-js">
+    <div class="wx_loading_bg">
+        <img src="img/loading/vivocityLogo.png" alt="">
+    </div>
+    <div class="wx_loading_icon">
+        <p id="wx-loading-percent-js">0%</p>
+        <img src="img/loading/loadingIcon.png" alt="">
+    </div>
+</div>
 
+<script>
+    (function () {
+        var core = ['js/core.js'];
+        var resource = [
+            './jweixin-1.0.0.js',
+            './bridge.js',
+            './app.js',
+            "css/ionic.debug.css",
+            "css/style.css",
+            "img/home/home-bg.png",
+            "img/home/level-0.png",
+            "img/home/level-1.png",
+            "img/home/level-2.png",
+            "img/home/level-3.png",
+            "img/home/bg-yellow.png",
+            "img/home/bg-red.png",
+            "img/home/bg-blue.png",
+            "img/home/xuxian.png",
+            "img/member/member-bg.png"
+        ];
+        var rest = [
+            './config.js',
+            'js/commonJS.js',
+            'js/pageJS.js'
+        ];
+        var ngAppModule = 'smartac';
+
+        //loading的DOM位置id
+        var loadingPosition = document.getElementById("wx-loading-js");
+        //percent位置的id
+        var whereToNotice = document.getElementById("wx-loading-percent-js");
+        var totalLoadedNum = core.length + resource.length + rest.length;
+        var restNum = totalLoadedNum;
+
+        $addTags(core, function () {
+            refresher();
+        }, function () {
+            $addTags(resource, function () {
+                refresher();
+            }, function () {
+                $addTags(rest, function () {
+                    refresher();
+                }, function () {
+                    angular.element(document).ready(function () {
+                        angular.bootstrap(document, [ngAppModule]);
+                    });
+                    setTimeout(function () {
+                        loadingPosition.style.cssText = "opacity:0;";
+                        setTimeout(function () {
+                            loadingPosition.style.cssText = "z-index:0;display:none;";
+                        }, 500);
+                    }, 500);
+                })
+            });
+        });
+
+        function refresher() {
+            restNum--;
+            whereToNotice.innerHTML = Math.floor(((totalLoadedNum - restNum) / totalLoadedNum * 100)) + "%";
+        }
+    })();
+</script>
 <!--
   此为顶级page页,专属于无导航栏的页面,比如Home/Member(会员中心)
 -->
 <ion-nav-view></ion-nav-view>
-
 </body>
-
-
-<div id="showShareDark" class="">
-    <img src="img/other/share.png" alt="">
-</div>
 </html>

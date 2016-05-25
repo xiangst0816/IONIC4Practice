@@ -23,13 +23,7 @@
             }
 
 
-            /**
-             * 页面退出后,恢复默认分享设置
-             * */
-            $scope.$on("$destroy", function () {
-                //恢复分享默认进入注册页
-                $setShareContent()
-            });
+
 
             /**
              * 获取店铺详情
@@ -69,11 +63,6 @@
              * 分享按钮(微信+app)
              * */
             $scope.shareBtn = function () {
-                if (Internal.isInWeiXin) {
-                    $ionicBackdrop.retain();
-                    angular.element(document.getElementById('showShareDark')).addClass('action');
-                }
-
                 //设置分享当前页面
                 $setShareContent({
                     title: $scope.item.name,
@@ -82,16 +71,14 @@
                     type: 'link',
                     dataUrl: ""
                 }, 'subNav.brandDetail', $scope.item.shopid);
-
-                /**
-                 * 点击分享图片消失提示
-                 * */
-                document.getElementById('showShareDark').addEventListener("touchstart", function () {
-                    $ionicBackdrop.release();
-                    angular.element(document.getElementById('showShareDark')).removeClass('action');
-                    // $miniDOM.removeClass(document.getElementById('showShareDark'), "action");
-                })
             };
+            /**
+             * 页面退出后,恢复默认分享设置
+             * */
+            $scope.$on("$destroy", function () {
+                //恢复分享默认进入注册页
+                $setShareContent()
+            });
 
             /**
              * 取消收藏,收藏按钮操作

@@ -50,7 +50,7 @@
             <!--each-->
             <div class="shopEach " ng-repeat="item in dataToDisplay track by $index">
                 <!--图片-->
-                <div ui-sref="subNav.brandDetail({detail:item.shopid})" class="imgBox placeholder_178_2">
+                <div ui-sref="subNav.brandDetail({detail:item.shopid})" class="imgBox">
                     <!--<img src="img/collection/xiaonanguo.png" alt="">-->
                     <img class="" ng-src="{{::item.logourl | addImgPrefix}}" err-src="">
                     <!--商铺信息-->

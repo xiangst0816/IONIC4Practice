@@ -5,15 +5,15 @@
             <div class="parkInfoDetail">
                 <i class="icon-selfPark ion-car"></i>
                 <div>
-                    <p>当前停车位: <span ng-bind="::freeSpaceNum"></span>／<span ng-bind="::totalSpaceNum"></span> ( 空车位／总车位）</p>
+                    <!-- <p>当前停车位: <span ng-bind="::freeSpaceNum"></span>／<span ng-bind="::totalSpaceNum"></span> ( 空车位／总车位）</p> -->
                     <p>停车费: 每小时￥<span ng-bind="::feePreHour"></span>／<span ng-bind="::intPreHour"></span>积分</p>
-                    <span>会员单次停车最多可使用<span ng-bind="::limitIntegral"></span>积分</span>
+                    <span>会员单次停车最多可使用<span ng-bind="::limitIntegral"></span>积分，查看 <span class="parkLink" ng-click="parkBtn()">缴费细则</span></span>
                 </div>
             </div>
         </section>
         <!--停车选项-->
         <section class="parkSelection">
-            <div class="parkBtn" ng-click="parkBtn()">缴费细则</div>
+            <!-- <div class="parkBtn" ng-click="parkBtn()">缴费细则</div> -->
 
             <div class="parkSelectionItems">
                 <div class="row parkSelectionItemsRow">
