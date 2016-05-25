@@ -40,7 +40,7 @@
 
                             //状态数据存储
                             $sessionStorage.integralInfo = angular.copy(data.content);
-                            $log.debug("$integralInfo使用最新数据");
+                            $log.debug("$integralInfo使用服务器数据");
                             //返回数据
                             defer.resolve(data.content);
                         } else {

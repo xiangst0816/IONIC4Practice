@@ -3,7 +3,7 @@
  * 定义基础配置文件
  */
 (function () {
-    angular.module('smartac.config', [])
+    angular.module('smartac.page')
 
         /**
          * 基础配置信息(微信,app)
@@ -111,6 +111,7 @@
 
                 parkingUrl: domain + "/sbp",
                 tradeUrl: domain + "/trade",
+                messageUrl: domain + "/message",
 
                 // addTradeUrl: domain + "/trade/add/simple",
                 imgDomainUrl: baseUrl.resourceDomain,

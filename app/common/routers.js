@@ -2,7 +2,7 @@
  * Created by xiangsongtao on 16/3/14.
  */
 (function () {
-    angular.module('smartac.page', ['ui.router'])
+    angular.module('smartac.page')
         //路由配置
         .config(['$stateProvider','$urlRouterProvider',function ($stateProvider, $urlRouterProvider) {
             // if none of the above states are matched, use this as the fallback

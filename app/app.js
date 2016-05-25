@@ -10,20 +10,18 @@
 (function () {
     angular.module('smartac', [
         'ionic'
-        , 'smartac.config'
         , 'smartac.page'
         , 'ngStorage'
         , 'oc.lazyLoad'
         , 'btford.socket-io'
     ])
-
     /**
      * 全局设置
      * 在app配置阶段读取并设置,如果在app总,使用$ionicConfig
      * */
         .config(['$ionicConfigProvider', function ($ionicConfigProvider) {
             // $ionicConfigProvider.views.maxCache(5);
-            $ionicConfigProvider.platform.android.views.maxCache(5);
+            // $ionicConfigProvider.platform.android.views.maxCache(5);
 
             //用在非常卡的安卓机上
             //none: Do not perform  animated transitions.
@@ -43,7 +41,6 @@
             //Whether to use JS or Native scrolling
             // $ionicConfigProvider.scrolling.jsScrolling(false);
         }])
-
         /**
          * $ocLazyLoadProvider的配置
          * 设置lazloaded的资源清单
@@ -63,7 +60,6 @@
                 }]
             });
         }])
-
         .config(['$ionicConfigProvider', function ($ionicConfigProvider) {
             //navBar的显示控制,不显示文字
             $ionicConfigProvider.backButton.text("");
@@ -75,10 +71,6 @@
             //禁止侧滑后退事件
             $ionicConfigProvider.views.swipeBackEnabled(false);
         }])
-
-
-
-
         /**
          * 拓展$log方法,为其加上时间戳
          * */
@@ -95,14 +87,12 @@
                 return $delegate;
             }]);
         }])
-
         /**
          * $log的debug方法显示开关
          * */
         .config(['$logProvider', function ($logProvider) {
             $logProvider.debugEnabled(true);
         }])
-
         .run(['$ionicPlatform', function ($ionicPlatform) {
             $ionicPlatform.ready(function () {
                 // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -130,9 +120,6 @@
 
             });
         }])
-
-
-
         /**
          * 挂在方法的地方,方法拓展
          * */
@@ -198,8 +185,6 @@
                 return dst;
             };
         }])
-
-
         /**
          * 微信当前地址签名 及 设置 app 和 微信分享内容
          * */
@@ -207,8 +192,6 @@
 
             $setShareContent();
         }])
-
-
         /**
          * 配置$ionicLoading组件,通用配置
          * */
@@ -219,7 +202,8 @@
             '<br>' +
             '<div style="margin-top:0.2rem">正在进入</div>'
         })
+})();
 
-
-
+(function () {
+    angular.module('smartac.page', ['ui.router']);
 })();

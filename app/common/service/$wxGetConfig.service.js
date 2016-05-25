@@ -72,7 +72,7 @@
                             "menuItem:share:facebook",
                             // "menuItem:share:weiboApp",
                             "menuItem:share:email",
-                            "menuItem:openWithSafari"
+                            // "menuItem:openWithSafari"
                         ]
                     });
 

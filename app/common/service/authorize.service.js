@@ -179,15 +179,22 @@
                     data: params,
                     success: function (data) {
                         //成功返回
-                        if (data.code == 7001 && !!data.content) {
-                            //返回用户custid
-                            defer.resolve(data.content);
+                        if (data.code == 7001) {
+                            if(!!data.content){
+                                //返回用户custid
+                                defer.resolve(data.content);
+                            }else{
+                                var errText = "验证码或手机号码错误,请检查";
+                                $ionicToast.show(errText);
+                                defer.reject(errText);
+                                $log.debug("会员验证错误," + errText);
+                            }
                         } else {
                             var errText;
                             switch (data.code) {
-                                case 8012:
-                                    errText = "验证码或手机号码错误,请检查";
-                                    break;
+                                // case 8012:
+                                //     errText = "验证码或手机号码错误,请检查";
+                                //     break;
                                 default:
                                     errText = "系统错误,请稍后再试";
                                     break;
