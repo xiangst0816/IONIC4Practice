@@ -104,7 +104,7 @@
                 <img id="headerImg" ng-src="{{photo | addImgPrefix}}">
             </div>
             <div class="notice ion-chat-notice ion-notice" ui-sref="subNav.notice">
-                <span class="num">1</span>
+                <span class="num" ng-class="{true:'active',false:''}[messageNum]"></span>
             </div>
         </section>
 
@@ -154,7 +154,7 @@
         <!--子栏目导航-->
         <!--<section class="section4">-->
             <div class="row rowEach">
-                <div class="col col-33 colEach" ui-sref="subNav.memberIntegral">
+                <div class="col col-33 colEach" ui-sref="subNav.memberIntegralQuery">
                     <i class="icon-memberItems ion-jifen"></i>
                     <div>我的积分</div>
                 </div>
@@ -191,7 +191,7 @@
 
         <!--</section>-->
 
-        <section ng-click="showHome()" on-swipe-up="showHome()" class="section5 center-block text-center">
+        <section ng-click="showHome()" on-swipe-up="showHome()"  on-touch="onTouch()" on-release="onRelease()" class="section5 center-block text-center">
             <i class="icon ion-ios-arrow-up"></i>
             <p>返回首页</p>
         </section>
@@ -200,7 +200,7 @@
     <!--member click-->
     <section class="home-member">
         <!--<span ng-click="checkAuthorize('member')">-->
-    <div ng-click="showMember()" on-swipe-down="showMember()">
+    <div ng-click="showMember()" on-swipe-down="showMember()"  on-touch="onTouch()" on-release="onRelease()">
       <i class="ion-usercenter"></i>
     </div>
     </section>

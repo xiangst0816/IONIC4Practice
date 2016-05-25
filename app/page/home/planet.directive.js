@@ -20,7 +20,7 @@
                     //html的font-size值
                     var baseFontSize = document.documentElement.style.fontSize;
                     //虚线轨迹直径(rem),
-                    var circleWidth = 8.62;//rem
+                    var circleWidth = 7.8;//rem
                     circleWidth = parseFloat(circleWidth) * parseFloat(baseFontSize);
                     var circleRadius =  Math.floor((circleWidth / 2)*100)/100;
                     //导航栏目个数
@@ -73,15 +73,7 @@
                         }
                         showORNot();
                     };
-                    /**
-                     * 兼容微信那套
-                     * */
-                    $scope.onTouch = function () {
-                        document.ontouchmove = function(e){e.preventDefault(); };
-                    };
-                    $scope.onRelease = function () {
-                        document.ontouchmove = angular.noop();
-                    };
+                    
 
                     //隐藏底部的三个行星不显示
                     showORNot();

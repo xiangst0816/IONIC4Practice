@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('homeCtrl', ['$scope', '$sessionStorage', '$rootScope', '$ionicPopup', '$state', 'api', 'AJAX', '$ionicToast', '$q', '$getCode', '$getUrlParams', '$checkAuthorize', '$filter', '$log','$ionicLoading','$integralInfo', function ($scope, $sessionStorage, $rootScope, $ionicPopup, $state, api, AJAX, $ionicToast, $q, $getCode, $getUrlParams, $checkAuthorize, $filter, $log,$ionicLoading,$integralInfo) {
+        .controller('homeCtrl', ['$scope', '$sessionStorage', '$rootScope', '$ionicPopup', '$state', 'api', 'AJAX', '$ionicToast', '$q', '$getCode', '$getUrlParams', '$checkAuthorize', '$filter', '$log', '$ionicLoading', '$integralInfo', '$getMessage', function ($scope, $sessionStorage, $rootScope, $ionicPopup, $state, api, AJAX, $ionicToast, $q, $getCode, $getUrlParams, $checkAuthorize, $filter, $log, $ionicLoading, $integralInfo, $getMessage) {
 
 
             /**
@@ -45,7 +45,7 @@
                 $checkAuthorize("wxLevel_Att&Reg").then(function () {
                     //具备授权
                     $ionicLoading.show({
-                        during:2000
+                        during: 2000
                     });
                     getBasicInfo().then(function () {
                         //成功处理
@@ -179,7 +179,7 @@
              * */
             function getBasicInfo() {
                 var defer = $q.defer();
-                $q.all([getCardUpgradeIntegral(), getCardDegradeIntegral(),getUserIntegral()])
+                $q.all([getCardUpgradeIntegral(), getCardDegradeIntegral(), getUserIntegral(), getMessageNum()])
                     .then(function () {
                         /**
                          * 因为等级判断不是实时的,故在这里进行假显示,增强用户体验
@@ -188,7 +188,10 @@
                         var userInfo = $sessionStorage.userInfo;
                         var integralInfo = $sessionStorage.integralInfo;
                         $scope.userDisplayIntegral = integralInfo.currentLevelPoint;
+                        // $scope.userDisplayIntegral = 2000;
                         $scope.vipLevel = userInfo.levelid;
+                        // $scope.vipLevel = 2;
+
                         if ($scope.vipLevel == 1) {
                             if ($scope.userDisplayIntegral > $scope.cardupgrade0) {//如果达到第2级的条件
                                 progress = 50;
@@ -197,7 +200,7 @@
                             }
                             $scope.nextIntegral = $scope.cardupgrade0;
                         } else if ($scope.vipLevel == 2) {
-                            progress = $scope.userDisplayIntegral / $scope.cardupgrade1 * 100;
+                            progress = $scope.userDisplayIntegral / $scope.cardupgrade1 * 50 + 50;
                             $scope.nextIntegral = $scope.cardupgrade1;
                         } else if ($scope.vipLevel == 3) {
                             var duetime = userInfo.duetime;
@@ -212,6 +215,7 @@
                             progress = $scope.userDisplayIntegral / $scope.cardupgrade1 * 100;
                         }
                         document.getElementById('vipState-lay2-progress').style.width = progress + "%";
+                        // console.log(progress)
                         //成功
                         defer.resolve();
                     }, function (err) {
@@ -221,5 +225,22 @@
                     });
                 return defer.promise;
             }
+
+            /**
+             * 获取用户消息数
+             * */
+
+            function getMessageNum() {
+                return $getMessage({
+                    "method": "query",
+                    "querytype": "count",//count
+                    "message": {
+                        "statuscode": 0//#状态：0未读/1已读/2删除
+                    }
+                }).then(function (data) {
+                    $scope.messageNum = !!data;
+                })
+            }
+
         }]);
 })();
