@@ -4,7 +4,6 @@
   //padding-top: 0.3rem !important;;
   .noticeItems{
     height:1.76rem;
-
     box-sizing: content-box;
     .item-content{
       padding:0.26rem 0.49rem 0.26rem 0.49rem;
@@ -15,7 +14,7 @@
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;
-        font-weight: bolder;
+        //font-weight: bolder;
         margin-bottom:0.18rem;
       }
       h4{
@@ -30,7 +29,31 @@
       }
     }
 
+    &.read{
+      .item-content{
+        h2{
+          font-weight: bolder;
+        }
+        h4{
+          font-weight: bolder;
+        }
+      }
+    }
+    &.unread{
+      .item-content{
+        h2{
+          font-weight: 400;
+        }
+        h4{
+          font-weight: 400;
+        }
+      }
+    }
   }
+
+
+
+
 
 }
 

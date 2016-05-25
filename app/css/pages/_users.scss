@@ -79,16 +79,19 @@
         .num {
           position: absolute;
           display: block;
-          width: 0.4rem;
-          height: 0.4rem;
-          background-color: yellow;
+          width: 0.25rem;
+          height: 0.25rem;
+          background-color: transparent;
           border-radius: 100%;
           text-align: center;
-          line-height: 0.4rem;
+          line-height: 0.25rem;
           color: $stable;
           font-size: 0.35rem;
-          right: -0.2rem;
-          top: 0;
+          right: -0.15rem;
+          top: 0.05rem;
+          &.active{
+            background-color: yellow;
+          }
         }
       }
       .headerImg {

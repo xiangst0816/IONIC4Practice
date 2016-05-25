@@ -14,6 +14,7 @@ $bottomBtnHeight: 1.6rem;
     position: absolute;
     height: $bottomBtnHeight;
     bottom: 0;
+    width: 100%;
     @include display-flex;
     @include justify-content(space-around);
     @include align-content(center);
@@ -24,6 +25,13 @@ $bottomBtnHeight: 1.6rem;
     //align-content: center;
     //flex-wrap: wrap;
     padding:0 0.3rem;
+    .btnGroup{
+      background: url(../img/mallNavigate/bottom-button.png) no-repeat;
+      width: 100%;
+      background-size: contain;
+      background-position: center;
+      margin-bottom: .2rem;
+    }
     .eachBtn {
       color: $stable;
       line-height: 0.47rem;

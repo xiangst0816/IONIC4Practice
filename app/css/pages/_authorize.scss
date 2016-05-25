@@ -163,14 +163,14 @@
   color: $stable;
   height: 100%;
   .registerSuccessInfo{
-    padding:0 1.1rem;
+    padding:0 1rem;
     border:1px solid transparent;
     h2{
       margin-top:1.29rem;
       color: $stable;
       text-align: center;
       font-size:0.49rem;
-      font-weight:400;
+      //font-weight:400;
       font-weight: bold;
     }
     p{
@@ -218,7 +218,6 @@
     width:80%;
     float: right;
     margin-right:0.5rem;
-
   }
 }
 

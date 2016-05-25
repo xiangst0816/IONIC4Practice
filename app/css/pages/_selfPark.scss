@@ -33,6 +33,10 @@
         & > span {
           color: #535353;
           font-size: 0.2rem;
+          .parkLink {
+            color: #a91f7f;
+            text-decoration: underline;
+          }
         }
       }
 

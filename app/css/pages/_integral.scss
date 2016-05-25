@@ -381,27 +381,65 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 0.17rem;
+    @include display-flex;
+    @include justify-content(space-between);
+    @include align-items(center);
     p {
-
+      font-size: 0.18rem;
       margin-bottom: 0;
       color: $stable;
+      display: inline-block;
     }
     p:nth-child(1) {
-      font-size: 0.18rem;
       line-height: 100%;
-
     }
     p:nth-child(2) {
-      font-size: 0.3rem;
-      line-height: 170%;
+      // font-size: 0.3rem;
+      // line-height: 170%;
       //text-decoration: underline;
       //text-align: left;
       text-decoration: underline;
-      margin-bottom: 0.15rem;
-      top: -0.1rem;
-      position: relative;
+      // margin-bottom: 0.15rem;
+      // top: -0.1rem;
+      // position: relative;
     }
 
+  }
+  .buttonGroup {
+    @include display-flex;
+    @include justify-content(space-between);
+    @include align-items(center);
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: .2rem 0;
+    & > div {
+      display: inline-block;
+      border-radius: 5px;
+      border: 2px solid $stable;
+      width: 49%;
+      background-color: transparent;
+      color: $stable;
+      @include display-flex;
+      @include justify-content(center);
+      @include align-items(center);
+      padding: .05rem 0;
+      .icon {
+        display: inline-block;
+        width: .35rem;
+        height: .35rem;
+        margin-right: .1rem;
+      }
+    }
+    .selfIntegral > .icon {
+      background: url(../img/integral/icon-selfIntegral.png) no-repeat center center/auto 100%;
+      background-size: cover;
+      height: .4rem;
+    }
+    .integralMall > .icon {
+      background: url(../img/integral/icon-mall.png) no-repeat center center/auto 100%;
+      background-size: cover;
+    }
   }
   .queryBox {
     @include display-flex;
@@ -424,7 +462,7 @@
       line-height: 0.7rem;
       box-sizing: content-box;
       input {
-        width: 2rem;
+        width: 100%;
         text-align: center;
         padding: 0;
         -webkit-appearance: none;
@@ -440,19 +478,20 @@
     }
     .dateFrom {
       //padding:0 0.39rem;
-
+      width: 35%;
     }
     .dateDivider {
-      width: 0.46rem;
+      width: 5%;
       border-top: 2px solid $stable;
       height: 1px;
 
     }
     .dateTo {
       //padding:0 0.39rem;
+      width: 35%;
     }
     .dateBtn {
-      width: 0.7rem;
+      width: 10%;
       @include display-flex;
       @include justify-content(center);
       @include align-items(center);
