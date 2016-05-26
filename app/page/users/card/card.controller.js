@@ -4,14 +4,14 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('cardCtrl', ['$scope', '$sessionStorage', '$state', '$rootScope', '$ionicLoading','cardLevelImg', function ($scope, $sessionStorage, $state, $rootScope, $ionicLoading,cardLevelImg) {
+        .controller('cardCtrl', ['$scope', '$sessionStorage', 'cardLevelImg', 'baseUrl', function ($scope, $sessionStorage, cardLevelImg, baseUrl) {
 
             // $ionicLoading.show();
             $scope.params = {
                 cardno: $sessionStorage.userInfo.cardno,
                 fullname: $sessionStorage.userInfo.fullname,
                 cardImg: cardLevelImg['cardLevelImg' + $sessionStorage.userInfo.levelid],
-                card2DCode: 'http://srdemo1.smartac.co/dqcodegen?symbology=58&size=300&fg_color=000000&bg_color=ffffff&case=1&margin=0&level=0&hint=2&ver=2&txt=' + $sessionStorage.userInfo.cardno
+                card2DCode: baseUrl.generateQrcodeUrl + $sessionStorage.userInfo.cardno
             };
 
 

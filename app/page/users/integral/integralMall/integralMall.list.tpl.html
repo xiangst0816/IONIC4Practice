@@ -6,7 +6,9 @@
                 <span ng-bind="typeName"></span>&ensp;<i class="icon-subtitle icon-arrow-down"></i>
             </tap-header>
             <tap-list>
-                <tap-item ng-click="setTypeName(item)" ng-repeat="item in typeNameArr track by $index" ng-bind="::item.name"></tap-item>
+                <tap-item ng-click="setTypeName(item)"
+                          ng-repeat="item in typeNameArr track by $index"
+                          ng-bind="::item.name"></tap-item>
             </tap-list>
         </tap-select>
         <tap-select>
@@ -14,7 +16,9 @@
                 <span ng-bind="orderName"></span>&ensp;<i class="icon-subtitle icon-arrow-down"></i>
             </tap-header>
             <tap-list>
-                <tap-item ng-click="setOrderName(item)" ng-repeat="item in orderNameArr track by $index" ng-bind="::item.name"></tap-item>
+                <tap-item ng-click="setOrderName(item)"
+                          ng-repeat="item in orderNameArr track by $index"
+                          ng-bind="::item.name"></tap-item>
             </tap-list>
         </tap-select>
     </smart-tap-box>
@@ -31,14 +35,16 @@
             <section>
                 <!--卡券-->
                 <div class="eachItems" ng-repeat="item in dataToDisplay track by $index">
-                    <section ui-sref="subNav.memberIntegralMallDetail({couponid:item.couponid,typecode:item.type_code})"
-                             class="item item-thumbnail-left goodsEach">
+                    <section
+                            ui-sref="subNav.memberIntegralMallDetail({couponid:item.couponid,typecode:item.type_code})"
+                            class="item item-thumbnail-left goodsEach">
                         <div class="placeholder_43_2 imgBox">
                             <img ng-src="{{::item.image_url | addImgPrefix}}" err-src="">
                         </div>
                         <div class="goodsEach-right">
                             <h2 ng-bind="::item.name"></h2>
-                            <p><span class="integralNum" ng-bind="::item.point"></span>&ensp;<span>积分</span></p>
+                            <p><span class="integralNum" ng-bind="::item.point"></span>&ensp;<span>积分</span>
+                            </p>
                             <div class="goodsEach-info clearfix">
                                 剩余:<span ng-bind="::item.urplus_count"></span>/<span
                                     ng-bind="::item.max_assign_count"></span>
@@ -51,41 +57,21 @@
                         'diyong':(item.category_code == '2'),
                         'xianjin':(item.category_code == '3'),
                         'duihuan':(item.category_code == '4')}"
-                             class="gouponTop" ng-bind="::item.category_name | couponCategoryToName"></div>
+                             class="gouponTop"
+                             ng-bind="::item.category_name | couponCategoryToName"></div>
                         <div ng-if="item.type_code == '2'" class="gouponTop lipin">礼品</div>
-                        <div ng-if="!item.canConvert"  class="convertBtn forbidden">兑换</div>
-                        <div ng-if="item.canConvert"  class="convertBtn" ng-click="rewardCouponBtn(item)">兑换</div>
+                        <div ng-if="!item.canConvert" class="convertBtn forbidden">兑换</div>
+                        <div ng-if="item.canConvert" class="convertBtn" click-to-reward detail="item">
+                            兑换
+                        </div>
                     </section>
                 </div>
-                <!--礼品-->
-                <!--<div class="eachItems" ng-repeat="item in dataToDisplay  track by $index" >-->
-                    <!--<section ui-sref="subNav.memberIntegralMallDetail({detail:item})"-->
-                             <!--class="item item-thumbnail-left goodsEach">-->
-                        <!--<div class="placeholder_43_2 imgBox">-->
-                            <!--<img ng-src="{{::item.imageurl | addImgPrefix}}" err-src="">-->
-                        <!--</div>-->
-                        <!--<div class="goodsEach-right">-->
-                            <!--<h2 ng-bind="::item.giftname"></h2>-->
-                            <!--<p><span class="integralNum" ng-bind="::item.quantity"></span>&ensp;<span>积分</span></p>-->
-                            <!--<div class="goodsEach-info clearfix">-->
-                                <!--剩余:<span ng-bind="::item.remainingamount"></span>/<span-->
-                                    <!--ng-bind="::item.initialinventory"></span>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</section>-->
-                    <!--<section class="btns">-->
-                        <!--<div class="gouponTop lipin">礼品</div>-->
-                        <!--<div class="convertBtn" ng-click="rewardCouponBtn(item)">兑换</div>-->
-                    <!--</section>-->
-                <!--</div>-->
                 <!--抱歉,暂无数据!-->
                 <div ng-include="::'tpl/noDataToDisplay.comp.html'"></div>
             </section>
         </div>
-        <ion-infinite-scroll ng-show="moreDataCanBeLoaded" distance="1%" on-infinite="loadMore()"></ion-infinite-scroll>
+        <ion-infinite-scroll ng-show="moreDataCanBeLoaded" distance="1%"
+                             on-infinite="loadMore()"></ion-infinite-scroll>
     </ion-content>
 </ion-view>
-<!--兑换礼券的对话框-->
-<!--<script id="convertRequest.html" type="text/ng-template">-->
 
-<!--</script>-->

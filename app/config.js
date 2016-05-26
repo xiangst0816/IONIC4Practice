@@ -66,8 +66,7 @@
          * */
         .factory("baseUrl", [function () {
             return {
-                // webAppDomain:"",
-                // indexUrl: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1f9f586691e432d2&redirect_uri=http%3A%2F%2Fvivocity.smartac.co%2Fwebapp%2Findex.html&response_type=code&scope=snsapi_base&state=index#wechat", //webapp的首页地址
+                indexUrl: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1f9f586691e432d2&redirect_uri=http%3A%2F%2Fvivocity.smartac.co%2Fwebapp%2Findex.html&response_type=code&scope=snsapi_base&state=index#wechat", //webapp的首页地址
                 //分享公用的域名
                 // sharedImgUrl:"http://vivocity.smartac.co:82/img/other/default.png",
              
@@ -93,35 +92,18 @@
         .factory('api', ['baseUrl', function (baseUrl) {
             var domain = baseUrl.domain;
             return {
-                // getJsJDKConfigUrl: domain + "/api/weiapp/GetJsJDKConfig",
-                //
-                // signatureUrl: domain + "/signature",
                 signatureUrl: domain + "/signature",
-
                 authenticateUrl: domain + "/authenticate",
-
                 couponUrl: domain + "/coupons",
                 giftUrl: domain + "/gifts",
                 pointUrl: domain + "/point",
                 customerUrl: domain + "/customers",
-                // addressUrl: domain + "/customer/address",
                 codeUrl: domain + "/code",
                 shopUrl: domain + "/shops",
-                // feedbackUrl: domain + "/feedback",
-
                 parkingUrl: domain + "/sbp",
                 tradeUrl: domain + "/trade",
                 messageUrl: domain + "/message",
-
-                // addTradeUrl: domain + "/trade/add/simple",
-                imgDomainUrl: baseUrl.resourceDomain,
-
-                //二维码的生成地址
-                generateQrcodeUrl: baseUrl.generateQrcodeUrl,
-                generateBarcodeUrl: baseUrl.generateBarcodeUrl,
-                scancodeVerificationUrl: baseUrl.scancodeVerificationUrl
-
-
+                imgDomainUrl: baseUrl.resourceDomain
             }
         }
         ])

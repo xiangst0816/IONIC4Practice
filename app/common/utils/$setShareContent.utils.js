@@ -1,6 +1,6 @@
-// /**
-//  * Created by xiangsongtao on 16/5/11.
-//  */
+/**
+ * Created by xiangsongtao on 16/5/26.
+ */
 (function () {
     /**
      * app and 微信分享相关 $setShareContent

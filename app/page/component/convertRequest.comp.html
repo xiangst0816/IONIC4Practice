@@ -1,6 +1,0 @@
-<div class="convertRequestBox" ng-switch="data.detail.valid_type_code">
-    <p class="title">确认兑换该{{data.title}}&ensp;<input id="convertNum" min="0" ng-model="data.convertNum" type="number">&ensp;{{data.suffix}}?</p>
-    <div ng-if="data.detail.type_code == 1" ng-switch-when="1" class="subTitle">(使用有效期截止 <span ng-bind="data.detail.valid_end_time | yyyyMd_cn"></span>)</div>
-    <div ng-if="data.detail.type_code == 1" ng-switch-when="2" class="subTitle">(从兑换开始: <span ng-bind="data.detail.valid_days"></span>天内有效)</div>
-    <div ng-if="data.detail.type_code == 2" class="subTitle">(使用有效期截止 <span ng-bind="data.detail.valid_end_time | yyyyMd_cn"></span>)</div>
-</div>

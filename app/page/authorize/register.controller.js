@@ -93,7 +93,7 @@
                 }
 
                 if (!verification.isPassword($scope.register.password)) {
-                    $ionicToast.show('密码格式不对');
+                    $ionicToast.show('密码至少6位,且以数字或字母开头');
                     return;
                 }
 

@@ -21,7 +21,7 @@
  *      "wxLevel_AttOnly":需要关注,不需注册
  */
 (function () {
-    angular.module('smartac.page').factory("$checkAuthorize", ['$q', '$getUserInfo', 'baseInfo', '$sessionStorage', '$ionicLoading', '$getUrlParams', '$ionicPopup', '$state', '$ionicToast', '$ocLazyLoad', '$timeout', '$log', function ($q, $getUserInfo, baseInfo, $sessionStorage, $ionicLoading, $getUrlParams, $ionicPopup, $state, $ionicToast, $ocLazyLoad, $timeout, $log) {
+    angular.module('smartac.page').factory("$checkAuthorize", ['$q', '$getUserInfo', 'baseInfo', '$sessionStorage', '$ionicLoading', '$getUrlParams', '$ionicPopup', '$state', '$ionicToast', '$ocLazyLoad', '$timeout', '$log','$localStorage', function ($q, $getUserInfo, baseInfo, $sessionStorage, $ionicLoading, $getUrlParams, $ionicPopup, $state, $ionicToast, $ocLazyLoad, $timeout, $log,$localStorage) {
         return function (level) {
             $ionicLoading.show({
                 hideOnStateChange: true,
@@ -79,7 +79,7 @@
 
                 }
             } else if (Internal.isInApp) {    //app用户
-                var userInfo = $sessionStorage.userInfo;
+                var userInfo = $localStorage.userInfo;
                 if (userInfo && userInfo.customerid) {
                     $getUserInfo({
                         "conditions": {
@@ -90,7 +90,7 @@
                         if (!!userInfo.cardno) {
                             $log.debug("app_in");
                             defer.resolve("app_in");
-                        }else{
+                        } else {
                             needCard();
                             $log.debug("app_noCard");
                             defer.reject("app_noCard");
@@ -153,7 +153,7 @@
                                 }
                             }
                         }
-                    }else{
+                    } else {
                         //没有手机号,让他注册
                         needRegister();
                         defer.reject("wx_needRegister");

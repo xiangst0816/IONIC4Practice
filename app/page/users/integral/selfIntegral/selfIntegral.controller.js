@@ -73,17 +73,37 @@
 
                     //验证
                     var timeNow = new Date().getTime();
-                    if (arr.length != 5 || arr[2].length >= 36 || isNaN(arr[3])) {
+                    if (arr.length != 5) {
                         // alert("二维码数据格式出错,请联系开发人员!");
                         showNoticeInfo({
                             title: "积分失败",
-                            template: "二维码数据格式出错,请再次扫描!"
+                            template: "二维码数据参数个数出错,请核对!"
                         });
                         return
                     }
 
+                    //当前会员验证
+                    var cardno = $sessionStorage.userInfo.cardno;
+                    if (arr[0] != cardno) {
+                        showNoticeInfo({
+                            title: "积分失败",
+                            template: "请使用消费时出示的会员卡兑换该小票!"
+                        });
+                        return
+                    }
+
+                    //商户格式验证
+                    if (arr[2].length > 36) {
+                        showNoticeInfo({
+                            title: "积分失败",
+                            template: "商户ID错误,请核对!"
+                        });
+                        return
+                    }
+
+
                     //时间验证
-                    if (arr[3].length != 13 || parseInt(arr[3]) > parseInt(timeNow)) {
+                    if (isNaN(arr[3]) || arr[3].length != 13 || parseInt(arr[3]) > parseInt(timeNow)) {
                         showNoticeInfo({
                             title: "积分失败",
                             template: "交易时间错误,请核对!"

@@ -31,45 +31,11 @@
           <!--<div class="innerBox" ng-bind-html="::item.detail_rule | withoutStyle"></div>-->
           <div ng-if="item.type_code == 1" class="innerBox" ng-bind-html="::item.detail_rule"></div>
           <div ng-if="item.type_code == 2" class="innerBox" ng-bind-html="::item.detail_rule"></div>
-          <!--<li>限{{item.org_name}}使用</li>-->
-          <!--&lt;!&ndash;<li>店铺名称:{{item.shop[0].name}},位置:{{item.shop[0].area}}</li>&ndash;&gt;-->
-          <!--<li ng-if="::item.cust_type_id">限{{item.cust_type_id | cardLevelIDToName}}会员使用</li>-->
-          <!--<li>抵用券每次只能使用一张</li>-->
-          <!--<li>不兑换</li>-->
-          <!--<li>不可与其他优惠券同时使用</li>-->
         </div>
       </div>
     </section>
-    <!--&lt;!&ndash;礼品详情&ndash;&gt;-->
-    <!--<section ng-if="::!item.isCoupon">-->
-      <!--<div class="shopImg placeholder_43_2">-->
-        <!--<img ng-src="{{::item.imageurl | addImgPrefix}}" err-src="">-->
-      <!--</div>-->
-      <!--<div class="cardDetails">-->
-        <!--<strong ng-bind="::item.giftname"></strong>-->
-        <!--<p>礼品</p>-->
-      <!--</div>-->
-      <!--<div class="detailInfo">-->
-        <!--<div class="detailBox">-->
-          <!--<div class="detailTitle"><strong>使用时间:</strong></div>-->
-          <!--<span><span ng-bind="::item.starttime"></span> 至 <span ng-bind="::item.endtime"></span></span>-->
-        <!--</div>-->
-        <!--<div class="detailBox">-->
-          <!--<div class="detailTitle"><strong>使用规则: </strong></div>-->
-          <!--<div class="innerBox" ng-bind-html="::item.usedremarks | withoutStyle"></div>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</section>-->
   </ion-content>
   <div class="convertNowBtn">
-    <div ng-click="rewardCouponBtn()">立即兑换</div>
+    <div click-to-reward detail="item">立即兑换</div>
   </div>
 </ion-view>
-
-<!--<script id="convertRequest.html" type="text/ng-template">-->
-  <!--<div class="convertRequestBox" ng-switch="::data.detail.valid_type_code">-->
-    <!--<p class="title">确认兑换该礼券&ensp;<input id="convertNum" min="0" ng-model="data.convertNum" type="number">&ensp;张?</p>-->
-    <!--<p ng-switch-when="1" class="subTitle">(使用有效期截止 <span ng-bind="::data.detail.valid_end_time"></span>)</p>-->
-    <!--<p ng-switch-when="2" class="subTitle">(从兑换开始: <span ng-bind="::data.detail.valid_days"></span>天内有效)</p>-->
-  <!--</div>-->
-<!--</script>-->

@@ -7,20 +7,22 @@
 
 
 
-        /**
-         * 获取用户信息(微信和app通用), 已做缓存处理
-         * */
-        .factory("$getUserInfo", ['AJAX', 'api', '$q','$sessionStorage','$log','$ionicToast','$setShareContent', function (AJAX, api, $q,$sessionStorage,$log,$ionicToast,$setShareContent) {
+    /**
+     * 获取用户信息(微信和app通用), 已做缓存处理
+     * */
+        .factory("$getUserInfo", ['AJAX', 'api', '$q', '$sessionStorage', '$log', '$ionicToast', '$setShareContent', function (AJAX, api, $q, $sessionStorage, $log, $ionicToast, $setShareContent) {
             return function (options) {
                 !angular.isObject(options) && (options = {});
                 var defer = $q.defer();
                 var userInfo = $sessionStorage.userInfo;
                 //设定保存20秒,20s内有效
-                if((userInfo)&&(!!userInfo.customerid)&&(((new Date().getTime() - parseInt(userInfo.time)) / 1000) < (20))){
+                if ((userInfo) && (!!userInfo.customerid) && (((new Date().getTime() - parseInt(userInfo.time)) / 1000) < (20))) {
                     defer.resolve(userInfo);
                     $log.debug("userInfo使用缓存数据!时间:" + ((new Date().getTime() - parseInt(userInfo.time)) / 1000) + "s");
                     return defer.promise;
                 }
+
+                
                 $log.debug("userInfo使用最新数据!");
                 var params = {
                     "method": "query",
@@ -39,7 +41,7 @@
                     method: "post",
                     data: angular.deepExtend(params, options),
                     success: function (data) {
-                      
+
                         if (data.code == "7001" && angular.isArray(data.members) && data.members.length) {
                             //设置时间戳
                             data.members[0].time = new Date().getTime();
@@ -52,13 +54,13 @@
                             $log.debug("获取用户信息成功");
                         } else {
                             $ionicToast.show("无法获取您的信息,请稍后再试!");
-                            $log.debug("获取用户信息出错,"+data.code);
+                            $log.debug("获取用户信息出错," + data.code);
                             defer.reject("系统错误!");
                         }
                     },
                     error: function (errText) {
                         $ionicToast.show("无法获取您的信息,请稍后再试!");
-                        $log.debug("获取用户信息出错,"+JSON.stringify(errText));
+                        $log.debug("获取用户信息出错," + JSON.stringify(errText));
                         defer.reject(errText);
                     }
                 });
@@ -70,7 +72,7 @@
          * 用户信息更新
          * 执行$getUserInfo,同步更新到$sessionStorage中
          * */
-        .factory("$updateUserInfo", ['AJAX', 'api', '$q','$getUserInfo','$sessionStorage','$log','$ionicToast', function (AJAX, api, $q,$getUserInfo,$sessionStorage,$log,$ionicToast){
+        .factory("$updateUserInfo", ['AJAX', 'api', '$q', '$getUserInfo', '$sessionStorage', '$log', '$ionicToast', function (AJAX, api, $q, $getUserInfo, $sessionStorage, $log, $ionicToast) {
             return function (options) {
                 !angular.isObject(options) && (options = {});
                 var defer = $q.defer();
@@ -84,7 +86,7 @@
                         "provincecode": "",
                         "citycode": "",
                         "address": "",
-                        "birthday":"",
+                        "birthday": "",
                         "haschildren": ""
                     }
                 };
@@ -105,13 +107,13 @@
                             })
                         } else {
                             $ionicToast.show("信息更新失败,请稍后再试!");
-                            $log.debug("用户信息更新失败,code:"+data.code);
+                            $log.debug("用户信息更新失败,code:" + data.code);
                             defer.reject(data.code)
                         }
                     },
                     error: function (errText) {
                         $ionicToast.show("信息更新失败,请稍后再试!");
-                        $log.debug("用户信息更新失败,"+JSON.stringify(errText));
+                        $log.debug("用户信息更新失败," + JSON.stringify(errText));
                         defer.reject(errText);
                     }
                 });

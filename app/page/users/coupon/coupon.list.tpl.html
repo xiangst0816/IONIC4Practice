@@ -58,38 +58,15 @@
                         <p>有效期限:<span ng-bind="::item.limit_time_begin.low | yyyyMMdd_dot"></span> ~ <span ng-bind="::item.limit_time_end.low |
                             yyyyMMdd_dot"></span></p>
                         <!--未使用未过期-->
-                        <div ng-if="::item.status_code == 2" ng-click="usedNow(item.code)">立即使用
+                        <div ng-if="::item.status_code == 2" click-to-use-coupon code="item.code">立即使用
+                        <!--<div ng-if="::item.status_code == 2" click-to-use-coupon code="item.code" ng-click="usedNow(item.code)">立即使用-->
                         </div>
                         <!--已使用或已过期-->
                         <div class="forbidden" ng-if="::item.status_code == 1">已使用</div>
                         <div class="forbidden" ng-if="::item.status_code == 3">已过期</div>
                     </section>
                 </div>
-                <!--each end-->
-                <!--isGift each-->
-                <!--<div class="eachItems" ng-repeat="item in dataToDisplay  track by $index">-->
-                <!--&lt;!&ndash;将item内容传入子页面&ndash;&gt;-->
-                <!--<section class="layer1 clearfix" ui-sref="subNav.memberCouponDetail({detail:item})">-->
-                <!--<div class="imgBox placeholder_43_2">-->
-                <!--<img class="" ng-src="{{::item.imageurl | addImgPrefix}}" err-src="{{::errImg.errImg43_1}}">-->
-                <!--</div>-->
-                <!--<div class="layer1-center">-->
-                <!--<h2><span ng-bind="::item.giftname"></span><span>礼品</span></h2>-->
-                <!--<p>序列号: <span ng-bind="::item.exchangeid"></span></p>-->
-                <!--</div>-->
-                <!--&lt;!&ndash;<div class="layer1-right">&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--</section>-->
-                <!--<section class="layer2">-->
-                <!--<p>有效期限:<span ng-bind="::item.starttime"></span> ~ <span ng-bind="::item.endtime"></span></p>-->
-                <!--&lt;!&ndash;未使用未过期&ndash;&gt;-->
-                <!--<div ng-if="::item.useState == 2" ng-click="usedNow(item.sendid)">立即使用</div>-->
-                <!--&lt;!&ndash;已使用或已过期&ndash;&gt;-->
-                <!--<div class="forbidden" ng-if="::item.useState == 1">已使用</div>-->
-                <!--<div class="forbidden" ng-if="::item.useState == 3">已过期</div>-->
-                <!--</section>-->
-                <!--</div>-->
-                <!--each end-->
+
                 <!--抱歉,暂无数据!-->
                 <div ng-include="::'tpl/noDataToDisplay.comp.html'"></div>
             </section>
@@ -97,19 +74,4 @@
 
         <ion-infinite-scroll ng-show="moreDataCanBeLoaded" distance="1%" on-infinite="loadMore()"></ion-infinite-scroll>
     </ion-content>
-
-
 </ion-view>
-
-
-<!--<script id="useGougon.html" type="text/ng-template">-->
-<!--<ion-popover-view class="showCode2D">-->
-<!--<div class=showCode2DInnerBox>-->
-<!--<div class="imgBox">-->
-<!--<ion-spinner icon="lines" class="imgLoadSpinner"></ion-spinner>-->
-<!--<img ng-src="{{::useGougon4CodeImg}}" alt="">-->
-<!--</div>-->
-<!--<p>{{useGougon4Code}}</p>-->
-<!--</div>-->
-<!--</ion-popover-view>-->
-<!--</script>-->

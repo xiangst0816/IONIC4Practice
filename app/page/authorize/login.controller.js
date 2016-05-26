@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('loginCtrl', ['$scope', 'verification', '$ionicLoading', '$ionicToast', '$login', '$getUserInfo','$rootScope', function ($scope, verification, $ionicLoading, $ionicToast, $login, $getUserInfo,$rootScope) {
+        .controller('loginCtrl', ['$scope', 'verification', '$ionicLoading', '$ionicToast', '$login', '$getUserInfo','$rootScope','$localStorage', function ($scope, verification, $ionicLoading, $ionicToast, $login, $getUserInfo,$rootScope,$localStorage) {
 
             /**
              * 提交按钮
@@ -31,6 +31,15 @@
                 }).then(function (data) {
                     //并且有数据
                     if (!!data.length) {
+
+                        //如果是app,那就将customerid放在localStorage中
+                        //只在登陆进行此操作
+                        if(Internal.isInApp){
+                            $localStorage.userInfo ={
+                                customerid:data[0].customerid.toString()
+                            };
+                        }
+
                         /**
                          * 用户信息查询
                          * */
