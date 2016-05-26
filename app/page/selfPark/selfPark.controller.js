@@ -46,8 +46,8 @@
              * */
             $ionicLoading.show();
             $q.all([
-                getTotalSpaceNum(),
-                getFreeSpaceNum(),
+                // getTotalSpaceNum(),
+                // getFreeSpaceNum(),
                 getLimitIntInfo(),
                 getLimitIntInfo(),
                 getFeePreHour()

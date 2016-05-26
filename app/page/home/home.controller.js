@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('homeCtrl', ['$scope', '$sessionStorage', '$rootScope', '$ionicPopup', '$state', 'api', 'AJAX', '$ionicToast', '$q', '$getCode', '$getUrlParams', '$checkAuthorize', '$filter', '$log', '$ionicLoading', '$integralInfo', '$getMessage', function ($scope, $sessionStorage, $rootScope, $ionicPopup, $state, api, AJAX, $ionicToast, $q, $getCode, $getUrlParams, $checkAuthorize, $filter, $log, $ionicLoading, $integralInfo, $getMessage) {
+        .controller('homeCtrl', ['$scope', '$sessionStorage', '$rootScope', '$ionicPopup', '$state', 'api', 'AJAX', '$ionicToast', '$q', '$getCode', '$getUrlParams', '$checkAuthorize', '$filter', '$log', '$ionicLoading', '$integralInfo', '$getMessage','$localStorage', function ($scope, $sessionStorage, $rootScope, $ionicPopup, $state, api, AJAX, $ionicToast, $q, $getCode, $getUrlParams, $checkAuthorize, $filter, $log, $ionicLoading, $integralInfo, $getMessage,$localStorage) {
 
 
             /**
@@ -84,6 +84,7 @@
                         type: 'btnfor2',
                         onTap: function (e) {
                             delete $sessionStorage.$reset();
+                            delete $localStorage.$reset();
                             $state.go('home');
                             $scope.showHome();
                         }

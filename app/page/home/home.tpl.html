@@ -1,7 +1,7 @@
 <!--
 首页文件
 -->
-<ion-view title="Home" class="home">
+<ion-view title="Home" class="home" first-in-guide>
     <ion-slide-box
             class="index-top-swiper"
             does-continue="true"
@@ -18,18 +18,7 @@
         </ion-slide>
     </ion-slide-box>
 
-    <!--底部的logo光晕图,放在行星图的上面,防止覆盖到行星图,造成滑动10%的概率失效-->
-    <section class="index-bottom-logo">
-        <div class="level-1">
-            <img src="img/home/level-1.png" alt="">
-        </div>
-        <div class="level-2">
-            <img src="img/home/level-2.png" alt="">
-        </div>
-        <div class="level-3">
-            <img src="img/home/level-3.png" alt="">
-        </div>
-    </section>
+
 
     <ion-planet on-swipe-left="swipeLeft()" on-swipe-right="swipeRight()" on-touch="onTouch()" on-release="onRelease()"
                 class="index-bottom-swiper"
@@ -80,10 +69,23 @@
 
     <!--底部logo图,层级在行星图的上面,在此层滑动不会触发行星图的动作-->
     <section class="index-bottom-logo" ng-click="doLogout()">
-        <div class="level-0">
-            <img src="img/home/level-0.png" alt="">
+        <div class="level-1">
+            <img src="img/home/logo-bm.png" alt="">
         </div>
     </section>
+
+    <!--底部的logo光晕图,放在行星图的上面,防止覆盖到行星图,造成滑动10%的概率失效-->
+    <!--<section class="index-bottom-logo">-->
+    <!--<div class="level-1">-->
+    <!--<img src="img/home/level-1.png" alt="">-->
+    <!--</div>-->
+    <!--<div class="level-2">-->
+    <!--<img src="img/home/level-2.png" alt="">-->
+    <!--</div>-->
+    <!--<div class="level-3">-->
+    <!--<img src="img/home/level-3.png" alt="">-->
+    <!--</div>-->
+    <!--</section>-->
 
     <!--section member appear from top-->
 

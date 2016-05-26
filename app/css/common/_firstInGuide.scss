@@ -1,0 +1,31 @@
+
+.firstGuideBox {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  .userGuideBox {
+    position: relative;
+    top:0;
+    img {
+      width: 3.6rem;
+      left: 3.14rem;
+      position: relative;
+    }
+
+  }
+  .planetGuideBox {
+    position: absolute;
+    bottom:0;
+    img {
+      width: 2.9rem;
+      left: 2.1rem;
+      bottom: 1.3rem;
+      position: relative;
+    }
+  }
+
+}
