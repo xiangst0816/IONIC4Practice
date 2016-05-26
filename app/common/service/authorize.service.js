@@ -1,6 +1,6 @@
 /**
  * Created by xiangsongtao on 16/4/21.
- * 鉴权相关->登陆,验证码,注册
+ * 鉴权相关->登录,验证码,注册
  */
 (function () {
     angular.module('smartac.page')
@@ -47,7 +47,7 @@
 
 
         /**
-         * 登陆
+         * 登录
          * */
         .factory("$login", ['AJAX', 'api', '$q', '$log', '$ionicToast', function (AJAX, api, $q, $log, $ionicToast) {
             return function (options) {
@@ -73,14 +73,14 @@
                         if (data.code == 7001) {
                             defer.resolve(data.content);
                         } else {
-                            $ionicToast.show("登陆失败,请稍后再试!");
-                            $log.debug("登陆失败,返回code:" + data.code);
+                            $ionicToast.show("登录失败,请稍后再试!");
+                            $log.debug("登录失败,返回code:" + data.code);
                             defer.reject(data.code)
                         }
                     },
                     error: function (errText) {
-                        $ionicToast.show("登陆失败,请稍后再试!");
-                        $log.debug("登陆失败,系统错误," + JSON.stringify(errText));
+                        $ionicToast.show("登录失败,请稍后再试!");
+                        $log.debug("登录失败,系统错误," + JSON.stringify(errText));
                         defer.reject(errText);
                     }
                 });
@@ -169,7 +169,7 @@
                     "method": "customerValidate",
                     "validatecode": "",
                     "mobile": "",
-                    "typecode": ""//1 忘记密码重置 2 登陆上限错误验证码/验证码登陆
+                    "typecode": ""//1 忘记密码重置 2 登录上限错误验证码/验证码登录
                 };
                 //数据合并
                 angular.deepExtend(params, options);

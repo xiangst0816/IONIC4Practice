@@ -1,6 +1,6 @@
 /**
  * Created by xiangsongtao on 16/3/16.
- * 登陆 controller
+ * 登录 controller
  */
 (function () {
     angular.module('smartac.page')
@@ -40,7 +40,7 @@
                                 "customerid": data[0].customerid.toString()
                             }
                         }).finally(function () {
-                            //第一页面一定时home,如果鉴权调到登陆,那返回就好,不必跳转!
+                            //第一页面一定时home,如果鉴权调到登录,那返回就好,不必跳转!
                             $rootScope.goBack();
                             // history.back();
                         });

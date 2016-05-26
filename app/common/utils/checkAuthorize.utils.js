@@ -1,11 +1,11 @@
 /**
  * Created by xiangsongtao on 16/4/25.
- * 检查是否具有权限(微信完成自动登陆,app默认需要登录,wx默认需要关注+注册)
+ * 检查是否具有权限(微信完成自动登录,app默认需要登录,wx默认需要关注+注册)
  * info:
  * 1. 检查设备环境,
  * 2. 检查是否有用户信息,
- * 3. 微信如果没登录,由code和cfid自动登陆
- * 4. 没有转到登陆/注册,登陆/注册后会查询用户信息
+ * 3. 微信如果没登录,由code和cfid自动登录
+ * 4. 没有转到登录/注册,登录/注册后会查询用户信息
  * 5. 只有进入才是resolve状态,其余为reject状态,返回状态码
  * 6.   resolve->wx_in:微信准许进入
  * 6.   resolve->wx_noRegister:微信准许进入,但是没注册
@@ -13,7 +13,7 @@
  *      reject->wx_needRegister:微信需要注册(完善电话号码和密码)
  *      reject->wx_needAttention:微信需要关注
  *      resolve->app_in:app准许进入
- *      reject->app_needLogin:app需要登陆
+ *      reject->app_needLogin:app需要登录
  *      sys_err->系统错误,获取用户信息失败
  * 7. 鉴权等级level(微信)
  *      "" :默认为Att&Reg

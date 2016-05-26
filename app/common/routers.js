@@ -182,11 +182,11 @@
                 })
 
                 /**
-                 * 注册/登陆/-子页面二级导航Nav
+                 * 注册/登录/-子页面二级导航Nav
                  * 密码相关授权验证
                  * controller:'verificationCtrl'
                  * */
-                //登陆
+                //登录
                 .state('subNav.login', {
                     url: '/login',
                     templateUrl: 'tpl/login.tpl.html',

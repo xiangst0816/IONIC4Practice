@@ -26,7 +26,7 @@
                 var uri = baseInfo.shareInfo.url;
                 uri = uri + "?directToState=" + directToState;
 
-                //如果分享人未登陆,何来分享送积分? 获取分享人信息
+                //如果分享人未登录,何来分享送积分? 获取分享人信息
                 var userInfo = $sessionStorage.userInfo;
                 if (!!userInfo && !!userInfo.customerid) {
                     uri = uri + "&sharedcustid=" + userInfo.customerid;
