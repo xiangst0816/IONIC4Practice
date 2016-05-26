@@ -421,7 +421,7 @@ var nativePlugin = {
                 hidden:true
             });
         }
-    },5000)
+    },1000)
 
 
 })();

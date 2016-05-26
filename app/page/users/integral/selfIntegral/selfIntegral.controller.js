@@ -4,8 +4,8 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('selfIntegralCtrl', ['$scope', '$ionicActionSheet', '$state', '$ionicSlideBoxDelegate', '$ionicPopup', '$toDateFormat', '$filter','$createTrade','$sessionStorage','$ionicLoading','$ionicToast','$base64','baseInfo', function ($scope, $ionicActionSheet, $state, $ionicSlideBoxDelegate, $ionicPopup, $toDateFormat, $filter,$createTrade,$sessionStorage,$ionicLoading,$ionicToast,$base64,baseInfo) {
-           // console.log( $base64.encode("10000"))
+        .controller('selfIntegralCtrl', ['$scope', '$ionicActionSheet', '$state', '$ionicSlideBoxDelegate', '$ionicPopup', '$toDateFormat', '$filter', '$createTrade', '$sessionStorage', '$ionicLoading', '$ionicToast', '$base64', 'baseInfo', function ($scope, $ionicActionSheet, $state, $ionicSlideBoxDelegate, $ionicPopup, $toDateFormat, $filter, $createTrade, $sessionStorage, $ionicLoading, $ionicToast, $base64, baseInfo) {
+            // console.log( $base64.encode("10000"))
 
             /**
              * 左右两个箭头切换silder
@@ -68,13 +68,14 @@
              * */
             function scanNow() {
                 nativePlugin.scanQRCode(function (result) {
-                    // var data = '051301|20160513171601|02a2411d-cde6-4bcb-9f6a-e7433436df19|4444444444444|500';
-                    // alert("如果测试请记录数据");
-                    // alert("扫出来的数据:"+JSON.stringify(result));
                     data = result.resultStr;
                     var arr = data.split('|');
-                    if (arr.length !== 5) {
-                        alert("二维码数据格式出错,请联系开发人员!");
+                    if (arr.length != 5 || isNaN(arr[3]) || arr[2].length>=36 ) {
+                        // alert("二维码数据格式出错,请联系开发人员!");
+                        showNoticeInfo({
+                            title: "积分失败",
+                            template: "二维码数据格式出错,请再次扫描!"
+                        });
                         return
                     }
                     var params = {
@@ -86,20 +87,20 @@
                         "typeid": 1,//1 交易 ，2 退货  	Int32	是
                         "orgid": baseInfo.orgid,
                         "remark": "来自APP【扫码积分】的交易补录信息",
-                        "createid":$sessionStorage.userInfo.customerid.toString(),//创建人	String 否
-                        "createdtime":$filter('yyyyMMdd_HHmmss_minus')(new Date())//创建时间	String	否
+                        "createid": $sessionStorage.userInfo.customerid.toString(),//创建人	String 否
+                        "createdtime": $filter('yyyyMMdd_HHmmss_minus')(new Date())//创建时间	String	否
                     };
                     // alert("发送到数据:"+JSON.stringify(params));
                     //交易消息补录 数据操作
                     $ionicLoading.show();
                     $createTrade(params).then(function (data) {
                         showNoticeInfo({
-                            title:"积分成功",
-                            template:"您已成功积分,请到【积分查询】查看结果!"
+                            title: "积分成功",
+                            template: "您已成功积分,请到【积分查询】查看结果!"
                         });
                     }, function (errText) {
                         showNoticeInfo({
-                            title:"积分失败",
+                            title: "积分失败",
                             // template:"您已小票已积分,此操作无效!" + errText
                             template: errText
                         });
@@ -108,8 +109,6 @@
                     })
                 })
             }
-
-
 
 
             /**
