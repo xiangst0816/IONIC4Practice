@@ -62,7 +62,7 @@
              * 微信扫一扫测试
              *
              * 数据格式: cardno|tradeno|shopid|tradetime|tradeamount
-             * 数据格式：会员卡号|交易号|商铺id|交易时间(时间戳-不限单位)|交易金额
+             * 数据格式：会员卡号|交易号|商铺id|交易时间(时间戳13位)|交易金额
              * demo: 0000507915|234234234990|1|1473394332000|88888
              * 位数为4,第三个和第四个为数字
              * */
@@ -70,7 +70,10 @@
                 nativePlugin.scanQRCode(function (result) {
                     data = result.resultStr;
                     var arr = data.split('|');
-                    if (arr.length != 5 || isNaN(arr[3]) || arr[2].length>=36 ) {
+
+                    //验证
+                    var timeNow = new Date().getTime();
+                    if (arr.length != 5 || arr[2].length >= 36 || isNaN(arr[3])) {
                         // alert("二维码数据格式出错,请联系开发人员!");
                         showNoticeInfo({
                             title: "积分失败",
@@ -78,6 +81,17 @@
                         });
                         return
                     }
+
+                    //时间验证
+                    if (arr[3].length != 13 || parseInt(arr[3]) > parseInt(timeNow)) {
+                        showNoticeInfo({
+                            title: "积分失败",
+                            template: "交易时间错误,请核对!"
+                        });
+                        return
+                    }
+
+
                     var params = {
                         "cardno": $base64.encode(arr[0]),//是
                         "tradeno": arr[1],//是

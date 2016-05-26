@@ -92,7 +92,7 @@
                     return;
                 }
 
-                if (verification.isPassword($scope.register.password)) {
+                if (!verification.isPassword($scope.register.password)) {
                     $ionicToast.show('密码格式不对');
                     return;
                 }

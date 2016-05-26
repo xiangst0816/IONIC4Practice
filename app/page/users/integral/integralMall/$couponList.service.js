@@ -6,7 +6,7 @@
     /**
      * 查询卡券和礼品的列表(all),options为发送的参数,返回promise()
      * */
-        .factory("$couponList", ['AJAX', 'api', '$q','$ionicToast', function (AJAX, api, $q,$ionicToast) {
+        .factory("$couponList", ['AJAX', 'api', '$q','$ionicToast','$filter', function (AJAX, api, $q,$ionicToast,$filter) {
             return function (options) {
                 if (!angular.isObject(options)) {
                     options = {};
@@ -47,7 +47,16 @@
                         console.log('queryListVivo')
                         console.log(data)
                         if (data.code == 7001) {
-                            defer.resolve(data.content);
+                            var result = data.content;
+                            //判断兑换起始日期是否大于今天,如果大于今天意味着不能兑换(canConvert)
+                            angular.forEach(result,function (value,index) {
+                                if(!!value.valid_start_time && $filter('isFuture')(value.valid_start_time)){
+                                    value.canConvert = false;
+                                }else{
+                                    value.canConvert = true;
+                                }
+                            });
+                            defer.resolve(result);
                         } else {
                             defer.resolve([]);
                             $ionicToast.show("列表获取失败,请稍后再试!");

@@ -224,6 +224,17 @@
 
 
 
+        /**
+         * 输入时间是否大于当前时间 isFutrue
+         * */
+        .filter("isFuture",['$toDateFormat', function ($toDateFormat) {
+            return function (value) {
+                var date = parseInt($toDateFormat(value).getTime());
+                var timeNow = parseInt(new Date().getTime());
+                var isFuture = (date>timeNow)?true:false
+                return isFuture
+            };
+        }])
 
 
 
@@ -232,77 +243,78 @@
          * 时间转换-时间戳转化成显示时间
          * 时间->2016.04.01
          * */
-        .filter("timestamp2yyyymmddDot", ['$toDateFormat', function ($toDateFormat) {
-            return function (timestamp) {
-
-                var d = new Date(timestamp * 1000);    //根据时间戳生成的时间对象
-                var date = (d.getFullYear()) + "." +
-                    (d.getMonth() + 1) + "." +
-                    (d.getDate())
-                return date;
-            };
-        }])
-
-
-        /**
-         * 时间转换-时间戳转化成显示时间
-         * 1459481906->2016年4月1日
-         * */
-        .filter("timestamp2yyyymmddCN", [function () {
-            return function (timestamp) {
-                var d = new Date(timestamp * 1000);    //根据时间戳生成的时间对象
-                var date = (d.getFullYear()) + "年" +
-                    (d.getMonth() + 1) + "月" +
-                    (d.getDate()) + "日"
-                return date;
-            };
-        }])
-
-
-        /**
-         * 时间转换-时间戳转化成显示时间
-         * 1459481906->2016-4-1
-         * */
-        .filter("timestamp2yyyymmddLine", [function () {
-            return function (timestamp) {
-                var d = new Date(timestamp * 1000);    //根据时间戳生成的时间对象
-                var addZero = function (data) {
-                    if (parseInt(data) < 10) {
-                        return "0" + data;
-                    } else {
-                        return data;
-                    }
-                };
-                var date = (d.getFullYear()) + "-" +
-                    addZero(d.getMonth() + 1) + "-" +
-                    addZero(d.getDate())
-                return date;
-            };
-        }])
+        // .filter("timestamp2yyyymmddDot", ['$toDateFormat', function ($toDateFormat) {
+        //     return function (timestamp) {
+        //
+        //         var d = new Date(timestamp * 1000);    //根据时间戳生成的时间对象
+        //         var date = (d.getFullYear()) + "." +
+        //             (d.getMonth() + 1) + "." +
+        //             (d.getDate())
+        //         return date;
+        //     };
+        // }])
+        //
+        //
+        // /**
+        //  * 时间转换-时间戳转化成显示时间
+        //  * 1459481906->2016年4月1日
+        //  * */
+        // .filter("timestamp2yyyymmddCN", [function () {
+        //     return function (timestamp) {
+        //         var d = new Date(timestamp * 1000);    //根据时间戳生成的时间对象
+        //         var date = (d.getFullYear()) + "年" +
+        //             (d.getMonth() + 1) + "月" +
+        //             (d.getDate()) + "日"
+        //         return date;
+        //     };
+        // }])
+        //
+        //
+        // /**
+        //  * 时间转换-时间戳转化成显示时间
+        //  * 1459481906->2016-4-1
+        //  * */
+        // .filter("timestamp2yyyymmddLine", [function () {
+        //     return function (timestamp) {
+        //         var d = new Date(timestamp * 1000);    //根据时间戳生成的时间对象
+        //         var addZero = function (data) {
+        //             if (parseInt(data) < 10) {
+        //                 return "0" + data;
+        //             } else {
+        //                 return data;
+        //             }
+        //         };
+        //         var date = (d.getFullYear()) + "-" +
+        //             addZero(d.getMonth() + 1) + "-" +
+        //             addZero(d.getDate())
+        //         return date;
+        //     };
+        // }])
 
         /**
          * 时间转换-时间戳转化成显示时间
          * 1459481906->2016-4-1 12:12:12
          * */
-        .filter("timestamp2yyyymmddhhmmss", [function () {
-            return function (timestamp) {
-                var d = new Date(timestamp * 1000);    //根据时间戳生成的时间对象
-                var addZero = function (data) {
-                    if (parseInt(data) < 10) {
-                        return "0" + data;
-                    } else {
-                        return data;
-                    }
-                };
-                // addZero()
-                var date = (d.getFullYear()) + "-" +
-                    addZero(d.getMonth() + 1) + "-" +
-                    addZero(d.getDate()) + " " +
-                    addZero(d.getHours()) + ":" +
-                    addZero(d.getMinutes()) + ":" +
-                    addZero(d.getSeconds());
-                return date;
-            };
-        }])
+        // .filter("timestamp2yyyymmddhhmmss", [function () {
+        //     return function (timestamp) {
+        //         var d = new Date(timestamp * 1000);    //根据时间戳生成的时间对象
+        //         var addZero = function (data) {
+        //             if (parseInt(data) < 10) {
+        //                 return "0" + data;
+        //             } else {
+        //                 return data;
+        //             }
+        //         };
+        //         // addZero()
+        //         var date = (d.getFullYear()) + "-" +
+        //             addZero(d.getMonth() + 1) + "-" +
+        //             addZero(d.getDate()) + " " +
+        //             addZero(d.getHours()) + ":" +
+        //             addZero(d.getMinutes()) + ":" +
+        //             addZero(d.getSeconds());
+        //         return date;
+        //     };
+        // }])
+
 
 })();

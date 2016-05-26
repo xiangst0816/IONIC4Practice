@@ -53,7 +53,8 @@
                         'duihuan':(item.category_code == '4')}"
                              class="gouponTop" ng-bind="::item.category_name | couponCategoryToName"></div>
                         <div ng-if="item.type_code == '2'" class="gouponTop lipin">礼品</div>
-                        <div class="convertBtn" ng-click="rewardCouponBtn(item)">兑换</div>
+                        <div ng-if="!item.canConvert"  class="convertBtn forbidden">兑换</div>
+                        <div ng-if="item.canConvert"  class="convertBtn" ng-click="rewardCouponBtn(item)">兑换</div>
                     </section>
                 </div>
                 <!--礼品-->
