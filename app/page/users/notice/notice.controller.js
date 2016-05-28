@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('noticeCtrl', ['$scope', '$ionicPopup', '$getMessage', '$ionicLoading', '$changeMessageStatus', function ($scope, $ionicPopup, $getMessage, $ionicLoading, $changeMessageStatus) {
+        .controller('noticeCtrl', ['$scope', '$ionicPopup', '$getMessage', '$ionicLoading', '$changeMessageStatus', '$log', '$ionicToast', function ($scope, $ionicPopup, $getMessage, $ionicLoading, $changeMessageStatus, $log, $ionicToast) {
 
             /**
              * 获取列表
@@ -24,18 +24,20 @@
                     "page_size": 999
                 }
             }).then(function (data) {
-                for(var i= 0,len = data.length;len>i;i++){
-                    if(!data[i].statuscode){
+                for (var i = 0, len = data.length; len > i; i++) {
+                    if (!data[i].statuscode) {
                         unReadNum++;
                     }
                 }
-                console.log('unReadNum')
-                console.log(unReadNum)
+                $log.debug('unReadNum');
+                $log.debug(unReadNum);
                 $scope.items = data;
+                if ($scope.items > 50) {
+                    $ionicToast.show("亲,过期的消息请及时清理");
+                }
             }).finally(function () {
                 $ionicLoading.hide();
             });
-
 
 
             $scope.data = {
