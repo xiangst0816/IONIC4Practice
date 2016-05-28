@@ -5,17 +5,24 @@
             <div class="shopImg placeholder_43_2">
                 <img class="placeholder_43_2" ng-src="{{item.image_url | addImgPrefix}}" err-src="">
             </div>
-            <div class="cardDetails" ng-switch="item.category_name" ng-if="item.type_code == 1">
+            <div class="cardDetails" ng-switch="item.category_value" ng-if="item.type_code == 1">
                 <strong ng-bind="item.name"></strong>
-                <p ng-switch-when="coupon_category_1"><span
-                        ng-bind="item.coupon_value"></span>折<span
-                        ng-bind="item.category_name | couponCategoryToName"></span></p>
-                <p ng-switch-when="coupon_category_2"><span ng-bind="item.face_value"></span>元<span
-                        ng-bind="item.category_name | couponCategoryToName"></span></p>
-                <p ng-switch-when="coupon_category_3"><span ng-bind="item.face_value"></span>元<span
-                        ng-bind="item.category_name | couponCategoryToName"></span></p>
-                <p ng-switch-when="coupon_category_4"><span ng-bind="item.face_value"></span>元<span
-                        ng-bind="item.category_name | couponCategoryToName"></span></p>
+                <p ng-switch-when="coupon_category_1">
+                    <span ng-bind="item.face_value*10"></span>折
+                    <span ng-bind="item.category_value | couponCategoryToName"></span>
+                </p>
+                <p ng-switch-when="coupon_category_2">
+                    <span ng-bind="item.face_value"></span>元
+                    <span ng-bind="item.category_value | couponCategoryToName"></span>
+                </p>
+                <p ng-switch-when="coupon_category_3">
+                    <span ng-bind="item.face_value"></span>元
+                    <span ng-bind="item.category_value | couponCategoryToName"></span>
+                </p>
+                <p ng-switch-when="coupon_category_4">
+                    <span ng-bind="item.face_value"></span>元
+                    <span ng-bind="item.category_value | couponCategoryToName"></span>
+                </p>
             </div>
             <div class="cardDetails" ng-if="item.type_code == 2">
                 <strong ng-bind="item.name"></strong>
@@ -24,9 +31,7 @@
             <div class="detailInfo">
                 <div class="detailBox" ng-if="item.type_code == 1">
                     <div class="detailTitle"><span>使用时间:</span></div>
-                    <span ng-if="item.valid_type_code == 1">{{item.limit_time_begin.low | yyyyMd_cn}}至{{item.limit_time_end.low | yyyyMd_cn}}</span>
-                    <span ng-if="item.valid_type_code == 2">有效天数: <span
-                            ng-bind="item.valid_days"></span>天</span>
+                    <span>{{item.limit_time_begin.low | yyyyMd_cn}}至{{item.limit_time_end.low | yyyyMd_cn}}</span>
                 </div>
                 <div class="detailBox" ng-if="item.type_code == 2">
                     <div class="detailTitle"><span>使用时间:</span></div>
@@ -34,7 +39,7 @@
                 </div>
                 <div class="detailBox">
                     <div class="detailTitle"><span>使用规则: </span></div>
-                    <div class="innerBox" ng-bind-html="item.detail_rule | withoutStyle"></div>
+                    <div class="innerBox" ng-bind-html="item.detailrule | withoutStyle"></div>
                 </div>
                 <div class="detailBox">
                     <div class="detailTitle"><span>使用状态: </span></div>

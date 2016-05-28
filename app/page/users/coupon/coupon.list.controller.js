@@ -15,6 +15,7 @@
              * 页面进入的时候,查询会员的卡券列表和礼品列表
              * */
             var findNum = 7;
+            $scope.findNum = findNum;
             var start = 1;
 
 
@@ -81,12 +82,7 @@
              * */
             $scope.$on("$stateChangeSuccess", function (event, toState) {
                 if (toState.name == 'subNav.memberCoupon') {
-                    // $ionicLoading.show();
-                    // $scope.moreDataCanBeLoaded = true;
-                    $ionicLoading.show();
-                    reloadMore().finally(function () {
-                        $ionicLoading.hide();
-                    })
+                    reloadMore();
                 }
             });
 
@@ -96,10 +92,14 @@
              * 返回promise
              * */
             $scope.loadMore = function () {
-                if ($scope.moreDataCanBeLoaded) {
+                if ($scope.moreDataCanBeLoaded && !$scope.isSearching) {
+                    $scope.isSearching = true;
                     return getCouponList(start, findNum).then(function (data) {
                         if (!data.length) {
                             $scope.moreDataCanBeLoaded = false;
+                        } else if (data.length < findNum) {
+                            $scope.moreDataCanBeLoaded = false;
+                            $scope.dataToDisplay.extend(data);
                         } else {
                             $scope.dataToDisplay.extend(data);
                         }
@@ -108,6 +108,7 @@
                         $scope.moreDataCanBeLoaded = false;
                     }).finally(function () {
                         $scope.$broadcast('scroll.infiniteScrollComplete');
+                        $scope.isSearching = false;
                         $ionicLoading.hide();
                     });
                 }
@@ -124,8 +125,13 @@
                 $scope.dataToDisplay = [];
                 //可加载
                 $scope.moreDataCanBeLoaded = true;
+                //正在搜索?
+                $scope.isSearching = false;
+                $ionicLoading.show();
                 //执行
-                return $scope.loadMore();
+                return $scope.loadMore().finally(function () {
+                    $ionicLoading.hide();
+                });
             }
 
             /**

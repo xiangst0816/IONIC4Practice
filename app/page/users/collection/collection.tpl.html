@@ -6,7 +6,8 @@
                 <span ng-bind="levelName"></span>&ensp;<i class="icon-subtitle icon-arrow-down"></i>
             </tap-header>
             <tap-list>
-                <tap-item ng-click="setLevelName(item)" ng-repeat="item in levelArr track by $index" ng-bind="::item.name"></tap-item>
+                <tap-item ng-click="setLevelName(item)" ng-repeat="item in levelArr track by $index"
+                          ng-bind="::item.name"></tap-item>
             </tap-list>
         </tap-select>
         <tap-select>
@@ -14,7 +15,8 @@
                 <span ng-bind="typeName"></span>&ensp;<i class="icon-subtitle icon-arrow-down"></i>
             </tap-header>
             <tap-list>
-                <tap-item ng-click="setTypeName(item)" ng-repeat="item in typeArr track by $index" ng-bind="::item.name"></tap-item>
+                <tap-item ng-click="setTypeName(item)" ng-repeat="item in typeArr track by $index"
+                          ng-bind="::item.name"></tap-item>
             </tap-list>
         </tap-select>
         <tap-select>
@@ -22,21 +24,21 @@
                 <span ng-bind="orderName"></span>&ensp;<i class="icon-subtitle icon-arrow-down"></i>
             </tap-header>
             <tap-list>
-                <tap-item ng-click="setOrderName(item)" ng-repeat="item in orderArr track by $index" ng-bind="::item.name"></tap-item>
+                <tap-item ng-click="setOrderName(item)" ng-repeat="item in orderArr track by $index"
+                          ng-bind="::item.name"></tap-item>
             </tap-list>
         </tap-select>
     </smart-tap-box>
 
 
-
-
-    <ion-content  id="scroll-content" class="has-subheader">
+    <ion-content id="scroll-content" class="has-subheader">
         <div class="list collectionList">
             <!--each-->
             <div class="collectionItem" ng-repeat="item in dataToDisplay">
                 <!--图片-->
                 <div ui-sref="subNav.brandDetail({detail:item.shopid})" class="imgBox">
-                    <img ng-src="{{::item.logourl}}" err-src="{{::placeHolderImg.placeholder_169_2}}">
+                    <img ng-src="{{::item.logourl}}"
+                         err-src="{{::placeHolderImg.placeholder_169_2}}">
                     <!--商铺信息-->
                     <div class="collectionInfo clearfix">
                         <h2 class="wordLine" ng-bind="::item.name"></h2>
@@ -46,14 +48,22 @@
                 </div>
 
                 <!--红心-->
-                <div class="starBox"  ng-class="{1:'collected',0:''}[item.iscollect]"  ng-click="changeCollectionState($event,item)">
+                <div class="starBox" ng-class="{1:'collected',0:''}[item.iscollect]"
+                     ng-click="changeCollectionState($event,item)">
                     <div class="star redStar whiteStar"></div>
                 </div>
             </div>
             <!--each end-->
-            <ion-infinite-scroll ng-show="moreDataCanBeLoaded" distance="5%" on-infinite="loadMore()"></ion-infinite-scroll>
+            <ion-infinite-scroll ng-show="moreDataCanBeLoaded" distance="5%"
+                                 on-infinite="loadMore()"></ion-infinite-scroll>
             <!--抱歉,暂无数据!-->
-            <div ng-include="::'tpl/noDataToDisplay.comp.html'"></div>
+
+            <div class="noDataToDisplay" ng-if=" dataToDisplay.length== 0">
+                <p>列表无数据!</p>
+                <p>可以在【品牌咨询】添加关注商户!</p>
+            </div>
+            <p class="noDataToDisplay" ng-if="!moreDataCanBeLoaded && dataToDisplay.length>findNum">
+                列表加载完毕!</p>
         </div>
     </ion-content>
 </ion-view>

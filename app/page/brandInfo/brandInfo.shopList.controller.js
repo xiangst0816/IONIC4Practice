@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('shopListCtrl', ['$rootScope', '$sessionStorage', '$scope', 'baseInfo', 'AJAX', 'api', '$q', '$shopList', '$ionicLoading', '$shopCollect', '$ionicToast', '$filter', '$shopFloor', '$ionicScrollDelegate', '$checkAuthorize', function ($rootScope, $sessionStorage, $scope, baseInfo, AJAX, api, $q, $shopList, $ionicLoading, $shopCollect, $ionicToast, $filter, $shopFloor, $ionicScrollDelegate, $checkAuthorize) {
+        .controller('shopListCtrl', ['$rootScope', '$sessionStorage', '$scope', '$shopList', '$ionicLoading', '$shopCollect', '$filter', '$shopFloor', '$checkAuthorize', '$log', function ($rootScope, $sessionStorage, $scope, $shopList, $ionicLoading, $shopCollect, $filter, $shopFloor, $checkAuthorize, $log) {
 
             //总数据
             $scope.dataToDisplay = [];
@@ -12,6 +12,7 @@
             var start = 1;
             //分页显示条数
             var findNum = 5;
+            $scope.findNum = findNum;
 
             /**
              * 筛选定义
@@ -66,6 +67,92 @@
 
 
             /**
+             * 每次页面进入刷新列表
+             * */
+            $scope.$on("$stateChangeSuccess", function (event, toState) {
+                if (toState.name == 'subNav.brandInfo') {
+                    reloadMore();
+                }
+            });
+
+
+            /**
+             * 监听search组件发出的信息
+             * */
+            $scope.$on("$searchNow", function () {
+                reloadMore();
+            });
+
+            /**
+             * 清空searchBox的话,也进行列表刷新
+             * */
+            $scope.$on("$cleanInput", function () {
+                $log.debug($rootScope.isHistoryBoxOpen);
+                if (!$rootScope.isHistoryBoxOpen) {
+                    reloadMore();
+                }
+            });
+
+
+            /**
+             * 点击收藏前判断是否有权限
+             * */
+            $scope.beforeCollection = function ($event, item) {
+                //微信需要关注,app需要登录
+                $checkAuthorize("wxLevel_AttOnly").then(function () {
+                    changeCollectionState($event, item);
+                })
+            };
+
+
+            /**
+             * loadMore
+             * 返回promise
+             * */
+            $scope.loadMore = function () {
+                if ($scope.moreDataCanBeLoaded && !$scope.isSearching) {
+                    $scope.isSearching = true;
+                    return getShopList(start, findNum).then(function (data) {
+                        if (!data.length) {
+                            $scope.moreDataCanBeLoaded = false;
+                        } else if (data.length < findNum) {
+                            $scope.moreDataCanBeLoaded = false;
+                            $scope.dataToDisplay.extend(data);
+                        } else {
+                            $scope.dataToDisplay.extend(data);
+                        }
+                    }, function () {
+                        //如果错误
+                        $scope.moreDataCanBeLoaded = false;
+                    }).finally(function () {
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                        $scope.isSearching = false;
+                        $ionicLoading.hide();
+                    });
+                }
+            };
+
+            /**
+             * reloadMore,用再次调用
+             * 返回promise
+             * */
+            function reloadMore() {
+                //设置开始值
+                start = 1;
+                //清空结果
+                $scope.dataToDisplay = [];
+                //可加载
+                $scope.moreDataCanBeLoaded = true;
+                //正在搜索?
+                $scope.isSearching = false;
+                $ionicLoading.show();
+                //执行
+                return $scope.loadMore().finally(function () {
+                    $ionicLoading.hide();
+                });
+            }
+
+            /**
              * 获取商户列表
              * 商场id:baseInfo.orgid
              * 获取商户列表之后执行操作
@@ -99,91 +186,6 @@
                     }
                 })
             }
-
-            /**
-             * 每次页面进入刷新列表
-             * */
-            $scope.$on("$stateChangeSuccess", function (event, toState) {
-                if (toState.name == 'subNav.brandInfo') {
-                    // $ionicLoading.show();
-                    // $scope.moreDataCanBeLoaded = true;
-                    $ionicLoading.show();
-                    reloadMore().finally(function () {
-                        $ionicLoading.hide();
-                    })
-                }
-            });
-
-
-            /**
-             * 监听search组件发出的信息
-             * */
-            $scope.$on("$searchNow", function () {
-                $ionicLoading.show();
-                reloadMore().finally(function () {
-                    $ionicLoading.hide();
-                })
-            });
-
-            /**
-             * 清空searchBox的话,也进行列表刷新
-             * */
-            $scope.$on("$cleanInput", function () {
-                console.log($rootScope.isHistoryBoxOpen)
-                if (!$rootScope.isHistoryBoxOpen) {
-                    $ionicLoading.show();
-                    reloadMore().finally(function () {
-                        $ionicLoading.hide();
-                    });
-                }
-            });
-
-
-            /**
-             * 点击收藏前判断是否有权限
-             * */
-            $scope.beforeCollection = function ($event, item) {
-                //微信需要关注,app需要登录
-                $checkAuthorize("wxLevel_AttOnly").then(function () {
-                    changeCollectionState($event, item);
-                })
-            };
-
-
-            /**
-             * loadMore
-             * 返回promise
-             * */
-            $scope.loadMore = function () {
-                if ($scope.moreDataCanBeLoaded) {
-                    return getShopList(start, findNum).then(function (data) {
-                        if (!data.length) {
-                            $scope.moreDataCanBeLoaded = false;
-                        } else {
-                            $scope.dataToDisplay.extend(data);
-                        }
-                    }).finally(function () {
-                        $scope.$broadcast('scroll.infiniteScrollComplete');
-                        $ionicLoading.hide();
-                    });
-                }
-            };
-
-            /**
-             * reloadMore,用再次调用
-             * 返回promise
-             * */
-            function reloadMore() {
-                //设置开始值
-                start = 1;
-                //清空结果
-                $scope.dataToDisplay = [];
-                //可加载
-                $scope.moreDataCanBeLoaded = true;
-                //执行
-                return $scope.loadMore();
-            }
-
 
             /**
              * 取消收藏,收藏按钮操作

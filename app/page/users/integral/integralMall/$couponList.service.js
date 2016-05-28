@@ -48,13 +48,16 @@
                         console.log(data)
                         if (data.code == 7001) {
                             var result = data.content;
-                            //判断兑换起始日期是否大于今天,如果大于今天意味着不能兑换(canConvert)
+                            //数据过滤,在service中就将数据处理好
                             angular.forEach(result,function (value,index) {
-                                if(!!value.valid_start_time && $filter('isFuture')(value.valid_start_time)){
-                                    value.canConvert = false;
-                                }else{
-                                    value.canConvert = true;
-                                }
+                                //判断兑换起始日期是否大于今天,如果大于今天意味着不能兑换(canConvert)
+                                // value.canConvert = !!(!!value.valid_start_time && $filter('isFuture')(value.valid_start_time));
+                                value.canConvert = !!($filter('isDateIn')(null,value.valid_start_time,value.valid_end_time));
+
+
+
+                                //礼品卡券设置展示日期,由前端确定是否显示
+                                value.canDisplay = !!($filter('isDateIn')(null,value.retrievablestrattime,value.retrievableendtime));
                             });
                             defer.resolve(result);
                         } else {

@@ -13,6 +13,7 @@
 
             var start = 0;
             var findNum = 10;
+            $scope.findNum = findNum;
 
 
             //类型配需相关
@@ -76,18 +77,24 @@
              * loadMore
              * */
             $scope.loadMore = function () {
-                if ($scope.moreDataCanBeLoaded) {
+                if ($scope.moreDataCanBeLoaded && !$scope.isSearching) {
+                    $scope.isSearching = true;
                     return getCouponList(start, findNum).then(function (data) {
                         if (!data.length) {
                             $scope.moreDataCanBeLoaded = false;
-                        } else {
+                        } else if(data.length < findNum){
+                            $scope.moreDataCanBeLoaded = false;
+                            $scope.dataToDisplay.extend(data);
+                        }else{
                             $scope.dataToDisplay.extend(data);
                         }
+
                     }, function () {
                         //如果错误
                         $scope.moreDataCanBeLoaded = false;
                     }).finally(function () {
                         $scope.$broadcast('scroll.infiniteScrollComplete');
+                        $scope.isSearching = false;
                         $ionicLoading.hide();
                     });
                 }
@@ -103,7 +110,8 @@
                 $scope.dataToDisplay = [];
                 //可加载
                 $scope.moreDataCanBeLoaded = true;
-
+                //正在搜索?
+                $scope.isSearching = false;
                 $ionicLoading.show();
                 //执行
                 return $scope.loadMore().finally(function () {

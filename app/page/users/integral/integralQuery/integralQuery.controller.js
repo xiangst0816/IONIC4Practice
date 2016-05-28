@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('integralQueryCtrl', ['$scope', '$ionicToast', 'AJAX', 'api', '$sessionStorage', '$state', '$ionicLoading', '$q', '$filter', '$integralQuery', '$getCode', '$log', '$integralInfo', function ($scope, $ionicToast, AJAX, api, $sessionStorage, $state, $ionicLoading, $q, $filter, $integralQuery, $getCode, $log, $integralInfo) {
+        .controller('integralQueryCtrl', ['$scope', '$ionicToast', 'AJAX', 'api', '$sessionStorage', '$state', '$ionicLoading', '$q', '$filter', '$integralQuery', '$getCode', '$log', '$integralInfo','$toDayBegin','$toDayEnd', function ($scope, $ionicToast, AJAX, api, $sessionStorage, $state, $ionicLoading, $q, $filter, $integralQuery, $getCode, $log, $integralInfo,$toDayBegin,$toDayEnd) {
 
             //查询起止日期
             $scope.params = {
@@ -14,7 +14,8 @@
             //只是显示的部分记录
             $scope.dataToDisplay = [];
             //一次显示积分条数
-            var findNum = 7;
+            var findNum = 10;
+            $scope.findNum = findNum;
             //start
             var start = 1;
 
@@ -40,12 +41,8 @@
                 }
                 //终止日期需要延长到当天23点59分
                 //开始日期的零点到终止日期的24点
-                $scope.params.datefrom.setHours(0);
-                $scope.params.datefrom.setMinutes(0);
-                $scope.params.datefrom.setSeconds(0);
-                $scope.params.dateto.setHours(23);
-                $scope.params.dateto.setMinutes(59);
-                $scope.params.dateto.setSeconds(59);
+                $scope.params.datefrom = $toDayBegin($scope.params.datefrom);
+                $scope.params.dateto = $toDayEnd($scope.params.dateto);
                 //查询
                 $ionicLoading.show();
                 reloadMore().finally(function () {
@@ -71,8 +68,10 @@
             $ionicLoading.show();
             $q.all([getIntegralDeadline(), totalIntegral()]).then(function () {
                 //预设时间,四个月前
-                $scope.params.datefrom = new Date((parseInt((new Date().getTime() / 1000) - parseInt(60 * 60 * 24 * 30 * 4))) * 1000);
-                $scope.params.dateto = new Date();
+                var datefrom = new Date((parseInt((new Date().getTime() / 1000) - parseInt(60 * 60 * 24 * 30 * 4))) * 1000);
+                var dateto = new Date();
+                $scope.params.datefrom = $toDayBegin(datefrom);
+                $scope.params.dateto = $toDayEnd(dateto);
                 //查询
                 reloadMore();
             }, function () {
@@ -88,16 +87,24 @@
              * 返回promise
              * */
             $scope.loadMore = function () {
-                if ($scope.moreDataCanBeLoaded) {
+                if ($scope.moreDataCanBeLoaded && !$scope.isSearching) {
+                    $scope.isSearching = true;
                     return getIntegralHistory(start, findNum).then(function (data) {
                         if (!data.length) {
                             $scope.moreDataCanBeLoaded = false;
-                        } else {
+                        } else if(data.length < findNum){
+                            $scope.moreDataCanBeLoaded = false;
+                            $scope.dataToDisplay.extend(data);
+                        }else{
                             $scope.dataToDisplay.extend(data);
                         }
+                    },function () {
+                        //如果错误
+                        $scope.moreDataCanBeLoaded = false;
                     }).finally(function () {
-                        start++;
                         $scope.$broadcast('scroll.infiniteScrollComplete');
+                        $scope.isSearching = false;
+                        $ionicLoading.hide();
                     });
                 }
             };
@@ -113,8 +120,13 @@
                 $scope.dataToDisplay = [];
                 //可加载
                 $scope.moreDataCanBeLoaded = true;
+                //正在搜索?
+                $scope.isSearching = false;
+                $ionicLoading.show();
                 //执行
-                return $scope.loadMore();
+                return $scope.loadMore().finally(function () {
+                    $ionicLoading.hide();
+                });
             }
 
 
@@ -125,6 +137,7 @@
              * */
             function getIntegralHistory(_start, _findNum) {
                 var defer = $q.defer();
+                start++;
                 $integralQuery({
                     "conditions": {
                         "custid": $sessionStorage.userInfo.customerid,
@@ -182,12 +195,12 @@
                         //处理年
                         var monthNow = parseInt(new Date().getMonth() + 1);
                         var dayNow = parseInt(new Date().getDate());
-                        if($scope.deadline.month >=monthNow && $scope.deadline.day >= dayNow){
+                        if ($scope.deadline.month >= monthNow && $scope.deadline.day >= dayNow) {
                             $scope.deadline.year = parseInt(new Date().getFullYear());
-                        }else{
+                        } else {
                             $scope.deadline.year = parseInt(new Date().getFullYear()) + 1;
                         }
-                        
+
                     } else {
                         //默认值
                         $scope.deadline.year = new Date().getFullYear();

@@ -43,7 +43,14 @@
 
   </div>
   <!--抱歉,暂无数据!-->
-  <div ng-include="::'tpl/noDataToDisplay.comp.html'"></div>
+  <div class="noDataToDisplay" ng-if=" dataToDisplay.length== 0">
+    <p>列表无数据!</p>
+    <p>如果查询异常,请核对起止日期!</p>
+  </div>
+  <p class="noDataToDisplay" ng-if="!moreDataCanBeLoaded && dataToDisplay.length>findNum">
+    列表加载完毕!</p>
+
+
   <ion-infinite-scroll ng-show="moreDataCanBeLoaded" distance="1%" on-infinite="loadMore()"></ion-infinite-scroll>
 </ion-content>
 </ion-view>
