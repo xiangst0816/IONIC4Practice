@@ -4,9 +4,21 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('registerSuccessCtrl', ['$scope', '$timeout', '$ionicNavBarDelegate', '$ionicBackdrop', '$setShareContent', function ($scope, $timeout, $ionicNavBarDelegate, $ionicBackdrop, $setShareContent) {
+        .controller('registerSuccessCtrl', ['$scope', '$timeout', '$ionicNavBarDelegate', '$ionicBackdrop', '$setShareContent','$getCode', function ($scope, $timeout, $ionicNavBarDelegate, $ionicBackdrop, $setShareContent,$getCode) {
             //注册成功后不显示返回按钮
             $ionicNavBarDelegate.showBackButton(false);
+
+            /**
+             * 给分享人加分
+             * */
+            $scope.shareIntegral;
+            $getCode({
+                "keyname": "shareGetIntegral"
+            }).then(function (data) {
+                $scope.shareIntegral = data[0].keycode;
+            }, function (err) {
+                $log.debug("分享获得积分值的规则获取失败,请检查code->shareGetIntegral," + err);
+            });
 
             /**
              * 点击分享按钮,微信和app操作不同

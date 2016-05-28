@@ -130,12 +130,15 @@
                                     errText = "验证码错误!";
                                     break;
                                 case 8002:
-                                    errText = "您已注册，请直接登录!";
+                                    errText = "您手机已注册，请直接登录!";
                                     if (window.history.length == 2) {
                                         window.location.replace(window.document.location.href.split('#')[0].toString() + '#/subNav/login');
                                     } else {
                                         $rootScope.goBack();
                                     }
+                                    break;
+                                case 8003:
+                                    errText = "该微信号已被绑定!";
                                     break;
                                 default:
                                     errText = "系统异常,请稍后重试!";

@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('forgotPasswordCtrl', ['$scope', 'verification', '$ionicLoading', '$state', 'api', 'AJAX', '$sessionStorage', 'Countdown', '$ionicToast', '$ionicHistory', '$timeout','$getVerifyCode','$customerValidate','$changePassword','$rootScope', function ($scope, verification, $ionicLoading, $state, api, AJAX, $sessionStorage, Countdown, $ionicToast, $ionicHistory, $timeout,$getVerifyCode,$customerValidate,$changePassword,$rootScope) {
+        .controller('changePasswordCtrl', ['$scope', 'verification', '$ionicLoading', '$state', '$sessionStorage', 'Countdown', '$ionicToast', '$timeout', '$getVerifyCode', '$customerValidate', '$changePassword', '$rootScope','$log', function ($scope, verification, $ionicLoading, $state, $sessionStorage, Countdown, $ionicToast, $timeout, $getVerifyCode, $customerValidate, $changePassword, $rootScope,$log) {
             /**
              * params
              * */
@@ -16,9 +16,26 @@
                 pswRept: ''
             };
 
-            if(!!userInfo && userInfo.mobile){
-                $scope.params.telephone = userInfo.mobile;
-            }
+            /**
+             * 放在异步队列中,否则不生效
+             * */
+            // console.log($ionicNavBarDelegate)
+            $timeout(function () {
+                if ($state.is("subNav.forgotPassword")) {
+                    //忘记密码1
+                    $log.debug("忘记密码");
+                    // $ionicNavBarDelegate.title("密码更改");
+                    //设置input为disable,不可修改
+                    document.getElementById("telephone").disabled = false;
+                } else if ($state.is("subNav.memberChangePassword")) {
+                    $log.debug("修改密码");
+                    //修改密码1
+                    // $ionicNavBarDelegate.title("密码更改");
+                    document.getElementById("telephone").disabled = true;
+                }
+            }, 600, true);
+
+
             /**
              *获取验证码
              * */
@@ -53,7 +70,7 @@
                     "mobile": $scope.params.telephone,
                     "type": "1"
                 }).then(function (data) {
-                },function (err) {
+                }, function (err) {
                     countdown.abort(function () {
                         $scope.codeBtnText = '获取验证码';
                         $scope.disableCodeBtn = false;
@@ -85,7 +102,7 @@
                 }
 
                 if (!verification.isPassword($scope.params.password)) {
-                    $ionicToast.show('密码至少6位,且以数字或字母开头');
+                    $ionicToast.show('密码至少6位，由英文字母或数字组成!');
                     return;
                 }
 
@@ -129,7 +146,7 @@
                         $ionicLoading.hide();
                     });
 
-                },function (err) {
+                }, function (err) {
                     // $ionicToast.show('验证码错误!');
                     $ionicLoading.hide();
                 });

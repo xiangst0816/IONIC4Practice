@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('registerCtrl', ['$scope', 'verification', '$ionicLoading', '$state', 'api', 'AJAX', '$sessionStorage', 'Countdown', '$ionicToast', '$q', '$getVerifyCode', '$addIntegral', '$getCode', '$getUrlParams', '$getUserInfo', '$register', 'baseInfo', '$changePassword', '$log', '$timeout', '$ionicPopup', '$rootScope','$ionicModal', function ($scope, verification, $ionicLoading, $state, api, AJAX, $sessionStorage, Countdown, $ionicToast, $q, $getVerifyCode, $addIntegral, $getCode, $getUrlParams, $getUserInfo, $register, baseInfo, $changePassword, $log, $timeout, $ionicPopup, $rootScope,$ionicModal) {
+        .controller('registerCtrl', ['$scope', 'verification', '$ionicLoading', '$state', '$sessionStorage', 'Countdown', '$ionicToast', '$q', '$getVerifyCode', '$addIntegral', '$getCode', '$getUrlParams', '$getUserInfo', '$register', 'baseInfo', '$changePassword', '$log', '$timeout', '$rootScope', '$ionicModal', '$checkAuthorize', function ($scope, verification, $ionicLoading, $state, $sessionStorage, Countdown, $ionicToast, $q, $getVerifyCode, $addIntegral, $getCode, $getUrlParams, $getUserInfo, $register, baseInfo, $changePassword, $log, $timeout, $rootScope, $ionicModal, $checkAuthorize) {
 
             //点击用户协议
             $scope.ischecked = true;
@@ -93,7 +93,7 @@
                 }
 
                 if (!verification.isPassword($scope.register.password)) {
-                    $ionicToast.show('密码至少6位,且以数字或字母开头');
+                    $ionicToast.show('密码至少6位，由英文字母或数字组成');
                     return;
                 }
 
@@ -127,10 +127,10 @@
                         "customer": {
                             "channelcode": "1",  // channelcode 代表来源，目前5：app，  1：微信，  2：Portal
                             "channel": {
-                                "validatecode": $scope.register.verificationCode,
-                                "mobile": $scope.register.telephone,
+                                "validatecode": $scope.register.verificationCode.toString(),
+                                "mobile": $scope.register.telephone.toString(),
                                 // 微信用户的密码之后添加
-                                // "password": $scope.register.password,
+                                "password": $scope.register.password.toString(),
                                 "orgid": baseInfo.orgid,
                                 "openid": $sessionStorage.userInfo.openid,
                                 "accountid": baseInfo.cfid
@@ -142,11 +142,11 @@
                         "customer": {
                             "channelcode": "5",  // channelcode 代表来源，目前5：app，  1：微信，  2：Portal
                             "channel": {
-                                "validatecode": $scope.register.verificationCode,
-                                "mobile": $scope.register.telephone,
-                                "password": $scope.register.password,
+                                "validatecode": $scope.register.verificationCode.toString(),
+                                "mobile": $scope.register.telephone.toString(),
+                                "password": $scope.register.password.toString(),
                                 "orgid": baseInfo.orgid,
-                                "deviceid":deviceid
+                                "deviceid": deviceid
                             }
                         }
                     }
@@ -170,7 +170,9 @@
                     }
                     /**
                      * 注册后获得会员id,通过id查找会员具体信息
+                     * 获取最新
                      * */
+                    $sessionStorage.userInfo.time = null;
                     $getUserInfo({
                         "conditions": {
                             "customerid": customerid
@@ -207,7 +209,7 @@
 
 
             };
-            
+
             /**
              * 用户协议的modal
              * */
@@ -226,52 +228,28 @@
                 $scope.modal = modal;
             });
 
-            $scope.$on('$destroy', function() {
+            $scope.$on('$destroy', function () {
                 $scope.modal.remove();
             });
 
             /**
-             * 微信用户是否关注的判断
+             * 微信用户是否关注的判断,如果没关注,则跳出关注pop,并后退
              * */
-            $timeout(function () {
-                var userInfo = $sessionStorage.userInfo;
-                if (!!userInfo && !userInfo.isattention) {
-                    //用户存在单没关注
-                    $ionicPopup.show({
-                        title: "提示!",
-                        template: "您需要关注微信公众号后才能访问!",
-                        cssClass: 'doubleBtnPopup text-center',
-                        buttons: [{
-                            text: '返回',
-                            type: 'btnfor2',
-                            onTap: function (e) {
-                                $rootScope.backToHome()
-                                // history.go(-(history.length - 1)); // Return at the beginning
-                                return
-                            }
-                        }, {
-                            text: '现在关注',
-                            type: 'btnfor2',
-                            onTap: function (e) {
-                                //弹出长按二维码关注公众号
-                                $ionicPopup.show({
-                                    title: "长按识别二维码",
-                                    template: "<img width='100%' src='img/fastAttention.png'>",
-                                    cssClass: 'noticePopup text-center',
-                                    buttons: [{
-                                        text: '返回',
-                                        type: 'noticePopupBtn',
-                                        onTap: function (e) {
-                                            return
-                                        }
-                                    }]
-                                });
-                            }
-                        }]
+            if (Internal.isInWeiXin) {
+                // alert("微信用户是否关注的判断")
+                $timeout(function () {
+                    //当前用户权限验证
+                    $checkAuthorize("wx_needAttention").then(function () {
+                        $ionicToast.show("您已注册,即将进入首页");
+                        $timeout(function () {
+                            $rootScope.backToHome();
+                        }, 1300, false);
+                    }, function (result) {
+                        // $ionicToast.show("您的权限不对!!!!!" + result)
                     });
-                }
-            }, 2000, false);
 
+                }, 0, false);
+            }
             /**
              * 判断是否从分享的页面注册而来
              * */
@@ -280,7 +258,7 @@
                 var paramsObjs = $getUrlParams();
                 // alert(JSON.stringify(paramsObjs))
                 if (paramsObjs && paramsObjs.sharedcustid) {
-                    $log.debug("该链接从分享而来,分享人id:" + sharedcustid);
+                    $log.debug("该链接从分享而来,分享人id:" + paramsObjs.sharedcustid);
                     return paramsObjs.sharedcustid;
                 } else {
                     return false;
@@ -296,7 +274,7 @@
                 return $addIntegral({
                     "points": {
                         "addednum": pointValue,
-                        "custid": customerid,
+                        "custid": parseInt(customerid),
                         "typeid": 1,//积分增加
                         "channelcode": 11,//11奖赏引擎
                         "remark": "分享获得积分"
