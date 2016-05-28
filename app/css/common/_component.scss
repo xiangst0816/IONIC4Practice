@@ -320,22 +320,27 @@
 .noDataToDisplay {
   font-size: 0.3rem;
   text-align: center;
-  padding: 0.4rem 0 0 0;
+  padding: 0.2rem 0 0.4rem;
   color: #666666;
   margin: 0;
+  p {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    line-height: 180%;
+  }
 }
 
-.noDataCanbeLoaded {
-  font-size: 0.3rem;
-  text-align: center;
-  color: #666666;
-}
+//.noDataCanbeLoaded {
+//  font-size: 0.3rem;
+//  text-align: center;
+//  color: #666666;
+//}
 
 //积分商城,中间的tab样式
 //我的卡券礼券,中间的tab样式
 
 @import "component/smartTapBox";
-
 
 //首页logo背景旋转的class
 //.revolve-1 {
@@ -479,7 +484,6 @@
     color: #FFF;
   }
 }
-
 
 @import "component/_ionicToast.scss";
 //loading样式重置
