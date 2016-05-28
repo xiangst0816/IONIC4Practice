@@ -3,8 +3,8 @@
  */
 (function () {
     angular.module('smartac.page')
-        //路由配置
-        .config(['$stateProvider','$urlRouterProvider',function ($stateProvider, $urlRouterProvider) {
+    //路由配置
+        .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
             // if none of the above states are matched, use this as the fallback
             $urlRouterProvider.otherwise('/home');
 
@@ -48,13 +48,13 @@
                 .state('subNav.memberIntegral', {
                     url: '/memberIntegral',
                     templateUrl: 'tpl/integral.tpl.html',
-                    controller:'integralCtrl'
+                    controller: 'integralCtrl'
                 })
                 //会员中心-自助积分
                 .state('subNav.memberSelfIntegral', {
                     url: '/memberSelfIntegral',
                     templateUrl: 'tpl/selfIntegral.tpl.html',
-                    controller:'selfIntegralCtrl'
+                    controller: 'selfIntegralCtrl'
                 })
                 // //会员中心-自助积分-扫码积分
                 // .state('subNav.scannerIntegral', {
@@ -66,29 +66,29 @@
                 .state('subNav.photoIntegral', {
                     url: '/photoIntegral',
                     templateUrl: 'tpl/selfIntegral.photoIntegral.tpl.html',
-                    controller:'photoIntegral'
+                    controller: 'photoIntegral'
                 })
                 //会员中心-积分查询
                 .state('subNav.memberIntegralQuery', {
                     url: '/memberIntegralQuery',
                     templateUrl: 'tpl/integralQuery.tpl.html',
-                    controller:'integralQueryCtrl'
+                    controller: 'integralQueryCtrl'
                 })
                 //会员中心-积分商城
                 .state('subNav.memberIntegralMall', {
                     url: '/memberIntegralMall',
                     templateUrl: 'tpl/integralMall.list.tpl.html',
-                    controller:'integralMallCtrl'
+                    controller: 'integralMallCtrl'
                 })
                 //会员中心-积分商城-详情
                 .state('subNav.memberIntegralMallDetail', {
-                    params:{
+                    params: {
                         'couponid': null,
                         'typecode': null
                     },
                     url: '/memberIntegralMallDetail',
                     templateUrl: 'tpl/integralMall.detail.tpl.html',
-                    controller:'integralMallDetailCtrl'
+                    controller: 'integralMallDetailCtrl'
                 })
 
 
@@ -96,20 +96,16 @@
                 .state('subNav.memberCoupon', {
                     url: '/memberCoupon',
                     templateUrl: 'tpl/coupon.list.tpl.html',
-                    controller:'couponCtrl'
+                    controller: 'couponCtrl'
                 })
                 //会员中心-礼品卡券-detail
                 .state('subNav.memberCouponDetail', {
                     params: {
-                        'couponid': null,
-                        'typecode': null,
-                        'statuscode':null,
-                        'customerid':null,
-                        'code':null
+                        'detail': null
                     },
                     url: '/memberCouponDetail',
                     templateUrl: 'tpl/coupon.detail.tpl.html',
-                    controller:'couponDetailCtrl'
+                    controller: 'couponDetailCtrl'
                 })
 
 
@@ -124,31 +120,31 @@
                 .state('subNav.memberServicesList', {
                     url: '/memberServicesList',
                     templateUrl: 'tpl/tradeHistory.list.tpl.html',
-                    controller:'tradeListCtrl'
+                    controller: 'tradeListCtrl'
                 })
                 //会员中心-我的服务-详情
                 .state('subNav.memberServicesDetail', {
                     url: '/memberServicesDetail',
                     templateUrl: 'tpl/tradeHistory.detail.tpl.html',
-                    controller:'tradeDetailCtrl'
+                    controller: 'tradeDetailCtrl'
                 })
                 //会员中心-关注商户
                 .state('subNav.memberCollection', {
                     url: '/memberCollection',
                     templateUrl: 'tpl/collection.tpl.html',
-                    controller:'collectionCtrl'
+                    controller: 'collectionCtrl'
                 })
                 //会员中心-个人资料
                 .state('subNav.memberInfo', {
                     url: '/memberInfo',
                     templateUrl: 'tpl/userInfo.tpl.html',
-                    controller:'memberInfoCtrl'
+                    controller: 'memberInfoCtrl'
                 })
                 //会员中心-修改密码
                 .state('subNav.memberChangePassword', {
                     url: '/memberChangePassword',
                     templateUrl: 'tpl/changePassword.tpl.html',
-                    controller:'forgotPasswordCtrl'
+                    controller: 'changePasswordCtrl'
                 })
                 // //会员中心-退出登录
                 // .state('subNav.memberLogout', {
@@ -160,25 +156,25 @@
                 .state('subNav.chat', {
                     url: '/chat',
                     templateUrl: 'tpl/chat.tpl.html',
-                    controller:'chatCtrl'
+                    controller: 'chatCtrl'
                 })
                 //消息
                 .state('subNav.notice', {
                     url: '/notice',
                     templateUrl: 'tpl/notice.tpl.html',
-                    controller:'noticeCtrl'
+                    controller: 'noticeCtrl'
                 })
                 //会员卡
                 .state('subNav.memberCard', {
                     url: '/memberCard',
                     templateUrl: 'tpl/card.tpl.html',
-                    controller:'cardCtrl'
+                    controller: 'cardCtrl'
                 })
                 //会员权益
                 .state('subNav.memberRights', {
                     url: '/memberPrivilege',
                     templateUrl: 'tpl/rights.tpl.html',
-                    controller:'rightsCtrl'
+                    controller: 'rightsCtrl'
                 })
 
                 /**
@@ -190,25 +186,25 @@
                 .state('subNav.login', {
                     url: '/login',
                     templateUrl: 'tpl/login.tpl.html',
-                    controller:'loginCtrl'
+                    controller: 'loginCtrl'
                 })
                 //注册
                 .state('subNav.register', {
                     url: '/register',
                     templateUrl: 'tpl/register.tpl.html',
-                    controller:'registerCtrl'
+                    controller: 'registerCtrl'
                 })
                 //忘记密码
                 .state('subNav.forgotPassword', {
                     url: '/forgotPassword',
-                    templateUrl: 'tpl/forgotPassword.tpl.html',
-                    controller:'forgotPasswordCtrl'
+                    templateUrl: 'tpl/changePassword.tpl.html',
+                    controller: 'changePasswordCtrl'
                 })
                 //注册成功
                 .state('subNav.registerSuccess', {
                     url: '/registerSuccess',
                     templateUrl: 'tpl/registerSuccess.tpl.html',
-                    controller:'registerSuccessCtrl'
+                    controller: 'registerSuccessCtrl'
                 })
                 // //个人资料
                 // .state('subNav.userInfo', {
@@ -223,15 +219,15 @@
                 .state('subNav.brandInfo', {
                     url: '/brandInfo',
                     templateUrl: 'tpl/brandInfo.shopList.tpl.html'
-                    , controller:'shopListCtrl'
+                    , controller: 'shopListCtrl'
                 })
                 .state('subNav.brandDetail', {
-                    params:{
-                        'detail':null
+                    params: {
+                        'detail': null
                     },
                     url: '/brandDetail',
                     templateUrl: 'tpl/brandInfo.shopdetail.tpl.html'
-                    , controller:'shopDetailCtrl'
+                    , controller: 'shopDetailCtrl'
                 })
 
                 /**
@@ -254,12 +250,12 @@
                 .state('subNav.activities', {
                     url: '/activities',
                     templateUrl: 'tpl/activity.list.tpl.html',
-                    controller:'activitiesCtrl'
+                    controller: 'activitiesCtrl'
                 })
                 .state('subNav.activeDetail', {
                     url: '/activeDetail',
                     templateUrl: 'tpl/activity.detail.tpl.html',
-                    controller:'activeDetailCtrl'
+                    controller: 'activeDetailCtrl'
                 })
 
                 /**
@@ -278,19 +274,19 @@
                 .state('subNav.mallNavigate', {
                     url: '/mallNavigate',
                     templateUrl: 'tpl/mallNavigate.tpl.html',
-                    controller:'mallNavigateCtrl'
+                    controller: 'mallNavigateCtrl'
                 })
                 //导航路径
                 .state('subNav.mallNavigateLine', {
                     url: '/mallNavigateLine',
                     templateUrl: 'tpl/mallNavigate.lineSelect.tpl.html',
-                    controller:'mallNavigateLineCtrl'
+                    controller: 'mallNavigateLineCtrl'
                 })
                 //地图选点
                 .state('subNav.mallNavigatePoint', {
                     url: '/mallNavigatePoint',
                     templateUrl: 'tpl/mallNavigate.selectPoint.tpl.html',
-                    controller:'mallNavigatePointCtrl'
+                    controller: 'mallNavigatePointCtrl'
                 })
 
                 /**
@@ -300,25 +296,25 @@
                 .state('subNav.selfPark', {
                     url: '/selfPark',
                     templateUrl: 'tpl/selfPark.tpl.html',
-                    controller:'selfParkCtrl'
+                    controller: 'selfParkCtrl'
                 })
                 //找回爱车
                 .state('subNav.findCar', {
                     url: '/findCar',
                     templateUrl: 'tpl/findCar.tpl.html',
-                    controller:'findCarCtrl'
+                    controller: 'findCarCtrl'
                 })
                 //查看地图
                 .state('subNav.findMap', {
                     url: '/findMap',
                     templateUrl: 'tpl/findMap.tpl.html',
-                    controller:'findMapCtrl'
+                    controller: 'findMapCtrl'
                 })
                 //自助缴费
                 .state('subNav.selfPay', {
                     url: '/selfPay',
                     templateUrl: 'tpl/selfPay.tpl.html',
-                    controller:'selfPayCtrl'
+                    controller: 'selfPayCtrl'
                 })
                 // //自助缴费-scanner
                 // .state('subNav.selfPayToScanner', {
@@ -329,11 +325,11 @@
                 //自助缴费-支付
                 .state('subNav.selfPayToPay', {
                     params: {
-                        'data':null
+                        'data': null
                     },
                     url: '/selfPayToPay',
                     templateUrl: 'tpl/selfPay.pay.tpl.html',
-                    controller:'selfPayToPayCtrl'
+                    controller: 'selfPayToPayCtrl'
                 })
 
 
