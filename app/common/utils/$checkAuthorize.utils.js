@@ -21,7 +21,7 @@
  *      "wxLevel_AttOnly":需要关注,不需注册
  */
 (function () {
-    angular.module('smartac.page').factory("$checkAuthorize", ['$q', '$getUserInfo', 'baseInfo', '$sessionStorage', '$ionicLoading', '$getUrlParams', '$ionicPopup', '$state', '$ionicToast', '$ocLazyLoad', '$timeout', '$log','$localStorage', function ($q, $getUserInfo, baseInfo, $sessionStorage, $ionicLoading, $getUrlParams, $ionicPopup, $state, $ionicToast, $ocLazyLoad, $timeout, $log,$localStorage) {
+    angular.module('smartac.page').factory("$checkAuthorize", ['$q', '$getUserInfo', 'baseInfo', '$sessionStorage', '$ionicLoading', '$getUrlParams', '$ionicPopup', '$state', '$ionicToast', '$ocLazyLoad', '$timeout', '$log', '$localStorage', function ($q, $getUserInfo, baseInfo, $sessionStorage, $ionicLoading, $getUrlParams, $ionicPopup, $state, $ionicToast, $ocLazyLoad, $timeout, $log, $localStorage) {
         return function (level) {
             $ionicLoading.show({
                 hideOnStateChange: true,
@@ -169,24 +169,27 @@
              * 需要注册的popup
              * */
             function needRegister() {
-                $ionicPopup.show({
-                    title: "提示!",
-                    template: "访问内容需要注册!",
-                    cssClass: 'doubleBtnPopup text-center',
-                    buttons: [{
-                        text: '返回',
-                        type: 'btnfor2',
-                        onTap: function (e) {
-                            return
-                        }
-                    }, {
-                        text: '注册',
-                        type: 'btnfor2',
-                        onTap: function (e) {
-                            $state.go('subNav.register');
-                        }
-                    }]
-                });
+                //如果当前页面就是注册,那就不提示了
+                if (!$state.is('subNav.register')) {
+                    $ionicPopup.show({
+                        title: "提示!",
+                        template: "访问内容需要注册!",
+                        cssClass: 'doubleBtnPopup text-center',
+                        buttons: [{
+                            text: '返回',
+                            type: 'btnfor2',
+                            onTap: function (e) {
+                                return
+                            }
+                        }, {
+                            text: '注册',
+                            type: 'btnfor2',
+                            onTap: function (e) {
+                                $state.go('subNav.register');
+                            }
+                        }]
+                    });
+                }
             }
 
             /**
