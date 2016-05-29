@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('integralQueryCtrl', ['$scope', '$ionicToast', 'AJAX', 'api', '$sessionStorage', '$state', '$ionicLoading', '$q', '$filter', '$integralQuery', '$getCode', '$log', '$integralInfo','$toDayBegin','$toDayEnd', function ($scope, $ionicToast, AJAX, api, $sessionStorage, $state, $ionicLoading, $q, $filter, $integralQuery, $getCode, $log, $integralInfo,$toDayBegin,$toDayEnd) {
+        .controller('integralQueryCtrl', ['$scope', '$ionicToast', 'AJAX', 'api', '$sessionStorage', '$state', '$ionicLoading', '$q', '$filter', '$integralQuery', '$getCode', '$log', '$integralInfo','$toDayBegin','$toDayEnd','$rootScope', function ($scope, $ionicToast, AJAX, api, $sessionStorage, $state, $ionicLoading, $q, $filter, $integralQuery, $getCode, $log, $integralInfo,$toDayBegin,$toDayEnd,$rootScope) {
 
             //查询起止日期
             $scope.params = {
@@ -77,6 +77,7 @@
             }, function () {
                 //如果失败
                 $scope.moreDataCanBeLoaded = false;
+                $rootScope.goBack();
             }).finally(function () {
                 $ionicLoading.hide();
             });

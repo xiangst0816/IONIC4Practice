@@ -92,7 +92,9 @@
                         },
                         //error
                         function (response) {
-                            httpParams.error && httpParams.error(response);
+
+                            // httpParams.error && httpParams.error(response);
+                            httpParams.error && httpParams.error("系统错误");
                         },
                         //notify
                         function (response) {

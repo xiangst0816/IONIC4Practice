@@ -53,17 +53,18 @@
                     <div class="star redStar whiteStar"></div>
                 </div>
             </div>
-            <!--each end-->
-            <ion-infinite-scroll ng-show="moreDataCanBeLoaded" distance="5%"
-                                 on-infinite="loadMore()"></ion-infinite-scroll>
             <!--抱歉,暂无数据!-->
 
             <div class="noDataToDisplay" ng-if=" dataToDisplay.length== 0">
-                <p>列表无数据!</p>
-                <p>可以在【品牌咨询】添加关注商户!</p>
+                <p>神马,没有店铺?</p>
+                <p>马上去【品牌咨询】添加商户!</p>
             </div>
             <p class="noDataToDisplay" ng-if="!moreDataCanBeLoaded && dataToDisplay.length>findNum">
                 列表加载完毕!</p>
+            <!--each end-->
+            <ion-infinite-scroll ng-show="moreDataCanBeLoaded" distance="5%"
+                                 on-infinite="loadMore()"></ion-infinite-scroll>
+
         </div>
     </ion-content>
 </ion-view>
