@@ -13,6 +13,8 @@ var clean = require('gulp-clean');
 var gulpSequence = require('gulp-sequence');
 var md5 = require('gulp-md5-plus');
 var imagemin = require('gulp-imagemin');
+var inlinesource = require('gulp-inline-source');
+
 // var obfuscate = require('gulp-obfuscate');
 
 
@@ -49,6 +51,17 @@ gulp.task('move:tpl', function () {
  * ---根路径文件--------------------------------------------------------------
  * (app,config,bridge,index)
  * */
+gulp.task('move:index', function () {
+    var stream = gulp.src([path.src + '/index.html']);
+    if (ENV == "PRO") {
+        return stream.pipe(uglify())
+        // .pipe(md5(10, path.dist + '/index.html'))
+            .pipe(inlinesource())
+            .pipe(gulp.dest(path.dist));
+    } else {
+        return stream.pipe(inlinesource()).pipe(gulp.dest(path.dist));
+    }
+});
 gulp.task('move:base', function () {
     var stream = gulp.src([path.src + '/*.*']);
     if (ENV == "PRO") {
@@ -59,6 +72,8 @@ gulp.task('move:base', function () {
         return stream.pipe(gulp.dest(path.dist));
     }
 });
+
+
 gulp.task('move:font', function () {
     var stream = gulp.src([path.src + '/fonts/*.*']);
     return stream.pipe(gulp.dest(path.dist + '/fonts'));
@@ -200,6 +215,8 @@ gulp.task('default', gulpSequence(
     //清理dist目录
     'clean:dist',
     [
+        //index准备
+        'move:index',
         //移动tpl
         'move:tpl',
         //移动根目录文件
