@@ -7,6 +7,7 @@
         .controller('homeCtrl', ['$scope', '$sessionStorage', '$rootScope', '$ionicPopup', '$state', 'api', 'AJAX', '$ionicToast', '$q', '$getCode', '$getUrlParams', '$checkAuthorize', '$filter', '$log', '$ionicLoading', '$integralInfo', '$getMessage','$localStorage', function ($scope, $sessionStorage, $rootScope, $ionicPopup, $state, api, AJAX, $ionicToast, $q, $getCode, $getUrlParams, $checkAuthorize, $filter, $log, $ionicLoading, $integralInfo, $getMessage,$localStorage) {
 
 
+            console.log($state.is('home'))
             /**
              *  在微信模式下
              * */
