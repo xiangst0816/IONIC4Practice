@@ -11,13 +11,20 @@
         './app.js',
         "css/ionic.debug.css",
         "css/style.css",
-        "img/home/home-bg.png",
+        "img/home/home_banner_1_hd.png",
+        "img/home/home_banner_2_hd.png",
+        "img/home/home_banner_3_hd.png",
+        "img/home/home_banner_4_hd.png",
         "img/home/logo-bm.png",
         "img/home/bg-yellow.png",
         "img/home/bg-red.png",
         "img/home/bg-blue.png",
         "img/home/xuxian.png",
-        "img/member/member-bg.png"
+        "img/home/member-bg.png",
+        "img/home/card.png",
+        "img/home/default.png",
+        "img/home/logo-vivocity.png",
+        "img/home/white-bg.png"
     ];
     var rest = [
         './config.js',

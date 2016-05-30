@@ -1,0 +1,48 @@
+<div class="firstGuideBox">
+    <section class="userSilder active beforeActive" id="userSilder">
+        <ion-slide-box id="userSilderBox" class="userSilderBox" does-continue="false" show-pager="true" on-slide-changed="onSlideChange()">
+            <ion-slide>
+                <div class="contentBox bg-blue">
+                    <div class="upBox">
+                        <img src="img/loading/silder_3_img.png" alt="">
+                    </div>
+                    <div class="downBox">
+                        <img src="img/loading/silder_3_word.png" alt="">
+                    </div>
+                </div>
+                <!--<img src="img/home/home-bg.png" alt="">-->
+            </ion-slide>
+            <ion-slide>
+                <div class="contentBox bg-red">
+                    <div class="upBox">
+                        <img src="img/loading/silder_1_img.png" alt="">
+                    </div>
+                    <div class="downBox">
+                        <img src="img/loading/silder_1_word.png" alt="">
+                    </div>
+                </div>
+            </ion-slide>
+            <ion-slide>
+                <div class="contentBox bg-yellow">
+                    <div class="upBox">
+                        <img src="img/loading/silder_2_img.png" alt="">
+                    </div>
+                    <div class="downBox">
+                        <img src="img/loading/silder_2_word.png" alt="">
+                    </div>
+                </div>
+                <div class="iknowBox">
+                    <span ng-click="silderEnd()" class="iknow">我知道了</span>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+    </section>
+    <section class="userGuide" id="userGuide" ng-click="closeGuide()">
+        <div class="userGuideBox">
+            <img src="img/loading/usercenterGuide.png" alt="">
+        </div>
+        <div class="planetGuideBox">
+            <img src="img/loading/planetGuide.png" alt="">
+        </div>
+    </section>
+</div>

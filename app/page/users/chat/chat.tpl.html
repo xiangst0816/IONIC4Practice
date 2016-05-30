@@ -6,7 +6,7 @@
                ng-class="{1:'robot',2:'visitor'}[dialog.typecode]">
         <div class="chat-head">
           <!--客服头像-->
-          <img ng-if="::dialog.typecode == 1" ng-src="img/chat/chatRobot.png"/>
+          <img ng-if="::dialog.typecode == 1" ng-src="img/home/default.png"/>
           <!--用户头像-->
           <img ng-if="::dialog.typecode == 2" ng-src="{{::visitorPhoto | addImgPrefix}}"/>
         </div>

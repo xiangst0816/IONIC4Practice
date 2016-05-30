@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('homeCtrl', ['$scope', '$sessionStorage', '$rootScope', '$ionicPopup', '$state', 'api', 'AJAX', '$ionicToast', '$q', '$getCode', '$getUrlParams', '$checkAuthorize', '$filter', '$log', '$ionicLoading', '$integralInfo', '$getMessage','$localStorage', function ($scope, $sessionStorage, $rootScope, $ionicPopup, $state, api, AJAX, $ionicToast, $q, $getCode, $getUrlParams, $checkAuthorize, $filter, $log, $ionicLoading, $integralInfo, $getMessage,$localStorage) {
+        .controller('homeCtrl', ['$scope', '$sessionStorage', '$rootScope', '$ionicPopup', '$state', 'api', 'AJAX', '$ionicToast', '$q', '$getCode', '$getUrlParams', '$checkAuthorize', '$filter', '$log', '$ionicLoading', '$integralInfo', '$getMessage', '$localStorage', '$timeout', function ($scope, $sessionStorage, $rootScope, $ionicPopup, $state, api, AJAX, $ionicToast, $q, $getCode, $getUrlParams, $checkAuthorize, $filter, $log, $ionicLoading, $integralInfo, $getMessage, $localStorage, $timeout) {
 
             /**
              *  在微信模式下
@@ -56,39 +56,7 @@
                         $ionicLoading.hide();
                     });
 
-                    /**
-                     * 收起 用户中心  显示首页
-                     * */
-                    $scope.showHome = function () {
-                        angular.element(document.getElementById('member')).removeClass('showMember');
-                    };
-                    /**
-                     * 点击退出-logout,删除$sessionStorage中存储的信息
-                     * 然后返回主页
-                     * */
-                    $scope.doLogout = function () {
-                        $ionicPopup.show({
-                            title: "确认退出?",
-                            cssClass: 'logoutPopup',
-                            buttons: [{
-                                text: '取消',
-                                type: 'btnfor2',
-                                onTap: function (e) {
-                                    return
-                                }
-                            }, {
-                                text: '确定',
-                                type: 'btnfor2',
-                                onTap: function (e) {
-                                    delete $sessionStorage.$reset();
-                                    delete $localStorage.$reset();
-                                    $state.go('home');
-                                    $scope.showHome();
-                                }
-                            }]
-                        });
 
-                    };
                     /**
                      * 显示vip规则
                      * */
@@ -237,5 +205,56 @@
                     }
                 });
             };
+            /**
+             * 收起 用户中心  显示首页
+             * */
+            $scope.showHome = function () {
+                angular.element(document.getElementById('member')).removeClass('showMember');
+            };
+
+            /**
+             * 点击退出-logout,删除$sessionStorage中存储的信息
+             * 然后返回主页
+             * */
+            $scope.doLogout = function () {
+                $ionicPopup.show({
+                    title: "确认退出?",
+                    cssClass: 'logoutPopup',
+                    buttons: [{
+                        text: '取消',
+                        type: 'btnfor2',
+                        onTap: function (e) {
+                            return
+                        }
+                    }, {
+                        text: '确定',
+                        type: 'btnfor2',
+                        onTap: function (e) {
+                            delete $sessionStorage.$reset();
+                            delete $localStorage.$reset();
+                            $state.go('home');
+                            $scope.showHome();
+                        }
+                    }]
+                });
+            };
+
+            //点击下面的球跳转到game
+            var flag = false;
+            $scope.toGame = function () {
+                $ionicToast.show("游戏正在开发中");
+                if (!flag) {
+                    flag = true;
+                    var $indexBottomLogo = angular.element(document.getElementById("index-bottom-logo"));
+                    $indexBottomLogo.addClass("animation-jelly-planet");
+                    $timeout(function () {
+                        $indexBottomLogo.removeClass("animation-jelly-planet");
+                        flag = false;
+                    }, 800, false);
+                }
+                //清楚缓存,开发阶段测试
+                // delete $sessionStorage.$reset();
+                // delete $localStorage.$reset();
+            }
         }]);
 })();
