@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('registerCtrl', ['$scope', 'verification', '$ionicLoading', '$state', '$sessionStorage', 'Countdown', '$ionicToast', '$q', '$getVerifyCode', '$addIntegral', '$getCode', '$getUrlParams', '$getUserInfo', '$register', 'baseInfo', '$changePassword', '$log', '$timeout', '$rootScope', '$ionicModal', '$checkAuthorize', function ($scope, verification, $ionicLoading, $state, $sessionStorage, Countdown, $ionicToast, $q, $getVerifyCode, $addIntegral, $getCode, $getUrlParams, $getUserInfo, $register, baseInfo, $changePassword, $log, $timeout, $rootScope, $ionicModal, $checkAuthorize) {
+        .controller('registerCtrl', ['$scope', 'verification', '$ionicLoading', '$state', '$sessionStorage', 'Countdown', '$ionicToast', '$q', '$getVerifyCode', '$addIntegral', '$getCode', '$getUrlParams', '$getUserInfo', '$register', 'baseInfo', '$changePassword', '$log', '$timeout', '$rootScope', '$ionicModal', '$checkAuthorize','$localStorage', function ($scope, verification, $ionicLoading, $state, $sessionStorage, Countdown, $ionicToast, $q, $getVerifyCode, $addIntegral, $getCode, $getUrlParams, $getUserInfo, $register, baseInfo, $changePassword, $log, $timeout, $rootScope, $ionicModal, $checkAuthorize,$localStorage) {
 
             //点击用户协议
             $scope.ischecked = true;
@@ -170,9 +170,10 @@
                     }
                     /**
                      * 注册后获得会员id,通过id查找会员具体信息
-                     * 获取最新
+                     * 既然注册,则清除用户数据,因为注册意味着第一次使用!
                      * */
-                    $sessionStorage.userInfo.time = null;
+                    delete $sessionStorage.$reset();
+                    delete $localStorage.$reset();
                     $getUserInfo({
                         "conditions": {
                             "customerid": customerid

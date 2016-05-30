@@ -28,7 +28,7 @@
                 $setShareContent({
                     title: "成为怡丰城会员,尽享更多礼遇!",
                     desc: "分享后引导进入注册页面",
-                    imgUrl: "http://vivocity.smartac.co:82/img/other/default.png",
+                    imgUrl: "http://vivocity.smartac.co:82/img/home/default.png",
                     type: "link",
                     dataUrl: ""
                 }, "subNav.register", null);

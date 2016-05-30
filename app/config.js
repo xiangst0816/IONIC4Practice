@@ -112,9 +112,9 @@
          * */
         .factory("cardLevelImg", function () {
             return {
-                cardLevelImg1: "img/card/card-type1.png",
-                cardLevelImg2: "img/card/card-type2.png",
-                cardLevelImg3: "img/card/card-type3.png"
+                cardLevelImg1: "img/home/card.png",
+                cardLevelImg2: "img/home/card.png",
+                cardLevelImg3: "img/home/card.png"
             }
         })
 
