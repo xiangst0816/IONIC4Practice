@@ -4,28 +4,145 @@
   height: 100%;
   display: block;
   position: absolute;
-  z-index: 100;
-  background: rgba(0, 0, 0, 0.4);
   top: 0;
-  .userGuideBox {
+  transition: opacity ease 300ms;
+
+  z-index: 0;
+  background: transparent;
+  opacity: 0;
+
+  //silder的
+  .userSilder {
     position: relative;
-    top:0;
-    img {
-      width: 3.6rem;
-      left: 3.14rem;
-      position: relative;
+    z-index: 0;
+    opacity: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: opacity ease 300ms;
+    .userSilderBox {
+      height: 100%;
+      overflow: hidden;
+      background: #1898d2;
+      .slider-slides {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        .slider-slide {
+          .contentBox {
+            @include display-flex;
+            @include justify-content(space-between);
+            @include flex-direction(column);
+            @include align-items(center);
+            width: 100%;
+            height: 100%;
+            .upBox {
+              width: 5.8rem;
+              display: block;
+              height: 6.75rem;
+              overflow: hidden;
+              margin-top: 1.5rem;
+
+            }
+            .downBox {
+              width: 100%;
+              display: block;
+              height: 1.58rem;
+              text-align: center;
+              margin-bottom: 1.9rem;
+            }
+            &.bg-yellow {
+              background-color: #e8ad3f;
+            }
+            &.bg-red {
+              background-color: #a01d25;
+            }
+            &.bg-blue {
+              background-color: #1898d2;
+            }
+
+          }
+          img {
+            height: 100%;
+            //height: 100%;
+          }
+        }
+
+        //我知道了
+        .iknowBox {
+          display: block;
+          position: absolute;
+          top: 0.4rem;
+          right: 0.4rem;
+          //width:100%;
+          text-align: center;
+          .iknow {
+            display: inline-block;
+            -webkit-box-sizing: content-box;
+            -moz-box-sizing: content-box;
+            box-sizing: content-box;
+            padding: 0.1rem 0.3rem;
+            border: 1px solid #fff;
+            color: #fff;
+            border-radius: 0.3rem;
+            font-size: 0.35rem;
+          }
+        }
+      }
+      .slider-pager {
+        .slider-pager-page {
+          color: #eee;
+        }
+      }
     }
 
+    &.active {
+      opacity: 1;
+    }
+    &.beforeActive {
+      z-index: 3;
+      display: block;
+    }
   }
-  .planetGuideBox {
+
+  //home向导
+  .userGuide {
     position: absolute;
-    bottom:0;
-    img {
-      width: 2.9rem;
-      left: 2.1rem;
-      bottom: 1.3rem;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+
+    .userGuideBox {
       position: relative;
+      top: 0;
+      img {
+        width: 3.7rem;
+        left: 3.11rem;
+        position: relative;
+      }
+    }
+    .planetGuideBox {
+      position: absolute;
+      bottom: 0;
+      img {
+        width: 2.9rem;
+        left: 2.1rem;
+        bottom: 1.3rem;
+        position: relative;
+      }
     }
   }
 
+  //整体激活状态
+  &.active {
+    z-index: 100;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.6);
+
+  }
+  &.beforeActive {
+    z-index: 100;
+  }
 }
