@@ -14,8 +14,9 @@ var gulpSequence = require('gulp-sequence');
 var md5 = require('gulp-md5-plus');
 var imagemin = require('gulp-imagemin');
 var inlinesource = require('gulp-inline-source');
-
+var cssBase64 = require('gulp-css-base64');
 // var obfuscate = require('gulp-obfuscate');
+var htmlmin = require('gulp-htmlmin');
 
 
 var path = {
@@ -44,6 +45,7 @@ gulp.task('clean:dist', function () {
 gulp.task('move:tpl', function () {
     return gulp.src(path.src + '/page/**/*.html')
         .pipe(rename({dirname: ''}))
+        // .pipe(htmlmin({collapseWhitespace: true}))
         .pipe(gulp.dest(path.dist + '/tpl'));
 });
 
@@ -51,19 +53,9 @@ gulp.task('move:tpl', function () {
  * ---根路径文件--------------------------------------------------------------
  * (app,config,bridge,index)
  * */
-gulp.task('move:index', function () {
-    var stream = gulp.src([path.src + '/index.html']);
-    if (ENV == "PRO") {
-        return stream.pipe(uglify())
-        // .pipe(md5(10, path.dist + '/index.html'))
-            .pipe(inlinesource())
-            .pipe(gulp.dest(path.dist));
-    } else {
-        return stream.pipe(inlinesource()).pipe(gulp.dest(path.dist));
-    }
-});
-gulp.task('move:base', function () {
-    var stream = gulp.src([path.src + '/*.*']);
+
+gulp.task('move:basejs', function () {
+    var stream = gulp.src([path.src + '/*.js']);
     if (ENV == "PRO") {
         return stream.pipe(uglify())
         // .pipe(md5(10, path.dist + '/index.html'))
@@ -72,11 +64,21 @@ gulp.task('move:base', function () {
         return stream.pipe(gulp.dest(path.dist));
     }
 });
-
+gulp.task('move:index', function () {
+    var stream = gulp.src([path.src + '/index.html']);
+    if (ENV == "PRO") {
+        return stream
+        // .pipe(md5(10, path.dist + '/index.html'))
+            .pipe(inlinesource())
+            .pipe(htmlmin({collapseWhitespace: true}))
+            .pipe(gulp.dest(path.dist));
+    } else {
+        return stream.pipe(inlinesource()).pipe(gulp.dest(path.dist));
+    }
+});
 
 gulp.task('move:font', function () {
-    var stream = gulp.src([path.src + '/fonts/*.*']);
-    return stream.pipe(gulp.dest(path.dist + '/fonts'));
+    return gulp.src([path.src + '/fonts/*.*']).pipe(gulp.dest(path.dist + '/fonts'));
 });
 /**
  * ---其余资源转移--------------------------------------------------------------
@@ -98,7 +100,7 @@ gulp.task('move:lib', function () {
  * */
 var moveImg = {
     src: [
-        path.src + '/img/**/*.*'
+        path.src + '/img/**/*.*',path.src + '/*.png',path.src + '/*ico'
     ],
     dist: path.dist + '/img'
 };
@@ -112,6 +114,10 @@ gulp.task('img:min', function () {
     }
 
 });
+
+
+
+
 
 
 /**
@@ -175,7 +181,7 @@ gulp.task('pageCss', function () {
         }));
     if (ENV == "PRO") {
         return stream.pipe(cleanCSS())
-            .pipe(md5(10, path.dist + '/index.html'))
+            // .pipe(md5(10, path.dist + '/index.html'))
             .pipe(gulp.dest(path.dist + '/css'))
     } else {
         return stream.pipe(gulp.dest(path.dist + '/css'))
@@ -198,7 +204,7 @@ gulp.task('ionicCss', function () {
         }));
     if (ENV == "PRO") {
         return stream.pipe(cleanCSS())
-            .pipe(md5(10, path.dist + '/index.html'))
+            // .pipe(md5(10, path.dist + '/index.html'))
             .pipe(gulp.dest(path.dist + '/css'))
     } else {
         return stream
@@ -207,6 +213,12 @@ gulp.task('ionicCss', function () {
     }
 });
 
+// cssBase64
+gulp.task('cssBase64', function () {
+    return gulp.src('www/css/style.css')
+        .pipe(cssBase64())
+        .pipe(gulp.dest('www/css'));
+});
 
 /**
  * --default task--------------------------------------------------------------
@@ -220,7 +232,7 @@ gulp.task('default', gulpSequence(
         //移动tpl
         'move:tpl',
         //移动根目录文件
-        'move:base',
+        'move:basejs',
         'move:font',
         //移动准备必须的资源
         'move:lib',
@@ -234,7 +246,8 @@ gulp.task('default', gulpSequence(
         'img:min'
         // 'resource:brandInfo', 
         // 'resource:selfPark'
-    ],
+
+    ],['cssBase64'],
     //watch
     'watch'
 ));
@@ -250,7 +263,8 @@ gulp.task('watch', function () {
     gulp.watch(moveImg.src, ['img:min']);
 
     gulp.watch([path.src + '/page/**/*.html'], ['move:tpl']);
-    gulp.watch([path.src + '/*.*'], ['move:base']);
+    gulp.watch([path.src + '/*.*'], ['move:basejs']);
+    gulp.watch([path.src + '/index.html'], ['move:index']);
 
     gulp.watch([path.src + '/common/**/*.js'], ['commonJS']);
     gulp.watch([path.src + '/page/**/*.js'], ['pageJS']);
