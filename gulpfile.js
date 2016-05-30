@@ -64,6 +64,11 @@ gulp.task('move:basejs', function () {
         return stream.pipe(gulp.dest(path.dist));
     }
 });
+
+gulp.task('move:ico', function () {
+    return gulp.src([path.src + '/vivoCity.ico', path.src + '/vivoCity.png']).pipe(gulp.dest(path.dist));
+});
+
 gulp.task('move:index', function () {
     var stream = gulp.src([path.src + '/index.html']);
     if (ENV == "PRO") {
@@ -100,7 +105,7 @@ gulp.task('move:lib', function () {
  * */
 var moveImg = {
     src: [
-        path.src + '/img/**/*.*',path.src + '/*.png',path.src + '/*ico'
+        path.src + '/img/**/*.*', path.src + '/*.png', path.src + '/*ico'
     ],
     dist: path.dist + '/img'
 };
@@ -114,10 +119,6 @@ gulp.task('img:min', function () {
     }
 
 });
-
-
-
-
 
 
 /**
@@ -173,7 +174,7 @@ var ionicCssMap = {
 };
 //编译sass文件,将raw文件转到dist中
 gulp.task('pageCss', function () {
-    var stream = gulp.src(pageCssMap.main).pipe(sass().on('error', sass.logError))
+    var stream = gulp.src(pageCssMap.main).pipe(sass().on('error', sass.logError)).pipe(cssBase64())
         .pipe(autoprefixer({
             // browsers: ['IE 7'],
             browsers: ['Android >=2.1', 'last 2 versions'],
@@ -181,7 +182,7 @@ gulp.task('pageCss', function () {
         }));
     if (ENV == "PRO") {
         return stream.pipe(cleanCSS())
-            // .pipe(md5(10, path.dist + '/index.html'))
+        // .pipe(md5(10, path.dist + '/index.html'))
             .pipe(gulp.dest(path.dist + '/css'))
     } else {
         return stream.pipe(gulp.dest(path.dist + '/css'))
@@ -204,7 +205,7 @@ gulp.task('ionicCss', function () {
         }));
     if (ENV == "PRO") {
         return stream.pipe(cleanCSS())
-            // .pipe(md5(10, path.dist + '/index.html'))
+        // .pipe(md5(10, path.dist + '/index.html'))
             .pipe(gulp.dest(path.dist + '/css'))
     } else {
         return stream
@@ -214,11 +215,11 @@ gulp.task('ionicCss', function () {
 });
 
 // cssBase64
-gulp.task('cssBase64', function () {
-    return gulp.src('www/css/style.css')
-        .pipe(cssBase64())
-        .pipe(gulp.dest('www/css'));
-});
+// gulp.task('cssBase64', function () {
+//     return gulp.src('www/css/style.css')
+//         .pipe(cssBase64())
+//         .pipe(gulp.dest('www/css'));
+// });
 
 /**
  * --default task--------------------------------------------------------------
@@ -233,6 +234,7 @@ gulp.task('default', gulpSequence(
         'move:tpl',
         //移动根目录文件
         'move:basejs',
+        'move:ico',
         'move:font',
         //移动准备必须的资源
         'move:lib',
@@ -246,8 +248,7 @@ gulp.task('default', gulpSequence(
         'img:min'
         // 'resource:brandInfo', 
         // 'resource:selfPark'
-
-    ],['cssBase64'],
+    ],
     //watch
     'watch'
 ));
