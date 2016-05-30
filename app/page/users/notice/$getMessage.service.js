@@ -20,7 +20,7 @@
                         "statuscode": null,//#状态：0未读/1已读/2删除
                     },
                     "dsc": {
-                        "order_by": "createdtime",
+                        "order_by": "statuscode",
                         "order_type": "desc",
                         "page_index": 1,
                         "page_size": 999
@@ -34,6 +34,7 @@
                     method: "post",
                     data: params,
                     success: function (data) {
+                        console.log(data)
                         if (data.code == 7001) {
                             //list
                             if (params.querytype == 'main') {

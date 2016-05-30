@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('noticeCtrl', ['$scope', '$ionicPopup', '$getMessage', '$ionicLoading', '$changeMessageStatus', '$log', '$ionicToast', function ($scope, $ionicPopup, $getMessage, $ionicLoading, $changeMessageStatus, $log, $ionicToast) {
+        .controller('noticeCtrl', ['$scope', '$ionicPopup', '$getMessage', '$ionicLoading', '$changeMessageStatus', '$log', '$ionicToast','$state', function ($scope, $ionicPopup, $getMessage, $ionicLoading, $changeMessageStatus, $log, $ionicToast,$state) {
 
             /**
              * 获取列表
@@ -18,8 +18,8 @@
                     "statuscode": null//#状态：0未读/1已读/2删除
                 },
                 "dsc": {
-                    "order_by": "createdtime",
-                    "order_type": "desc",
+                    "order_by": "statuscode",
+                    "order_type": "asc",
                     "page_index": 1,
                     "page_size": 999
                 }
@@ -32,7 +32,7 @@
                 $log.debug('unReadNum');
                 $log.debug(unReadNum);
                 $scope.items = data;
-                if ($scope.items > 50) {
+                if ($scope.items > 20) {
                     $ionicToast.show("亲,过期的消息请及时清理");
                 }
             }).finally(function () {
@@ -65,18 +65,26 @@
              * 消息显示
              * */
             $scope.showNoticeInfo = function (item) {
-                $ionicPopup.show({
-                    title: item.title,
-                    cssClass: 'noticePopup',
-                    subTitle: '',
-                    template: item.content,
-                    buttons: [{
-                        text: '确定',
-                        type: 'noticePopupBtn',
-                        onTap: function (e) {
-                        }
-                    }]
-                });
+                //如果是卡券发放,则跳转到礼品卡券
+                if(parseInt(item.typecode) == 8){
+                    $state.go("subNav.memberCoupon")
+
+                }else{
+                    $ionicPopup.show({
+                        title: item.title,
+                        cssClass: 'noticePopup',
+                        subTitle: '',
+                        template: item.content,
+                        buttons: [{
+                            text: '确定',
+                            type: 'noticePopupBtn',
+                            onTap: function (e) {
+                            }
+                        }]
+                    });
+                }
+
+
                 //列表更新
                 if (!item.statuscode) {
                     return $changeMessageStatus({
