@@ -73,7 +73,7 @@
                         return "分享";
                         break;
                     default:
-                        return "火星";
+                        return "";
                 }
             }
         }])
