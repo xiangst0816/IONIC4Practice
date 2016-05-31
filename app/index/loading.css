@@ -93,14 +93,14 @@ body {
           z-index: 1; }
         .wx_loading .loading_plane_box .loading_plane_box_inner .plane_bg .plane_bg_1 {
           background: url(img/loading/1.png) no-repeat center center/cover;
-          animation: bg_fly_1 4s linear forwards; }
+          animation: bg_fly_1 2s linear forwards; }
         .wx_loading .loading_plane_box .loading_plane_box_inner .plane_bg .plane_bg_2 {
           background: url(img/loading/2.png) no-repeat center center/cover;
-          animation: bg_fly_2 8s linear infinite; }
+          animation: bg_fly_2 4s linear infinite; }
         .wx_loading .loading_plane_box .loading_plane_box_inner .plane_bg .plane_bg_3 {
           transform: translatex(100%);
           background: url(img/loading/1.png) no-repeat center center/cover;
-          animation: bg_fly_2 8s linear 4s infinite; }
+          animation: bg_fly_2 4s linear 2s infinite; }
 @keyframes bg_fly_1 {
   from {
     transform: translatex(0%); }

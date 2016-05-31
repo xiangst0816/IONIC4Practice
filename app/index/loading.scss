@@ -109,18 +109,19 @@ body {
           top:0;
           z-index:1;
         }
+        $speed:2s;
         .plane_bg_1{
           background:url(img/loading/1.png) no-repeat center center/cover;
-          animation: bg_fly_1 4s linear forwards;
+          animation: bg_fly_1 $speed linear forwards;
         }
         .plane_bg_2{
           background:url(img/loading/2.png) no-repeat center center/cover;
-          animation: bg_fly_2 8s linear infinite;
+          animation: bg_fly_2 $speed*2 linear infinite;
         }
         .plane_bg_3{
           transform: translatex(100%);
           background:url(img/loading/1.png) no-repeat center center/cover;
-          animation: bg_fly_2 8s linear 4s infinite;
+          animation: bg_fly_2 $speed*2 linear $speed infinite;
         }
       }
 
