@@ -151,10 +151,7 @@
                                 var userInfo = $sessionStorage.userInfo;
                                 var integralInfo = $sessionStorage.integralInfo;
                                 $scope.userDisplayIntegral = integralInfo.currentLevelPoint;
-                                // $scope.userDisplayIntegral = 2000;
                                 $scope.vipLevel = userInfo.levelid;
-                                // $scope.vipLevel = 2;
-
                                 if ($scope.vipLevel == 1) {
                                     if ($scope.userDisplayIntegral > $scope.cardupgrade0) {//如果达到第2级的条件
                                         progress = 50;
@@ -178,7 +175,6 @@
                                     progress = $scope.userDisplayIntegral / $scope.cardupgrade1 * 100;
                                 }
                                 document.getElementById('vipState-lay2-progress').style.width = progress + "%";
-                                // console.log(progress)
                                 //成功
                                 defer.resolve();
                             }, function (err) {
@@ -200,7 +196,7 @@
                                 "statuscode": 0//#状态：0未读/1已读/2删除
                             }
                         }).then(function (data) {
-                            $scope.messageNum = !!data;
+                            $rootScope.messageNum = !!data;
                         })
                     }
                 });

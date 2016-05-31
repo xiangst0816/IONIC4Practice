@@ -117,7 +117,7 @@
                 <span class="icon-vipState ion-vips ion-vip1" ng-if="vipLevel == 1"></span>
                 <span class="icon-vipState ion-vips ion-vip2" ng-if="vipLevel == 2"></span>
                 <span class="icon-vipState ion-vips ion-vip3" ng-if="vipLevel == 3"></span>
-                <span ng-bind="::userDisplayIntegral"></span>/<span ng-bind="::nextIntegral"></span>
+                <span ng-bind="userDisplayIntegral"></span>/<span ng-bind="nextIntegral"></span>
             </div>
             <!--第二层-->
             <div class="vipState-lay2">
@@ -134,7 +134,7 @@
                     <span>VIP</span>
                 </div>
                 <div class="stateTextVip" ng-if="vipLevel == 3">
-                    <span>VIP会员到期日:</span>&ensp;<span ng-bind="::vipEndTIme"></span>
+                    <span>VIP会员到期日:</span>&ensp;<span ng-bind="vipEndTIme"></span>
                     <span class="stateTextVipBtn" ng-click="showVIPRule()">VIP规则</span>
                 </div>
             </div>
