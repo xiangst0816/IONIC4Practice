@@ -4,8 +4,13 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('tradeDetailCtrl', ['$scope',function ($scope) {
-            console.log("tradeDetailCtrl");
+        .controller('tradeDetailCtrl', ['$scope', '$stateParams', function ($scope, $stateParams) {
+            // console.log("tradeDetailCtrl");
+            $scope.item = $stateParams.detail;
+            console.log( $scope.item);
+
+
+
 
         }]);
 })();

@@ -1,58 +1,25 @@
 <ion-view title="线上缴费记录" class="myService">
   <ion-content overflow-scroll="true">
     <div class="list myServiceList">
-      <div class="item myServiceItem" ui-sref="subNav.memberServicesDetail">
+      <div class="item myServiceItem" ui-sref="subNav.memberServicesDetail({detail:item})" ng-repeat="item in dataToDisplay track by $index">
         <p class="clearfix">
-          <span>停车场</span>
-          <span>1小时23分钟</span>
+          <span ng-bind="item.fullname">停车场</span>
+          <span ng-bind="item.during">1小时23分钟</span>
         </p>
         <p class="clearfix">
-          <span>2016年12月12日</span>
-          <span>￥25.00</span>
-        </p>
-      </div>
-      <div class="item myServiceItem">
-        <p class="clearfix">
-          <span>停车场</span>
-          <span>1小时23分钟</span>
-        </p>
-        <p class="clearfix">
-          <span>2016年12月12日</span>
-          <span>￥25.00</span>
-        </p>
-      </div>
-      <div class="item myServiceItem">
-        <p class="clearfix">
-          <span>停车场</span>
-          <span>1小时23分钟</span>
-        </p>
-        <p class="clearfix">
-          <span>2016年12月12日</span>
-          <span>￥25.00</span>
-        </p>
-      </div>
-      <div class="item myServiceItem">
-        <p class="clearfix">
-          <span>停车场</span>
-          <span>1小时23分钟</span>
-        </p>
-        <p class="clearfix">
-          <span>2016年12月12日</span>
-          <span>￥25.00</span>
-        </p>
-      </div>
-      <div class="item myServiceItem">
-        <p class="clearfix">
-          <span>停车场</span>
-          <span>1小时23分钟</span>
-        </p>
-        <p class="clearfix">
-          <span>2016年12月12日</span>
-          <span>￥25.00</span>
+          <span ng-bind="item.paymentTime | yyyyMd_cn"></span>
+          <span>￥<span ng-bind="item.pointPayAmount"></span></span>
         </p>
       </div>
     </div>
 
-
+    <div class="noDataToDisplay" ng-if=" dataToDisplay.length== 0">
+      <p>列表无数据!</p>
+      <p>可以在【品牌咨询】添加关注商户!</p>
+    </div>
+    <p class="noDataToDisplay"
+       ng-if="!moreDataCanBeLoaded && dataToDisplay.length>findNum">列表加载完毕!</p>
+    <ion-infinite-scroll ng-show="moreDataCanBeLoaded" distance="5%"
+                         on-infinite="loadMore()"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

@@ -6,7 +6,7 @@
     /**
      * 获取停车缴费记录
      * */
-        .factory("$getTradeHistory", ['AJAX', 'api', '$q', function (AJAX, api, $q) {
+        .factory("$getTradeHistory", ['AJAX', 'api', '$q', '$log','$duringSeconds','$filter', function (AJAX, api, $q, $log,$duringSeconds,$filter) {
             return function (options) {
                 if (!angular.isObject(options)) {
                     options = {};
@@ -16,10 +16,10 @@
                     "method": "queryPayment",
                     "condition": {
                         "queryType": "main",//是
-                        "custid": "",//是
+                        "custid": null,//是
                         "page": {
                             "index": 1,
-                            "num": 999
+                            "num": 100
                         }
                     }
                 };
@@ -30,9 +30,16 @@
                     method: "post",
                     data: params,
                     success: function (data) {
+                        console.log(data)
 
                         if (data.code == 7001) {
-                            defer.resolve(data.list);
+                            var result = data.list;
+                            angular.forEach(result,function (value,index) {
+                                value.during = $filter("during_HHmm_cn")($duringSeconds(value.entryTime,value.paymentTime));
+                            });
+                            defer.resolve(result);
+                            console.log(result);
+                            $log.debug("停车缴费记录获取成功,共" + result.length + "条记录");
                         } else {
                             var errText;
                             switch (parseInt(data.code)) {
@@ -43,10 +50,12 @@
                                     errText = "系统内部错误!";
                                     break;
                             }
+                            $log.debug("停车缴费记录获取失败,errText =" + errText);
                             defer.reject(errText);
                         }
                     },
                     error: function (errText) {
+                        $log.debug("停车缴费记录获取失败,errText =" + errText);
                         defer.reject(errText);
                     }
                 });
