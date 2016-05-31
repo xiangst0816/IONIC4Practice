@@ -15,6 +15,7 @@ var md5 = require('gulp-md5-plus');
 var imagemin = require('gulp-imagemin');
 var inlinesource = require('gulp-inline-source');
 var cssBase64 = require('gulp-css-base64');
+var base64 = require('gulp-base64');
 // var obfuscate = require('gulp-obfuscate');
 var htmlmin = require('gulp-htmlmin');
 
@@ -70,15 +71,16 @@ gulp.task('move:ico', function () {
 });
 
 gulp.task('move:index', function () {
-    var stream = gulp.src([path.src + '/index.html']);
+    var stream = gulp.src([path.src + '/index.html']).pipe(inlinesource()).pipe(base64({
+        maxImageSize: 100*1024, // bytes
+    }));
     if (ENV == "PRO") {
         return stream
         // .pipe(md5(10, path.dist + '/index.html'))
-            .pipe(inlinesource())
             .pipe(htmlmin({collapseWhitespace: true}))
             .pipe(gulp.dest(path.dist));
     } else {
-        return stream.pipe(inlinesource()).pipe(gulp.dest(path.dist));
+        return stream.pipe(gulp.dest(path.dist));
     }
 });
 
@@ -89,7 +91,7 @@ gulp.task('move:font', function () {
  * ---其余资源转移--------------------------------------------------------------
  * */
 gulp.task('move:lib', function () {
-    var stream = gulp.src(path.src + '/lib/*.min.js').pipe(concat('core.js'))
+    var stream = gulp.src(path.src + '/lib/*.min.js').pipe(concat('core.js'));
     if (ENV == "PRO") {
         return stream.pipe(uglify())
         // .pipe(md5(10, path.dist + '/index.html'))
@@ -269,6 +271,8 @@ gulp.task('watch', function () {
 
     gulp.watch([path.src + '/common/**/*.js'], ['commonJS']);
     gulp.watch([path.src + '/page/**/*.js'], ['pageJS']);
+    gulp.watch([path.src + '/index.html',path.src + '/index/*.*'], ['move:index']);
 
 
 });
+

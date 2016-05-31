@@ -11,6 +11,7 @@
         './app.js',
         "css/ionic.debug.css",
         "css/style.css",
+        // "css/style1.css",
         "img/home/home_banner_1_hd.png",
         "img/home/home_banner_2_hd.png",
         "img/home/home_banner_3_hd.png",
@@ -44,13 +45,13 @@
      * 执行
      * */
     $addTags(core, function () {
-        refresher();
+        // refresher();
     }, function () {
         $addTags(resource, function () {
-            refresher();
+            // refresher();
         }, function () {
             $addTags(rest, function () {
-                refresher();
+                // refresher();
             }, function () {
                 angular.element(document).ready(function () {
                     angular.bootstrap(document, [ngAppModule]);
@@ -70,7 +71,8 @@
      * */
     function refresher() {
         restNum--;
-        whereToNotice.innerHTML = Math.floor(((totalLoadedNum - restNum) / totalLoadedNum * 100)) + "%";
+        // console.log(Math.floor(((totalLoadedNum - restNum) / totalLoadedNum * 100)) + "%");
+        // whereToNotice.innerHTML = Math.floor(((totalLoadedNum - restNum) / totalLoadedNum * 100)) + "%";
     }
 
     /**

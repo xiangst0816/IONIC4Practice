@@ -1,4 +1,4 @@
-将ebapp打造成NativeApp的体验模式
+将WebApp打造成NativeApp的体验模式
 ===============
 
 ## 需求场景： 
