@@ -78,7 +78,8 @@
                     });
 
                 }
-            } else if (Internal.isInApp) {    //app用户
+            } else if (Internal.isInApp) {
+                //app用户
                 var userInfo = $localStorage.userInfo;
                 if (userInfo && userInfo.customerid) {
                     $getUserInfo({

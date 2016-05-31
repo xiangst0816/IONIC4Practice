@@ -10,7 +10,7 @@
     /**
      * 获取用户信息(微信和app通用), 已做缓存处理
      * */
-        .factory("$getUserInfo", ['AJAX', 'api', '$q', '$sessionStorage', '$log', '$ionicToast', '$setShareContent', function (AJAX, api, $q, $sessionStorage, $log, $ionicToast, $setShareContent) {
+        .factory("$getUserInfo", ['AJAX', 'api', '$q', '$sessionStorage', '$log', '$ionicToast', '$setShareContent', '$localStorage', function (AJAX, api, $q, $sessionStorage, $log, $ionicToast, $setShareContent, $localStorage) {
             return function (options) {
                 !angular.isObject(options) && (options = {});
                 var defer = $q.defer();
@@ -22,7 +22,7 @@
                     return defer.promise;
                 }
 
-                
+
                 $log.debug("userInfo使用最新数据!");
                 var params = {
                     "method": "query",
@@ -43,14 +43,25 @@
                     success: function (data) {
 
                         if (data.code == "7001" && angular.isArray(data.members) && data.members.length) {
+                            var userInfo = data.members[0];
                             //设置时间戳
-                            data.members[0].time = new Date().getTime();
+                            userInfo.time = new Date().getTime();
                             //状态数据存储
-                            $sessionStorage.userInfo = angular.copy(data.members[0]);
+                            $sessionStorage.userInfo = angular.copy(userInfo);
+
+                            //如果是app,那就将customerid放在localStorage中
+                            //需求需要app登陆和注册成功会记住用户的登陆状态,进入用户中心时,
+                            // checkAuthorize会检查localStorage中的customerid值,
+                            //故在获取用户信息的时候就保存一份在localStorage中
+                            if (Internal.isInApp) {
+                                $localStorage.userInfo = {
+                                    customerid: userInfo.customerid.toString()
+                                };
+                            }
                             //设置分享内容
                             $setShareContent();
                             //返回数据
-                            defer.resolve(data.members[0]);
+                            defer.resolve(userInfo);
                             $log.debug("获取用户信息成功");
                         } else {
                             $ionicToast.show("无法获取您的信息,请稍后再试!");

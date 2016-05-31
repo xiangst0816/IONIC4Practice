@@ -31,15 +31,7 @@
                 }).then(function (data) {
                     //并且有数据
                     if (!!data.length) {
-
-                        //如果是app,那就将customerid放在localStorage中
-                        //只在登陆进行此操作
-                        if(Internal.isInApp){
-                            $localStorage.userInfo ={
-                                customerid:data[0].customerid.toString()
-                            };
-                        }
-
+                        
                         /**
                          * 用户信息查询
                          * */
