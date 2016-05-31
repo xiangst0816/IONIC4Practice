@@ -264,9 +264,7 @@
                     }]
                 });
             }
-
             return defer.promise;
         }
     }])
-
 })();
