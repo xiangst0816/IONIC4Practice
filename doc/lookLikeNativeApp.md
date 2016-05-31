@@ -44,10 +44,13 @@
 <link rel="apple-touch-icon" href="vivoCity.png">
 ```
 
+
 但是，iOS会自作多情的给这个图标加上高光，如果想图标不被高光，可以这样：
+
 ```
 <link rel="apple-touch-icon-precomposed" href="vivoCity.png">
 ```
+
 如果想给不同的设备匹配不同的icon，可以加上size属性：
 
 ```
@@ -60,7 +63,7 @@
 程序启动的过程中，需要指定启动画面，否则，白屏或者截图是让人很不愉悦的。
 
 iOS有ipad和iPhone/ipod touch之分。  
-ipad的启动画面是横竖屏分开的，画面的尺寸必须是1024*768、768*1024。  
+ipad的启动画面是横竖屏分开的，画面的尺寸必须是1024\*768、768\*1024。  
 iPhone和ipod touch虽然都是竖屏的，但是却有Retina屏幕和非Retina屏幕之分；另外它们启动画面的尺寸并不是屏幕的大小，而是(屏幕宽度)*(屏幕高度-20)。也就是说，非Retina的尺寸为320*460，Retina屏幕的尺寸为640*920。  
 引入启动画面是支持媒体查询的。  
 因此，可以通过media query给ipad的横竖屏引入不同的图：  
