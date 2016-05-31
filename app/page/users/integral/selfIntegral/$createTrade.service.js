@@ -56,6 +56,9 @@
                                 case 10006:
                                     errText = "系统异常!";
                                     break;
+                                case 10008:
+                                    errText = "商铺不存在,请再核对!";
+                                    break;
                                 default:
                                     errText = data.code;
                                     break;
