@@ -119,6 +119,9 @@
                 //会员中心-我的服务-详情
                 .state('subNav.memberServicesDetail', {
                     url: '/memberServicesDetail',
+                    params: {
+                        'detail': null
+                    },
                     templateUrl: 'tpl/tradeHistory.detail.tpl.html',
                     controller: 'tradeDetailCtrl'
                 })

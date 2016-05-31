@@ -63,6 +63,34 @@ var nativePlugin = {
         }
     },
 
+    //选择图片
+    chooseImage: function (successCB) {
+        if (Internal.isInWeiXin) {
+            wx.chooseImage({
+                count: 1, // 默认9
+                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                success: function (res) {
+                    alert('res')
+                    alert(JSON.stringify(res))
+                    var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                    successCB && successCB(localIds);
+                }
+            });
+        } else if (Internal.isInApp && !!smartApp) {
+            smartApp.selectImage({
+                count: 1, // 默认9
+                sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                success: function (res) {
+                    var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                    successCB && successCB(localIds);
+                }
+            });
+        }
+    },
+
+
     //预览图片
     previewImage: function (current, urls) {
         if (Internal.isInWeiXin) {
@@ -418,10 +446,10 @@ var nativePlugin = {
             //隐藏导航栏
             // alert("setBarHidden")
             smartApp.setBarHidden({
-                hidden:true
+                hidden: true
             });
         }
-    },1000)
+    }, 1000)
 
 
 })();

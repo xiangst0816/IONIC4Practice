@@ -68,7 +68,7 @@
         /**
          * 将传入的时间改为当天起始时间00:00:00
          * */
-        .factory("$toDayBegin", ['$toDateFormat',function ($toDateFormat) {
+        .factory("$toDayBegin", ['$toDateFormat', function ($toDateFormat) {
             return function (value) {
                 var time = $toDateFormat(value);
                 time.setHours(0);
@@ -81,7 +81,7 @@
         /**
          * 将传入的时间改为当天最后一秒时间23:59:59
          * */
-        .factory("$toDayEnd", ['$toDateFormat',function ($toDateFormat) {
+        .factory("$toDayEnd", ['$toDateFormat', function ($toDateFormat) {
             return function (value) {
                 var time = $toDateFormat(value);
                 time.setHours(23);
@@ -284,7 +284,7 @@
         /**
          * 判断传入的"日期"是否在范围内(年月日-精度),则起始时间将设为00:00:00-23:59:59
          * */
-        .filter("isDateIn", ['$toDateFormat','$toDayBegin','$toDayEnd', function ($toDateFormat,$toDayBegin,$toDayEnd) {
+        .filter("isDateIn", ['$toDateFormat', '$toDayBegin', '$toDayEnd', function ($toDateFormat, $toDayBegin, $toDayEnd) {
             return function (value, timeForm, timeTo) {
                 value = $toDateFormat(value);
                 var timeNow = value.getTime();
@@ -299,6 +299,39 @@
                 timeForm = $toDayBegin(timeForm);
                 timeTo = $toDayEnd(timeTo);
                 return !!(timeForm <= timeNow && timeTo >= timeNow);
+            }
+        }])
+
+        /**
+         * 获取持续时间,返回时间单位为秒
+         * */
+        .factory("$duringSeconds", ['$toDateFormat', function ($toDateFormat) {
+            return function (timeForm, timeTo) {
+                timeForm = $toDateFormat(timeForm).getTime();
+                timeTo = $toDateFormat(timeTo).getTime();
+                //如果时间起止出错,则对调
+                if (timeForm > timeTo) {
+                    var tpl = timeTo;
+                    timeTo = timeForm;
+                    timeForm = tpl;
+                }
+                //单位s
+                return parseInt((timeTo - timeForm) / 1000);
+            }
+        }])
+
+        /**
+         * 获取持续时间,传入单位为秒的整数,返回:xx小时xx分钟
+         * */
+        .filter("during_HHmm_cn", [function () {
+            return function (seconds) {
+                var h = Math.floor(seconds / 3600);
+                var m = Math.floor((seconds % 3600) / 60);
+                if (!h) {
+                    return m + "分钟";
+                } else {
+                    return h + "小时" + m + "分钟";
+                }
             }
         }])
 
