@@ -51,6 +51,7 @@
  *      "" :默认为Att&Reg
  *      "wxLevel_Att&Reg":需要关注,需要注册
  *      "wxLevel_AttOnly":需要关注,不需注册
+ * 7. app鉴权意味着登陆
  */
 (function () {
     angular.module('smartac.page').factory("$checkAuthorize", ['$q', '$getUserInfo', 'baseInfo', '$sessionStorage', '$ionicLoading', '$getUrlParams', '$ionicPopup', '$state', '$ionicToast', '$ocLazyLoad', '$timeout', '$log', '$localStorage', function ($q, $getUserInfo, baseInfo, $sessionStorage, $ionicLoading, $getUrlParams, $ionicPopup, $state, $ionicToast, $ocLazyLoad, $timeout, $log, $localStorage) {
