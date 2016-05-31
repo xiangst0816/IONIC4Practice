@@ -25,7 +25,7 @@
                             "num": 10
                         },
                         "sort": {
-                            "column": "id",
+                            "column": "get_time",
                             "type": "desc"
                         }
                     }

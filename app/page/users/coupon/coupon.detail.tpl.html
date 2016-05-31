@@ -29,13 +29,9 @@
                 <p>礼品</p>
             </div>
             <div class="detailInfo">
-                <div class="detailBox" ng-if="item.type_code == 1">
+                <div class="detailBox">
                     <div class="detailTitle"><span>使用时间:</span></div>
                     <span>{{item.limit_time_begin.low | yyyyMd_cn}}至{{item.limit_time_end.low | yyyyMd_cn}}</span>
-                </div>
-                <div class="detailBox" ng-if="item.type_code == 2">
-                    <div class="detailTitle"><span>使用时间:</span></div>
-                    <span>{{item.valid_start_time | yyyyMd_cn}}至{{item.valid_end_time | yyyyMd_cn}}</span>
                 </div>
                 <div class="detailBox">
                     <div class="detailTitle"><span>使用规则: </span></div>
