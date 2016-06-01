@@ -94,13 +94,13 @@ ionic使用的导航方式永远都是在新增历史记录,而浏览器原生�
 
 这部分我是使用一次开发的脚本，但是随后增加的接口就和以前的不一样了，主要是调用同一个接口方法实现功能，具体的使用哪个方法由当时的设备环境判断。保证接口一致！
 
-### 移动端最佳CSS实践(SCSS)
+### [移动端最佳CSS实践(SCSS)](https://github.com/xiangsongtao/IONIC4Practice/blob/master/doc/CSS4Mobile.md)
 
 这里主要是为了兼容低端安卓微信浏览器而进行的阐述。因为这样的设备对新版flex布局不兼容，导致样式问题，但是他们对旧版的flex-box可行，故需要对flex加前缀的同时，引入另一套旧flex布局。我们一般是思路是使用autoprefixer做，但是有坑！具体见内文。
 
-### 快速进入微信Loading页面
+### [快速进入微信Loading页面](https://github.com/xiangsongtao/IONIC4Practice/blob/master/doc/Loader.md)
 
-因为项目是使用ionic组件库及样式库的，首次加载会需要下载核心资源，故！需要一个loading页，给这些资源一个加载提示。有人说，恩，将loading的html放在index.html中不就行了吗？但是这样，页面会有很长时间的白屏，然后突然跳到loading，然后突然跳到主页。这个并没有达到我们的预期，因为浏览器在加载页内script中的资源时会阻塞页面的渲染。最佳的做法是将我们的资源使用一个资源加载器加载，首页index.html中只放加载在其，这样，就愉快的看到loading示数不断到100%了。具体见内文。
+因为项目是使用ionic组件库及样式库的，首次加载会需要下载核心资源，故！需要一个loading页，给这些资源一个加载提示。有人说，恩，将loading的html放在index.html中不就行了吗？但是这样，页面会有很长时间的白屏，然后突然跳到loading，然后突然跳到主页。这个并没有达到我们的预期，因为浏览器在加载页内script中的资源时会阻塞页面的渲染。最佳的做法是将我们的资源使用一个资源加载器加载，首页index.html中只放加载器，这样，就愉快的看到loading示数不断到100%了。具体见内文。
 
 ### 微信端OcLazyLoad终极解决方案(使用懒函数)
 
