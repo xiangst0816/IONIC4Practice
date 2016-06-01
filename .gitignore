@@ -7,3 +7,4 @@ node_modules
 backup
 .DS_Store
 .gitignore
+app

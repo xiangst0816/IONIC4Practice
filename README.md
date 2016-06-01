@@ -96,7 +96,7 @@ ionic使用的导航方式永远都是在新增历史记录,而浏览器原生�
 
 ### [移动端最佳CSS实践(SCSS)](https://github.com/xiangsongtao/IONIC4Practice/blob/master/doc/CSS4Mobile.md)
 
-这里主要是为了兼容低端安卓微信浏览器而进行的阐述。因为这样的设备对新版flex布局不兼容，导致样式问题，但是他们对旧版的flex-box可行，故需要对flex加前缀的同时，引入另一套旧flex布局。我们一般是思路是使用autoprefixer做，但是有坑！具体见内文。
+这里主要是为了兼容低端安卓微信浏览器而进行的阐述。因为这样的设备对新版flex布局不兼容，导致样式问题，但是他们对旧版的flex-box可行，故需要对flex加前缀的同时，引入另一套旧flex布局。我们一般的思路是使用autoprefixer做，但是有坑！具体见内文。
 
 ### [快速进入微信Loading页面](https://github.com/xiangsongtao/IONIC4Practice/blob/master/doc/Loader.md)
 
