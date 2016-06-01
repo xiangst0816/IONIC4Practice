@@ -40,9 +40,19 @@ body {
     width:3.78rem;
     height:3.78rem;
     background:rgba(256,256,256,0.4);
+    -webkit-border-radius: 100%;
     border-radius: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack:center;
+    -webkit-justify-content:center;
+    -ms-flex-pack:center;
     justify-content:center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
     align-items: center;
     position: relative;
 
@@ -60,6 +70,7 @@ body {
       top:0.22rem;
       left:0.22rem;
       background:rgba(256,256,256,0.6);
+      -webkit-border-radius: 100%;
       border-radius: 100%;
       overflow: hidden;
       .plane{
@@ -71,24 +82,52 @@ body {
         z-index:2;
         top: 0.5rem;
         left: 0.7rem;
+        -webkit-animation: plane_fly 10s linear infinite;
         animation: plane_fly 10s linear infinite;
       }
       $wave-x:10%;
       $wave-y:10%;
-      @keyframes plane_fly {
+      @-webkit-keyframes plane_fly {
         0% {
+          -webkit-transform: translate(0,0);
           transform: translate(0,0);
         }
         25% {
+          -webkit-transform: translate(0,$wave-y);
           transform: translate(0,$wave-y);
         }
         50% {
+          -webkit-transform: translate($wave-x,0);
           transform: translate($wave-x,0);
         }
         75% {
+          -webkit-transform: translate($wave-x,$wave-y);
           transform: translate($wave-x,$wave-y);
         }
         100% {
+          -webkit-transform: translate(0,0);
+          transform: translate(0,0);
+        }
+      }
+      @keyframes plane_fly {
+        0% {
+          -webkit-transform: translate(0,0);
+          transform: translate(0,0);
+        }
+        25% {
+          -webkit-transform: translate(0,$wave-y);
+          transform: translate(0,$wave-y);
+        }
+        50% {
+          -webkit-transform: translate($wave-x,0);
+          transform: translate($wave-x,0);
+        }
+        75% {
+          -webkit-transform: translate($wave-x,$wave-y);
+          transform: translate($wave-x,$wave-y);
+        }
+        100% {
+          -webkit-transform: translate(0,0);
           transform: translate(0,0);
         }
       }
@@ -96,9 +135,22 @@ body {
         overflow: hidden;
         height:3.34rem;
         width:6.68rem;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-pack:start;
+        -webkit-justify-content:flex-start;
+        -ms-flex-pack:start;
         justify-content:flex-start;
+        -webkit-box-align:center;
+        -webkit-align-items:center;
+        -ms-flex-align:center;
         align-items:center;
+        -webkit-box-orient:horizontal;
+        -webkit-box-direction:normal;
+        -webkit-flex-direction:row;
+        -ms-flex-direction:row;
         flex-direction:row;
         z-index:1;
         .plane_bg_each{
@@ -112,32 +164,61 @@ body {
         $speed:2s;
         .plane_bg_1{
           background:url(img/loading/1.png) no-repeat center center/cover;
+          -webkit-animation: bg_fly_1 $speed linear forwards;
           animation: bg_fly_1 $speed linear forwards;
         }
         .plane_bg_2{
           background:url(img/loading/2.png) no-repeat center center/cover;
+          -webkit-animation: bg_fly_2 $speed*2 linear infinite;
           animation: bg_fly_2 $speed*2 linear infinite;
         }
         .plane_bg_3{
+          -webkit-transform: translatex(100%);
           transform: translatex(100%);
           background:url(img/loading/1.png) no-repeat center center/cover;
+          -webkit-animation: bg_fly_2 $speed*2 linear $speed infinite;
           animation: bg_fly_2 $speed*2 linear $speed infinite;
+        }
+      }
+
+      @-webkit-keyframes bg_fly_1 {
+        from {
+          -webkit-transform: translatex(0%);
+          transform: translatex(0%);
+        }
+        to {
+          -webkit-transform: translatex(-100%);
+          transform: translatex(-100%);
         }
       }
 
       @keyframes bg_fly_1 {
         from {
+          -webkit-transform: translatex(0%);
           transform: translatex(0%);
         }
         to {
+          -webkit-transform: translatex(-100%);
+          transform: translatex(-100%);
+        }
+      }
+      @-webkit-keyframes bg_fly_2 {
+        from {
+          -webkit-transform: translatex(100%);
+          transform: translatex(100%);
+        }
+        to {
+          -webkit-transform: translatex(-100%);
           transform: translatex(-100%);
         }
       }
       @keyframes bg_fly_2 {
         from {
+          -webkit-transform: translatex(100%);
           transform: translatex(100%);
         }
         to {
+          -webkit-transform: translatex(-100%);
           transform: translatex(-100%);
         }
       }
@@ -153,6 +234,19 @@ body {
     margin-left:-1rem;
     left:50%;
     background:url(img/loading/vivocityLogo.png) no-repeat center center/cover;
+  }
+}
+
+
+
+@-webkit-keyframes revolve {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 

@@ -115,7 +115,7 @@
                 start++;
                 return $getTradeHistory({
                     "condition": {
-                        "custid": 123,
+                        "custid": parseInt($sessionStorage.userInfo.customerid),
                         "page": {
                             "index": _start,
                             "num": _findNum

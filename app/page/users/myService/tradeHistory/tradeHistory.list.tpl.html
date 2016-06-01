@@ -13,9 +13,8 @@
       </div>
     </div>
 
-    <div class="noDataToDisplay" ng-if=" dataToDisplay.length== 0">
+    <div class="noDataToDisplay" ng-if=" dataToDisplay.length== 0 && !moreDataCanBeLoaded">
       <p>列表无数据!</p>
-      <p>可以在【品牌咨询】添加关注商户!</p>
     </div>
     <p class="noDataToDisplay"
        ng-if="!moreDataCanBeLoaded && dataToDisplay.length>findNum">列表加载完毕!</p>

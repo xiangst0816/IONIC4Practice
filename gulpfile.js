@@ -72,7 +72,7 @@ gulp.task('move:ico', function () {
 
 gulp.task('move:index', function () {
     var stream = gulp.src([path.src + '/index.html']).pipe(inlinesource()).pipe(base64({
-        maxImageSize: 100*1024, // bytes
+        maxImageSize: 100 * 1024, // bytes
     }));
     if (ENV == "PRO") {
         return stream
@@ -83,6 +83,7 @@ gulp.task('move:index', function () {
         return stream.pipe(gulp.dest(path.dist));
     }
 });
+
 
 gulp.task('move:font', function () {
     return gulp.src([path.src + '/fonts/*.*']).pipe(gulp.dest(path.dist + '/fonts'));
@@ -99,7 +100,6 @@ gulp.task('move:lib', function () {
     } else {
         return stream.pipe(gulp.dest(path.dist + '/js'));
     }
-
 });
 
 /**
@@ -176,7 +176,7 @@ var ionicCssMap = {
 };
 //编译sass文件,将raw文件转到dist中
 gulp.task('pageCss', function () {
-    var stream = gulp.src(pageCssMap.main).pipe(sass().on('error', sass.logError)).pipe(cssBase64())
+    var stream = gulp.src(pageCssMap.main).pipe(sass().on('error', sass.logError)).pipe(base64())
         .pipe(autoprefixer({
             // browsers: ['IE 7'],
             browsers: ['Android >=2.1', 'last 2 versions'],
@@ -190,6 +190,17 @@ gulp.task('pageCss', function () {
         return stream.pipe(gulp.dest(path.dist + '/css'))
     }
 });
+
+// gulp.task('loadingCss', function () {
+//     var stream = gulp.src("app/index/loading.scss").pipe(base64({maxImageSize: 100 * 1024}))
+//         .pipe(autoprefixer({
+//             // browsers: ['IE 7'],
+//             browsers: ['Android >=2.1', 'last 2 versions'],
+//             cascade: false
+//         })).pipe(rename('loading_final.scss'));
+//     return stream.pipe(gulp.dest('app/index/'));
+// });
+
 gulp.task('ionicCss', function () {
     var stream = gulp.src(ionicCssMap.main)
         .pipe(sass().on('error', sass.logError))
@@ -271,7 +282,7 @@ gulp.task('watch', function () {
 
     gulp.watch([path.src + '/common/**/*.js'], ['commonJS']);
     gulp.watch([path.src + '/page/**/*.js'], ['pageJS']);
-    gulp.watch([path.src + '/index.html',path.src + '/index/*.*'], ['move:index']);
+    gulp.watch([path.src + '/index.html', path.src + '/index/*.*'], ['move:index']);
 
 
 });

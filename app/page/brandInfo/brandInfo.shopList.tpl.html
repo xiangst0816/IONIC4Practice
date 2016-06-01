@@ -74,9 +74,9 @@
             <!--each end-->
 
             <!--抱歉,暂无数据!-->
-            <div class="noDataToDisplay" ng-if=" dataToDisplay.length== 0">
+            <div class="noDataToDisplay" ng-if=" dataToDisplay.length== 0 && !moreDataCanBeLoaded">
                 <p>列表无数据!</p>
-                <p>商户信息会后需添加,请随时关注!</p>
+                <p></p>
             </div>
             <p class="noDataToDisplay" ng-if="!moreDataCanBeLoaded && dataToDisplay.length>findNum">
                 列表加载完毕!</p>

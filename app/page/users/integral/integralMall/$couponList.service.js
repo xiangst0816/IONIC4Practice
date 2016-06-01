@@ -53,10 +53,8 @@
                                 //判断兑换起始日期是否大于今天,如果大于今天意味着不能兑换(canConvert)
                                 value.canConvert = !!($filter('isDateIn')(null,value.valid_start_time,value.valid_end_time));
 
-
-
                                 //礼品卡券设置展示日期,由前端确定是否显示
-                                value.canDisplay = !!($filter('isDateIn')(null,value.retrievablestrattime,value.retrievableendtime));
+                                value.canDisplay = !!($filter('isTimeIn')(null,value.retrievablestrattime,value.retrievableendtime));
                             });
                             defer.resolve(result);
                         } else {
