@@ -134,16 +134,18 @@ var nativePlugin = {
                 needResult: 1, // 扫描结果由微信处理，1则直接返回扫描结果，
                 scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
                 success: function (res) {
-                    alert(JSON.stringify(res));
-                    callback && callback(res);
+                    // alert(JSON.stringify(res));
+                    // alert((res.resultStr.toString()));
+                    callback && callback(res.resultStr.toString());
                 }
             });
         } else if (Internal.isInApp && !!smartApp) {
             smartApp.scanBarCode({
                 scanType: ['qrCode', 'barCode'],
                 success: function (res) {
-                    //alert(JSON.stringify(res));
-                    callback && callback(res);
+                    // alert(JSON.stringify(res));
+                    // alert((res.result.toString()));
+                    callback && callback(res.result.toString());
                 }
             });
         }
@@ -438,20 +440,25 @@ var nativePlugin = {
     //配置app
 
 
-    setTimeout(function () {
-        // alert(Internal.isInApp + ":" +JSON.stringify(smartApp))
-        if (Internal.isInApp && !!smartApp) {
-            //滑动返回
-            smartApp.enableBackGesture();
-            //隐藏导航栏
-            // alert("setBarHidden")
-            smartApp.setBarHidden({
-                hidden: true
-            });
-        }
-    }, 1000)
+    // setTimeout(function () {
+    //     // alert(Internal.isInApp + ":" +JSON.stringify(smartApp))
+    //
+    // }, 500);
 
-
+    if(Internal.isInApp){
+        window.onload = function () {
+            // alert("onload");
+            if (Internal.isInApp && !!smartApp) {
+                //滑动返回
+                smartApp.enableBackGesture();
+                //隐藏导航栏
+                // alert("setBarHidden")
+                smartApp.setBarHidden({
+                    hidden: true
+                });
+            }
+        };
+    }
 })();
 
 

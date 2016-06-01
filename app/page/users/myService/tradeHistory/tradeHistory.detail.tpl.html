@@ -20,9 +20,10 @@
     </ul>
     <ul class="info2">
       <p>付款方式: </p>
-      <li ng-if="item.wechatAmount">微信支付<span ng-bind="item.wechatAmount"></span></li>
-      <li ng-if="item.ticketNumber">积分<span ng-bind="item.pointPayNum"></span>分</li>
-      <li ng-if="item.ticketNumber" ng-bind="item.couponName">电子停车券1小时</li>
+      <li ng-if="item.alipayAmount">支付宝支付<span ng-bind="item.alipayAmount"></span>元</li>
+      <li ng-if="item.wechatAmount">微信支付<span ng-bind="item.wechatAmount"></span>元</li>
+      <li ng-if="item.pointPayAmount">积分抵扣<span ng-bind="item.pointPayAmount"></span>元</li>
+      <li ng-if="item.couponAmount">优惠券抵扣<span ng-bind="item.couponAmount"></span>元</li>
     </ul>
   </ion-content>
 </ion-view>

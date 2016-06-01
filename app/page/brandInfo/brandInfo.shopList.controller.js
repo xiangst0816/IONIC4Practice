@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('shopListCtrl', ['$rootScope', '$sessionStorage', '$scope', '$shopList', '$ionicLoading', '$shopCollect', '$filter', '$shopFloor', '$checkAuthorize', '$log', function ($rootScope, $sessionStorage, $scope, $shopList, $ionicLoading, $shopCollect, $filter, $shopFloor, $checkAuthorize, $log) {
+        .controller('shopListCtrl', ['$rootScope', '$sessionStorage', '$scope', '$shopList', '$ionicLoading', '$shopCollect', '$filter', '$shopFloor', '$checkAuthorize', '$log','$debounce', function ($rootScope, $sessionStorage, $scope, $shopList, $ionicLoading, $shopCollect, $filter, $shopFloor, $checkAuthorize, $log,$debounce) {
 
             //总数据
             $scope.dataToDisplay = [];
@@ -83,6 +83,39 @@
                 reloadMore();
             });
 
+            // /**
+            //  * 监听联想请求
+            //  * */
+            // $scope.$on("$lenovoNow", function () {
+            //
+            //     // getShopList(1,6).then(function (list) {
+            //     //     $scope.lenovoList = list;
+            //     // })
+            // });
+
+            /**
+             * 历史记录分为两种状态
+             * 监听input的值,如果!=null,则为联想状态;如果为空,则为历史记录状态
+             * */
+            $scope.$watch('searchFor', function () {
+                $scope.lenovoList = [];
+                if (!!$scope.searchFor) {
+                    //进入联想状态
+                    $scope.isHistoryStatus = false;
+                    $debounce(lenovo,500);
+                }
+            });
+            /**
+             * 执行联想
+             * */
+            function lenovo() {
+                // $scope.$broadcast("$lenovoNow");
+                getShopList(1,6).then(function (list) {
+                    $scope.lenovoList = list;
+                })
+            }
+
+
             /**
              * 清空searchBox的话,也进行列表刷新
              * */
@@ -92,6 +125,13 @@
                     reloadMore();
                 }
             });
+
+
+
+
+
+
+
 
 
             /**

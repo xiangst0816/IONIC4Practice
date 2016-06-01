@@ -35,19 +35,28 @@
         <div class="list collectionList">
             <!--each-->
             <div class="collectionItem" ng-repeat="item in dataToDisplay">
-                <!--图片-->
-                <div ui-sref="subNav.brandDetail({detail:item.shopid})" class="imgBox">
-                    <img ng-src="{{::item.logourl}}"
-                         err-src="{{::placeHolderImg.placeholder_169_2}}">
+
+               <!--商铺box-->
+                <div ui-sref="subNav.brandDetail({detail:item.shopid})" class="shopBox">
+                    <!--标题-->
+                    <div class="collectionTitle clearfix">
+                        <span class="title wordLine" ng-bind="::item.name"></span>
+                        <span class="location" ng-bind="::item.area"></span>
+                    </div>
+                    <!--图片-->
+                    <div class="imgBox placeholder_178_2">
+                        <img ng-src="{{::item.logourl}}"
+                             err-src="{{::placeHolderImg.placeholder_169_2}}">
+                    </div>
+
                     <!--商铺信息-->
                     <div class="collectionInfo clearfix">
-                        <h2 class="wordLine" ng-bind="::item.name"></h2>
-                        <!--<span class="tag new">新</span>-->
-                        <!--<span class="tag discount">惠</span>-->
+                        <span class="tag new">新</span>
+                        <span class="tag discount">惠</span>
                     </div>
                 </div>
 
-                <!--红心-->
+                <!--收藏box-->
                 <div class="starBox" ng-class="{1:'collected',0:''}[item.iscollect]"
                      ng-click="changeCollectionState($event,item)">
                     <div class="star redStar whiteStar"></div>

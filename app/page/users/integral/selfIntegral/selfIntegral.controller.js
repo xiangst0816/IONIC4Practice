@@ -68,8 +68,7 @@
              * */
             function scanNow() {
                 nativePlugin.scanQRCode(function (result) {
-                    data = result.resultStr;
-                    var arr = data.split('|');
+                    var arr = result.split('|');
 
                     //验证
                     var timeNow = new Date().getTime();

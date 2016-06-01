@@ -10,7 +10,7 @@
             return {
                 restrict: 'A',
                 scope: {
-                    code: '='
+                    item: '='
                 },
                 controller: function ($scope, $element) {
                     //弹出的模板
@@ -20,7 +20,7 @@
                         '<ion-spinner icon="lines" class="imgLoadSpinner"></ion-spinner>' +
                         '<img ng-src="{{useGougon.codeImg}}" alt="">' +
                         '</div>' +
-                        '<p ng-bind="useGougon.code"></p>' +
+                        '<p><span ng-if="useGougon.type == 1">卡券</span><span ng-if="useGougon.type == 2">礼品</span><span>编号:</span><span ng-bind="useGougon.code"></span></p>' +
                         '</div>' +
                         '</ion-popover-view>';
 
@@ -31,11 +31,12 @@
 
                     //点击事件
                     $element.on("touchstart", function () {
-                        var code = $scope.code;
-                        $log.debug("显示的code为:" + code)
+                        var code = $scope.item.code;
+                        $log.debug("显示的code为:" + code);
                         $scope.useGougon = {
                             code: code,
-                            codeImg: baseUrl.generateQrcodeUrl + code
+                            type:$scope.item.type_code,
+                            codeImg: baseUrl.generateQrcodeUrl + code + "|" + $scope.item.type_code
                         };
                         $scope.popover.show();
                     });

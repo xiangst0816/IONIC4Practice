@@ -38,8 +38,8 @@
     var loadingPosition = document.getElementById("wx-loading-js");
     //percent位置的id
     var whereToNotice = document.getElementById("wx-loading-percent-js");
-    var totalLoadedNum = core.length + resource.length + rest.length;
-    var restNum = totalLoadedNum;
+    // var totalLoadedNum = core.length + resource.length + rest.length;
+    // var restNum = totalLoadedNum;
 
     /**
      * 执行
@@ -70,7 +70,7 @@
      * 刷新loading percent
      * */
     function refresher() {
-        restNum--;
+        // restNum--;
         // console.log(Math.floor(((totalLoadedNum - restNum) / totalLoadedNum * 100)) + "%");
         // whereToNotice.innerHTML = Math.floor(((totalLoadedNum - restNum) / totalLoadedNum * 100)) + "%";
     }

@@ -32,7 +32,7 @@
                              * 点击搜索出现搜索历史记录
                              * */
                             $element.find('input').on('touchstart', function () {
-                                $scope.$broadcast("$changeHistoryBoxStatus","show");
+                                $scope.$broadcast("$changeHistoryBoxStatus", "show");
                             });
                         }
                     }
@@ -69,19 +69,19 @@
         .directive("smartSearchBtn", [function () {
             return {
                 restrict: 'E',
-                controller: ['$scope','$element', function ($scope,$element) {
+                controller: ['$scope', '$element', function ($scope, $element) {
                     /**
                      * 点击搜索按钮; 添加历史记录
                      * 1. 如果input有值,则搜索
                      * 2. 没值则返回
                      * */
-                    $element.on("touchstart",function () {
-                        if($scope.searchFor){
+                    $element.on("touchstart", function () {
+                        if ($scope.searchFor) {
                             $scope.$broadcast("$searchNow");
-                            $scope.$broadcast("$changeHistoryBoxStatus","hide");
+                            $scope.$broadcast("$changeHistoryBoxStatus", "hide");
                             $scope.$digest();
-                        }else{
-                            $scope.$broadcast("$changeHistoryBoxStatus","hide");
+                        } else {
+                            $scope.$broadcast("$changeHistoryBoxStatus", "hide");
                         }
                     });
                 }]
@@ -93,29 +93,29 @@
         .directive("smartHistoryBox", [function () {
             return {
                 restrict: 'E',
-                controller: ['$scope','$element','$attrs','$localStorage','$timeout','$rootScope',function ($scope,$element,$attrs,$localStorage,$timeout,$rootScope) {
+                controller: ['$scope', '$element', '$attrs', '$localStorage', '$timeout', '$rootScope', '$debounce', function ($scope, $element, $attrs, $localStorage, $timeout, $rootScope, $debounce) {
                     /**
                      * 获取存储历史记录的$localStorage字段的名字
                      * */
                     var storageName = $attrs.storageName;
-                    if(!storageName){
+                    if (!storageName) {
                         console.log("请添加storage-name属性,否则历史记录显示会出错!")
                         return
                     }
-                    if(!$localStorage[storageName]){
+                    if (!$localStorage[storageName]) {
                         $localStorage[storageName] = {"dataArr": []};
                     }
                     $scope.historyList = $localStorage[storageName].dataArr;
-                    $scope.$on("$changeHistoryBoxStatus",function (event,status) {
-                        if(status == 'show'){
+                    $scope.$on("$changeHistoryBoxStatus", function (event, status) {
+                        if (status == 'show') {
                             $rootScope.isHistoryBoxOpen = true;
                             $element.addClass("active");
                             $element.addClass("beforeActive");
-                        }else if(status == 'hide'){
+                        } else if (status == 'hide') {
                             $element.removeClass("active");
                             $timeout(function () {
                                 $element.removeClass("beforeActive");
-                            },200,false)
+                            }, 200, false)
                             $rootScope.isHistoryBoxOpen = false;
                         }
                     });
@@ -126,7 +126,7 @@
                     $scope.searchThis = function (value) {
                         $scope.searchFor = value;
                         $scope.$broadcast("$searchNow");
-                        $scope.$broadcast("$changeHistoryBoxStatus","hide");
+                        $scope.$broadcast("$changeHistoryBoxStatus", "hide");
                     };
 
                     /**
@@ -147,7 +147,7 @@
                     /**
                      * 添加历史记录
                      * */
-                    $scope.$on("$searchNow",function () {
+                    $scope.$on("$searchNow", function () {
                         var _dataArr = $localStorage[storageName].dataArr;
                         if (_dataArr.indexOf($scope.searchFor) === -1) {
                             $localStorage[storageName].dataArr.unshift($scope.searchFor);
@@ -157,9 +157,30 @@
                             }
                         }
                     });
+
+                    // /**
+                    //  * 历史记录分为两种状态
+                    //  * 监听input的值,如果!=null,则为联想状态;如果为空,则为历史记录状态
+                    //  * */
+                    // $scope.$watch('searchFor', function () {
+                    //     if (!!$scope.searchFor) {
+                    //         //进入联想状态
+                    //         $scope.isHistoryStatus = false;
+                    //         $debounce(lenovo,1000);
+                    //     }
+                    // });
+
+                    // /**
+                    //  * 执行联想
+                    //  * */
+                    // function lenovo() {
+                    //     $scope.$broadcast("$lenovoNow");
+                    // }
+
                 }]
             }
         }])
+
 })();
 
 

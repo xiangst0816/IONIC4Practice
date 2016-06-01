@@ -58,7 +58,7 @@
                         <p>有效期限:<span ng-bind="::item.limit_time_begin.low | yyyyMMdd_dot"></span> ~ <span ng-bind="::item.limit_time_end.low |
                             yyyyMMdd_dot"></span></p>
                         <!--未使用未过期-->
-                        <div ng-if="::item.status_code == 2" click-to-use-coupon code="item.code">立即使用
+                        <div ng-if="::item.status_code == 2" click-to-use-coupon item="item">立即使用
                         <!--<div ng-if="::item.status_code == 2" click-to-use-coupon code="item.code" ng-click="usedNow(item.code)">立即使用-->
                         </div>
                         <!--已使用或已过期-->

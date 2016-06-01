@@ -44,8 +44,7 @@
                     method: "post",
                     data: params,
                     success: function (data) {
-                        console.log('queryListVivo')
-                        console.log(data)
+
                         if (data.code == 7001) {
                             var result = data.content;
                             //数据过滤,在service中就将数据处理好
@@ -57,6 +56,8 @@
                                 value.canDisplay = !!($filter('isTimeIn')(null,value.retrievablestrattime,value.retrievableendtime));
                             });
                             defer.resolve(result);
+                            // console.log('queryListVivo')
+                            // console.log(result)
                         } else {
                             defer.resolve([]);
                             $ionicToast.show("列表获取失败,请稍后再试!");
