@@ -8,7 +8,7 @@
 
 ## 解决方案：
 
-- 内件历史记录的数组，path改变就对内建历史记录进行更新
+- 内建历史记录的数组，path改变就对内建历史记录进行更新
 - 方法backToHome返回首页，goBack后退，HistoryArr维护历史记录。 
 - 两个方法,方法挂载到mainCtrl根控制器的$rootScope下,这样的话在别的controller中也可手动调用此方法。
 
