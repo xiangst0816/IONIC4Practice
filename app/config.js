@@ -13,8 +13,6 @@
                 //AppID(应用ID)
                 appid: "1",
                 appsecret: "123",
-
-
                 /**
                  * 微信配置, 微信公众号的AppID(应用ID)
                  * */
@@ -74,7 +72,7 @@
                 // domain: "http://127.0.0.1:3300",   //接口地址,本机
                 // domain: "http://172.16.6.49:3300",   //接口地址,映射的地址
                 domain: "http://vivocity.smartac.co:3300",   //接口地址,映射的地址
-                socketChatUrl: "192.168.99.112:8087",  //客服聊天地址
+                socketChatUrl: "192.168.99.111:8087",  //客服聊天地址
                 resourceDomain: "http://192.168.99.111:8000/resource/",  //图片资源地址
 
                 //二维码的生成地址

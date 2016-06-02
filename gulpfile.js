@@ -19,7 +19,6 @@ var base64 = require('gulp-base64');
 // var obfuscate = require('gulp-obfuscate');
 var htmlmin = require('gulp-htmlmin');
 
-
 var path = {
     src: "app",
     dist: "www"
@@ -259,7 +258,7 @@ gulp.task('default', gulpSequence(
         //延迟加载部分(user,brandInfo,selfPark)
         'pageJS',
         'img:min'
-        // 'resource:brandInfo', 
+        // 'resource:brandInfo',
         // 'resource:selfPark'
     ],
     //watch
@@ -286,4 +285,3 @@ gulp.task('watch', function () {
 
 
 });
-

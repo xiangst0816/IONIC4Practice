@@ -14,7 +14,7 @@
                 ioSocket: io.connect(baseUrl.socketChatUrl, {'force new connection': true})
             });
             $scope.visitorPhoto = $sessionStorage.userInfo.photo;
-            var customerid = $sessionStorage.userInfo.customerid;
+            var customerid = $sessionStorage.userInfo.customerid.toString();
             $scope.dialogs = [];
             //定义chat数据类型(数据作用域链)
             $scope.chat = {
@@ -81,7 +81,7 @@
                        * }
                      * */
                     $socket.on('appreceive', function (data) {
-                        $log.debug('socket服务器返回结果', JSON.stringify(data));
+                        $log.debug('socket服务器收到结果', JSON.stringify(data));
                         if (data.typecode == 2) {
                             $timeout(function () {
                                 $scope.message = '';
