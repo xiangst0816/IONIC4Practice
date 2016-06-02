@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('loginCtrl', ['$scope', 'verification', '$ionicLoading', '$ionicToast', '$login', '$getUserInfo','$rootScope','$localStorage', function ($scope, verification, $ionicLoading, $ionicToast, $login, $getUserInfo,$rootScope,$localStorage) {
+        .controller('loginCtrl', ['$scope', 'verification', '$ionicLoading', '$ionicToast', '$login', '$getUserInfo','$rootScope', function ($scope, verification, $ionicLoading, $ionicToast, $login, $getUserInfo,$rootScope) {
 
             /**
              * 提交按钮
@@ -53,5 +53,7 @@
                     $ionicLoading.hide();
                 });
             };
+
+
         }]);
 })();

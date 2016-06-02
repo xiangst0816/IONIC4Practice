@@ -28,13 +28,13 @@
                 };
                 //数据合并
                 angular.deepExtend(params, options);
-                console.log(params);
+                // console.log(params);
                 AJAX({
                     url: api.messageUrl,
                     method: "post",
                     data: params,
                     success: function (data) {
-                        console.log(data)
+                        // console.log(data)
                         if (data.code == 7001) {
                             //list
                             if (params.querytype == 'main') {

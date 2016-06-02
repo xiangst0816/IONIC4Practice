@@ -10,11 +10,11 @@
                 <div class="closeBtn icon-close"></div>
             </smart-clean-input>
         </smart-search-input>
-        <smart-search-btn class="searchBoxBtn">搜索</smart-search-btn>
+        <smart-search-btn ng-click="" class="searchBoxBtn">搜索</smart-search-btn>
     </smart-search-box>
     <!--smart-tap-box为通用控件-->
     <smart-tap-box class=" has-tabs-top">
-        <tap-select>
+        <tap-select ng-click="">
             <tap-header>
                 <span ng-bind="levelName"></span>&ensp;<i class="icon-subtitle icon-arrow-down"></i>
             </tap-header>
@@ -23,7 +23,7 @@
                           ng-bind="::item.name"></tap-item>
             </tap-list>
         </tap-select>
-        <tap-select>
+        <tap-select ng-click="">
             <tap-header>
                 <span ng-bind="typeName"></span>&ensp;<i class="icon-subtitle icon-arrow-down"></i>
             </tap-header>
@@ -32,7 +32,7 @@
                           ng-bind="::item.name"></tap-item>
             </tap-list>
         </tap-select>
-        <tap-select>
+        <tap-select ng-click="">
             <tap-header>
                 <span ng-bind="orderName"></span>&ensp;<i class="icon-subtitle icon-arrow-down"></i>
             </tap-header>

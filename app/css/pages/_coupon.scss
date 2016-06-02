@@ -1,11 +1,15 @@
 //礼品卡券
 .goupon {
   .gouponList {
+
     .eachItems {
       background: url(../img/goupon/stamp_huang.png) repeat-x center top/0.13rem auto;
       padding-top: 0.376rem;
       padding-bottom: 0.25rem;
       $borderColor: #eaeaea;
+      &.activated{
+        background-color:#d9d9d9;
+      }
       section {
         padding-left: 0.26rem;
         padding-right: 0.26rem;
@@ -123,6 +127,11 @@
           color: #fff;
           background-color: $stable;
           border-radius: 3px;
+          &.activated{
+            color:$stable;
+            border:1px solid $stable;
+            background:#fff;
+          }
         }
 
         //.forbidden {

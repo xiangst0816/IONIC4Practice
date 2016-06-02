@@ -51,154 +51,10 @@
                         //显示用户中心
                         angular.element(document.getElementById('member')).addClass('showMember');
                         //头像
-                        $rootScope.photo = $filter('addImgPrefix')($sessionStorage.userInfo.photo);
+                        // $rootScope.photo = $filter('addImgPrefix')($sessionStorage.userInfo.photo);
                     }).finally(function () {
                         $ionicLoading.hide();
                     });
-
-
-                    /**
-                     * 显示vip规则
-                     * */
-                    $scope.showVIPRule = function () {
-                        $ionicPopup.show({
-                            title: "VIP规则",
-                            template: "到达vip后,在半年内积分大于" + $scope.nextIntegral + "可继续维持vip;未达到" + $scope.nextIntegral + "将会降级为普通会员.",
-                            cssClass: 'noticePopup',
-                            buttons: [{
-                                text: '我知道了',
-                                type: 'noticePopupBtn',
-                                onTap: function (e) {
-                                    return
-                                }
-                            }]
-                        });
-                    };
-
-                    /**
-                     * 获取会员等级的升级积分界限
-                     * */
-                    function getCardUpgradeIntegral() {
-                        var defer = $q.defer();
-                        $getCode({
-                            "keyname": "cardupgrade"
-                        }).then(function (data) {
-                            //cardupgrade0: 升普卡消费金额,200
-                            $scope.cardupgrade0 = data[0].keycode;
-                            //cardupgrade1:升为VIP卡消费金额,5000
-                            $scope.cardupgrade1 = data[1].keycode;
-                            $log.debug(" 升普卡消费金额:" + $scope.cardupgrade0);
-                            $log.debug(" 升为VIP卡消费金额:" + $scope.cardupgrade1);
-                            defer.resolve();
-                        }, function (err) {
-                            $log.debug("获取会员升级条件出错:" + err);
-                            defer.reject();
-                        });
-                        return defer.promise;
-                    }
-
-
-                    /**
-                     * 获取会员等级的降级积分界限
-                     * */
-                    function getCardDegradeIntegral() {
-                        var defer = $q.defer();
-                        $getCode({
-                            "keyname": "carddegrade"
-                        }).then(function (data) {
-                            //cardupgrade0: vip降普卡消费金额,5000
-                            $scope.carddegrade0 = data[0].keycode;
-                            $log.debug("vip降普卡消费金额" + $scope.carddegrade0);
-                            defer.resolve();
-                        }, function (err) {
-                            $log.debug("获取会员降级条件出错," + err);
-                            defer.reject();
-                        });
-                        return defer.promise;
-                    }
-
-                    /**
-                     *
-                     * */
-                    function getUserIntegral() {
-                        var defer = $q.defer();
-                        $integralInfo({
-                            "custid": $sessionStorage.userInfo.customerid
-                        }).then(function (data) {
-                            $log.debug("获取会员积分数据" + JSON.stringify(data));
-                            defer.resolve();
-                        }, function (err) {
-                            $log.debug("获取会员积分数据出错," + err);
-                            defer.reject();
-                        });
-                        return defer.promise;
-                    }
-
-
-                    /**
-                     * 设置promise查询策略,获取登录后的基本信息
-                     * 这三个信息必须都获取到才能显示用户信息界面
-                     * successCallback:成功回调
-                     * */
-                    function getBasicInfo() {
-                        var defer = $q.defer();
-                        $q.all([getCardUpgradeIntegral(), getCardDegradeIntegral(), getUserIntegral(), getMessageNum()])
-                            .then(function () {
-                                /**
-                                 * 因为等级判断不是实时的,故在这里进行假显示,增强用户体验
-                                 * */
-                                var progress;
-                                var userInfo = $sessionStorage.userInfo;
-                                var integralInfo = $sessionStorage.integralInfo;
-                                $scope.userDisplayIntegral = integralInfo.currentLevelPoint;
-                                $scope.vipLevel = userInfo.levelid;
-                                if ($scope.vipLevel == 1) {
-                                    if ($scope.userDisplayIntegral > $scope.cardupgrade0) {//如果达到第2级的条件
-                                        progress = 50;
-                                    } else {
-                                        progress = $scope.userDisplayIntegral / 2 / $scope.cardupgrade0 * 100;
-                                    }
-                                    $scope.nextIntegral = $scope.cardupgrade0;
-                                } else if ($scope.vipLevel == 2) {
-                                    progress = $scope.userDisplayIntegral / $scope.cardupgrade1 * 50 + 50;
-                                    $scope.nextIntegral = $scope.cardupgrade1;
-                                } else if ($scope.vipLevel == 3) {
-                                    var duetime = userInfo.duetime;
-                                    if (duetime) {
-                                        $scope.vipEndTIme = $filter('yyyyMMdd_slash')(duetime);
-                                    } else {
-                                        //如果时间没有duetime则返回当前时间
-                                        $scope.vipEndTIme = $filter('yyyyMMdd_slash')();
-                                        $log.debug("VIP会员过期时间未获取到,当前使用今天的日期!")
-                                    }
-                                    $scope.nextIntegral = $scope.carddegrade0;
-                                    progress = $scope.userDisplayIntegral / $scope.cardupgrade1 * 100;
-                                }
-                                document.getElementById('vipState-lay2-progress').style.width = progress + "%";
-                                //成功
-                                defer.resolve();
-                            }, function (err) {
-                                $ionicToast.show("无法进入,请稍后再试!");
-                                $log.debug("无法进入用户中心,无法获取积分降级升级的code值,请查看!!");
-                                defer.reject();
-                            });
-                        return defer.promise;
-                    }
-
-                    /**
-                     * 获取用户消息数
-                     * */
-                    function getMessageNum() {
-                        return $getMessage({
-                            "method": "query",
-                            "querytype": "count",//count
-                            "message": {
-                                "statuscode": 0//#状态：0未读/1已读/2删除
-                            }
-                        }).then(function (data) {
-                            $rootScope.messageNum = !!data;
-                        })
-                    }
                 });
             };
             /**
@@ -251,6 +107,162 @@
                 //清楚缓存,开发阶段测试
                 // delete $sessionStorage.$reset();
                 // delete $localStorage.$reset();
+            }
+
+
+            /**
+             * 显示vip规则
+             * */
+            $scope.showVIPRule = function () {
+                $ionicPopup.show({
+                    title: "VIP规则",
+                    template: "到达vip后,在半年内积分大于" + $scope.nextIntegral + "可继续维持vip;未达到" + $scope.nextIntegral + "将会降级为普通会员.",
+                    cssClass: 'noticePopup',
+                    buttons: [{
+                        text: '我知道了',
+                        type: 'noticePopupBtn',
+                        onTap: function (e) {
+                            return
+                        }
+                    }]
+                });
+            };
+
+
+            /**
+             * 每次进入用户中心都会获取用户中心需要的最新数据
+             * */
+            $scope.$on("$stateChangeSuccess",function () {
+                var isUserCenterOpen = angular.element(document.getElementById('member')).hasClass('showMember');
+                if($state.is("home") && isUserCenterOpen){
+                    //如果进入意味着用户之前已鉴权完毕
+                    getBasicInfo();
+                    $log.debug("用户中心是开启的,如果进入用户中心会刷新数据");
+                }
+            });
+
+            /**
+             * 设置promise查询策略,获取登录后的基本信息
+             * 这四个信息必须都获取到才能显示用户信息界面
+             * successCallback:成功回调
+             * */
+            function getBasicInfo() {
+                var defer = $q.defer();
+                $q.all([getCardUpgradeIntegral(), getCardDegradeIntegral(), getUserIntegral(), getMessageNum()])
+                    .then(function () {
+                        /**
+                         * 因为等级判断不是实时的,故在这里进行假显示,增强用户体验
+                         * */
+                        var progress;
+                        var userInfo = $sessionStorage.userInfo;
+                        var integralInfo = $sessionStorage.integralInfo;
+                        $scope.userDisplayIntegral = integralInfo.currentLevelPoint;
+                        $scope.vipLevel = userInfo.levelid;
+                        if ($scope.vipLevel == 1) {
+                            if ($scope.userDisplayIntegral > $scope.cardupgrade0) {//如果达到第2级的条件
+                                progress = 50;
+                            } else {
+                                progress = $scope.userDisplayIntegral / 2 / $scope.cardupgrade0 * 100;
+                            }
+                            $scope.nextIntegral = $scope.cardupgrade0;
+                        } else if ($scope.vipLevel == 2) {
+                            progress = $scope.userDisplayIntegral / $scope.cardupgrade1 * 50 + 50;
+                            $scope.nextIntegral = $scope.cardupgrade1;
+                        } else if ($scope.vipLevel == 3) {
+                            var duetime = userInfo.duetime;
+                            if (duetime) {
+                                $scope.vipEndTIme = $filter('yyyyMMdd_slash')(duetime);
+                            } else {
+                                //如果时间没有duetime则返回当前时间
+                                $scope.vipEndTIme = $filter('yyyyMMdd_slash')();
+                                $log.debug("VIP会员过期时间未获取到,当前使用今天的日期!")
+                            }
+                            $scope.nextIntegral = $scope.carddegrade0;
+                            progress = $scope.userDisplayIntegral / $scope.cardupgrade1 * 100;
+                        }
+                        document.getElementById('vipState-lay2-progress').style.width = progress + "%";
+                        //成功
+                        defer.resolve();
+                    }, function (err) {
+                        $ionicToast.show("无法进入,请稍后再试!");
+                        $log.debug("无法进入用户中心,无法获取积分降级升级的code值,请查看!!");
+                        defer.reject();
+                    });
+                return defer.promise;
+            }
+
+            /**
+             * 获取会员等级的升级积分界限
+             * */
+            function getCardUpgradeIntegral() {
+                var defer = $q.defer();
+                $getCode({
+                    "keyname": "cardupgrade"
+                }).then(function (data) {
+                    //cardupgrade0: 升普卡消费金额,200
+                    $scope.cardupgrade0 = data[0].keycode;
+                    //cardupgrade1:升为VIP卡消费金额,5000
+                    $scope.cardupgrade1 = data[1].keycode;
+                    $log.debug(" 升普卡消费金额:" + $scope.cardupgrade0);
+                    $log.debug(" 升为VIP卡消费金额:" + $scope.cardupgrade1);
+                    defer.resolve();
+                }, function (err) {
+                    $log.debug("获取会员升级条件出错:" + err);
+                    defer.reject();
+                });
+                return defer.promise;
+            }
+
+
+            /**
+             * 获取会员等级的降级积分界限
+             * */
+            function getCardDegradeIntegral() {
+                var defer = $q.defer();
+                $getCode({
+                    "keyname": "carddegrade"
+                }).then(function (data) {
+                    //cardupgrade0: vip降普卡消费金额,5000
+                    $scope.carddegrade0 = data[0].keycode;
+                    $log.debug("vip降普卡消费金额" + $scope.carddegrade0);
+                    defer.resolve();
+                }, function (err) {
+                    $log.debug("获取会员降级条件出错," + err);
+                    defer.reject();
+                });
+                return defer.promise;
+            }
+
+            /**
+             * 获取积分信息
+             * */
+            function getUserIntegral() {
+                var defer = $q.defer();
+                $integralInfo({
+                    "custid": $sessionStorage.userInfo.customerid
+                }).then(function (data) {
+                    $log.debug("成功获取会员积分数据");
+                    defer.resolve();
+                }, function (err) {
+                    $log.debug("获取会员积分数据出错," + err);
+                    defer.reject();
+                });
+                return defer.promise;
+            }
+
+            /**
+             * 获取用户消息数
+             * */
+            function getMessageNum() {
+                return $getMessage({
+                    "method": "query",
+                    "querytype": "count",//count
+                    "message": {
+                        "statuscode": 0//#状态：0未读/1已读/2删除
+                    }
+                }).then(function (data) {
+                    $rootScope.messageNum = !!data;
+                })
             }
         }]);
 })();

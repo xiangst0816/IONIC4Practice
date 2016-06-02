@@ -15,7 +15,7 @@
                     detail: '='
                 },
                 controller: function ($scope, $element) {
-                    $element.on("touchstart", function () {
+                    $element.on("touchend", function () {
                         var couponDetail = $scope.detail;
                         if (couponDetail.type_code == 1) {
                             var title = '礼券';

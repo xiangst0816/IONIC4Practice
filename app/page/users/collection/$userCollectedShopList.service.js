@@ -30,8 +30,8 @@
                 };
                 //数据合并
                 angular.deepExtend(params, options);
-                console.log('params');
-                console.log(params);
+                // console.log('params');
+                // console.log(params);
                 AJAX({
                     method: "post",
                     url: api.customerUrl,
@@ -42,7 +42,7 @@
                             angular.forEach(collectedList, function (value, index) {
                                 value.iscollect = 1;
                             });
-                            console.log(collectedList)
+                            // console.log(collectedList)
                             defer.resolve(collectedList);
                             $log.debug("$userCollectedShopList获取成功,共" + collectedList.length + "条")
                         } else {

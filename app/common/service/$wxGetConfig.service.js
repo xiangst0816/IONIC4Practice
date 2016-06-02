@@ -71,6 +71,7 @@
                             "menuItem:share:qq",
                             "menuItem:share:facebook",
                             // "menuItem:share:weiboApp",
+                            "menuItem:share:appMessage",
                             "menuItem:share:email",
                             // "menuItem:openWithSafari"
                         ]

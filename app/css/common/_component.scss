@@ -49,6 +49,11 @@
         font-size: 0.3rem;
         min-height: 0.7rem;
         border-radius: 0.1rem;
+        &.activated{
+          color:#fff;
+          background: rgba(0,0,0,0.2);
+          border: 1px solid transparent;
+        }
       }
     }
   }
@@ -479,6 +484,11 @@
     color: #FFF;
     background-color: $stable;
     border-radius: 0.117rem;
+    &.activated{
+      color:$stable;
+      background:#fff;
+      border:1px solid $stable;
+    }
   }
   .forbidden {
     background-color: #636363;

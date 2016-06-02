@@ -32,14 +32,14 @@
                 };
                 //数据合并
                 angular.deepExtend(params, options);
-                console.log(params)
+                // console.log(params)
                 AJAX({
                     url: api.couponUrl,
                     method: 'post',
                     data: params,
                     success: function (data) {
-                        console.log('$userCouponList');
-                        console.log(data);
+                        // console.log('$userCouponList');
+                        // console.log(data);
                         if (data.code == 7001) {
                             defer.resolve(data.content);
                         } else {

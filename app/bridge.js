@@ -322,7 +322,7 @@ var nativePlugin = {
     shareWithPanel: function (shareContent) {
         if (Internal.isInApp && !!smartApp) {
             smartApp.shareWithPanel({
-                // platformList:["WeiXin","QQZone"],
+                platformList:["Share.Weibo","Share.Timeline","Share.QQZone"],
                 title: shareContent.title, // 分享标题
                 desc: shareContent.desc, // 分享描述
                 link: shareContent.link, // 分享链接

@@ -34,7 +34,7 @@
 
             <section>
                 <!--卡券-->
-                <div ng-if="item.canDisplay" class="eachItems" ng-repeat="item in dataToDisplay track by $index">
+                <div ng-if="item.canDisplay" class="eachItems" ng-click="" ng-repeat="item in dataToDisplay track by $index">
                     <section
                             ui-sref="subNav.memberIntegralMallDetail({couponid:item.couponid,typecode:item.type_code})"
                             class="item item-thumbnail-left goodsEach">
@@ -61,7 +61,7 @@
                              ng-bind="::item.category_name | couponCategoryToName"></div>
                         <div ng-if="item.type_code == '2'" class="gouponTop lipin">礼品</div>
                         <div ng-if="!item.canConvert" class="convertBtn forbidden">兑换</div>
-                        <div ng-if="item.canConvert" class="convertBtn" click-to-reward detail="item">
+                        <div ng-if="item.canConvert" ng-click="" class="convertBtn" click-to-reward detail="item">
                             兑换
                         </div>
                     </section>

@@ -59,8 +59,8 @@
                 if (Internal.isInWeiXin) {
                     $wxGetConfig().then(function () {
                         nativePlugin.onMenuShareTimeline(shareContent);
-                        nativePlugin.onMenuShareAppMessage(shareContent);
-                        nativePlugin.onMenuShareQQ(shareContent);
+                        // nativePlugin.onMenuShareAppMessage(shareContent);
+                        // nativePlugin.onMenuShareQQ(shareContent);
                         nativePlugin.onMenuShareWeibo(shareContent);
                         nativePlugin.onMenuShareQZone(shareContent);
                     });

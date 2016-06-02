@@ -126,7 +126,7 @@
             $integralInfo().then(function (data) {
                 $scope.currenttotalnum = $sessionStorage.integralInfo.currenttotalnum;
             }, function (errText) {
-                $ionicToast.show("积分信息获取失败," + errText);
+                $ionicToast.show("积分信息获取失败,请稍后再试!");
             });
 
             /**

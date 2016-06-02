@@ -154,6 +154,11 @@
         //justify-content: center;
         //align-items: center;
 
+        //&:active{
+        //  color:#fff;
+        //  background:$stable;
+        //  border:none;
+        //}
         span{
           line-height: 0.53rem;
         }
@@ -241,6 +246,10 @@
             border: 1px solid #fff;
             padding: 0 0.15rem;
             border-radius: 0.08rem;
+            &.activated{
+              color:$stable;
+              background:#fff;
+            }
           }
 
         }

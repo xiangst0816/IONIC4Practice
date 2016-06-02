@@ -61,77 +61,79 @@
   .searchBoxBtn {
     color: $stable;
     font-size: 0.32rem;
-
+    &.activated {
+      color: #a8a8a8;
+    }
   }
 }
 
 //搜索记录列表
-.searchHistoryBox{
-  color:$stable;
-  font-size:0.25rem;
-  padding:0 0.5rem;
+.searchHistoryBox {
+  color: $stable;
+  font-size: 0.25rem;
+  padding: 0 0.5rem;
   display: block;
   position: absolute;
-  width:100%;
-  height:100%;
-  background:#fff;
+  width: 100%;
+  height: 100%;
+  background: #fff;
   opacity: 0;
   transition: opacity ease 200ms;
-  z-index:0;
+  z-index: 0;
   margin-top: 0.3rem;
-  &.active{
+  &.active {
     opacity: 1;
   }
-  &.beforeActive{
-    z-index:10;
+  &.beforeActive {
+    z-index: 10;
   }
-  .historyTitle{
+  .historyTitle {
     height: 0.8rem;
     line-height: 0.8rem;
-    font-size:0.3rem;
+    font-size: 0.3rem;
     font-weight: bold;
     //margin-top:0.3rem;
-    border-bottom:1px dashed $stable;
+    border-bottom: 1px dashed $stable;
   }
-  .historyList{
-    li{
+  .historyList {
+    li {
       height: 0.8rem;
-      text-align:left;
-      border-bottom:1px dashed $stable;
+      text-align: left;
+      border-bottom: 1px dashed $stable;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      span{
-        width:100%;
-        height:0.8rem;
-        line-height:0.9rem;
+      span {
+        width: 100%;
+        height: 0.8rem;
+        line-height: 0.9rem;
         display: block; //如果是块儿级元素可以不用加
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      .closeBtn{
-        width:0.34rem;
-        height:0.34rem;
-        top:0.06rem;
+      .closeBtn {
+        width: 0.34rem;
+        height: 0.34rem;
+        top: 0.06rem;
         display: block;
         position: relative;
         box-sizing: content-box;
-        padding:0.15rem 0.2rem;
+        padding: 0.15rem 0.2rem;
       }
-      .closeBtn::after{
+      .closeBtn::after {
         content: '';
         position: absolute;
-        width:0.34rem;
-        height:0.34rem;
-        background:url(../img/icon/close-1.png) no-repeat center center/ 100% auto;
+        width: 0.34rem;
+        height: 0.34rem;
+        background: url(../img/icon/close-1.png) no-repeat center center/ 100% auto;
       }
     }
   }
-  .lenovoCanNotFind{
-    p{
+  .lenovoCanNotFind {
+    p {
       height: 0.8rem;
-      text-align:center;
+      text-align: center;
       //border-bottom:1px dashed $stable;
       display: flex;
       justify-content: center;

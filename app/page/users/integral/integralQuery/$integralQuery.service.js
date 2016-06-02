@@ -32,12 +32,13 @@
                 };
                 //数据合并
                 angular.deepExtend(params, options);
-                console.log(params)
+                // console.log(params)
                 AJAX({
                     url: api.pointUrl,
                     method: 'post',
                     data: params,
                     success: function (data) {
+                        console.log(data)
                         if (data.code == 7001) {
                             //标志执行成功
                             defer.resolve(data.content.data);

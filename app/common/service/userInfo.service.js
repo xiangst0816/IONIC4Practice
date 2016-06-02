@@ -10,7 +10,7 @@
     /**
      * 获取用户信息(微信和app通用), 已做缓存处理
      * */
-        .factory("$getUserInfo", ['AJAX', 'api', '$q', '$sessionStorage', '$log', '$ionicToast', '$setShareContent', '$localStorage', function (AJAX, api, $q, $sessionStorage, $log, $ionicToast, $setShareContent, $localStorage) {
+        .factory("$getUserInfo", ['AJAX', 'api', '$q', '$sessionStorage', '$log', '$ionicToast', '$setShareContent', '$localStorage','$rootScope','$filter', function (AJAX, api, $q, $sessionStorage, $log, $ionicToast, $setShareContent, $localStorage,$rootScope,$filter) {
             return function (options) {
                 !angular.isObject(options) && (options = {});
                 var defer = $q.defer();
@@ -18,11 +18,11 @@
                 //设定保存20秒,20s内有效
                 if ((userInfo) && (!!userInfo.customerid) && (((new Date().getTime() - parseInt(userInfo.time)) / 1000) < (20))) {
                     defer.resolve(userInfo);
+                    //每次获取最新信息的时候设置头像
+                    $rootScope.photo = $filter('addImgPrefix')($sessionStorage.userInfo.photo);
                     $log.debug("userInfo使用缓存数据!时间:" + ((new Date().getTime() - parseInt(userInfo.time)) / 1000) + "s");
                     return defer.promise;
                 }
-
-
                 $log.debug("userInfo使用最新数据!");
                 var params = {
                     "method": "query",
@@ -48,6 +48,8 @@
                             userInfo.time = new Date().getTime();
                             //状态数据存储
                             $sessionStorage.userInfo = angular.copy(userInfo);
+                            //每次获取最新信息的时候设置头像
+                            $rootScope.photo = $filter('addImgPrefix')($sessionStorage.userInfo.photo);
 
                             //如果是app,那就将customerid放在localStorage中
                             //需求需要app登陆和注册成功会记住用户的登陆状态,进入用户中心时,

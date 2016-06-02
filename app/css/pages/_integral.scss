@@ -568,6 +568,10 @@
     }
     .eachItems {
       position: relative;
+      background-color: #fff;
+      &.activated{
+        background-color: #d9d9d9;
+      }
       .goodsEach {
         @include display-flex;
         @include flex-wrap(wrap);
@@ -579,6 +583,7 @@
         height: 2.43rem;
         padding: 0.22rem 0.22rem 0.22rem 3rem;
         box-sizing: border-box;
+        background-color:transparent;
         .imgBox {
           position: absolute;
           width: 2.57rem;
@@ -690,6 +695,11 @@
           color: #fff;
           background-color: $stable;
           transition: all ease 300ms;
+          &.activated{
+            background-color: transparent;
+            color:$stable;
+            border: 1px solid $stable;
+          }
         }
 
       }

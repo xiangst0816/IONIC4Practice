@@ -12,7 +12,7 @@
                 //     planetNum: '@',
                 //     circleWidth:'@'
                 // },
-                controller: ['$scope', '$element', '$attrs', '$ionicScrollDelegate', function ($scope, $element, $attrs, $ionicScrollDelegate) {
+                controller: ['$scope','$log', function ($scope, $log) {
                     /**
                      * 每个行星定位
                      * */
@@ -144,9 +144,9 @@
                         swiperInnerBox[b].style.opacity = 0;
                         swiperInnerBox[c].style.opacity = 0;
 
-                        console.log(whichTop)
+                        $log.debug("index为"+whichTop + "的行星在中间");
 
-                        applyAnimation(whichTop)
+                        applyAnimation(whichTop);
                     }
 
                     /**

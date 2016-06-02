@@ -115,12 +115,18 @@
                 })
             }
 
+            /***
+             * 退出清理
+             */
+            $scope.$on("$destroy",function () {
+                $scope.searchFor = null;
+            });
 
             /**
              * 清空searchBox的话,也进行列表刷新
              * */
             $scope.$on("$cleanInput", function () {
-                $log.debug($rootScope.isHistoryBoxOpen);
+                $log.debug("isHistoryBoxOpen:"+$rootScope.isHistoryBoxOpen);
                 if (!$rootScope.isHistoryBoxOpen) {
                     reloadMore();
                 }

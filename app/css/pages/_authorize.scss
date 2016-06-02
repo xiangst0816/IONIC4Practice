@@ -64,6 +64,10 @@
       color: $stable;
       box-sizing: border-box;
       font-size:0.3rem;
+      &.activated{
+        color:#fff;
+        background-color:$stable;
+      }
     }
   }
 }
@@ -114,6 +118,10 @@
       font-size: 0.26rem;
       position: relative;
       z-index: 99;
+      &.activated{
+        color:#fff;
+        background:$stable;
+      }
     }
   }
 
@@ -206,6 +214,10 @@
       margin-bottom:0.16rem;
       border-radius:3px;
 
+      &.activated{
+        color:#fff;
+        background:$stable;
+      }
     }
   }
 }
@@ -344,13 +356,19 @@
       border:1px solid $stable;
       border-radius: 3px;
       margin-bottom:0.3rem;
-      background-color:transparent;
+      //background-color:transparent;
       color: $stable;
       box-sizing: border-box;
       margin-top:1.05rem;
       font-size:0.3rem;
       margin-left:-0.1rem;
       margin-right:-0.1rem;
+      background:transparent;
+
+      &.activated{
+        color:#fff;
+        background:$stable;
+      }
     }
 
   }

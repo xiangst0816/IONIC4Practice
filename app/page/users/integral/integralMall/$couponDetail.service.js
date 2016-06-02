@@ -26,14 +26,18 @@
                     method: 'post',
                     data: params,
                     success: function (data) {
-                        console.log('$couponDetail');
-                        console.log(data.content);
+                        // console.log('$couponDetail');
+                        // console.log(data.content);
                         if (data.code == 7001 && !!data.content) {
                             var result = data.content;
 
                             //判断兑换起始日期是否大于今天,如果大于今天意味着不能兑换(canConvert)
-                            result.canConvert = !!($filter('isDateIn')(null,result.valid_start_time,result.valid_end_time));
-
+                            if (parseInt(result.valid_type_code) != 2) {
+                                result.canConvert = !!($filter('isDateIn')(null, result.valid_start_time, result.valid_end_time));
+                            } else {
+                                result.canConvert = true;
+                            }
+                            
                             defer.resolve(result);
                         } else {
                             $ionicToast.show("明细获取失败,请稍后再试!");

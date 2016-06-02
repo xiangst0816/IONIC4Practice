@@ -12,11 +12,10 @@
             $ionicNavBarDelegate.showBackButton(true);
             /**
              * 从sessionstorage中读取数据,并填充到表单中
-             * photo
              * api.imgDomainUrl + data.uuid
              * */
 
-            $rootScope.photo =$sessionStorage.userInfo.photo;
+            // $rootScope.photo =$sessionStorage.userInfo.photo;
 
             //基本信息
             $scope.params = {
@@ -274,7 +273,7 @@
                     }
                 }).then(function () {
                     $ionicToast.show("保存成功");
-                    $rootScope.photo =$scope.params.photo;
+                    // $rootScope.photo =$scope.params.photo;
 
                 },function (errCode) {
                     $ionicToast.show("保存失败,请稍后再试");

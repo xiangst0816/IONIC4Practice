@@ -30,7 +30,7 @@
                     });
 
                     //点击事件
-                    $element.on("touchstart", function () {
+                    $element.on("touchend", function () {
                         var code = $scope.item.code;
                         $log.debug("显示的code为:" + code);
                         $scope.useGougon = {

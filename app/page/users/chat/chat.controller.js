@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('chatCtrl', ['$scope', '$sessionStorage', '$timeout', '$ionicScrollDelegate', '$ionicToast', '$ocLazyLoad', 'socketFactory', 'baseUrl', 'baseInfo', function ($scope, $sessionStorage, $timeout, $ionicScrollDelegate, $ionicToast, $ocLazyLoad, socketFactory, baseUrl, baseInfo) {
+        .controller('chatCtrl', ['$scope', '$sessionStorage', '$timeout', '$ionicScrollDelegate', '$ionicToast', '$ocLazyLoad', 'socketFactory', 'baseUrl', 'baseInfo','$log', function ($scope, $sessionStorage, $timeout, $ionicScrollDelegate, $ionicToast, $ocLazyLoad, socketFactory, baseUrl, baseInfo,$log) {
 
             $scope.serviceTel = baseInfo.serviceTel;
 
@@ -60,7 +60,7 @@
                 //滚动到底部
                 $ionicScrollDelegate.scrollBottom(true);
                 $ionicScrollDelegate.isNative;
-                console.log($ionicScrollDelegate)
+                // console.log($ionicScrollDelegate)
             };
 
 
@@ -81,7 +81,7 @@
                        * }
                      * */
                     $socket.on('appreceive', function (data) {
-                        console.log('socket服务器返回结果', JSON.stringify(data));
+                        $log.debug('socket服务器返回结果', JSON.stringify(data));
                         if (data.typecode == 2) {
                             $timeout(function () {
                                 $scope.message = '';
@@ -101,8 +101,8 @@
                      * 数据内容为空，表示成功链接上socket服务器
                      * typecode:1,客服; 2,用户
                      * */
-                    $socket.on("successconn", function () {
-                        console.log('服务器返回successconn请求,socket连接成功!');
+                    $socket.on("successconn", function (data) {
+                        $log.debug('服务器返回successconn请求,socket连接成功!');
                         $socket.emit('login', {customerid: customerid});
                     });
                 }
@@ -119,7 +119,6 @@
             });
             // });
 
-            console.log();
 
             // $scope.visitorPhoto = $sessionStorage.userInfo.photo;
             // var customerid = $sessionStorage.userInfo.customerid;
