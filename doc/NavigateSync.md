@@ -3,18 +3,19 @@
 
 ##问题点： 
 
-- ionic使用的导航方式永远都是在新增历史记录（$ionicHistory）,而浏览器原生的导航则是在历史记录中有前有后的跳转,因而会在用户操作的过程出现不同步的现象
-- "返回"可以用history.go(-1)解决，但是“返回首页”的问题就有些棘手，因为返回首页的另一个意思就是，返回历史记录的第一个页面，如果第一个页面不是“home”，那就将第一个页面换成“home”
+- 在开发微信微官网的时候，会同时存在两个导航栏的情况：微信自带导航栏和WebApp内建导航栏。按照常理两者导航结果要同步才能达到体验一致的效果。
+- ionic使用的导航方式永远都是在新增历史记录（$ionicHistory.goBack(-1)）,而浏览器原生的导航则是在历史记录中有前有后的跳转,因而使用$ionicHistory会在用户操作的过程出现导航不同步的现象
+- "返回"可以用history.go(-1)解决，但是“返回首页”的问题就有些棘手，因为返回首页的另一个意思就是，返回历史记录的第一个页面，如果第一个页面不是“home”，那就将第一个页面换成“home”。
 
 ## 解决方案：
 
-- 内建历史记录的数组，path改变就对内建历史记录进行更新
+- 内建历史记录的数组，path改变就对内建历史记录进行更新，东西不难拿笔画画流程就清楚了。
 - 方法backToHome返回首页，goBack后退，HistoryArr维护历史记录。 
-- 两个方法,方法挂载到mainCtrl根控制器的$rootScope下,这样的话在别的controller中也可手动调用此方法。
+- 上面两个方法挂载到mainCtrl根控制器的$rootScope下,这样的话在别的controller中也可手动调用此方法。
 
 
 ```
- angular.module('smartac.controllers')
+ angular.module('controllers')
         .controller('mainCtrl', ['$scope', '$sessionStorage', '$state', '$ionicHistory', '$rootScope', '$log', '$timeout', '$window', '$location', function ($scope, $sessionStorage, $state, $ionicHistory, $rootScope, $log, $timeout, $window, $location) {
             /**
              * 定义后退和返回操作
@@ -62,7 +63,6 @@
                 }else{
                     $window.history.go(1 - len);
                 }
-                angular.element(document.getElementById('member')).removeClass('showMember');
             };
 
 
@@ -79,7 +79,5 @@
                 $rootScope.HistoryArr.length = $rootScope.HistoryArr.length-step;
                 $window.history.go(-(step));
             };
-
-
         }]);
 ```

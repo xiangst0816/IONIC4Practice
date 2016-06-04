@@ -265,11 +265,11 @@
                     data: params,
                     success: function (data) {
                         console.log(data);
-                        if (data.code == 7001) {
+                        if (parseInt(data.code) == 7001) {
                             defer.resolve("您可在【会员中心】-【礼品卡券】中查看/更改订单详情。")
                         } else {
                             var errText;
-                            switch (data.code) {
+                            switch (parseInt(data.code)) {
                                 case 11004:
                                     errText = "超过最大发放数!";
                                     break;
@@ -330,7 +330,7 @@
                         "giftid": "",
                         "quantity": "",
                         "activityname": "",
-                        "sendchannelcode": 6,
+                        "sendchannelcode": 6,//1注册 2.积分 3.交易 4.打标签 5.围栏活动 6.兑换 7.大屏 8.海报 9.活动 10.SR后台
                         "applicablechannelcode": 1,
                         "isexchangedbypoint": 1,
                         "point": ""
@@ -343,12 +343,12 @@
                     url: api.giftUrl,
                     data: params,
                     success: function (data) {
-                        console.log(data);
-                        if (data.errcode == 7001) {
+                        // console.log(data);
+                        if (parseInt(data.errcode) == 7001) {
                             defer.resolve("您可在【会员中心】-【礼品卡券】中查看/更改订单详情。")
                         } else {
                             var errText;
-                            switch (data.errcode) {
+                            switch (parseInt(data.errcode)) {
                                 case 30001:
                                     errText = "系统异常!";
                                     break;

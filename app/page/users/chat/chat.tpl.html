@@ -19,8 +19,8 @@
     </div>
   </ion-content>
   <footer class="chatInputBox">
-    <div ng-click="cameraBtn()"><i class="icon icon-chat-camera"></i></div>
-    <div><a href="tel:{{::serviceTel}}"><i class="icon icon-chat-phone"></i></a></div>
+    <div class="camera" ng-click="cameraBtn()"><i class="icon icon-chat-camera"></i></div>
+    <div class="phone" ng-click=""><a href="tel:{{serviceTel}}"><i class="icon icon-chat-phone"></i></a></div>
     <input type="text" placeholder="请输入...." ng-model="chat.message">
     <section class="submit"  ng-click="sendMessage()">发送</section>
 

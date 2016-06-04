@@ -5,10 +5,8 @@
  * index.html只引用js根目录下的controllers.js文件
  */
 
-// angular.module('smartac.page', ['smartac.services']);
 
 (function () {
-    // angular.module('smartac.page')
     angular.module('smartac.page')
         .controller('mainCtrl', ['$scope', '$sessionStorage', '$state', '$ionicHistory', '$rootScope', '$log', '$timeout', '$window', '$location', function ($scope, $sessionStorage, $state, $ionicHistory, $rootScope, $log, $timeout, $window, $location) {
             /**

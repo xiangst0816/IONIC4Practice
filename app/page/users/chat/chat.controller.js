@@ -59,7 +59,7 @@
 
                 //滚动到底部
                 $ionicScrollDelegate.scrollBottom(true);
-                $ionicScrollDelegate.isNative;
+                // $ionicScrollDelegate.isNative;
                 // console.log($ionicScrollDelegate)
             };
 
@@ -92,6 +92,7 @@
                                 $scope.dialogs.push(data);
                             }, 0);
                         }
+                        $ionicScrollDelegate.scrollBottom(true);
                     });
 
                     /**

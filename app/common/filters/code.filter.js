@@ -10,9 +10,8 @@
         .filter('cardLevelIDToName', [function () {
             return function (levelid) {
                 //电子卡,普卡,VIP,对应1,2,3
-                levelid = parseInt(levelid);
                 var name = '';
-                switch (levelid) {
+                switch (parseInt(levelid)) {
                     case 1:
                         name = "电子卡";
                         break;

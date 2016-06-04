@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('integralQueryCtrl', ['$scope', '$ionicToast', 'AJAX', 'api', '$sessionStorage', '$state', '$ionicLoading', '$q', '$filter', '$integralQuery', '$getCode', '$log', '$integralInfo','$toDayBegin','$toDayEnd','$rootScope', function ($scope, $ionicToast, AJAX, api, $sessionStorage, $state, $ionicLoading, $q, $filter, $integralQuery, $getCode, $log, $integralInfo,$toDayBegin,$toDayEnd,$rootScope) {
+        .controller('integralQueryCtrl', ['$scope', '$ionicToast', 'AJAX', 'api', '$sessionStorage', '$state', '$ionicLoading', '$q', '$filter', '$integralQuery', '$getCode', '$log', '$integralInfo', '$toDayBegin', '$toDayEnd', '$rootScope', function ($scope, $ionicToast, AJAX, api, $sessionStorage, $state, $ionicLoading, $q, $filter, $integralQuery, $getCode, $log, $integralInfo, $toDayBegin, $toDayEnd, $rootScope) {
 
             //查询起止日期
             $scope.params = {
@@ -62,30 +62,42 @@
             };
 
 
-            /**
-             * 首次加载需要确定数据获取成功,使用$q函数
-             * */
-            $ionicLoading.show();
-            $q.all([getIntegralDeadline(), totalIntegral()]).then(function () {
-                //预设时间,四个月前
-                var datefrom = new Date((parseInt((new Date().getTime() / 1000) - parseInt(60 * 60 * 24 * 30 * 4))) * 1000);
-                var dateto = new Date();
-                $scope.params.datefrom = $toDayBegin(datefrom);
-                $scope.params.dateto = $toDayEnd(dateto);
-                //查询
-                reloadMore();
-            }, function () {
-                //如果失败
-                $scope.moreDataCanBeLoaded = false;
-                $rootScope.goBack();
-            }).finally(function () {
-                $ionicLoading.hide();
+            $scope.$on("$stateChangeSuccess", function () {
+                if ($state.is("subNav.memberIntegralQuery")) {
+                    $log.debug("页面进入进行积分记录列表查询");
+                    init();
+                }else{
+                    // $log.debug("积分历史列表销毁");
+                    // $scope.dataToDisplay = [];
+                }
             });
 
 
             /**
+             * 首次加载需要确定数据获取成功,使用$q函数
+             * */
+            function init(){
+                $ionicLoading.show();
+                $q.all([getIntegralDeadline(), totalIntegral()]).then(function () {
+                    //预设时间,四个月前
+                    var datefrom = new Date((parseInt((new Date().getTime() / 1000) - parseInt(60 * 60 * 24 * 30 * 4))) * 1000);
+                    var dateto = new Date();
+                    $scope.params.datefrom = $toDayBegin(datefrom);
+                    $scope.params.dateto = $toDayEnd(dateto);
+                    //查询
+                    reloadMore();
+                }, function () {
+                    //如果失败
+                    $scope.moreDataCanBeLoaded = false;
+                    $rootScope.goBack();
+                }).finally(function () {
+                    $ionicLoading.hide();
+                });
+            }
+
+
+            /**
              * loadMore
-             * 返回promise
              * */
             $scope.loadMore = function () {
                 if ($scope.moreDataCanBeLoaded && !$scope.isSearching) {
@@ -93,13 +105,13 @@
                     return getIntegralHistory(start, findNum).then(function (data) {
                         if (!data.length) {
                             $scope.moreDataCanBeLoaded = false;
-                        } else if(data.length < findNum){
+                        } else if (data.length < findNum) {
                             $scope.moreDataCanBeLoaded = false;
                             $scope.dataToDisplay.extend(data);
-                        }else{
+                        } else {
                             $scope.dataToDisplay.extend(data);
                         }
-                    },function () {
+                    }, function () {
                         //如果错误
                         $scope.moreDataCanBeLoaded = false;
                     }).finally(function () {
@@ -109,6 +121,7 @@
                     });
                 }
             };
+
 
             /**
              * reloadMore,用再次调用

@@ -6,20 +6,24 @@
     /**
      * 查询店铺列表(all),options为发送的参数,返回promise
      * */
-        .factory("$shopList", ['AJAX', 'api', '$q', '$ionicToast', '$log', function (AJAX, api, $q, $ionicToast, $log) {
+        .factory("$shopList", ['AJAX', 'api', '$q', '$ionicToast', '$log','$sessionStorage', function (AJAX, api, $q, $ionicToast, $log,$sessionStorage) {
 
             return function (options) {
                 if (!angular.isObject(options)) {
                     options = {};
                 }
                 var defer = $q.defer();
-                // alert(custid)
+                if (!!$sessionStorage.userInfo && !!$sessionStorage.userInfo.customerid) {
+                    var custid = $sessionStorage.userInfo.customerid;
+                } else {
+                    var custid = null;
+                }
                 var params = {
                     "method": "query",
                     "conditions": {
                         "orgid": "",
                         "shopid": "",
-                        "custid": null,
+                        "custid": custid,
                         "industryname": "",
                         "industryid": null,
                         "shopname": "",

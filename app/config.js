@@ -16,10 +16,10 @@
                 /**
                  * 微信配置, 微信公众号的AppID(应用ID)
                  * */
-                wxAppID: "wx1f9f586691e432d2",
+                // wxAppID: "wx1f9f586691e432d2",
+                wxAppID: "wx9587233d8b1a1869",
                 //微信公众号的原始ID(公众号ID)
-                accountid: "gh_4144bdb0571b",
-                // wxAppID: "HEDV35FASG-DGW423A-34TGGW53AAD66",
+                accountid: "gh_50ea738284f4",
                 cfid: "HEDV35FASG-DGW423A-34TGGW53AAD66",
 
 
@@ -32,7 +32,7 @@
                 /**
                  * 客服电话
                  * */
-                serviceTel:"1234567890",
+                serviceTel:"18761938554",
 
 
                 /**
@@ -40,7 +40,8 @@
                  * */
                 shareInfo:{
                     //app地址
-                    url:"http://vivocity.smartac.co/webapp/index.html"
+                    url:"http://vivoUAT.smartac.co/webapp/index.html"
+                    // url:"http://vivocity.smartac.co/webapp/index.html"
                 },
 
                 /**
@@ -60,27 +61,24 @@
         })
 
         /**
-         * 连接基础地址, 接口根路径  
+         * 连接基础地址, 接口根路径
          * */
         .factory("baseUrl", [function () {
             return {
-                indexUrl: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1f9f586691e432d2&redirect_uri=http%3A%2F%2Fvivocity.smartac.co%2Fwebapp%2Findex.html&response_type=code&scope=snsapi_base&state=index#wechat", //webapp的首页地址
-                //分享公用的域名
-                // sharedImgUrl:"http://vivocity.smartac.co:82/img/other/default.png",
-             
-                // domain: "http://115.29.249.215:3300",   //接口地址
-                // domain: "http://127.0.0.1:3300",   //接口地址,本机
-                // domain: "http://172.16.6.49:3300",   //接口地址,映射的地址
-                domain: "http://vivocity.smartac.co:3300",   //接口地址,映射的地址
-                socketChatUrl: "192.168.99.111:8087",  //客服聊天地址
-                resourceDomain: "http://192.168.99.111:8000/resource/",  //图片资源地址
+                // indexUrl: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1f9f586691e432d2&redirect_uri=http%3A%2F%2Fvivocity.smartac.co%2Fwebapp%2Findex.html&response_type=code&scope=snsapi_base&state=index#wechat", //webapp的首页地址
+                // domain: "http://vivocity.smartac.co:3300",   //接口地址,映射的地址
+                // socketChatUrl: "192.168.99.111:8087",  //客服聊天地址
+                // resourceDomain: "http://192.168.99.111:8000/resource/",  //图片资源地址
+
+                indexUrl: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9587233d8b1a1869&redirect_uri=http%3a%2f%2fvivouat.smartac.co%2fwebapp%2findex.html&response_type=code&scope=snsapi_base&state=123&connect_redirect=1#wechat_redirect", //webapp的首页地址
+                domain: "http://vivoUAT.smartac.co/api",   //接口地址,映射的地址
+                socketChatUrl: "172.16.1.5:8087",  //客服聊天地址
+                resourceDomain: "http://172.16.1.5:8000/resource/",  //图片资源地址
 
                 //二维码的生成地址
-                // generateQrcodeUrl: "http://srdemo1.smartac.co/dqcodegen?symbology=58&size=300&fg_color=000000&bg_color=ffffff&case=1&margin=0&level=0&hint=2&ver=2&txt=",
-                generateQrcodeUrl: "http://vivocity.smartac.co:15433/barcode?symbology=58&size=645&s_fg_color=000000&s_bg_color=ffffff&margin=0&level=2&ecc_level=1&hint=1&ver=0&transparent=0&txt=",
-                generateBarcodeUrl: "http://srdemo1.smartac.co/dqcodegen?symbology=20&size=1&case=1&txt=",
-
-                scancodeVerificationUrl: 'http://vivocity.smartac.co:3300/api/rewardsprogram/customerusecoupon_xc/',
+                generateQrcodeUrl: "http://vivoUAT.smartac.co:15433/barcode?symbology=58&size=645&s_fg_color=000000&s_bg_color=ffffff&margin=0&level=2&ecc_level=1&hint=1&ver=0&transparent=0&txt="
+                // generateBarcodeUrl: "http://srdemo1.smartac.co/dqcodegen?symbology=20&size=1&case=1&txt=",
+                // scancodeVerificationUrl: 'http://vivocity.smartac.co:3300/api/rewardsprogram/customerusecoupon_xc/',
             }
         }])
 

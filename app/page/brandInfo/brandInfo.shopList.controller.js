@@ -210,14 +210,9 @@
 
                 start++;
 
-                if (!!$sessionStorage.userInfo && !!$sessionStorage.userInfo.customerid) {
-                    var custid = $sessionStorage.userInfo.customerid;
-                } else {
-                    var custid = null;
-                }
                 return $shopList({
                     "conditions": {
-                        "custid": custid,
+                        // "custid": custid,
                         "shopname": $scope.searchFor,
                         "floor": parseInt($scope.levelCode),
                         "industryid": parseInt($scope.typeCode),

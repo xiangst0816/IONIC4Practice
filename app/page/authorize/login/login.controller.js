@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('loginCtrl', ['$scope', 'verification', '$ionicLoading', '$ionicToast', '$login', '$getUserInfo','$rootScope', function ($scope, verification, $ionicLoading, $ionicToast, $login, $getUserInfo,$rootScope) {
+        .controller('loginCtrl', ['$scope', 'verification', '$ionicLoading', '$ionicToast', '$login', '$getUserInfo', '$rootScope', function ($scope, verification, $ionicLoading, $ionicToast, $login, $getUserInfo, $rootScope) {
 
             /**
              * 提交按钮
@@ -28,27 +28,13 @@
                         "mobile": $scope.login.telephone + "",
                         "password": $scope.login.password
                     }
-                }).then(function (data) {
-                    //并且有数据
-                    if (!!data.length) {
-                        
-                        /**
-                         * 用户信息查询
-                         * */
-                        $getUserInfo({
-                            "method": "query",
-                            "conditions": {
-                                "customerid": data[0].customerid.toString()
-                            }
-                        }).finally(function () {
-                            //第一页面一定时home,如果鉴权调到登录,那返回就好,不必跳转!
-                            $rootScope.goBack();
-                            // history.back();
-                        });
-                    } else {
-                        $ionicToast.show('手机号或密码错误');
-                        // $ionicToast.show('如果您在微信中已注册,请先修改密码');
-                    }
+                }).then(function () {
+
+                    //登陆成功返回主页
+                    $rootScope.backToHome();
+
+                },function (errText) {
+                    $ionicToast.show(errText);
                 }).finally(function () {
                     $ionicLoading.hide();
                 });

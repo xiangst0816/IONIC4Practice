@@ -30,7 +30,7 @@
 
             // console.log($ionicConfigProvider);
             //所有平台,navBar的文字居中
-            $ionicConfigProvider.navBar.alignTitle("center")
+            $ionicConfigProvider.navBar.alignTitle("center");
             // note that you can also chain configs
             // $ionicConfigProvider.backButton.text('返回').icon('icon-nav-back');
 

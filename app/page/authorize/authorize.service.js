@@ -49,7 +49,7 @@
         /**
          * 登录
          * */
-        .factory("$login", ['AJAX', 'api', '$q', '$log', '$ionicToast', function (AJAX, api, $q, $log, $ionicToast) {
+        .factory("$login", ['AJAX', 'api', '$q', '$log', '$ionicToast','$getUserInfo', function (AJAX, api, $q, $log, $ionicToast,$getUserInfo) {
             return function (options) {
                 if (!angular.isObject(options)) {
                     options = {};
@@ -71,12 +71,30 @@
                     success: function (data) {
                         //成功返回
                         if (data.code == 7001) {
-                            defer.resolve(data.content);
+                            var resultArr = data.content;
+                            if (!!resultArr.length) {
+
+                                /**
+                                 * 用户信息查询
+                                 * */
+                                $getUserInfo({
+                                    "method": "query",
+                                    "conditions": {
+                                        "customerid": resultArr[0].customerid.toString()
+                                    }
+                                }).then(function () {
+                                    defer.resolve();
+                                });
+                            } else {
+                                defer.reject("手机号或密码错误!");
+                            }
                         } else {
-                            $ionicToast.show("登录失败,请稍后再试!");
+                            // $ionicToast.show("登录失败,请稍后再试!");
                             $log.debug("登录失败,返回code:" + data.code);
-                            defer.reject(data.code)
+                            defer.reject("登录失败,请稍后再试!")
                         }
+
+
                     },
                     error: function (errText) {
                         $ionicToast.show("登录失败,请稍后再试!");
@@ -194,10 +212,10 @@
                             }
                         } else {
                             var errText;
-                            switch (data.code) {
-                                // case 8012:
-                                //     errText = "验证码或手机号码错误,请检查";
-                                //     break;
+                            switch (parseInt(data.code)) {
+                                case 8009:
+                                    errText = "手机号码未注册";
+                                    break;
                                 default:
                                     errText = "系统错误,请稍后再试";
                                     break;

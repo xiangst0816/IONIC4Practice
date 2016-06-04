@@ -136,7 +136,9 @@
                 var isUserCenterOpen = angular.element(document.getElementById('member')).hasClass('showMember');
                 if($state.is("home") && isUserCenterOpen){
                     //如果进入意味着用户之前已鉴权完毕
-                    getBasicInfo();
+                    $checkAuthorize().then(function () {
+                        getBasicInfo();
+                    });
                     $log.debug("用户中心是开启的,如果进入用户中心会刷新数据");
                 }
             });
@@ -167,6 +169,7 @@
                             $scope.nextIntegral = $scope.cardupgrade0;
                         } else if ($scope.vipLevel == 2) {
                             progress = $scope.userDisplayIntegral / $scope.cardupgrade1 * 50 + 50;
+                            (parseInt(progress) > 100) && (progress = 100);
                             $scope.nextIntegral = $scope.cardupgrade1;
                         } else if ($scope.vipLevel == 3) {
                             var duetime = userInfo.duetime;
@@ -178,9 +181,11 @@
                                 $log.debug("VIP会员过期时间未获取到,当前使用今天的日期!")
                             }
                             $scope.nextIntegral = $scope.carddegrade0;
-                            progress = $scope.userDisplayIntegral / $scope.cardupgrade1 * 100;
+                            progress = $scope.userDisplayIntegral / $scope.carddegrade0 * 100;
+                            (parseInt(progress) > 100) && (progress = 100);
                         }
                         document.getElementById('vipState-lay2-progress').style.width = progress + "%";
+                        $log.debug("当前等级进度progress:"+progress);
                         //成功
                         defer.resolve();
                     }, function (err) {

@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('changePasswordCtrl', ['$scope', 'verification', '$ionicLoading', '$state', '$sessionStorage', 'Countdown', '$ionicToast', '$timeout', '$getVerifyCode', '$customerValidate', '$changePassword', '$rootScope','$log', function ($scope, verification, $ionicLoading, $state, $sessionStorage, Countdown, $ionicToast, $timeout, $getVerifyCode, $customerValidate, $changePassword, $rootScope,$log) {
+        .controller('changePasswordCtrl', ['$scope', 'verification', '$ionicLoading', '$state', '$sessionStorage', 'Countdown', '$ionicToast', '$timeout', '$getVerifyCode', '$customerValidate', '$changePassword', '$rootScope','$log','$login', function ($scope, verification, $ionicLoading, $state, $sessionStorage, Countdown, $ionicToast, $timeout, $getVerifyCode, $customerValidate, $changePassword, $rootScope,$log,$login) {
             /**
              * params
              * */
@@ -120,8 +120,8 @@
                 //显示loading
                 $ionicLoading.show();
                 $customerValidate({
-                    "validatecode": $scope.params.verificationCode,
-                    "mobile": $scope.params.telephone,
+                    "validatecode": $scope.params.verificationCode.toString(),
+                    "mobile": $scope.params.telephone.toString(),
                     "typecode": "1"//修改密码
                 }).then(function (data) {
                     // changePassword(data.content);
@@ -130,16 +130,25 @@
                      * */
                     $changePassword({
                         "customerid": parseInt(data),
-                        "newpassword": $scope.params.password,
-                        "validatecode": $scope.params.verificationCode
+                        "newpassword": $scope.params.password.toString(),
+                        "validatecode": $scope.params.verificationCode.toString()
                     }).then(function (data) {
                         if ($state.is("subNav.forgotPassword")) {
-                            $ionicToast.show("密码找回成功!")
+                            $ionicToast.show("密码找回成功,即将自动登录!");
+                            /**
+                             * 执行登陆
+                             * */
+                            $login({
+                                "conditions": {
+                                    "mobile": $scope.params.telephone.toString(),
+                                    "password": $scope.params.password.toString()
+                                }
+                            });
                         } else if ($state.is("subNav.memberChangePassword")) {
                             $ionicToast.show("密码重置成功!");
                         }
                         $timeout(function () {
-                            $rootScope.goBack();
+                            $rootScope.backToHome();
                         }, 1700, false);
                     }).finally(function () {
                         //最终隐藏loading

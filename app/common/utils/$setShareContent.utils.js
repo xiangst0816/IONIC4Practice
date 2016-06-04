@@ -7,10 +7,10 @@
      * @params: shareContent,directToState,stateParams
      * shareContent:title,desc,imgUrl,type,dataUrl,success,cancel
      * directToState: 进入home后跳转地址
-     * stateParams: 跳转读写的参数 
+     * stateParams: 跳转读写的参数
      * */
     angular.module('smartac.page')
-        .factory("$setShareContent", ['$wxGetConfig', '$sessionStorage', 'baseInfo', '$log', function ($wxGetConfig, $sessionStorage, baseInfo, $log) {
+        .factory("$setShareContent", ['$wxGetConfig', '$sessionStorage', 'baseInfo', '$log', '$state', function ($wxGetConfig, $sessionStorage, baseInfo, $log, $state) {
 
             /**
              * 获取分享的URL,默认加上分享人id
@@ -64,15 +64,21 @@
                         nativePlugin.onMenuShareWeibo(shareContent);
                         nativePlugin.onMenuShareQZone(shareContent);
                     });
-                } else if(Internal.isInApp){
-                    nativePlugin.shareWithPanel(shareContent)
+                } else if (Internal.isInApp) {
+                    if ($state.is("subNav.registerSuccess")) {
+                        shareContent.platformList = ["Share.Timeline"];
+                        nativePlugin.shareWithPanel(shareContent)
+                    } else {
+                        shareContent.platformList = ["Share.Weibo", "Share.Timeline", "Share.QQZone"];
+                        nativePlugin.shareWithPanel(shareContent)
+                    }
                 }
             }
 
             /**
              * 默认设置(注册)
              * */
-            function setDefaultContent(){
+            function setDefaultContent() {
                 var _content = baseInfo.defalutShareContent.content;
                 var _shareRegisterPage = {
                     title: _content.title,
@@ -90,7 +96,7 @@
             /**
              * 设置分享的内容
              * */
-            function setGivenContent(shareContent,directToState,stateParams){
+            function setGivenContent(shareContent, directToState, stateParams) {
                 //将传入值设置为分享内容
                 var _shareRightPage = {
                     title: shareContent.title,
@@ -111,8 +117,6 @@
             }
 
 
-
-
             /**
              * 在微信模式下,第一屏需要设置默认分享内容,此时传入空的shareContent,会设置weixinConfig,
              * 我认为这个是有必要的。但是在app模式下,如果传入空的shareContent,会不作处理,因为其没有右上角的
@@ -122,21 +126,21 @@
              * shareContent有值:微信和app都设置。
              * */
             return function (shareContent, directToState, stateParams) {
-                if(Internal.isInWeiXin){
-                    if(!!shareContent){
+                if (Internal.isInWeiXin) {
+                    if (!!shareContent) {
                         setGivenContent(shareContent, directToState, stateParams);
                         $log.debug("微信分享,有内容:" + directToState + ",参数:" + stateParams);
-                    }else{
+                    } else {
                         //没有分享内容、跳转位置、跳转携带参数,则设置默认分享内容为注册页面分享
                         setDefaultContent();
                         $log.debug("微信分享,无内容,默认值");
                     }
-                }else if(Internal.isInApp){
+                } else if (Internal.isInApp) {
                     //有值才设置分享内容
-                    if(!!shareContent){
+                    if (!!shareContent) {
                         setGivenContent(shareContent, directToState, stateParams);
                         $log.debug("APP分享,有内容:" + directToState + ",参数:" + stateParams);
-                    }else{
+                    } else {
                         $log.debug("APP分享,无内容");
                         //没有分享内容、跳转位置、跳转携带参数,则设置默认分享内容为注册页面分享
                     }

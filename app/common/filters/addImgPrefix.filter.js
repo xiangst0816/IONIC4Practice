@@ -10,9 +10,12 @@
      * */
         .filter("addImgPrefix", ['api', function (api) {
             return function (uuid) {
-                if (uuid && uuid.indexOf('http') !== -1) {
+                if (!!uuid && uuid.indexOf('http') !== -1) {
                     return uuid;
-                } else {
+                } else if(!uuid){
+                    //如果为空则传入空白图片
+                    return 'data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==';
+                }else{
                     return api.imgDomainUrl + uuid;
                 }
             };

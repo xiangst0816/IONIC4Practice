@@ -15,8 +15,8 @@
                 !angular.isObject(options) && (options = {});
                 var defer = $q.defer();
                 var userInfo = $sessionStorage.userInfo;
-                //设定保存20秒,20s内有效
-                if ((userInfo) && (!!userInfo.customerid) && (((new Date().getTime() - parseInt(userInfo.time)) / 1000) < (20))) {
+                //设定保存0秒,0s内有效
+                if ((userInfo) && (!!userInfo.customerid) && (((new Date().getTime() - parseInt(userInfo.time)) / 1000) < (0))) {
                     defer.resolve(userInfo);
                     //每次获取最新信息的时候设置头像
                     $rootScope.photo = $filter('addImgPrefix')($sessionStorage.userInfo.photo);

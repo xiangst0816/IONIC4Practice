@@ -9,17 +9,6 @@
 
 
 /**
- * 代码容错,进入判断是否有smartAPP变量
- * */
-try {
-    smartApp
-} catch (e) {
-    var smartApp = null;
-
-}
-
-
-/**
  * 当前设备环境参数
  * */
 var Internal = {
@@ -28,7 +17,6 @@ var Internal = {
     isWinOS: false,
     isInApp: false,
     isInWeiXin: false,
-
     appVersion: "",
     osVersion: "",
 
@@ -322,7 +310,7 @@ var nativePlugin = {
     shareWithPanel: function (shareContent) {
         if (Internal.isInApp && !!smartApp) {
             smartApp.shareWithPanel({
-                platformList:["Share.Weibo","Share.Timeline","Share.QQZone"],
+                platformList: shareContent.platformList,
                 title: shareContent.title, // 分享标题
                 desc: shareContent.desc, // 分享描述
                 link: shareContent.link, // 分享链接
@@ -440,24 +428,33 @@ var nativePlugin = {
     //配置app
 
 
-    // setTimeout(function () {
-    //     // alert(Internal.isInApp + ":" +JSON.stringify(smartApp))
-    //
-    // }, 500);
-
-    if(Internal.isInApp){
-        window.onload = function () {
-            // alert("onload");
-            if (Internal.isInApp && !!smartApp) {
-                //滑动返回
-                smartApp.enableBackGesture();
-                //隐藏导航栏
-                // alert("setBarHidden")
-                smartApp.setBarHidden({
-                    hidden: true
-                });
+    /**
+     * 代码容错,进入判断是否有smartAPP变量
+     * */
+    if (Internal.isInApp) {
+        try {
+            if(!!smartApp && smartApp.availability()){
+                appInit()
             }
-        };
+        } catch (e) {
+            (function () {
+                var _log = console.log;
+                _log.call(console, '%c' + [].slice.call(arguments).join(' '), 'color: yellow;')
+            })('smartApp当前不可用,请检查使用环境!');
+        }
+    } else {
+        document.addEventListener("SmartAppReady", function () {
+            appInit();
+        })
+    }
+    function appInit() {
+        //滑动返回
+        smartApp.enableBackGesture();
+        //隐藏导航栏
+        // alert("setBarHidden")
+        smartApp.setBarHidden({
+            hidden: true
+        });
     }
 })();
 
