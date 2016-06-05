@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*
        Licensed to the Apache Software Foundation (ASF) under one
        or more contributor license agreements.  See the NOTICE file
@@ -16,38 +18,24 @@
        specific language governing permissions and limitations
        under the License.
 */
-package org.crosswalk.engine;
 
-import org.apache.cordova.ICordovaCookieManager;
-import org.xwalk.core.XWalkCookieManager;
+var child_process = require('child_process'),
+    Q       = require('q');
 
-class XWalkCordovaCookieManager implements ICordovaCookieManager {
-
-    protected XWalkCookieManager cookieManager = null;
-
-    public XWalkCordovaCookieManager() {
-        cookieManager = new XWalkCookieManager();
+// Takes a command and optional current working directory.
+// Returns a promise that either resolves with the stdout, or
+// rejects with an error message and the stderr.
+module.exports = function(cmd, opt_cwd) {
+    var d = Q.defer();
+    try {
+        child_process.exec(cmd, {cwd: opt_cwd, maxBuffer: 1024000}, function(err, stdout, stderr) {
+            if (err) d.reject('Error executing "' + cmd + '": ' + stderr);
+            else d.resolve(stdout);
+        });
+    } catch(e) {
+        console.error('error caught: ' + e);
+        d.reject(e);
     }
-
-    public void setCookiesEnabled(boolean accept) {
-        cookieManager.setAcceptCookie(accept);
-    }
-
-    public void setCookie(final String url, final String value) {
-        cookieManager.setCookie(url, value);
-    }
-
-    public String getCookie(final String url) {
-        return cookieManager.getCookie(url);
-    }
-
-    public void clearCookies() {
-        cookieManager.removeAllCookie();
-    }
-
-    public void flush() {
-        cookieManager.flushCookieStore();
-    }
+    return d.promise;
 };
-
 

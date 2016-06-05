@@ -8,3 +8,4 @@ backup
 .DS_Store
 .gitignore
 app
+.svn

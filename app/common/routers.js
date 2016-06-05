@@ -16,16 +16,6 @@
                     templateUrl: 'tpl/home.tpl.html',
                     controller: 'homeCtrl'
                 })
-                // .state('member', {
-                //
-                //   //判断用户是否有权限
-                //   // onEnter: function($state) {
-                //   //   $state.go('subNav.memberIntegral')
-                //   // },
-                //   url: '/member',
-                //   templateUrl: 'tpl/member.html',
-                //   controller: 'memberCtrl'
-                // })
 
                 /*
                  * 二级导航
