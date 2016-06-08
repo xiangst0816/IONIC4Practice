@@ -7,9 +7,15 @@
         .controller('homeCtrl', ['$scope', '$sessionStorage', '$rootScope', '$ionicPopup', '$state', 'api', 'AJAX', '$ionicToast', '$q', '$getCode', '$getUrlParams', '$checkAuthorize', '$filter', '$log', '$ionicLoading', '$integralInfo', '$getMessage', '$localStorage', '$timeout', function ($scope, $sessionStorage, $rootScope, $ionicPopup, $state, api, AJAX, $ionicToast, $q, $getCode, $getUrlParams, $checkAuthorize, $filter, $log, $ionicLoading, $integralInfo, $getMessage, $localStorage, $timeout) {
 
             /**
-             *  在微信模式下
+             * 微信用户将退出隐藏
              * */
-            if (Internal.isInWeiXin) {
+            $scope.isInWeiXin = Internal.isInWeiXin;
+
+            /**
+             * 首次计入跳转
+             * */
+            if (!$rootScope.alreadyIn) {
+                $rootScope.alreadyIn = true;
                 /**
                  *  根据进入的url调转条件,跳转到对应的页面
                  *  规定app进入的第一个页面一定是Home页.
@@ -27,11 +33,6 @@
                         showMember();
                     }
                 }
-
-                /**
-                 * 微信用户将退出隐藏
-                 * */
-                $scope.isInWeiXin = Internal.isInWeiXin;
             }
 
             /**
@@ -105,8 +106,8 @@
                     }, 800, false);
                 }
                 //清楚缓存,开发阶段测试
-                // delete $sessionStorage.$reset();
-                // delete $localStorage.$reset();
+                delete $sessionStorage.$reset();
+                delete $localStorage.$reset();
             }
 
 
@@ -132,9 +133,9 @@
             /**
              * 每次进入用户中心都会获取用户中心需要的最新数据
              * */
-            $scope.$on("$stateChangeSuccess",function () {
+            $scope.$on("$stateChangeSuccess", function () {
                 var isUserCenterOpen = angular.element(document.getElementById('member')).hasClass('showMember');
-                if($state.is("home") && isUserCenterOpen){
+                if ($state.is("home") && isUserCenterOpen) {
                     //如果进入意味着用户之前已鉴权完毕
                     $checkAuthorize().then(function () {
                         getBasicInfo();
@@ -185,7 +186,7 @@
                             (parseInt(progress) > 100) && (progress = 100);
                         }
                         document.getElementById('vipState-lay2-progress').style.width = progress + "%";
-                        $log.debug("当前等级进度progress:"+progress);
+                        $log.debug("当前等级进度progress:" + progress);
                         //成功
                         defer.resolve();
                     }, function (err) {

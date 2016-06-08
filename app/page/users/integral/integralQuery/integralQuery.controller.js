@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('integralQueryCtrl', ['$scope', '$ionicToast', 'AJAX', 'api', '$sessionStorage', '$state', '$ionicLoading', '$q', '$filter', '$integralQuery', '$getCode', '$log', '$integralInfo', '$toDayBegin', '$toDayEnd', '$rootScope', function ($scope, $ionicToast, AJAX, api, $sessionStorage, $state, $ionicLoading, $q, $filter, $integralQuery, $getCode, $log, $integralInfo, $toDayBegin, $toDayEnd, $rootScope) {
+        .controller('integralQueryCtrl', ['$scope', '$ionicToast', 'AJAX', 'api', '$sessionStorage', '$state', '$ionicLoading', '$q', '$filter', '$integralQuery', '$getCode', '$log', '$integralInfo', '$toDayBegin', '$toDayEnd', '$rootScope','$getDuePoint', function ($scope, $ionicToast, AJAX, api, $sessionStorage, $state, $ionicLoading, $q, $filter, $integralQuery, $getCode, $log, $integralInfo, $toDayBegin, $toDayEnd, $rootScope,$getDuePoint) {
 
             //查询起止日期
             $scope.params = {
@@ -186,44 +186,48 @@
              * 获得积分过期时间
              * */
             function getIntegralDeadline() {
-                return $getCode({
-                    "keyname": "pointreset"
-                }).then(function (codeList) {
-                    if (codeList.length > 0) {
-                        for (var i = 0, len = codeList.length; len > i; i++) {
-                            if (codeList[i].keyname == 'pointreset_date') {
-                                var deadline = codeList[i].keycode.toString();
-                                break;
-                            }
-                        }
-                        //处理月日
-                        if (deadline.length == 3) {
-                            //203的情况2月3日
-                            $scope.deadline.month = parseInt(deadline.substr(0, 1));
-                            $scope.deadline.day = parseInt(deadline.substr(1, 2));
-                        } else {
-                            //1203的情况12月3日
-                            $scope.deadline.month = parseInt(deadline.substr(0, 2));
-                            $scope.deadline.day = parseInt(deadline.substr(2, 2));
-                        }
-                        //处理年
-                        var monthNow = parseInt(new Date().getMonth() + 1);
-                        var dayNow = parseInt(new Date().getDate());
-                        if ($scope.deadline.month >= monthNow && $scope.deadline.day >= dayNow) {
-                            $scope.deadline.year = parseInt(new Date().getFullYear());
-                        } else {
-                            $scope.deadline.year = parseInt(new Date().getFullYear()) + 1;
-                        }
+                return $getDuePoint().then(function (data) {
 
-                    } else {
-                        //默认值
-                        $scope.deadline.year = new Date().getFullYear();
-                        $scope.deadline.month = 12;
-                        $scope.deadline.day = 30;
-                        $log.debug("获得积分过期时间失败,当前使用默认日期,12.30");
+                    $scope.duepoint = parseInt(data.duepoint);
+                    $scope.duedate = data.duedate;
+                    // $scope.deadline.year = data.duepoint;
+                    // $scope.deadline.month = data.duepoint;
+                    // $scope.deadline.day = data.duepoint;
 
 
-                    }
+                    // if (codeList.length > 0) {
+                    //     for (var i = 0, len = codeList.length; len > i; i++) {
+                    //         if (codeList[i].keyname == 'pointreset_date') {
+                    //             var deadline = codeList[i].keycode.toString();
+                    //             break;
+                    //         }
+                    //     }
+                    //     //处理月日
+                    //     if (deadline.length == 3) {
+                    //         //203的情况2月3日
+                    //         $scope.deadline.month = parseInt(deadline.substr(0, 1));
+                    //         $scope.deadline.day = parseInt(deadline.substr(1, 2));
+                    //     } else {
+                    //         //1203的情况12月3日
+                    //         $scope.deadline.month = parseInt(deadline.substr(0, 2));
+                    //         $scope.deadline.day = parseInt(deadline.substr(2, 2));
+                    //     }
+                    //     //处理年
+                    //     var monthNow = parseInt(new Date().getMonth() + 1);
+                    //     var dayNow = parseInt(new Date().getDate());
+                    //     if ($scope.deadline.month >= monthNow && $scope.deadline.day >= dayNow) {
+                    //         $scope.deadline.year = parseInt(new Date().getFullYear());
+                    //     } else {
+                    //         $scope.deadline.year = parseInt(new Date().getFullYear()) + 1;
+                    //     }
+                    //
+                    // } else {
+                    //     //默认值
+                    //     $scope.deadline.year = new Date().getFullYear();
+                    //     $scope.deadline.month = 12;
+                    //     $scope.deadline.day = 30;
+                    //     $log.debug("获得积分过期时间失败,当前使用默认日期,12.30");
+                    // }
                 }, function (err) {
                     $ionicToast.show("积分过期时间获取失败," + err);
                 });

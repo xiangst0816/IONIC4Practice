@@ -54,15 +54,18 @@
                                         _this.removeClass('beforeShowList');
                                     },200,false)
                                 },7000,false)
-
                             }
                             _scrollContent.on('click', function () {
                                 _scrollContent.removeClass("active");
                                 ele.removeClass('showList');
+                                $timeout(function () {
+                                    ele.removeClass('beforeShowList');
+                                },200,false)
                             });
                         });
-
                     }
+
+
                 }
             };
         }])

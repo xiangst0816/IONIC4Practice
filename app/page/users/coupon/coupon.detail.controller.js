@@ -13,6 +13,6 @@
                 }, 1300, false);
                 return
             }
-            console.log($stateParams.detail);
+            // console.log($stateParams.detail);
         }]);
 })();

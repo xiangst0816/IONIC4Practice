@@ -14,31 +14,32 @@
              * */
             $rootScope.HistoryArr = [];
             $rootScope.$on("$locationChangeSuccess", function () {
+                // console.log("$locationChangeSuccess")
                 var currentPath = $location.path();
                 //倒数第一个
-                var back1Path = $rootScope.HistoryArr[$rootScope.HistoryArr.length-1];
+                var back1Path = $rootScope.HistoryArr[$rootScope.HistoryArr.length - 1];
                 //如果是后退的情况,则不记录历史记录
-                if($rootScope.HistoryArr.length>1){
+                if ($rootScope.HistoryArr.length > 1) {
                     //倒数第二个
-                    var back2Path = $rootScope.HistoryArr[$rootScope.HistoryArr.length-2];
-                    if(currentPath != back1Path){
-                        if(currentPath != back2Path){
+                    var back2Path = $rootScope.HistoryArr[$rootScope.HistoryArr.length - 2];
+                    if (currentPath != back1Path) {
+                        if (currentPath != back2Path) {
                             //前进状态
                             $rootScope.HistoryArr.push(currentPath);
-                        }else{
+                        } else {
                             //激活了浏览器的后退,这里只需要更新状态
-                            $rootScope.HistoryArr.length = $rootScope.HistoryArr.length-1;
+                            $rootScope.HistoryArr.length = $rootScope.HistoryArr.length - 1;
                         }
-                    }else{
+                    } else {
                         //当前状态就是数组的最后一个,这里不做处理
                     }
-                }else{
-                    if(back1Path != currentPath){
+                } else {
+                    if (back1Path != currentPath) {
                         $rootScope.HistoryArr.push(currentPath);
                     }
                 }
-                // console.log($rootScope.HistoryArr);
-                // console.log($rootScope.HistoryArr.length);
+                // alert($rootScope.HistoryArr);
+                // alert($rootScope.HistoryArr.length);
             });
 
             /**
@@ -51,10 +52,11 @@
                 //直接回到第一个页面,一定是主页
                 //如果不是home则转到home
                 //因为bug,无奈之举
-                if( $rootScope.HistoryArr[0] != "/home"){
+                if ($rootScope.HistoryArr[0] != "/home") {
                     $rootScope.HistoryArr.length = 0;
-                    $location.path('/home');
-                }else{
+                    $state.go("home");
+                    // $location.path('/home');
+                } else {
                     $window.history.go(1 - len);
                 }
                 angular.element(document.getElementById('member')).removeClass('showMember');
@@ -67,21 +69,22 @@
             $rootScope.goBack = function (step) {
                 !step && (step = 1);
                 step = parseInt(step);
-                if(isNaN(step)){
+                if (isNaN(step)) {
                     return "step must be a number";
                 }
                 //截断
-                $rootScope.HistoryArr.length = $rootScope.HistoryArr.length-step;
+                $rootScope.HistoryArr.length = $rootScope.HistoryArr.length - step;
                 $window.history.go(-(step));
             };
-
 
 
             /**
              * 兼容微信那套
              * */
             $scope.onTouch = function () {
-                document.ontouchmove = function(e){e.preventDefault(); };
+                document.ontouchmove = function (e) {
+                    e.preventDefault();
+                };
             };
             $scope.onRelease = function () {
                 document.ontouchmove = angular.noop();

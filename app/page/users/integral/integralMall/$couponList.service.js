@@ -60,8 +60,6 @@
                                 value.canDisplay = !!($filter('isTimeIn')(null, value.retrievablestrattime, value.retrievableendtime));
                             });
                             defer.resolve(result);
-                            // console.log('queryListVivo')
-                            console.log(result)
                         } else {
                             defer.resolve([]);
                             $ionicToast.show("列表获取失败,请稍后再试!");

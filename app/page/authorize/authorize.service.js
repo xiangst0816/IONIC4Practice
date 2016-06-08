@@ -109,7 +109,7 @@
         /**
          * 注册
          * */
-        .factory("$register", ['AJAX', 'api', '$q', '$log', '$ionicToast', '$rootScope', function (AJAX, api, $q, $log, $ionicToast, $rootScope) {
+        .factory("$register", ['AJAX', 'api', '$q', '$log', '$ionicToast', '$rootScope','$state', function (AJAX, api, $q, $log, $ionicToast, $rootScope,$state) {
             return function (options) {
                 if (!angular.isObject(options)) {
                     options = {};
@@ -148,12 +148,11 @@
                                     errText = "验证码错误!";
                                     break;
                                 case 8002:
-                                    errText = "您手机已注册，请直接登录!";
-                                    if (window.history.length == 2) {
-                                        window.location.replace(window.document.location.href.split('#')[0].toString() + '#/subNav/login');
-                                    } else {
-                                        $rootScope.goBack();
-                                    }
+                                    errText = "您手机已注册!";
+                                    // if(Internal.isInApp){
+                                    //     $state.go("subNav.login");
+                                    // }
+                                    // $state.go("subNav.login");
                                     break;
                                 case 8003:
                                     errText = "该微信号已被绑定!";

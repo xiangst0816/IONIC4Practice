@@ -16,7 +16,10 @@
                     删除
                 </ion-option-button>
             </ion-item>
-            <p class="noDataToDisplay" ng-if="items.length == 0">暂无消息!</p>
+
+            <div class="noDataToDisplay" ng-if="items.length == 0">
+                <p>暂无消息!</p>
+            </div>
         </ion-list>
     </ion-content>
 </ion-view>

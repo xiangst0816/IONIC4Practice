@@ -99,10 +99,11 @@ var nativePlugin = {
     checkJSAvailability: function (callback) {
         if (Internal.isInWeiXin) {
             wx.checkJsApi({
-                jsApiList: ['chooseImage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+                jsApiList: ['chooseImage','onMenuShareTimeline','onMenuShareQZone','scanQRCode'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
                 success: function (res) {
                     // 以键值对的形式返回，可用的api值true，不可用为false
                     // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
+                    alert(JSON.stringify(res));
                 }
             })
         } else if (Internal.isInApp && !!smartApp) {
@@ -427,13 +428,14 @@ var nativePlugin = {
 
     //配置app
 
+    // nativePlugin.checkJSAvailability();
 
     /**
      * 代码容错,进入判断是否有smartAPP变量
      * */
-    if (Internal.isInApp) {
+    if (Internal.isInApp && Internal.isIOS) {
         try {
-            if(!!smartApp && smartApp.availability()){
+            if (!!smartApp && smartApp.availability()) {
                 appInit()
             }
         } catch (e) {
@@ -441,12 +443,15 @@ var nativePlugin = {
                 var _log = console.log;
                 _log.call(console, '%c' + [].slice.call(arguments).join(' '), 'color: yellow;')
             })('smartApp当前不可用,请检查使用环境!');
+            smartApp = null;
+            document.addEventListener("SmartAppReady", function () {
+                appInit();
+            })
         }
-    } else {
-        document.addEventListener("SmartAppReady", function () {
-            appInit();
-        })
+    }else if(Internal.isInApp && Internal.isAndroid){
+        appInit();
     }
+
     function appInit() {
         //滑动返回
         smartApp.enableBackGesture();
@@ -456,6 +461,7 @@ var nativePlugin = {
             hidden: true
         });
     }
+
 })();
 
 

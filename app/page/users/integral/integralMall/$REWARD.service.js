@@ -12,11 +12,11 @@
             return {
                 restrict: 'A',
                 scope: {
-                    detail: '='
+                    rewardDetail: '='
                 },
-                controller: function ($scope, $element) {
+                controller: ['$scope','$element',function ($scope, $element) {
                     $element.on("touchend", function () {
-                        var couponDetail = $scope.detail;
+                        var couponDetail = $scope.rewardDetail;
                         if (couponDetail.type_code == 1) {
                             var title = '礼券';
                             var suffix = '张';
@@ -196,48 +196,14 @@
                                 "point": detail.point
                             }
                         });
-                        // var defer = $q.defer();
-                        // //参数
-                        // var totalNum = quantity;
-                        // var successNum = 0;
-                        // var paramsParts = {
-                        //     "conditions": {
-                        //         "custid": $sessionStorage.userInfo.customerid,
-                        //         "giftid": detail.couponid,
-                        //         "quantity": quantity,
-                        //         "point": detail.point
-                        //     }
-                        // };
-                        // sendReuest(paramsParts);
-                        // /**
-                        //  * 发送请求
-                        //  * */
-                        // function sendReuest(paramsParts) {
-                        //     $rewardGifts(paramsParts).then(function (codeText) {
-                        //         successNum++;
-                        //         $log.debug('successNum:totalNum');
-                        //         $log.debug(successNum + " : " + totalNum);
-                        //         if (successNum == totalNum) {
-                        //             defer.resolve(codeText);
-                        //         } else {
-                        //             sendReuest();
-                        //         }
-                        //     }, function (errText) {
-                        //         var text = "总共兑换礼品:" + totalNum + ",成功:" + successNum + "。失败查原因:" + errText;
-                        //         $log.debug(text);
-                        //         defer.reject(text);
-                        //     });
-                        // }
-                        //
-                        // return defer.promise;
                     }
-                }
+                }]
             }
         }])
         /**
          * 卡券领取-积分兑换卡券(ok)
          * */
-        .factory("$rewardCoupons", ['AJAX', 'api', '$q', '$ionicToast', '$log', function (AJAX, api, $q, $ionicToast, $log) {
+        .factory("$rewardCoupons", ['AJAX', 'api', '$q', '$log', function (AJAX, api, $q, $log) {
             return function (options) {
                 if (!angular.isObject(options)) {
                     options = {};
@@ -258,13 +224,13 @@
                 };
                 //数据合并
                 angular.deepExtend(params, options);
-                console.log(params)
+                // console.log(params)
                 AJAX({
                     method: 'post',
                     url: api.couponUrl,
                     data: params,
                     success: function (data) {
-                        console.log(data);
+                        // console.log(data);
                         if (parseInt(data.code) == 7001) {
                             defer.resolve("您可在【会员中心】-【礼品卡券】中查看/更改订单详情。")
                         } else {
@@ -306,7 +272,7 @@
                         }
                     },
                     error: function (errText) {
-                        $ionicToast.show("系统繁忙,请稍后再试!");
+                        // $ionicToast.show("系统繁忙,请稍后再试!");
                         $log.debug('兑换失败,code:' + JSON.stringify(errText));
                         defer.reject(errText);
                     }
@@ -317,7 +283,7 @@
         /**
          * 礼品兑换-积分兑换礼品()
          * */
-        .factory("$rewardGifts", ['AJAX', 'api', '$q', '$ionicToast', '$log', function (AJAX, api, $q, $ionicToast, $log) {
+        .factory("$rewardGifts", ['AJAX', 'api', '$q', '$log', function (AJAX, api, $q, $log) {
             return function (options) {
                 if (!angular.isObject(options)) {
                     options = {};

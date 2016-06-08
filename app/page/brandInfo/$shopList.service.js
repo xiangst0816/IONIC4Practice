@@ -49,7 +49,7 @@
                         if (data.code == 7001) {
 
                             defer.resolve(data.content);
-                            console.log(data.content);
+                            // console.log(data.content);
                             $log.debug("商铺列表获取成功,数据:" + data.content.length + "条")
                         } else {
                             defer.resolve([]);

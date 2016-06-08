@@ -32,6 +32,7 @@
                 }
 
                 var t = /^\d+$/;
+
                 if (t.test(value)) {
                     //纯数字->时间戳
                     value = parseInt(value);

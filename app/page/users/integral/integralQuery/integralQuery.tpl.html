@@ -1,56 +1,57 @@
 <ion-view title="积分查询" class="">
-<ion-content class="integralQuery" overflow-scroll="true">
-  <div class="stateNow text-left">
-    <i class="icon-integralQuery ion-selfIntegral"></i>
-    <span>当前可用积分:</span>
-    <span ng-bind="::totalIntegral"></span>
-  </div>
-  <div class="stateInfo">
-    <p>其中&ensp;<span ng-bind="::totalIntegral"></span>&ensp;积分将在&ensp;<span ng-bind="deadline.year"></span>年<span ng-bind="deadline.month"></span>月<span ng-bind="deadline.day"></span>日过期</p>
-    <p class="text-right" ui-sref="subNav.memberRights">如何获得积分</p>
-  </div>
-  <div class="buttonGroup">
-    <div class="selfIntegral" ui-sref="subNav.memberSelfIntegral"><span class="icon"></span><span>自助积分</span></div>
-    <div class="integralMall" ui-sref="subNav.memberIntegralMall"><span class="icon"></span><span>积分商城</span></div>
-  </div>
-  <div class="queryBox">
-    <div class="dateFrom">
-      <input type="date" name="datefrom" id="datefrom" placeholder="yyyy-MM-dd" ng-model="params.datefrom" required>
-    </div>
-    <section class="dateDivider"></section>
-    <div class="dateTo">
-      <input type="date" name="dateto" id="dateto" placeholder="yyyy-MM-dd" ng-model="params.dateto" required>
-    </div>
-    <div class="dateBtn" ng-click="searchIntegralHistory()">
-      <i class="icon-integralQuerySearch"></i>
-    </div>
+    <ion-content class="integralQuery" overflow-scroll="true">
+        <div class="stateNow text-left">
+            <i class="icon-integralQuery ion-selfIntegral"></i>
+            <span>当前可用积分:</span>
+            <span ng-bind="totalIntegral"></span>
+        </div>
+        <div class="stateInfo">
+            <div>
+            <p ng-show="duepoint">其中&ensp;<span ng-bind="duepoint"></span>&ensp;积分将在&ensp;
+                <span ng-bind="duedate | yyyyMd_cn"></span>
+                <!--<span ng-bind="deadline.year"></span>年<span ng-bind="deadline.month"></span>月<span ng-bind="deadline.day"></span>日-->
+                过期</p>
+            </div>
+            <p class="text-right" ui-sref="subNav.memberRights">如何获得积分</p>
+        </div>
+        <div class="buttonGroup">
+            <div class="selfIntegral" ui-sref="subNav.memberSelfIntegral"><span class="icon"></span><span>自助积分</span></div>
+            <div class="integralMall" ui-sref="subNav.memberIntegralMall"><span class="icon"></span><span>积分商城</span></div>
+        </div>
+        <div class="queryBox">
+            <div class="dateFrom">
+                <input type="date" name="datefrom" id="datefrom" placeholder="yyyy-MM-dd" ng-model="params.datefrom" required>
+            </div>
+            <section class="dateDivider"></section>
+            <div class="dateTo">
+                <input type="date" name="dateto" id="dateto" placeholder="yyyy-MM-dd" ng-model="params.dateto" required>
+            </div>
+            <div class="dateBtn" ng-click="searchIntegralHistory()">
+                <i class="icon-integralQuerySearch"></i>
+            </div>
 
-  </div>
-  <div class="queryList">
-    <div class="queryListEach" ng-repeat="item in dataToDisplay track by $index">
-      <p class="queryListEach-l1">
-        <span ng-bind="::item.channelname | pointChannelCode"></span>
-        <span><span ng-bind="::item.typename | pointTypecode"></span><span ng-bind="::item.pointnum"></span></span>
-      </p>
-      <p class="queryListEach-l2">
-        <span ng-bind="::item.remark"></span>
-        <span ng-bind="item.gettime | yyyyMd_cn"></span>
-      </p>
-    </div>
+        </div>
+        <div class="queryList">
+            <div class="queryListEach" ng-repeat="item in dataToDisplay track by $index">
+                <p class="queryListEach-l1">
+                    <span ng-bind="::item.channelname | pointChannelCode"></span>
+                    <span><span ng-bind="::item.typename | pointTypecode"></span><span ng-bind="::item.pointnum"></span></span>
+                </p>
+                <p class="queryListEach-l2">
+                    <span ng-bind="::item.remark"></span>
+                    <span ng-bind="item.gettime | yyyyMd_cn"></span>
+                </p>
+            </div>
+        </div>
+        <!--抱歉,暂无数据!-->
+        <div class="noDataToDisplay" ng-if=" dataToDisplay.length== 0 && !moreDataCanBeLoaded">
+            <p>无积分历史记录!</p>
+            <p>如果查询异常,请核对起止日期!</p>
+        </div>
+        <p class="noDataToDisplay" ng-if="!moreDataCanBeLoaded && dataToDisplay.length>findNum">
+            列表加载完毕!</p>
 
 
-
-
-  </div>
-  <!--抱歉,暂无数据!-->
-  <div class="noDataToDisplay" ng-if=" dataToDisplay.length== 0 && !moreDataCanBeLoaded">
-    <p>积分历史无记录!</p>
-    <p>如果查询异常,请核对起止日期!</p>
-  </div>
-  <p class="noDataToDisplay" ng-if="!moreDataCanBeLoaded && dataToDisplay.length>findNum">
-    列表加载完毕!</p>
-
-
-  <ion-infinite-scroll ng-show="moreDataCanBeLoaded" distance="1%" on-infinite="loadMore()"></ion-infinite-scroll>
-</ion-content>
+        <ion-infinite-scroll ng-show="moreDataCanBeLoaded" distance="1%" on-infinite="loadMore()"></ion-infinite-scroll>
+    </ion-content>
 </ion-view>

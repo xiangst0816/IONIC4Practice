@@ -127,26 +127,32 @@
   height: 0.54rem;
   display: inline-block;
   position: relative;
-  left: -0.187rem;
+  //left: -0.187rem;
 
   &.ion-phone {
+    left: -0.187rem;
     background: url(../img/icon/icon-phone.png) no-repeat center center/auto 100%;
   }
   &.ion-psw {
+    left: -0.187rem;
     background: url(../img/icon/icon-psw.png) no-repeat center center/auto 100%;
   }
   &.ion-yanzhengma {
     width: 0.505rem;
     height: 0.48rem;
+    left: -0.187rem;
     background: url(../img/icon/icon-yanzhengma.png) no-repeat center center/auto 100%;
   }
   &.ion-persion {
+    left: -0.187rem;
     background: url(../img/icon/icon-persion.png) no-repeat center center/100% auto;
   }
   &.ion-dizhi {
+    left: -0.187rem;
     background: url(../img/icon/icon-location.png) no-repeat center center/auto 100%;
   }
   &.ion-peoples {
+    left: -0.187rem;
     background: url(../img/icon/icon-peoples.png) no-repeat center center/100% auto;
   }
   &.ion-select {
@@ -172,6 +178,7 @@
   &.ion-headimg {
     width: 100%;
     height: 100%;
+    //left: -0.187rem;
     background: url(../img/icon/icon-headerimg.png) no-repeat center center/cover;
   }
 

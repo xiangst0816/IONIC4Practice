@@ -12,7 +12,7 @@
                 scope: {
                     item: '='
                 },
-                controller: function ($scope, $element) {
+                controller: ['$scope','$element',function ($scope, $element) {
                     //弹出的模板
                     var template = '<ion-popover-view class="showCode2D"> ' +
                         '<div class=showCode2DInnerBox> ' +
@@ -47,9 +47,7 @@
                     $scope.$on('$destroy', function () {
                         $scope.popover.remove();
                     });
-
-
-                }
+                }]
             }
         }])
 })();

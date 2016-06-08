@@ -137,12 +137,12 @@
 
   //整体激活状态
   &.active {
-    z-index: 100;
+    z-index: 999;
     opacity: 1;
     background: rgba(0, 0, 0, 0.6);
 
   }
   &.beforeActive {
-    z-index: 100;
+    z-index: 999;
   }
 }

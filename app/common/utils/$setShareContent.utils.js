@@ -20,41 +20,40 @@
              * */
             function getShareUrl(directToState, stateParams) {
 
-                if (!directToState) {
-                    directToState = baseInfo.defalutShareContent.directToState;
-                }
+                !directToState && (directToState = baseInfo.defalutShareContent.directToState);
+
                 var uri = baseInfo.shareInfo.url;
                 uri = uri + "?directToState=" + directToState;
 
                 //如果分享人未登录,何来分享送积分? 获取分享人信息
                 var userInfo = $sessionStorage.userInfo;
-                if (!!userInfo && !!userInfo.customerid) {
-                    uri = uri + "&sharedcustid=" + userInfo.customerid;
+                (!!userInfo && !!userInfo.customerid) && (uri = uri + "&sharedcustid=" + userInfo.customerid);
+
+                !!stateParams && (uri = uri + "&stateParams=" + stateParams);
+
+                if (Internal.isInApp) {
+                    return uri;
+                } else if (Internal.isInWeiXin) {
+                    //编码
+                    var redirect_uri = encodeURIComponent(uri);
+
+                    var response_type = "code";
+                    var scope = "snsapi_base";
+                    var state = "index#wechat";
+                    return "https://open.weixin.qq.com/connect/oauth2/authorize?" +
+                        "appid=" + baseInfo.wxAppID +
+                        "&redirect_uri=" + redirect_uri +
+                        "&response_type=" + response_type +
+                        "&scope=" + scope +
+                        "&state=" + state;
                 }
-
-
-                if (!!stateParams) {
-                    uri = uri + "&stateParams=" + stateParams;
-                }
-
-                //编码
-                var redirect_uri = encodeURIComponent(uri);
-
-                var response_type = "code";
-                var scope = "snsapi_base";
-                var state = "index#wechat";
-                return "https://open.weixin.qq.com/connect/oauth2/authorize?" +
-                    "appid=" + baseInfo.wxAppID +
-                    "&redirect_uri=" + redirect_uri +
-                    "&response_type=" + response_type +
-                    "&scope=" + scope +
-                    "&state=" + state;
             }
 
             /**
              * 进行分享
              * */
             function launchShare(shareContent) {
+                // alert(JSON.stringify(shareContent));
                 //当前地址签名,签名一次就好
                 if (Internal.isInWeiXin) {
                     $wxGetConfig().then(function () {

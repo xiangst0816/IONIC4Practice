@@ -15,8 +15,8 @@
                 if (!angular.isObject(options)) {options = {};}
                 var defer = $q.defer();
                 var integralInfo = $sessionStorage.integralInfo;
-                //设定保存30秒,30s内有效
-                if((integralInfo)&&(((new Date().getTime() - parseInt(integralInfo.time)) / 1000) < (30))){
+                //设定保存0秒,0s内有效
+                if((integralInfo)&&(((new Date().getTime() - parseInt(integralInfo.time)) / 1000) < (0))){
                     defer.resolve(integralInfo);
                     $log.debug("$integralInfo使用缓存数据");
                     return defer.promise;

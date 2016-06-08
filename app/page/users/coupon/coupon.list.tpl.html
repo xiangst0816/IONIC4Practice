@@ -32,7 +32,7 @@
                             <img class="" ng-src="{{::item.image_url | addImgPrefix}}"
                                  err-src="{{::errImg.errImg43_1}}">
                         </div>
-                        <div class="layer1-center">
+                        <div class="layer1-center" ng-class="{true:'width_coupon',false:''}[item.type_code == 1]">
                             <h2><span ng-bind="::item.name"></span>
                                 <!--<span ng-bind="::item.category_value | couponCategoryToName"></span>-->
                             </h2>

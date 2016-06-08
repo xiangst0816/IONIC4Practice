@@ -37,7 +37,7 @@
                                     removeObj($element);
                                     $timeout(function () {
                                         $element.remove();
-                                    }, 300, false);
+                                    }, 300, true);
                                     //设置已读
                                     $localStorage.guideInfo = {
                                         isFirstTime: false
@@ -46,7 +46,7 @@
                             } else {
                                 removeObj($element);
                             }
-                        }, 0, false);
+                        }, 20, true);
                     });
 
                     /**

@@ -244,9 +244,12 @@
 
 //个人资料
 .userInfo{
-  padding:0 1.38rem;
+  //padding:0 1.38rem;
   .userInfoList{
-    width:100%;
+    width:4.86rem;
+    margin-left: auto;
+    margin-right: auto;
+    //width:100%;
     border:1px solid transparent;
     .headerImg{
       margin-top:0.234rem;

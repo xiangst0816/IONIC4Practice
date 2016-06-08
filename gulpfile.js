@@ -58,10 +58,10 @@ gulp.task('move:basejs', function () {
     var stream = gulp.src([path.src + '/*.js']);
     if (ENV == "PRO") {
         return stream.pipe(uglify())
-        // .pipe(md5(10, path.dist + '/index.html'))
+
             .pipe(gulp.dest(path.dist));
     } else {
-        return stream.pipe(gulp.dest(path.dist));
+        return stream.pipe(md5(10, path.dist + '/index.html')).pipe(gulp.dest(path.dist));
     }
 });
 
@@ -75,8 +75,7 @@ gulp.task('move:index', function () {
     }));
     if (ENV == "PRO") {
         return stream
-        // .pipe(md5(10, path.dist + '/index.html'))
-            .pipe(htmlmin({collapseWhitespace: true}))
+        // .pipe(htmlmin({collapseWhitespace: true}))
             .pipe(gulp.dest(path.dist));
     } else {
         return stream.pipe(gulp.dest(path.dist));
@@ -94,10 +93,9 @@ gulp.task('move:lib', function () {
     var stream = gulp.src(path.src + '/lib/*.min.js').pipe(concat('core.js'));
     if (ENV == "PRO") {
         return stream.pipe(uglify())
-        // .pipe(md5(10, path.dist + '/index.html'))
             .pipe(gulp.dest(path.dist + '/js'));
     } else {
-        return stream.pipe(gulp.dest(path.dist + '/js'));
+        return stream.pipe(md5(10, path.dist + '/index.html')).pipe(gulp.dest(path.dist + '/js'));
     }
 });
 
@@ -113,7 +111,7 @@ var moveImg = {
 gulp.task('img:min', function () {
     if (ENV == "PRO") {
         return gulp.src(moveImg.src)
-            .pipe(imagemin())
+        // .pipe(imagemin())
             .pipe(gulp.dest(moveImg.dist));
     } else {
         return gulp.src(moveImg.src).pipe(gulp.dest(moveImg.dist));
@@ -130,10 +128,10 @@ gulp.task('commonJS', function () {
     var stream = gulp.src(path.src + '/common/**/*.js').pipe(concat('commonJS.js'));
     if (ENV == "PRO") {
         return stream.pipe(uglify())
-        // .pipe(md5(10, path.dist + '/index.html'))
+
             .pipe(gulp.dest(path.dist + '/js'));
     } else {
-        return stream.pipe(gulp.dest(path.dist + '/js'));
+        return stream.pipe(md5(10, path.dist + '/index.html')).pipe(gulp.dest(path.dist + '/js'));
     }
 });
 /**
@@ -144,10 +142,9 @@ gulp.task('pageJS', function () {
     var stream = gulp.src(path.src + '/page/**/*.js').pipe(concat('pageJS.js'));
     if (ENV == "PRO") {
         return stream.pipe(uglify())
-        // .pipe(md5(10, path.dist + '/index.html'))
             .pipe(gulp.dest(path.dist + '/js'));
     } else {
-        return stream.pipe(gulp.dest(path.dist + '/js'));
+        return stream.pipe(md5(10, path.dist + '/index.html')).pipe(gulp.dest(path.dist + '/js'));
     }
 });
 
@@ -183,10 +180,10 @@ gulp.task('pageCss', function () {
         }));
     if (ENV == "PRO") {
         return stream.pipe(cleanCSS())
-        // .pipe(md5(10, path.dist + '/index.html'))
+
             .pipe(gulp.dest(path.dist + '/css'))
     } else {
-        return stream.pipe(gulp.dest(path.dist + '/css'))
+        return stream.pipe(md5(10, path.dist + '/index.html')).pipe(gulp.dest(path.dist + '/css'))
     }
 });
 
@@ -217,10 +214,10 @@ gulp.task('ionicCss', function () {
         }));
     if (ENV == "PRO") {
         return stream.pipe(cleanCSS())
-        // .pipe(md5(10, path.dist + '/index.html'))
+
             .pipe(gulp.dest(path.dist + '/css'))
     } else {
-        return stream
+        return stream.pipe(md5(10, path.dist + '/index.html'))
         // .pipe(rename('ionic.css'))
             .pipe(gulp.dest(path.dist + '/css'))
     }
@@ -244,10 +241,12 @@ gulp.task('default', gulpSequence(
         'move:index',
         //移动tpl
         'move:tpl',
+    ], [
         //移动根目录文件
         'move:basejs',
         'move:ico',
         'move:font',
+    ], [
         //移动准备必须的资源
         'move:lib',
         //css合并

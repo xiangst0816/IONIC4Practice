@@ -28,7 +28,7 @@
 
         <div class="list integralMallList">
             <div class="item integral item-icon-left item-icon-right" ng-click="goBack()">
-                <span>我的积分: </span><span class="integralNum" ng-bind="::currenttotalnum"></span>
+                <span>我的积分: </span><span class="integralNum" ng-bind="currenttotalnum"></span>
                 <i class="icon-arrow-right"></i>
             </div>
 
@@ -61,7 +61,7 @@
                              ng-bind="::item.category_name | couponCategoryToName"></div>
                         <div ng-if="item.type_code == '2'" class="gouponTop lipin">礼品</div>
                         <div ng-if="!item.canConvert" class="convertBtn forbidden">兑换</div>
-                        <div ng-if="item.canConvert" ng-click="" class="convertBtn" click-to-reward detail="item">
+                        <div ng-if="item.canConvert" ng-click="" class="convertBtn" reward-detail="item" click-to-reward>
                             兑换
                         </div>
                     </section>

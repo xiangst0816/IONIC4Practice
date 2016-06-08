@@ -265,10 +265,6 @@
         // })
 
 
-
-
-
-
         /**
          * 过滤掉html代码片段中的style属性
          * 删除style字段及其内部属性
@@ -289,5 +285,49 @@
                 return htmlSegment;
             }
         })
+        /**
+         * 将HTML转化为只有换行符<br>的html
+         * */
+        .filter("html2br", function () {
+            return function (htmlSegment) {
+                if (!htmlSegment) {
+                    return ""
+                } else {
+                    htmlSegment = htmlSegment.replace(/<\/p>/ig, "|||");
+                    htmlSegment = htmlSegment.replace(/<.*?>/g, "");
+                    htmlSegment = htmlSegment.replace(/(\|\|\|)+/g, "<br>");
+                }
+                return htmlSegment;
+            }
+        })
+
+        /**
+         * 将HTML转化为text文本
+         * */
+        .filter("textOnly", function () {
+            return function (htmlSegment) {
+                if (!htmlSegment) {
+                    return ""
+                } else {
+                    htmlSegment = angular.element(htmlSegment).text();
+                }
+                return htmlSegment;
+            }
+        })
+
+        /**
+         * 纯文本中/n转化为<br>
+         * */
+        .filter("textWithBr", function () {
+            return function (htmlSegment) {
+                if (!htmlSegment) {
+                    return ""
+                } else {
+                    htmlSegment = htmlSegment.toString().replace(/\n/ig, "<br>");
+                }
+                return htmlSegment;
+            }
+        })
+
 
 })();
