@@ -6,19 +6,22 @@
  */
 (function () {
     angular.module('smartac.page')
-        .directive('firstInGuide', ['$localStorage', '$timeout', '$state','$ionicSlideBoxDelegate', function ($localStorage, $timeout, $state,$ionicSlideBoxDelegate) {
+        .directive('firstInGuide', ['$localStorage', '$timeout', '$state', '$ionicSlideBoxDelegate', function ($localStorage, $timeout, $state, $ionicSlideBoxDelegate) {
             return {
                 restrict: 'E',
                 // template: '<div id="firstGuideBox" class="firstGuideBox"><div class="userGuideBox"><img src="img/loading/usercenterGuide.png" alt=""></div><div class="planetGuideBox"><img src="img/loading/planetGuide.png" alt=""></div>',
-                templateUrl:'tpl/firstInGuide.html',
+                templateUrl: 'tpl/firstInGuide.html',
                 replace: true,
-                compile:function ($element) {
+                compile: function ($element) {
                     var guideInfo = $localStorage.guideInfo;
                     $timeout(function () {
                         if ($state.is("home") && (!guideInfo || guideInfo.isFirstTime)) {
                             $element.addClass("beforeActive active");
                         }
-                    },0,false);
+                        if(!!guideInfo && !guideInfo.isFirstTime){
+                            $element.remove();
+                        }
+                    }, 0, false);
                 },
                 controller: ['$scope', '$element', function ($scope, $element) {
                     $scope.$on("$stateChangeSuccess", function () {
@@ -28,7 +31,7 @@
                             //只在主页显示
                             if ($state.is("home") && (!guideInfo || guideInfo.isFirstTime)) {
                                 //满足显示条件
-                                // $element.addClass("beforeActive active");
+                                $element.addClass("beforeActive active");
                                 var $userSilder = $element.children("#userSilder");
                                 $scope.silderEnd = function () {
                                     removeObj($userSilder);
@@ -44,33 +47,37 @@
                                     };
                                 };
                             } else {
-                                removeObj($element);
+                                $element.removeClass("beforeActive active");
                             }
-                        }, 20, true);
+
+                            /**
+                             * 移除active类
+                             * */
+                            function removeObj($obj) {
+                                $obj.removeClass("active");
+                                $timeout(function () {
+                                    $obj.removeClass("beforeActive");
+                                }, 300, false);
+                            }
+
+                        }, 100, false);
                     });
 
                     /**
                      * 设置背景颜色
                      * */
-                    $scope.onSlideChange = function ($event) {
+                    $scope.onSlideChange = function () {
                         var currentIndex = $ionicSlideBoxDelegate.currentIndex();
                         var $userSilderBox = angular.element(document.getElementById('userSilderBox'));
-                        if(currentIndex == 0){
+                        // alert($userSilderBox);
+                        if (currentIndex == 0) {
                             $userSilderBox.css({"background": "#1898d2"})
-                        }else if(currentIndex == 2){
+                        } else if (currentIndex == 2) {
                             $userSilderBox.css({"background": "#e8ad3f"})
                         }
                     };
 
-                    /**
-                     * 移除active类
-                     * */
-                    function removeObj($obj) {
-                        $obj.removeClass("active");
-                        $timeout(function () {
-                            $obj.removeClass("beforeActive");
-                        }, 300, false);
-                    }
+
                 }]
             };
         }])

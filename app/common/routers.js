@@ -184,7 +184,7 @@
                 //忘记密码
                 .state('subNav.forgotPassword', {
                     url: '/forgotPassword',
-                    templateUrl: 'tpl/changePassword.tpl.html',
+                    templateUrl: 'tpl/forgotPassword.tpl.html',
                     controller: 'changePasswordCtrl'
                 })
                 //注册成功

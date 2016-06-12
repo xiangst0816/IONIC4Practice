@@ -33,7 +33,7 @@
                     // $ionicNavBarDelegate.title("密码更改");
                     document.getElementById("telephone").disabled = true;
                 }
-            }, 600, true);
+            }, 0, true);
 
 
             /**

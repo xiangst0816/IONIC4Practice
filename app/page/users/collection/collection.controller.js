@@ -105,10 +105,10 @@
                 $scope.moreDataCanBeLoaded = true;
                 //正在搜索?
                 $scope.isSearching = false;
-                $ionicLoading.show();
+                // $ionicLoading.show();
                 //执行
                 return $scope.loadMore().finally(function () {
-                    $ionicLoading.hide();
+                    // $ionicLoading.hide();
                 });
 
             }

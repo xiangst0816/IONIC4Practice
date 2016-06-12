@@ -18,7 +18,6 @@
     </div>
     <p class="noDataToDisplay"
        ng-if="!moreDataCanBeLoaded && dataToDisplay.length>findNum">列表加载完毕!</p>
-    <ion-infinite-scroll ng-show="moreDataCanBeLoaded" distance="5%"
-                         on-infinite="loadMore()"></ion-infinite-scroll>
+    <ion-infinite-scroll distance="1%" spinner="ripple"  ng-show="moreDataCanBeLoaded" class="listLoading" on-infinite="loadMore()"></ion-infinite-scroll>
   </ion-content>
 </ion-view>

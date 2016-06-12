@@ -6,7 +6,7 @@
     angular.module('smartac.page')
         .factory("$imgUpload", ['$http', '$ionicToast', '$log', '$q','api', function ( $http, $ionicToast, $log, $q,api) {
             /**
-             * 上传头像到图片服务器,并将图片uuid上传到CMS
+             * 上传头像到图片服务器
              */
             return function (file) {
                 var defer = $q.defer();
@@ -15,6 +15,7 @@
                 $http({
                     method: "POST",
                     url: api.imgDomainUrl + 'upload?type=2&filename=' + file.name + '&program_type=webapp',
+                    // url: api.imgDomainUrl + 'upload?type=2&filename=' + file.name + '&program_type=BASE',
                     headers: {
                         'Content-Type': undefined
                     },

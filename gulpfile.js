@@ -61,7 +61,9 @@ gulp.task('move:basejs', function () {
 
             .pipe(gulp.dest(path.dist));
     } else {
-        return stream.pipe(md5(10, path.dist + '/index.html')).pipe(gulp.dest(path.dist));
+        return stream
+            .pipe(md5(10, path.dist + '/index.html'))
+            .pipe(gulp.dest(path.dist));
     }
 });
 
@@ -95,7 +97,9 @@ gulp.task('move:lib', function () {
         return stream.pipe(uglify())
             .pipe(gulp.dest(path.dist + '/js'));
     } else {
-        return stream.pipe(md5(10, path.dist + '/index.html')).pipe(gulp.dest(path.dist + '/js'));
+        return stream
+            .pipe(md5(10, path.dist + '/index.html'))
+            .pipe(gulp.dest(path.dist + '/js'));
     }
 });
 
@@ -131,7 +135,9 @@ gulp.task('commonJS', function () {
 
             .pipe(gulp.dest(path.dist + '/js'));
     } else {
-        return stream.pipe(md5(10, path.dist + '/index.html')).pipe(gulp.dest(path.dist + '/js'));
+        return stream
+            .pipe(md5(10, path.dist + '/index.html'))
+            .pipe(gulp.dest(path.dist + '/js'));
     }
 });
 /**
@@ -144,7 +150,9 @@ gulp.task('pageJS', function () {
         return stream.pipe(uglify())
             .pipe(gulp.dest(path.dist + '/js'));
     } else {
-        return stream.pipe(md5(10, path.dist + '/index.html')).pipe(gulp.dest(path.dist + '/js'));
+        return stream
+            .pipe(md5(10, path.dist + '/index.html'))
+            .pipe(gulp.dest(path.dist + '/js'));
     }
 });
 
@@ -183,7 +191,9 @@ gulp.task('pageCss', function () {
 
             .pipe(gulp.dest(path.dist + '/css'))
     } else {
-        return stream.pipe(md5(10, path.dist + '/index.html')).pipe(gulp.dest(path.dist + '/css'))
+        return stream
+            .pipe(md5(10, path.dist + '/index.html'))
+            .pipe(gulp.dest(path.dist + '/css'))
     }
 });
 
@@ -217,7 +227,8 @@ gulp.task('ionicCss', function () {
 
             .pipe(gulp.dest(path.dist + '/css'))
     } else {
-        return stream.pipe(md5(10, path.dist + '/index.html'))
+        return stream
+            .pipe(md5(10, path.dist + '/index.html'))
         // .pipe(rename('ionic.css'))
             .pipe(gulp.dest(path.dist + '/css'))
     }

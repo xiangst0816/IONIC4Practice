@@ -78,17 +78,7 @@
             };
 
 
-            /**
-             * 兼容微信那套
-             * */
-            $scope.onTouch = function () {
-                document.ontouchmove = function (e) {
-                    e.preventDefault();
-                };
-            };
-            $scope.onRelease = function () {
-                document.ontouchmove = angular.noop();
-            };
+          
         }]);
 })();
 

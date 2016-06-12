@@ -39,6 +39,7 @@
                  * 项目地址
                  * */
                 url: "http://vivouat.smartac.co",
+                urlIP:"http://172.16.1.5",
 
                 /**
                  * 分享配置
@@ -77,7 +78,7 @@
                 indexUrl: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9587233d8b1a1869&redirect_uri=http%3A%2F%2Fvivouat.smartac.co%2Fwebapp%2Findex.html&response_type=code&scope=snsapi_base&state=index#wechat_redirect", //webapp的首页地址
                 domain: baseInfo.url + "/api",   //接口地址,映射的地址
                 socketChatUrl: baseInfo.url + ":8087",  //客服聊天地址
-                resourceDomain: baseInfo.url + ":8000/resource/",  //图片资源地址
+                resourceDomain:baseInfo.url + ":8000/resource/",  //图片资源地址
 
                 //二维码的生成地址
                 generateQrcodeUrl: baseInfo.url + ":15433/barcode?symbology=58&size=645&s_fg_color=000000&s_bg_color=ffffff&margin=0&level=2&ecc_level=1&hint=1&ver=0&transparent=0&txt="

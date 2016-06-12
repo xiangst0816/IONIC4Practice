@@ -5,14 +5,14 @@
 (function () {
     angular.module('smartac.page')
     //ionPlanetBox外层总容器
-        .directive('ionPlanet', [function () {
+        .directive('ionPlanet', ['$timeout',function ($timeout) {
             return {
                 restrict: 'E',
                 // scope: {
                 //     planetNum: '@',
                 //     circleWidth:'@'
                 // },
-                controller: ['$scope','$log', function ($scope, $log) {
+                controller: ['$scope', '$log', function ($scope, $log) {
                     /**
                      * 每个行星定位
                      * */
@@ -21,7 +21,7 @@
                     var baseFontSize = document.documentElement.style.fontSize;
                     //虚线轨迹直径(rem),
                     var circleWidth = 7.8;//rem
-                    circleWidth = parseFloat(circleWidth) * parseFloat(baseFontSize);
+                    circleWidth = parseFloat(circleWidth) * parseFloat(baseFontSize);//px
                     var circleRadius = Math.floor((circleWidth / 2) * 100) / 100;
                     //导航栏目个数
                     var itemCount = 6;
@@ -49,10 +49,11 @@
                      * 控制每个行星旋转
                      * */
                     var swiperEachBoxi = document.querySelectorAll('.index-bottom-swiper-eachBox-i');
-                    //滑动处理函数
-                    var rotateNow = 0;
+
                     //找到行星轨迹的虚线DOM
                     var swiperInner = document.getElementById('index-bottom-swiper-inner');
+
+
                     $scope.swipeRight = function () {
                         // document.ontouchmove = function(e){e.preventDefault(); };
                         rotateNow = rotateNow + 360 / itemCount;
@@ -66,17 +67,93 @@
                     $scope.swipeLeft = function () {
                         // document.ontouchmove = function(e){e.preventDefault(); };
                         rotateNow = rotateNow - 360 / itemCount;
-                        //console.log(rotateNow)
+
                         swiperInner.style.webkitTransform = "rotate(" + parseFloat(rotateNow) + "deg)";
                         for (var i = 0; swiperEachBoxi.length > i; i++) {
                             swiperEachBoxi[i].style.webkitTransform = "rotate(" + parseFloat(rotateNow * -1) + "deg)";
                         }
-                        showORNot();
+                        // showORNot();
                     };
+
+                    //转动之前的状态
+                    var rotateBefore = 0;
+                    //转动之后的状态
+                    var rotateNext = 0;
+                    //正在转动的状态
+                    var rotateNow = 0;
+                    //当前转动百分比
+                    var percent = 0;
+                    //每次转动的固定角度(6个行星60度)
+                    var rotateEachDeg = 360 / itemCount;
+                    //滑动速度
+                    var velocityX
+
+                    $scope.onTouch = function () {
+                        document.ontouchmove = function (e) {
+                            e.preventDefault();
+                        };
+                    }
+
+                    $scope.onDrag = function (e) {
+                        percent = parseFloat(e.gesture.deltaX * 2 / circleWidth);
+                        rotateNow = parseInt(rotateBefore + rotateEachDeg * percent);
+                        velocityX = e.gesture.velocityX;
+                        requestAnimationFrame(move);
+                    }
+                    $scope.onRelease = function () {
+                        $timeout(function () {
+                            document.ontouchmove = angular.noop();
+                        },300,false);
+                        //
+                        if (parseInt(Math.abs(percent * 100)) < 90 || velocityX >0.6) {
+                            moveBack();
+                        } else {
+                            moveNext();
+                        }
+                    }
+
+                    function move() {
+                        swiperInner.style.cssText = 'transform: rotate(' + parseFloat(rotateNow) + 'deg)';
+                        for (var i = 0; swiperEachBoxi.length > i; i++) {
+                            swiperEachBoxi[i].style.cssText = 'transform: rotate(' + parseFloat(-rotateNow) + 'deg)';
+                        }
+                    }
+
+                    function moveNext() {
+                        //判断下一个的位置,是左边还是右边
+                        if (rotateNow > rotateBefore) {
+                            //右边
+                            console.log("右边");
+                            rotateNext = rotateBefore + rotateEachDeg;
+
+                        } else {
+                            //左边
+                            console.log("左边");
+                            rotateNext = rotateBefore - rotateEachDeg;
+                        }
+                        animate(rotateNext);
+                        rotateBefore = rotateNext;
+                    }
+
+                    function moveBack() {
+                        animate(rotateBefore);
+                    }
+
+                    function animate(rotate) {
+                        swiperInner.style.cssText = 'transform: rotate(' + parseFloat(rotate) + 'deg);transition-duration: 300ms';
+                        for (var i = 0; swiperEachBoxi.length > i; i++) {
+                            swiperEachBoxi[i].style.cssText = 'transform: rotate(' + parseFloat(-rotate) + 'deg);transition-duration: 300ms';
+                        }
+                        $timeout(function () {
+                            rotateNext = 0;
+                            rotateNow = 0;
+                            percent = 0;
+                        },300,false);
+                    }
 
 
                     //隐藏底部的三个行星不显示
-                    showORNot();
+                    // showORNot();
                     /**
                      * 隐藏底部的三个行星不显示
                      * */
@@ -144,7 +221,7 @@
                         swiperInnerBox[b].style.opacity = 0;
                         swiperInnerBox[c].style.opacity = 0;
 
-                        $log.debug("index为"+whichTop + "的行星在中间");
+                        $log.debug("index为" + whichTop + "的行星在中间");
 
                         applyAnimation(whichTop);
                     }

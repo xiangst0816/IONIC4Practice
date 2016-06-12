@@ -43,7 +43,7 @@
       left: 50%;
       top: 0.94rem;
       margin-left: -$boxWidth/2;
-      transition: transform ease 300ms;
+      //transition: transform ease 300ms;
       //设置行星背景
       & > .index-bottom-swiper-eachBox:nth-child(n) {
         & > .index-bottom-swiper-eachBox-i {
@@ -69,7 +69,7 @@
       height: 1.85rem;
       display: block;
       font-size: 0.25rem;
-      transition: transform 300ms ease 0s, opacity 300ms ease 0s;
+      //transition: transform 300ms ease 0s, opacity 300ms ease 0s;
     }
 
     //内部旋转的盒子
@@ -78,7 +78,7 @@
       height: 100%;
       //background-color: #ff9700;
       color: #fbfdff;
-      transition: transform ease 300ms;
+      //transition: transform ease 300ms;
       text-align: center;
       border-radius: 30%;
       padding: 0.117rem;

@@ -6,6 +6,8 @@
     angular.module('smartac.page')
         .controller('homeCtrl', ['$scope', '$sessionStorage', '$rootScope', '$ionicPopup', '$state', 'api', 'AJAX', '$ionicToast', '$q', '$getCode', '$getUrlParams', '$checkAuthorize', '$filter', '$log', '$ionicLoading', '$integralInfo', '$getMessage', '$localStorage', '$timeout', function ($scope, $sessionStorage, $rootScope, $ionicPopup, $state, api, AJAX, $ionicToast, $q, $getCode, $getUrlParams, $checkAuthorize, $filter, $log, $ionicLoading, $integralInfo, $getMessage, $localStorage, $timeout) {
 
+            
+           
             /**
              * 微信用户将退出隐藏
              * */
@@ -26,9 +28,16 @@
                  * */
                 var urlParams = $getUrlParams();
                 var directToState = urlParams.directToState;
+                var needAuth = urlParams.needAuth;
                 if (directToState) {
                     if (directToState.indexOf("subNav") != -1) {
-                        $state.go(directToState);
+                        if (!!needAuth) {
+                            $checkAuthorize().then(function () {
+                                $state.go(directToState);
+                            })
+                        } else {
+                            $state.go(directToState);
+                        }
                     } else if (directToState.indexOf("members") != -1) {
                         showMember();
                     }
@@ -41,7 +50,8 @@
              *  检查权限(需要注册,需要关注)
              * 然后查询信息,故这里不再查询用户信息
              * */
-            $scope.showMember = function () {
+            $scope.showMember = showMember;
+            function showMember() {
                 $checkAuthorize("wxLevel_Att&Reg").then(function () {
                     //具备授权
                     $ionicLoading.show({
@@ -57,7 +67,8 @@
                         $ionicLoading.hide();
                     });
                 });
-            };
+            }
+
             /**
              * 收起 用户中心  显示首页
              * */

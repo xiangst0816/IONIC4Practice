@@ -23,7 +23,7 @@
                                 code: e.target.result,
                                 file: event.target.files[0]
                             };
-                            if (imgData.file.size / 1000 > 3000) { //file.size的单位为字节
+                            if (imgData.file.size / 1000 > 13000) { //file.size的单位为字节
                                 // defer.reject("图片大小过大，请上传3M以内的图片");
                                 $log.debug("图片大小过大,请上传3M以内的图片");
                                 errorCB && errorCB("图片大小过大,请上传3M以内的图片");

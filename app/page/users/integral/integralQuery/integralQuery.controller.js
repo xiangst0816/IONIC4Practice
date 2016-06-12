@@ -136,10 +136,10 @@
                 $scope.moreDataCanBeLoaded = true;
                 //正在搜索?
                 $scope.isSearching = false;
-                $ionicLoading.show();
+                // $ionicLoading.show();
                 //执行
                 return $scope.loadMore().finally(function () {
-                    $ionicLoading.hide();
+                    // $ionicLoading.hide();
                 });
             }
 
@@ -229,7 +229,7 @@
                     //     $log.debug("获得积分过期时间失败,当前使用默认日期,12.30");
                     // }
                 }, function (err) {
-                    $ionicToast.show("积分过期时间获取失败," + err);
+                    $ionicToast.show("积分过期时间获取失败,请稍后再试!");
                 });
             }
         }]);
