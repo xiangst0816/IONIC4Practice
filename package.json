@@ -3,6 +3,7 @@
   "version": "1.1.1",
   "description": "An Ionic project",
   "dependencies": {
+    "browser-sync": "^2.13.0",
     "gulp": "^3.5.6",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-base64": "^0.1.3",

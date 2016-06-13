@@ -8,7 +8,7 @@
 
 (function () {
     angular.module('smartac.page')
-        .controller('mainCtrl', ['$scope', '$sessionStorage', '$state', '$ionicHistory', '$rootScope', '$log', '$timeout', '$window', '$location', function ($scope, $sessionStorage, $state, $ionicHistory, $rootScope, $log, $timeout, $window, $location) {
+        .controller('mainCtrl', ['$scope', '$sessionStorage', '$state', '$ionicHistory', '$rootScope', '$log', '$timeout', '$window', '$location','$ionicScrollDelegate', function ($scope, $sessionStorage, $state, $ionicHistory, $rootScope, $log, $timeout, $window, $location,$ionicScrollDelegate) {
             /**
              * 定义后退和返回操作
              * */
@@ -77,6 +77,17 @@
                 $window.history.go(-(step));
             };
 
+            /**
+             * 兼容微信那套
+             * */
+            $scope.onTouch = function () {
+                document.ontouchmove = function (e) {
+                    e.preventDefault();
+                };
+            };
+            $scope.onRelease = function () {
+                document.ontouchmove = angular.noop();
+            };
 
           
         }]);

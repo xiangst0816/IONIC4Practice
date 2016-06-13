@@ -5,7 +5,7 @@
 (function () {
     angular.module('smartac.page')
     //ionPlanetBox外层总容器
-        .directive('ionPlanet', ['$timeout',function ($timeout) {
+        .directive('ionPlanet', ['$timeout', function ($timeout) {
             return {
                 restrict: 'E',
                 // scope: {
@@ -24,19 +24,18 @@
                     circleWidth = parseFloat(circleWidth) * parseFloat(baseFontSize);//px
                     var circleRadius = Math.floor((circleWidth / 2) * 100) / 100;
                     //导航栏目个数
-                    var itemCount = 6;
+                    var itemCount = swiperInnerBox.length;
+                    //每一个的角度
                     var regEach = 2 * Math.PI / itemCount;
                     var reg = Math.PI;
-
+                    //每个行星的宽度 = 设定的rem值 * html的font-size值
+                    var swiperEachBoxWidth = 1.85;//rem
+                    swiperEachBoxWidth = parseFloat(swiperEachBoxWidth) * parseFloat(baseFontSize);
                     //确定每一个行星的位置
                     for (var i = 0; itemCount > i; i++) {
                         //如果特别小,在手机端会出现bug,保留2位小数
                         var sinx = Math.floor(Math.sin(reg) * circleRadius * 100) / 100;
                         var cosx = Math.floor(Math.cos(reg) * circleRadius * 100) / 100;
-
-                        //每个行星的宽度 = 设定的rem值 * html的font-size值
-                        var swiperEachBoxWidth = 1.85;//rem
-                        swiperEachBoxWidth = parseFloat(swiperEachBoxWidth) * parseFloat(baseFontSize);
                         cssText =
                             'left:' + (circleRadius + sinx - swiperEachBoxWidth / 2) + 'px;' +
                             'top:' + (circleRadius + cosx - swiperEachBoxWidth / 2) + 'px;';
@@ -53,28 +52,6 @@
                     //找到行星轨迹的虚线DOM
                     var swiperInner = document.getElementById('index-bottom-swiper-inner');
 
-
-                    $scope.swipeRight = function () {
-                        // document.ontouchmove = function(e){e.preventDefault(); };
-                        rotateNow = rotateNow + 360 / itemCount;
-                        //console.log(rotateNow)
-                        swiperInner.style.webkitTransform = "rotate(" + parseFloat(rotateNow) + "deg)";
-                        for (var i = 0; swiperEachBoxi.length > i; i++) {
-                            swiperEachBoxi[i].style.webkitTransform = "rotate(" + parseFloat(rotateNow * -1) + "deg)";
-                        }
-                        showORNot();
-                    };
-                    $scope.swipeLeft = function () {
-                        // document.ontouchmove = function(e){e.preventDefault(); };
-                        rotateNow = rotateNow - 360 / itemCount;
-
-                        swiperInner.style.webkitTransform = "rotate(" + parseFloat(rotateNow) + "deg)";
-                        for (var i = 0; swiperEachBoxi.length > i; i++) {
-                            swiperEachBoxi[i].style.webkitTransform = "rotate(" + parseFloat(rotateNow * -1) + "deg)";
-                        }
-                        // showORNot();
-                    };
-
                     //转动之前的状态
                     var rotateBefore = 0;
                     //转动之后的状态
@@ -86,79 +63,139 @@
                     //每次转动的固定角度(6个行星60度)
                     var rotateEachDeg = 360 / itemCount;
                     //滑动速度
-                    var velocityX
+                    var velocityX;
+                    //判断是否在动画中
+                    var isAnimate = false;
 
-                    $scope.onTouch = function () {
+                    //动触摸时
+                    $scope.onTouchPlanet = function () {
                         document.ontouchmove = function (e) {
                             e.preventDefault();
                         };
-                    }
-
+                    };
+                    //当拖动时
                     $scope.onDrag = function (e) {
-                        percent = parseFloat(e.gesture.deltaX * 2 / circleWidth);
-                        rotateNow = parseInt(rotateBefore + rotateEachDeg * percent);
-                        velocityX = e.gesture.velocityX;
-                        requestAnimationFrame(move);
-                    }
-                    $scope.onRelease = function () {
+                        if (!isAnimate && Internal.isIOS) {
+                            percent = parseFloat(e.gesture.deltaX * 1 / circleWidth);
+                            rotateNow = parseFloat(rotateBefore + rotateEachDeg * percent);
+                            // requestAnimationFrame(move);
+                            move(rotateNow)
+                        } else {
+                            e.preventDefault();
+                            // console.log("正在animate:" + isAnimate)
+                            return false;
+                        }
+
+                    };
+                    //当停止触控
+                    $scope.onReleasePlanet = function (e) {
+                        if (!isAnimate && Internal.isIOS) {
+                            velocityX = e.gesture.velocityX;
+                            //移动距离不会超过100%,大于50%就进入下一个
+                            var min_velocityX = 0.2;
+                            var max_velocityX = 1.4;
+                            if (parseInt(Math.abs(percent * 100)) < 50) {
+                                if (velocityX > min_velocityX && velocityX <= max_velocityX) {
+                                    moveNext(1);
+                                } else if (velocityX > max_velocityX) {
+                                    moveNext(2);
+                                } else {
+                                    moveBack();
+                                }
+                            } else {
+                                if (velocityX <= max_velocityX) {
+                                    moveNext(1);
+                                } else if (velocityX > max_velocityX) {
+                                    moveNext(2);
+                                }
+                            }
+                        }
                         $timeout(function () {
                             document.ontouchmove = angular.noop();
-                        },300,false);
-                        //
-                        if (parseInt(Math.abs(percent * 100)) < 90 || velocityX >0.6) {
-                            moveBack();
-                        } else {
-                            moveNext();
-                        }
-                    }
+                        }, 300, false);
+                    };
 
-                    function move() {
-                        swiperInner.style.cssText = 'transform: rotate(' + parseFloat(rotateNow) + 'deg)';
+                    //正对安卓,不适用随手动画
+                    $scope.swipeRight = function () {
+                        if(Internal.isAndroid){
+                            rotateNow = rotateBefore + rotateEachDeg;
+                            moveNext(1);
+                            showORNot();
+                        }
+                    };
+                    $scope.swipeLeft = function () {
+                        if(Internal.isAndroid){
+                            rotateNow = rotateBefore - rotateEachDeg;
+                            moveNext(1);
+                            showORNot();
+                        }
+                    };
+
+                    //转动输入的角度
+                    function move(rotate) {
+                        swiperInner.style.cssText = 'transform: rotate(' + (rotate) + 'deg)';
                         for (var i = 0; swiperEachBoxi.length > i; i++) {
-                            swiperEachBoxi[i].style.cssText = 'transform: rotate(' + parseFloat(-rotateNow) + 'deg)';
+                            swiperEachBoxi[i].style.cssText = 'transform: rotate(' + (rotate * -1) + 'deg)';
                         }
                     }
 
-                    function moveNext() {
+                    function moveNext(a) {
+                        // console.log(rotateNow + ":" + rotateBefore);
                         //判断下一个的位置,是左边还是右边
                         if (rotateNow > rotateBefore) {
                             //右边
-                            console.log("右边");
-                            rotateNext = rotateBefore + rotateEachDeg;
+                            // console.log("右边");
+                            rotateNext = rotateBefore + rotateEachDeg * a;
 
                         } else {
                             //左边
-                            console.log("左边");
-                            rotateNext = rotateBefore - rotateEachDeg;
+                            // console.log("左边");
+                            rotateNext = rotateBefore - rotateEachDeg * a;
                         }
+                        // console.log('rotateNext')
+                        // console.log(rotateNext)
                         animate(rotateNext);
                         rotateBefore = rotateNext;
+                        showORNot();
                     }
+
 
                     function moveBack() {
                         animate(rotateBefore);
+                        showORNot();
                     }
 
                     function animate(rotate) {
-                        swiperInner.style.cssText = 'transform: rotate(' + parseFloat(rotate) + 'deg);transition-duration: 300ms';
-                        for (var i = 0; swiperEachBoxi.length > i; i++) {
-                            swiperEachBoxi[i].style.cssText = 'transform: rotate(' + parseFloat(-rotate) + 'deg);transition-duration: 300ms';
-                        }
+                        isAnimate = true;
                         $timeout(function () {
-                            rotateNext = 0;
-                            rotateNow = 0;
-                            percent = 0;
-                        },300,false);
+
+                            // console.log(rotate)
+                            swiperInner.style.cssText = 'transform: rotate(' + (rotate) + 'deg);transition-duration: 300ms';
+                            for (var i = 0; swiperEachBoxi.length > i; i++) {
+                                swiperEachBoxi[i].style.cssText = 'transform: rotate(' + (rotate * -1) + 'deg);transition-duration: 300ms';
+                            }
+                            $timeout(function () {
+                                isAnimate = false;
+                                rotateNext = 0;
+                                rotateNow = 0;
+                                percent = 0;
+                                // console.log("animate Done")
+                            }, 300, false);
+
+
+                        });
+
+
                     }
 
 
                     //隐藏底部的三个行星不显示
-                    // showORNot();
+                    showORNot();
                     /**
                      * 隐藏底部的三个行星不显示
                      * */
                     function showORNot() {
-                        var a = rotateNow / (360 / itemCount);
+                        var a = rotateBefore / rotateEachDeg;
                         var whichTop;
 
                         //向右转,角度为正
@@ -217,11 +254,11 @@
                         for (var i = 0; swiperInnerBox.length > i; i++) {
                             swiperInnerBox[i].style.opacity = 1;
                         }
-                        swiperInnerBox[a].style.opacity = 0;
-                        swiperInnerBox[b].style.opacity = 0;
-                        swiperInnerBox[c].style.opacity = 0;
-
+                        swiperInnerBox[a].style.cssText += 'opacity:0;transition-duration: 300ms;';
+                        swiperInnerBox[b].style.cssText += 'opacity:0;transition-duration: 300ms;';
+                        swiperInnerBox[c].style.cssText += 'opacity:0;transition-duration: 300ms;';
                         $log.debug("index为" + whichTop + "的行星在中间");
+                        // console.log("index为" + whichTop + "的行星在中间");
 
                         applyAnimation(whichTop);
                     }

@@ -1,7 +1,7 @@
 <!--
 首页文件
 -->
-<ion-view title="Home" class="home" first-in-guide>
+<ion-view title="Home" class="home" first-in-guide on-touch="onTouch()" on-release="onRelease()" >
     <ion-slide-box
             class="index-top-swiper"
             does-continue="true"
@@ -24,7 +24,7 @@
 
 
     <!--<ion-planet on-swipe-left="swipeLeft()" on-swipe-right="swipeRight()" on-touch="onTouch()" on-release="onRelease()" on-drag="onDrag($event)"-->
-    <ion-planet on-touch="onTouch()" on-release="onRelease()" on-drag="onDrag($event)"
+    <ion-planet on-touch="onTouchPlanet()" on-release="onReleasePlanet($event)" on-drag="onDrag($event)" on-swipe-left="swipeLeft()" on-swipe-right="swipeRight()"
                 class="index-bottom-swiper"
                 id="index-bottom-swiper">
         <!--下部swiper-nav-->

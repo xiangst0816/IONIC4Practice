@@ -91,7 +91,7 @@
          * $log的debug方法显示开关
          * */
         .config(['$logProvider', function ($logProvider) {
-            $logProvider.debugEnabled(false);
+            $logProvider.debugEnabled(true);
         }])
         .run(['$ionicPlatform', function ($ionicPlatform) {
             $ionicPlatform.ready(function () {

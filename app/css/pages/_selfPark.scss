@@ -3,6 +3,7 @@
 
   padding-top: 0.5rem !important;
   .parkInfo {
+
     p {
       margin-bottom: 0;
     }
@@ -241,6 +242,8 @@
     @include justify-content(center);
     @include align-items(center);
 
+    background:url(../img/selfpark/code.png) no-repeat center center/100% auto;
+
     //display: flex;
     //justify-content: center;
     //align-items: center;
@@ -306,6 +309,7 @@
 
   .parkInfo{
     margin-top:0.38rem;
+    border-bottom:1px solid #c9c9c9;
 
     li{
       height:0.9rem;
@@ -332,6 +336,8 @@
       @include align-items(center);
       @include flex-wrap(nowrap);
 
+      position: relative;
+
       //display: flex;
       //justify-content: space-between;
       //align-items: center;
@@ -346,6 +352,8 @@
         @include display-flex;
         @include justify-content(center);
         @include align-items(center);
+
+
 
         //display: flex;
         //justify-content:center;
@@ -367,15 +375,89 @@
           padding-left:0.2rem;
           padding-right:0.2rem;
           display: block;
-
-
         }
         .useInfo{
           font-size:0.22rem;
           line-height:140%;
         }
       }
+
+      i{
+        transition: -webkit-transform ease 200ms;
+      }
+      &.active{
+        i{
+          transform:rotate(90deg);
+        }
+      }
+
+      .inter_title{
+        @include display-flex;
+        @include justify-content(center);
+        @include flex-direction(row);
+        @include align-items(center);
+        font-size:0.25rem;
+        padding-right:0.7rem;
+        position: relative;
+        &>i{
+          position: absolute;
+          right:0;
+          top:0rem;
+        }
+      }
     }
+    .itemInner{
+      @include display-flex;
+      @include justify-content(space-between);
+      @include align-items(center);
+      @include flex-direction(column);
+
+      //display: flex;
+      //justify-content: space-between;
+      //align-items: center;
+      //flex-wrap: nowrap;
+
+      background: #F9F9F9;
+
+      font-size:0.3rem;
+      color:#535353;
+      border-bottom:1px solid #c9c9c9;
+      height:auto;
+      padding:0.1rem;
+      .interInfo_1{
+        padding:0.1rem;
+
+        font-size:0.36rem;
+      }
+      .interInfo_2{
+        font-size:0.22rem;
+        //padding:0rem;
+      }
+      .interEg{
+        @include display-flex;
+        @include justify-content(center);
+        @include flex-direction(row);
+        @include flex-wrap(wrap);
+        width:100%;
+        text-align: center;
+        padding:0.1rem;
+        font-size:0.36rem;
+        &>span{
+          width:30%;
+          margin:0.1rem;
+          border:1px solid #c9c9c9;
+          &.activated{
+            background:$stable;
+            color:#fff;
+            border:1px solid $stable;
+          }
+        }
+      }
+
+
+    }
+
+
     #couponItem{
       &>.payItem{
         border-top: 1px solid #c9c9c9;

@@ -11,6 +11,8 @@
              * 点击扫码支付
              * */
             $scope.scannerBtn = function () {
+
+
                 nativePlugin.scanQRCode(function (barCode) {
                     alert(JSON.stringify(barCode))
                     alert(JSON.stringify(barCode.resultStr))
@@ -20,11 +22,11 @@
                      * 由baCode查找停车信息
                      * */
                     $getParkingFee({
-                        "ticketInfo": barCode.resultStr//停车小票扫码出来的信息
+                        "ticketInfo": barCode//停车小票扫码出来的信息
                     }).then(function (data) {
                         //成功
-                        alert(JSON.stringify(data))
-                        $state.go('subNav.selfPayToPay', data)
+                        alert(JSON.stringify(data));
+                        $state.go('subNav.selfPayToPay', data);
                     }, function (errText) {
                         //失败
                         $ionicToast.show("扫码失败," + errText)
@@ -36,19 +38,20 @@
                 /**
                  * 测试
                  * */
-                // $getParkingFee({
-                //     "ticketInfo": ""//停车小票扫码出来的信息
-                // }).then(function (result) {
-                //     // alert(JSON.stringify(result))
-                //     console.log(JSON.stringify(result))
-                //     $state.go('subNav.selfPayToPay', {
-                //         data: result
-                //     })
-                // }, function (errText) {
-                //     $ionicToast.show("扫码失败," + errText)
-                // }).finally(function () {
-                //     $ionicLoading.hide();
-                // })
+                $getParkingFee({
+                    "ticketInfo": "sdfsdfsdsdfsd"//停车小票扫码出来的信息
+                }).then(function (result) {
+                    // alert(JSON.stringify(result))
+                    console.log('JSON.stringify(result)')
+                    console.log(JSON.stringify(result))
+                    $state.go('subNav.selfPayToPay', {
+                        data: result
+                    })
+                }, function (errText) {
+                    $ionicToast.show("扫码失败," + errText)
+                }).finally(function () {
+                    $ionicLoading.hide();
+                })
             }
 
 

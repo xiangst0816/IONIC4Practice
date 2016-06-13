@@ -5,8 +5,8 @@
 (function () {
     angular.module('smartac.page')
         .controller('selfPayToPayCtrl',
-            ['$scope', '$state', '$stateParams', '$filter', '$integralInfo', '$sessionStorage', '$getCode', '$ionicLoading', '$payForParking', '$ionicToast', '$timeout', '$effectiveCouponList', '$q', '$ionicScrollDelegate', '$goBackWhenError','$rootScope',
-                function ($scope, $state, $stateParams, $filter, $integralInfo, $sessionStorage, $getCode, $ionicLoading, $payForParking, $ionicToast, $timeout, $effectiveCouponList, $q, $ionicScrollDelegate, $goBackWhenError,$rootScope) {
+            ['$scope', '$state', '$stateParams', '$filter', '$integralInfo', '$sessionStorage', '$getCode', '$ionicLoading', '$payForParking', '$ionicToast', '$timeout', '$q', '$ionicScrollDelegate', '$goBackWhenError', '$rootScope', '$userCouponList', '$log',
+                function ($scope, $state, $stateParams, $filter, $integralInfo, $sessionStorage, $getCode, $ionicLoading, $payForParking, $ionicToast, $timeout, $q, $ionicScrollDelegate, $goBackWhenError, $rootScope, $userCouponList, $log) {
                     //选择微信支付
                     $scope.wxSelected = false;
                     $scope.selectWXToPay = function () {
@@ -55,7 +55,14 @@
                     $scope.finnalCouponArr = [];
 
                     //停车最多可兑换的积分数
-                    var limitIntegral;
+                    $scope.limitIntegral;
+
+                    //每小时停车费
+                    $scope.parkingHour2money = 30;//需呀写code
+                    //积分抵扣钱数
+                    $scope.intergal2money = 0;
+                    //停车券抵扣钱数
+                    $scope.coupon2money = 0;
 
                     /**
                      * 页面初始化逻辑
@@ -64,62 +71,80 @@
                      * 3. 获取当前积分对象
                      * */
                     $q.all([
-                            getRelatedCoupon(payInfo.price),
-                            getExchangeCode(),
-                            integralInfo(),
-                            getLimitIntInfo()])
+                        getRelatedCoupon(),
+                        getExchangeCode(),
+                        integralInfo(),
+                        getLimitIntInfo()])
                         .then(function () {
                             //计算积分数
                             calculate();
+                            //计算抵扣积分信息列表
+                            caculateIntergalGroup();
                         }, function (err) {
                             $goBackWhenError()
                         });
 
 
                     /**
-                     * 显示停车的卡券列表
+                     * 显示停车的卡券标题
                      * */
+                    $scope.showCouponDetail = true;
                     $scope.showParkingCoupon = function () {
                         if (!$scope.finnalCouponArr.length) {
                             $ionicToast.show("暂无卡券可用!")
                             return false
                         }
-
-                        //激活dom
-                        var $couponItem = angular.element(document.getElementById('couponItem'));
-                        if ($couponItem.hasClass('active')) {
-                            $couponItem.removeClass("active")
-                        } else {
-                            $couponItem.addClass("active")
-                        }
+                        $scope.showCouponDetail = !$scope.showCouponDetail;
+                        $ionicScrollDelegate.resize();
+                    };
+                    //点击选择卡券
+                    // $scope.selectedCouponValue = 0;
+                    $scope.selectParkingCoupon = function (fee) {
+                        //停车券抵扣钱数
+                        $scope.coupon2money = $scope.parkingHour2money*fee;
+                        calculate();
+                        $scope.showCouponDetail = true;
                         $ionicScrollDelegate.resize();
                     };
 
-
                     /**
-                     * 点击选择卡券
+                     * 选择积分标题
                      * */
-                    $scope.selectedCouponValue = 0;
-                    var selectCoupon;
-                    $scope.selectParkingCoupon = function ($event, coupon) {
-                        var $couponList_i = angular.element(document.querySelectorAll('.couponList i'));
-                        //如果选择之前的那个,即再次点击取消选择
-                        if (selectCoupon == coupon) {
-                            $scope.selectedCouponValue = 0;
-                            selectCoupon = {};
-                            //全部取消
-                            $couponList_i.removeClass("icon-select");
-                        } else {
-                            $scope.selectedCouponValue = coupon.face_value;
-                            selectCoupon = coupon;
-                            //全部取消
-                            $couponList_i.removeClass("icon-select")
-                            //选择当前
-                            angular.element($event.target).find("i").addClass("icon-select")
-                        }
+                    $scope.showIntergalDetail = true;
+                    $scope.showIntergalGroup = function () {
+                        $scope.showIntergalDetail = !$scope.showIntergalDetail;
+                    };
+                    //选择积分菜单明细
+                    $scope.selectIntergral = function (index) {
+                        var intergal = $scope.needIntegral * (index + 1);
+                        $scope.intergal2money = $scope.relatedMoney * (index + 1);
+                        $log.debug("intergal=" + intergal + "; money=" + $scope.intergal2money);
                         calculate();
+                        $scope.showIntergalDetail = true;
+                        $ionicScrollDelegate.resize();
                     };
 
+                    $scope.intergalGroupArr = [];
+                    function caculateIntergalGroup() {
+                        // //max
+                        // $scope.limitIntegral
+                        // //only500
+                        // $scope.needIntegral
+                        // //500->10yuan
+                        // $scope.relatedMoney
+                        // //my integral
+                        // $scope.integralCanUse
+
+                        var count;
+                        if ($scope.limitIntegral > $scope.integralCanUse) {
+                            count = Math.floor($scope.integralCanUse / $scope.needIntegral);
+                        } else {
+                            count = Math.floor($scope.limitIntegral / $scope.needIntegral);
+                        }
+                        for (var i = 1; count > i - 1; i++) {
+                            $scope.intergalGroupArr.push($scope.needIntegral * i)
+                        }
+                    }
 
                     /**
                      * 确认支付按钮
@@ -167,36 +192,24 @@
                      * 费用计算
                      * */
                     function calculate() {
-                        //使用的积分数
-                        $scope.integralUsed = 0;
-                        //计算最终价格
-                        $scope.finalPrice = parseFloat(payInfo.price) - parseFloat($scope.selectedCouponValue);
-                        //用户最终可用积分数
-                        var finalIntegral = parseInt($scope.integralCanUse);
-                        while ($scope.finalPrice > 0) {
-                            if ((finalIntegral > $scope.needIntegral) && (($scope.integralUsed + $scope.needIntegral) < limitIntegral)) {
-                                $scope.finalPrice = $scope.finalPrice - parseFloat($scope.relatedMoney);
-                                $scope.integralUsed += $scope.needIntegral;
-                                finalIntegral -= $scope.needIntegral;
-                            } else {
-                                //积分不够兑换
-                                break;
-                            }
-                        }
-                        // console.log($scope.finalPrice)
-                        if ($scope.finalPrice < 0) {
-                            $scope.finalPrice = 0;
-                            $scope.wxSelected = false;
-                            $scope.zfbSelected = false;
-                        }
-//积分兑换的钱数
-                        $scope.exchengedMoney = ($scope.integralUsed / $scope.needIntegral) * $scope.relatedMoney;
-                        // console.log($scope.finalPrice)
-                        // console.log($scope.integralUsed)
-                        //
-                        // console.log($scope.integralCanUse)
-                        // console.log($scope.exchengedMoney)
-                        // console.log(finalIntegral)
+                        // //max
+                        // $scope.limitIntegral
+                        // //only500
+                        // $scope.needIntegral
+                        // //500->10yuan
+                        // $scope.relatedMoney
+                        // //my integral
+                        // $scope.integralCanUse
+
+                        //coupon -> money
+                        $scope.coupon2money
+
+                        //intergal -> money
+                        $scope.intergal2money
+
+                        //final money need to pay = total-intergal2money-coupon2money
+                        $scope.finalPrice = payInfo.price - $scope.coupon2money - $scope.intergal2money;
+
                     }
 
                     /**
@@ -242,33 +255,26 @@
                      * 抵用券有最低 抵用金额,如果传入数小于抵用金额则此卡不可用
                      * @params:fee 传入金额
                      * */
-                    function getRelatedCoupon(fee) {
-                        return $effectiveCouponList({
+                    function getRelatedCoupon() {
+                        return $userCouponList({
                             "conditions": {
                                 "custid": $sessionStorage.userInfo.customerid.toString(),
-                                "categorycode": "2",//2,抵扣券;3,现金券
+                                "categorycode": "",//2,抵扣券;3,现金券,5停车券
+                                "typecode": 1,//1 卡券 ;2 礼品
+                                "statuscode": 2,//1 已使用;2 未使用;3 已过期
                                 "querytype": "main",
                                 "page": {
                                     "index": 1,
                                     "num": 999
                                 },
                                 "sort": {
-                                    "column": "point",
+                                    "column": "get_time",
                                     "type": "desc"
                                 }
                             }
                         }).then(function (data) {
-                            var finnalCouponArr = [];
-                            angular.forEach(data, function (obj) {
-                                //满XX可用
-                                // console.log(obj.limit_fee)
-                                if (fee > obj.limit_fee) {
-                                    this.push(obj)
-                                }
-                            }, finnalCouponArr);
-                            // console.log(data);
-                            // console.log(finnalCouponArr);
-                            $scope.finnalCouponArr = finnalCouponArr;
+                            // console.log(data)
+                            $scope.finnalCouponArr = data;
                         }, function (errText) {
 
                         })
@@ -281,8 +287,8 @@
                         return $getCode({
                             "keyname": "int4parkcanuse"
                         }).then(function (data) {
-                            limitIntegral = parseInt(data[0].keycode);
-                            console.log(limitIntegral)
+                            $scope.limitIntegral = parseInt(data[0].keycode);
+                            // console.log(limitIntegral)
                         }, function (err) {
 
                         });
