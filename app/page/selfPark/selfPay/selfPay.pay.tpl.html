@@ -15,80 +15,78 @@
             </li>
             <li>
                 <span>停车费用</span>
-                <span>￥<span ng-bind="::payInfo.price"></span></span>
+                <span ng-bind="::payInfo.price | currency:'￥'"></span>
             </li>
         </ul>
         <div class="payList">
-            <!--&lt;!&ndash;电子卡券&ndash;&gt;-->
-            <!--<div id="couponItem">-->
-                <!--<div class="payItem" ng-click="showParkingCoupon()">-->
-                    <!--<span>电子卡券</span>-->
-                    <!--<i class="icon ion-ios-arrow-right"></i>-->
-                <!--</div>-->
-                <!--&lt;!&ndash;卡券列表&ndash;&gt;-->
-                <!--<div class="couponList">-->
-                    <!--<div class="payItem" ng-click="selectParkingCoupon($event,coupon)" ng-repeat="coupon in finnalCouponArr track by $index">-->
-                        <!--<span><span ng-bind="::coupon.face_value"></span>元<span ng-bind="::coupon.category_value | couponCategoryToName"></span></span>-->
-                        <!--<i class="icon-selfPark-select"></i>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-
-            <!--卡券title-->
-            <div class="payItem" ng-click="showParkingCoupon()" ng-class="{true:'',false:'active'}[showCouponDetail]">
+            <!--停车券title-->
+            <div class="payItem" ng-click="showParkingCoupon()" ng-class="{true:'active',false:''}[showCouponDetail]">
                 <span>停车券</span>
                 <section class="inter_title">
                     <span>当前抵扣</span>
                     <span ng-bind="coupon2money | currency:'￥'"></span>
-                    <i class="icon ion-ios-arrow-right"></i>
+                    <i class="right-payPark-arrow"></i>
                 </section>
             </div>
             <!--卡券列表-->
-            <div ng-hide="showCouponDetail" class="itemInner">
-                <span class="interInfo_1">请选择停车券</span>
-                <span class="interInfo_2">每小时停车券可抵扣<span ng-bind="parkingHour2money"></span>元停车费</span>
-                <div class="interEg">
-                    <!--传入小时数,因为停车券只有小时数-->
-                    <span ng-repeat="coupon in finnalCouponArr track by $index" ng-click="selectParkingCoupon(coupon.face_value)" ng-bind="coupon.face_value"></span>
-                </div>
+            <div ng-show="showCouponDetail" class="itemInner">
+
+                <section class="couponListInner">
+                    <p class="interInfo_2 text-center">每小时停车券可抵扣<span ng-bind="parkingHour2money"></span>元停车费</p>
+
+                    <div class="couponListEach" ng-repeat="coupon in finnalCouponArr track by $index" ng-click="selectParkingCoupon(coupon,$event)">
+                        <div class="couponListEach_title">
+                            <span class="couponListEach_title_1 wordLine" ng-bind="coupon.name"></span>
+                            <span class="couponListEach_title_2">截止日期: <span ng-bind="coupon.limit_time_end.low | yyyyMd_HHmmss_cn"></span></span>
+                        </div>
+                        <i class="icon-selfPark-select icon-select"></i>
+                    </div>
+                </section>
             </div>
 
 
             <!--积分title-->
-            <div class="payItem" ng-click="showIntergalGroup()" ng-class="{true:'',false:'active'}[showIntergalDetail]">
+            <div class="payItem" ng-click="showIntergalGroup()" ng-class="{true:'active',false:''}[showIntergalDetail]">
                 <span>积分抵扣</span>
                 <section class="inter_title">
                     <span>当前抵扣</span>
                     <span ng-bind="intergal2money | currency:'￥'"></span>
-                    <i class="icon ion-ios-arrow-right"></i>
+                    <i class="right-payPark-arrow"></i>
                 </section>
             </div>
             <!--积分列表-->
-            <div ng-hide="showIntergalDetail" class="itemInner">
-                <span class="interInfo_1">请选择抵扣积分</span>
+            <div ng-show="showIntergalDetail" class="itemInner">
+                <span class="interInfo_1">择抵扣积分</span>
                 <span class="interInfo_2">当前积分<span ng-bind="::integralCanUse"></span>,满<span ng-bind="::needIntegral"></span>可抵扣￥<span ng-bind="::relatedMoney"></span>,最多可使用<span
                         ng-bind="::limitIntegral"></span>积分!</span>
                 <div class="interEg">
-                    <span ng-repeat="item in intergalGroupArr track by $index" ng-click="selectIntergral($index)" ng-bind="item"></span>
+                    <span ng-repeat="item in intergalGroupArr track by $index" ng-click="selectIntergral($index,$event)" ng-bind="item"></span>
                 </div>
             </div>
 
-            <div class="payItem" ng-click="selectWXToPay()">
+            <div class="payItem payMethod" ng-click="selectWXToPay()" ng-class="{true:'active',false:''}[wxSelected]">
                 <span>微信支付</span>
-                <i class="icon-selfPark-select" ng-class="{true:'icon-select',false:''}[wxSelected]"></i>
+                <i class="icon-selfPark-select icon-select"></i>
             </div>
-            <div class="payItem" ng-click="selectZFBToPay()">
+            <div ng-if="!isInWeiXin" class="payItem payMethod" ng-click="selectZFBToPay()"  ng-class="{true:'active',false:''}[zfbSelected]">
                 <span>支付宝支付</span>
-                <i class="icon-selfPark-select" ng-class="{true:'icon-select',false:''}[zfbSelected]"></i>
+                <i class="icon-selfPark-select icon-select"></i>
             </div>
         </div>
     </ion-content>
 
     <div class="btnBox">
         <div class="hasChoose">
-            <span ng-if="intergal2money">已选择:积分抵扣<span ng-bind="intergal2money"></span>元</span>
-            <span ng-if="coupon2money">,卡券抵扣<span ng-bind="coupon2money"></span>元</span>
-            <span ng-if="wxSelected">,微信支付</span>
+
+            <span ng-if="intergal2money || coupon2money">抵扣共计:<span ng-bind="(intergal2money + coupon2money)| currency:'￥'"></span></span>
+            <span ng-if="(intergal2money || coupon2money) && (wxSelected)">,</span>
+            <span ng-if="wxSelected || zfbSelected">余额使用:</span>
+            <span ng-if="wxSelected">微信支付</span>
+            <span ng-if="zfbSelected">支付宝支付</span>
+
+            <!--<span ng-if="intergal2money">剩余费用适用:积分抵扣<span ng-bind="intergal2money"></span>元,</span>-->
+            <!--<span ng-if="coupon2money">卡券抵扣<span ng-bind="coupon2money"></span>元,</span>-->
+            <!--<span ng-if="wxSelected">微信支付</span>-->
         </div>
         <div class="btnBoxInner" ng-click="confirmToPay()">
             <span ng-if="finalPrice"><span ng-bind="finalPrice | currency:'￥'"></span></span>

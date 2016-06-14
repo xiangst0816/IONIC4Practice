@@ -451,46 +451,98 @@
             color:#fff;
             border:1px solid $stable;
           }
-        }
-      }
-
-
-    }
-
-
-    #couponItem{
-      &>.payItem{
-        border-top: 1px solid #c9c9c9;
-        i{
-          transition: -webkit-transform ease 200ms;
-        }
-      }
-
-      .couponList{
-        display: none;
-        .payItem{
-          height:1rem;
-          background-color:#F9F9F9;
-          padding:0 0.1rem;
-          //width:95%;
-          margin-left:auto;
-          margin-right:auto;
-          font-size: 0.26rem;
-          i{
-
+          &.active{
+            background:$stable;
+            color:#fff;
+            border:1px solid $stable;
           }
         }
       }
 
-      &.active{
-        .couponList{
-          display: block;
+      .couponListInner{
+        width:100%;
+        padding:0.1rem ;
+        p{
+          margin-bottom:0.2rem;
         }
-        i{
-          transform:rotate(90deg);
+
+        .couponListEach{
+          @include display-flex;
+          @include justify-content(space-between);
+          @include align-items(center);
+          position: relative;
+          padding:0.1rem;
+          .couponListEach_title{
+            @include display-flex;
+            @include justify-content(center);
+            @include flex-direction(column);
+            @include align-items(flex-start);
+            width: 5.5rem;
+
+            .couponListEach_title_1{
+              font-size:0.36rem;
+              line-height:170%;
+              width:100%;
+            }
+            .couponListEach_title_2{
+              font-size:0.22rem;
+              line-height:110%;
+            }
+          }
+          &::after{
+            content: '';
+            width:100%;
+            position: absolute;
+            height:100%;
+            border-top:1px solid #ddd;
+            //border-bottom:1px solid #ddd;
+            left:0;
+            top:0;
+          }
+          //&::after{
+          //
+          //}
         }
+
+
       }
+
     }
+    //
+    //
+    //#couponItem{
+    //  &>.payItem{
+    //    border-top: 1px solid #c9c9c9;
+    //    i{
+    //      transition: -webkit-transform ease 200ms;
+    //    }
+    //  }
+    //
+    //  .couponList{
+    //    display: none;
+    //    .payItem{
+    //      height:1rem;
+    //      background-color:#F9F9F9;
+    //      padding:0 0.1rem;
+    //      //width:95%;
+    //      margin-left:auto;
+    //      margin-right:auto;
+    //      font-size: 0.26rem;
+    //      i{
+    //
+    //      }
+    //    }
+    //  }
+    //
+    //  &.active{
+    //    .couponList{
+    //      display: block;
+    //    }
+    //    i{
+    //      transform:rotate(90deg);
+    //    }
+    //  }
+    //}
 
   }
 }

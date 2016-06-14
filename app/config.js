@@ -13,9 +13,8 @@
                 //AppID(应用ID)
                 appid: "1",
                 appsecret: "123",
-                /**
-                 * 微信配置, 微信公众号的AppID(应用ID)
-                 * */
+
+                //微信配置, 微信公众号的AppID(应用ID)
                 // wxAppID: "wx1f9f586691e432d2",
                 wxAppID: "wx9587233d8b1a1869",
                 //微信公众号的原始ID(公众号ID)
@@ -23,36 +22,26 @@
                 cfid: "HEDV35FASG-DGW423A-34TGGW53AAD66",
 
 
-                /**
-                 * 商场id(商场->商户)
-                 */
+                //商场id(商场->商户)
                 orgid: "1",
 
 
-                /**
-                 * 客服电话
-                 * */
+                //客服电话
                 serviceTel: "18761938554",
 
 
-                /**
-                 * 项目地址
-                 * */
-                // url: "http://vivouat.smartac.co",
-                url: "http://172.16.1.5",
+                //项目地址
+                url: "http://vivouat.smartac.co",
+                // url: "http://172.16.1.5",
                 urlIP:"http://172.16.1.5",
 
-                /**
-                 * 分享配置
-                 * */
+                //分享配置
                 shareInfo: {
                     //app地址
                     url: "http://vivouat.smartac.co/webapp/index.html"
                 },
 
-                /**
-                 * 微信默认分享,分享注册页,进入home后自动跳转到注册
-                 * */
+                //微信默认分享,分享注册页,进入home后自动跳转到注册
                 defalutShareContent: {
                     directToState: "subNav.register",
                     content: {
@@ -62,7 +51,10 @@
                         type: "link",
                         dataUrl: ""
                     }
-                }
+                },
+
+                //停车场对应的商铺id,用于支付
+                parkingID:"parkingIDDemo"
             }
         })
 
@@ -105,7 +97,9 @@
                 parkingUrl: domain + "/sbp",
                 tradeUrl: domain + "/trade",
                 messageUrl: domain + "/message",
-                imgDomainUrl: baseUrl.resourceDomain
+                imgDomainUrl: baseUrl.resourceDomain,
+                //支付
+                reqPayUrl: domain + "/api/spay.server/req_pay"
             }
         }
         ])
