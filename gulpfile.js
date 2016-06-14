@@ -86,9 +86,9 @@ gulp.task('move:index', function () {
 });
 
 
-gulp.task('move:font', function () {
-    return gulp.src([path.src + '/fonts/*.*']).pipe(gulp.dest(path.dist + '/fonts'));
-});
+// gulp.task('move:font', function () {
+//     return gulp.src([path.src + '/fonts/*.*']).pipe(gulp.dest(path.dist + '/fonts'));
+// });
 /**
  * ---其余资源转移--------------------------------------------------------------
  * */
@@ -294,7 +294,7 @@ gulp.task('browserSync:server', function () {
     gulp.watch(ionicCssMap.src, ['ionicCss']);
     gulp.watch(moveImg.src, ['img:min']);
 
-    gulp.watch([path.src + '/page/**/*.html'], ['move:tpl']).on('change', browserSync.reload);
+    gulp.watch([path.src + '/page/**/*.html'], ['move:tpl']);
     gulp.watch([path.src + '/*.*'], ['move:basejs']);
     gulp.watch([path.src + '/index.html'], ['move:index']).on('change', browserSync.reload);
 
@@ -327,7 +327,7 @@ gulp.task('default', gulpSequence(
         //移动根目录文件
         'move:basejs',
         'move:ico',
-        'move:font',
+        // 'move:font',
     ], [
         //移动准备必须的资源
         'move:lib',

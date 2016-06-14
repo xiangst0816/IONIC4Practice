@@ -38,7 +38,8 @@
                 /**
                  * 项目地址
                  * */
-                url: "http://vivouat.smartac.co",
+                // url: "http://vivouat.smartac.co",
+                url: "http://172.16.1.5",
                 urlIP:"http://172.16.1.5",
 
                 /**

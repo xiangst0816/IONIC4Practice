@@ -159,26 +159,30 @@
     z-index: 9;
     top: 40%;
     font-size: 1rem;
+    height:1rem;
     margin-top: -0.5rem;
     width: 100%;
     @include display-flex;
     @include justify-content(space-between);
+    @include align-items(center);
 
     //display: flex;
     //justify-content: space-between;
 
     .arrow-left {
-      color: rgba(169, 31, 127, 0.3);
-      transition: color ease 300ms;
-      padding-left: 0.5rem;
+      //color: rgba(169, 31, 127, 0.3);
+      transition: opacity ease 300ms;
+      padding-left:1.5rem;
+      opacity: 0;
     }
     .arrow-right {
-      color: rgba(169, 31, 127, 0.3);
-      transition: color ease 300ms;
-      padding-right: 0.5rem;
+      //color: rgba(169, 31, 127, 0.3);
+      transition: opacity ease 300ms;
+      padding-right: 1.5rem;
+      opacity: 0;
     }
     .active {
-      color: $stable;
+      opacity: 1;
     }
 
   }

@@ -4,7 +4,12 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('shopListCtrl', ['$rootScope', '$sessionStorage', '$scope', '$shopList', '$ionicLoading', '$shopCollect', '$filter', '$shopFloor', '$checkAuthorize', '$log','$debounce', function ($rootScope, $sessionStorage, $scope, $shopList, $ionicLoading, $shopCollect, $filter, $shopFloor, $checkAuthorize, $log,$debounce) {
+        .controller('shopListCtrl', ['$rootScope', '$sessionStorage', '$scope', '$shopList', '$ionicLoading', '$shopCollect', '$filter', '$shopFloor', '$checkAuthorize', '$log','$debounce','$getUrlParams', function ($rootScope, $sessionStorage, $scope, $shopList, $ionicLoading, $shopCollect, $filter, $shopFloor, $checkAuthorize, $log,$debounce,$getUrlParams) {
+
+
+
+            var search = $getUrlParams();
+            console.log(search);
 
             //总数据
             $scope.dataToDisplay = [];

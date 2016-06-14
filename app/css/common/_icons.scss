@@ -19,6 +19,16 @@
   background: url(../img/icon/icon-back.png) no-repeat center center/100% auto;
 }
 
+.ion-fff-up{
+  width: 0.4rem;
+  height: 0.4rem;
+  position: relative;
+  left: 0;
+  top: 0;
+  display: inline-block;
+  background: url(../img/icon/icon-up.png) no-repeat center center/100% auto;
+}
+
 //home-usercenter
 .ion-usercenter {
   height: 0.55rem;
@@ -399,4 +409,18 @@
       background: url(../img/icon/stamp_huang.png) repeat-x center top/0.13rem auto;
     }
   }
+}
+
+//自助积分左右箭头
+.left-selfpark-arrow{
+  height: 0.6rem;
+  width: 0.5rem;
+  position: relative;
+  background: url(../img/icon/left-arrow.png) no-repeat center center/auto 100% !important;
+}
+.right-selfpark-arrow{
+  height: 0.6rem;
+  width: 0.5rem;
+  position: relative;
+  background: url(../img/icon/up-eee-arrow.png) no-repeat center center/auto 100% !important;
 }

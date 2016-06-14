@@ -93,7 +93,7 @@
         .directive("smartHistoryBox", [function () {
             return {
                 restrict: 'E',
-                controller: ['$scope', '$element', '$attrs', '$localStorage', '$timeout', '$rootScope', '$debounce', function ($scope, $element, $attrs, $localStorage, $timeout, $rootScope, $debounce) {
+                controller: ['$scope', '$element', '$attrs', '$localStorage', '$timeout', '$rootScope', function ($scope, $element, $attrs, $localStorage, $timeout, $rootScope) {
                     /**
                      * 获取存储历史记录的$localStorage字段的名字
                      * */
