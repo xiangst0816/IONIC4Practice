@@ -4,21 +4,20 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('selfPayCtrl', ['$scope', '$state', '$getParkingFee', '$ionicToast', '$ionicLoading', function ($scope, $state, $getParkingFee, $ionicToast, $ionicLoading) {
-            console.log("selfPayCtrl-说明页")
-
-
+        .controller('selfPayCtrl', ['$scope', '$state', '$getParkingFee', '$ionicToast', '$ionicLoading', '$timeout', function ($scope, $state, $getParkingFee, $ionicToast, $ionicLoading, $timeout) {
             /**
              * 点击扫码支付
              * */
             $scope.scannerBtn = function () {
 
-
-                nativePlugin.scanBARCode(function (a) {
-                    // alert(JSON.stringify(a));
-                    var barCode = a.split(',')[1];
-                    // alert(JSON.stringify(barCode));
-                    //查找
+                nativePlugin.scanBARCode(function (barCode) {
+                    //一维码必须是数字
+                    if (!/^\d+$/.test(barCode)) {
+                        $timeout(function () {
+                            $ionicToast.show("一维码数据格式错误,请核对!",2000);
+                        }, 700, false);
+                        return
+                    }
                     $ionicLoading.show({template: "正在提交信息!"})
                     /**
                      * 由baCode查找停车信息
@@ -27,9 +26,11 @@
                         "ticketInfo": barCode//停车小票扫码出来的信息
                     }).then(function (result) {
                         // alert(JSON.stringify(result));
-                        if(parseInt(result.price) === 0){
-                            $ionicToast.show("支付金额为0元,无需支付!");
-                        }else{
+                        if (parseInt(result.price) === 0) {
+                            $timeout(function () {
+                                $ionicToast.show("支付金额为0元,无需支付!",2000);
+                            }, 700, false);
+                        } else {
                             $state.go('subNav.selfPayToPay', {
                                 data: result
                             })

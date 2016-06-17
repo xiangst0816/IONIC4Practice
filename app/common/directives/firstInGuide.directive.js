@@ -13,12 +13,12 @@
                 templateUrl: 'tpl/firstInGuide.html',
                 replace: true,
                 compile: function ($element) {
-                    var guideInfo = $localStorage.guideInfo;
                     $timeout(function () {
+                        var guideInfo = $localStorage.guideInfo;
                         if ($state.is("home") && (!guideInfo || guideInfo.isFirstTime)) {
                             $element.addClass("beforeActive active");
                         }
-                        if(!!guideInfo && !guideInfo.isFirstTime){
+                        if (!!guideInfo && !guideInfo.isFirstTime) {
                             $element.remove();
                         }
                     }, 0, false);
@@ -60,24 +60,21 @@
                                 }, 300, false);
                             }
 
-                        }, 100, false);
+                        }, 200, false);
                     });
 
                     /**
                      * 设置背景颜色
                      * */
-                    $scope.onSlideChange = function () {
-                        var currentIndex = $ionicSlideBoxDelegate.currentIndex();
-                        var $userSilderBox = angular.element(document.getElementById('userSilderBox'));
-                        // alert($userSilderBox);
-                        if (currentIndex == 0) {
-                            $userSilderBox.css({"background": "#1898d2"})
-                        } else if (currentIndex == 2) {
-                            $userSilderBox.css({"background": "#e8ad3f"})
+                    $scope.onSlideChange = ()=> {
+                        let currentIndex = $ionicSlideBoxDelegate.currentIndex();
+                        var $userSilderBox = document.getElementById('userSilderBox');
+                        if (parseInt(currentIndex) === 0) {
+                            $userSilderBox.style.background = "#1898d2";
+                        } else if (parseInt(currentIndex) === 2) {
+                            $userSilderBox.style.background = "#e8ad3f";
                         }
                     };
-
-
                 }]
             };
         }])

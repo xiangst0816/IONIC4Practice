@@ -6,7 +6,7 @@
     /**
      * 查询停车费用
      * */
-        .factory("$getParkingFee", ['AJAX', 'api', '$q', function (AJAX, api, $q) {
+        .factory("$getParkingFee", ['AJAX', 'api', '$q', '$log', function (AJAX, api, $q, $log) {
             return function (options) {
                 if (!angular.isObject(options)) {
                     options = {};
@@ -40,10 +40,12 @@
                                     break;
                             }
                             defer.reject(errText)
+                            $log.log("查询停车费用失败," + errText + "," + parseInt(data.code));
                         }
                     },
                     error: function (errText) {
-                        defer.reject(errText);
+                        defer.reject("系统错误!");
+                        $log.log("查询停车费用失败,系统错误," + JSON.stringify(errText));
                     }
                 });
                 return defer.promise;

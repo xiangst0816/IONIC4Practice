@@ -399,7 +399,7 @@
                         return $userCouponList({
                             "conditions": {
                                 "custid": $sessionStorage.userInfo.customerid.toString(),
-                                "categorycode": "",//2,抵扣券;3,现金券,5停车券
+                                "categorycode": "5",//2,抵扣券;3,现金券,5停车券
                                 "typecode": 1,//1 卡券 ;2 礼品
                                 "statuscode": 2,//1 已使用;2 未使用;3 已过期
                                 "querytype": "main",

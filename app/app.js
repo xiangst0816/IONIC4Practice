@@ -1,13 +1,5 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
-
-
 (function () {
+    angular.module('smartac.page', ['ui.router']);
     angular.module('smartac', [
         'ionic'
         , 'smartac.page'
@@ -21,7 +13,8 @@
      * */
         .config(['$ionicConfigProvider', function ($ionicConfigProvider) {
             // $ionicConfigProvider.views.maxCache(5);
-            // $ionicConfigProvider.platform.android.views.maxCache(5);
+            $ionicConfigProvider.platform.android.views.maxCache(0);
+            $ionicConfigProvider.platform.ios.views.maxCache(10);
 
             //用在非常卡的安卓机上
             //none: Do not perform  animated transitions.
@@ -32,8 +25,6 @@
             //所有平台,navBar的文字居中
             $ionicConfigProvider.navBar.alignTitle("center");
             // note that you can also chain configs
-            // $ionicConfigProvider.backButton.text('返回').icon('icon-nav-back');
-
 
             //fullScreen([showFullScreen], [showStatusBar])
             // ionic.Platform.fullScreen(true, true);
@@ -106,8 +97,6 @@
             $ionicPlatform.ready(function () {
                 // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
                 // for form inputs)
-
-
                 // if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
                 //     cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                 //     cordova.plugins.Keyboard.disableScroll(true);
@@ -115,10 +104,6 @@
                 // if (window.StatusBar) {
                 //     StatusBar.styleLightContent();
                 // }
-
-
-
-
             });
         }])
         /**
@@ -178,8 +163,4 @@
             '<br>' +
             '<div style="margin-top:0.2rem">正在进入</div>'
         })
-})();
-
-(function () {
-    angular.module('smartac.page', ['ui.router']);
 })();

@@ -9,7 +9,7 @@
         </p>
         <p class="clearfix">
           <span ng-bind="item.paymentTime | yyyyMd_cn"></span>
-          <span>￥<span ng-bind="item.couponAmount + item.wechatAmount + item.alipayAmount + item.pointPayAmount"></span></span>
+          <span><span ng-bind="(item.couponAmount + item.wechatAmount + item.alipayAmount + item.pointPayAmount) | currency:'￥'"></span></span>
         </p>
       </div>
     </div>

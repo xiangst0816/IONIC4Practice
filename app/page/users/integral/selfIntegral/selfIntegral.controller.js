@@ -64,7 +64,7 @@
              * 数据格式: cardno|tradeno|shopid|tradetime|tradeamount
              * 数据格式：会员卡号|交易号|商铺id|交易时间(时间戳13位)|交易金额
              * demo: 0000507915|234234234990|1|1473394332000|88888
-             * 位数为4,第三个和第四个为数字
+             * 位数为5,第三个和第四个为数字
              * */
             function scanNow() {
                 nativePlugin.scanQRCode(function (result) {
@@ -76,7 +76,7 @@
                         // alert("二维码数据格式出错,请联系开发人员!");
                         showNoticeInfo({
                             title: "积分失败",
-                            template: "二维码数据参数个数出错,请核对!"
+                            template: "二维码数据格式出错,请核对!"
                         });
                         return
                     }

@@ -314,9 +314,9 @@ gulp.task('browserSync:server', function () {
             baseDir: [path.dist]
         },
         port: 3000,
-        files: [
-            `${path.dist}/**/*.*`
-        ]
+        // files: [
+        //     `${path.dist}/**/*.*`
+        // ]
     });
 
     //watch目录
