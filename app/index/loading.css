@@ -76,6 +76,7 @@ body {
         left: 0.7rem;
         -webkit-animation: plane_fly 10s linear infinite;
         animation: plane_fly 10s linear infinite; }
+
 @-webkit-keyframes plane_fly {
   0% {
     -webkit-transform: translate(0, 0);
@@ -92,6 +93,7 @@ body {
   100% {
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0); } }
+
 @keyframes plane_fly {
   0% {
     -webkit-transform: translate(0, 0);
@@ -151,6 +153,7 @@ body {
           background: url(img/loading/1.png) no-repeat center center/cover;
           -webkit-animation: bg_fly_2 4s linear 2s infinite;
           animation: bg_fly_2 4s linear 2s infinite; }
+
 @-webkit-keyframes bg_fly_1 {
   from {
     -webkit-transform: translatex(0%);
@@ -158,6 +161,7 @@ body {
   to {
     -webkit-transform: translatex(-100%);
     transform: translatex(-100%); } }
+
 @keyframes bg_fly_1 {
   from {
     -webkit-transform: translatex(0%);
@@ -165,6 +169,7 @@ body {
   to {
     -webkit-transform: translatex(-100%);
     transform: translatex(-100%); } }
+
 @-webkit-keyframes bg_fly_2 {
   from {
     -webkit-transform: translatex(100%);
@@ -172,6 +177,7 @@ body {
   to {
     -webkit-transform: translatex(-100%);
     transform: translatex(-100%); } }
+
 @keyframes bg_fly_2 {
   from {
     -webkit-transform: translatex(100%);
@@ -196,6 +202,7 @@ body {
   to {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
+
 @keyframes revolve {
   from {
     -webkit-transform: rotate(0deg);
@@ -203,5 +210,3 @@ body {
   to {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg); } }
-
-/*# sourceMappingURL=loading.css.map */

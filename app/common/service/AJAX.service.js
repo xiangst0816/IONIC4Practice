@@ -21,6 +21,9 @@
                         data: {
                             "app_id": baseInfo.appid,
                             "app_secret": baseInfo.appsecret
+                        },
+                        headers: {
+                            "accept": "application/json"
                         }
                     };
                     var defer = $q.defer();
@@ -66,6 +69,11 @@
                         }
                     }
 
+                    var header = {
+                        'authorization': "token " + $sessionStorage.authInfo.token,
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+                    };
+
                     var params = {
                         method: httpParams.method || "GET",
                         url: httpParams.url,
@@ -75,9 +83,7 @@
                         error: httpParams.error || angular.noop(),
                         notify: httpParams.notify || angular.noop(),
                         complete: httpParams.complete || angular.noop(),
-                        headers: {
-                            authorization: "token " + $sessionStorage.authInfo.token
-                        }
+                        headers: angular.extend(header, httpParams.headers)
                     };
                     params = angular.extend(params, dataFormat);
                     return $http(params).then(

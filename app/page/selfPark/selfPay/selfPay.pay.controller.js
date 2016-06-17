@@ -18,16 +18,7 @@
 
                     var payInfo = $stateParams.data;
 
-                    // 假数据
-                    var payInfo = {
-                        discount: 5,
-                        entryTime: "2016-04-22 08:50",
-                        paymentNumber: 1,
-                        price: 48,
-                        seqNumber: "123000678",
-                        ticketNumber: "1234.1234.1234",
-                        time: 20
-                    };
+
                     //数据增补
                     var payInfo_otherInfo = {
                         entryTime: $filter('yyyyMMdd_HHmmss_minus')(payInfo.entryTime),
@@ -38,6 +29,7 @@
                     angular.extend(payInfo, payInfo_otherInfo);
                     //更新view
                     $scope.payInfo = payInfo;
+                    // alert(JSON.stringify($scope.payInfo));
                     // 可用积分
                     $scope.integralCanUse;
                     //积分抵扣信息(满XXX积分可抵扣XXX元)
@@ -74,7 +66,7 @@
                         hideOnStateChange: true,
                         template: '<ion-spinner icon="ripple" class="spinner-light"></ion-spinner>' +
                         '<br>' +
-                        '<div style="margin-top:0.2rem">正在准备</div>'
+                        '<div style="margin-top:0.2rem">正在处理</div>'
                     });
                     $q.all([
                         getRelatedCoupon(),
@@ -120,7 +112,7 @@
                     $scope.showCouponDetail = false;
                     $scope.showParkingCoupon = function () {
                         if (!$scope.finnalCouponArr.length) {
-                            $ionicToast.show("暂无卡券可用!")
+                            $ionicToast.show("暂无卡券可用!");
                             return false
                         }
                         $scope.showCouponDetail = !$scope.showCouponDetail;
@@ -130,10 +122,11 @@
                     //点击选择卡券
                     // $scope.selectedCouponValue = 0;
                     $scope.selectParkingCoupon = function (coupon, $event) {
-                        //face_value为小时数
+
                         $scope.couponFaceValue = coupon.face_value;
                         $scope.couponCode = coupon.code;
                         $scope.couponID = coupon.id;
+                        $scope.couponName = coupon.name;
 
                         //添加标示
                         var target = $event.target;
@@ -141,6 +134,11 @@
                         if (target.classList.contains("active")) {
                             target.classList.remove("active");
                             $scope.coupon2money = 0;
+                            $scope.couponFaceValue = 0;
+                            $scope.couponCode = "";
+                            $scope.couponID = null;
+                            $scope.couponName = "";
+
                             calculate();
                         } else {
                             for (var i = 1, len = all.length; len > i; i++) {
@@ -178,6 +176,7 @@
                         if (target.classList.contains("active")) {
                             target.classList.remove("active");
                             $scope.intergal2money = 0;
+                            $scope.integal2paied = 0;
                             calculate();
                         } else {
                             for (var i = 0, len = all.length; len > i; i++) {
@@ -186,7 +185,7 @@
                             target.classList.add("active");
                             //停车券抵扣钱数
                             $scope.integal2paied = $scope.needIntegral * (index + 1);
-                            // $scope.integal2paied =
+
                             $scope.intergal2money = $scope.relatedMoney * (index + 1);
                             $log.debug("intergal=" + $scope.integal2paied + "; money=" + $scope.intergal2money);
                             calculate();
@@ -211,71 +210,80 @@
                             return
                         }
                         // 进行支付
-                        $ionicLoading.show({template: "正在支付"});
+                        $ionicLoading.show({
+                            hideOnStateChange: true,
+                            template: '<ion-spinner icon="ripple" class="spinner-light"></ion-spinner>' +
+                            '<br>' +
+                            '<div style="margin-top:0.2rem">正在支付</div>'
+                        });
 
-
-                        $smartPay({
-                            "shop_id": baseInfo.parkingID.toString(),//string 店铺id
-                            "trade_type": Internal.isInWeiXin ? 1 : 3,//int  交易类型;1 微信公众号(H5支付),2 微信扫码,3 微信app(APP支付)
-                            "original_fee": parseFloat($scope.finalPrice).toFixed(2),//int 原始金额
-                            "total_fee": parseFloat($scope.finalPrice).toFixed(2),//int 实付金额
-                            "pay_source": $scope.wxSelected ? 1 : ($scope.zfbSelected ? 3 : 9),//int 支付数据来源;1 微信支付, 3 阿里支付
-                        }).then(function (data) {
-                            //支付成功后写入后台并核销
+                        //如果积分及卡券堤口全部停车费,则不需支付,直接进入积分卡券后台核销接口
+                        if (!$scope.finalPrice) {
+                            $log.warn("积分及卡券抵消全部停车费,直接进入积分卡券后台核销接口");
+                            //支付成功后,将支付信息传递到后台,统计及通知速宾
                             whenPaied4Park();
-                        }, function (errText) {
-                            $ionicToast.show("支付失败," + errText);
-                        }).finally(function () {
-
-                            $whenPaiedPark().then(function () {
-                                $log.warn("测试支付信息提交功能:状态->成功");
-                            },function () {
-                                $log.warn("测试支付信息提交功能:状态->失败");
-                            });
-
-                            $ionicLoading.hide();
-                        })
+                        } else {
+                            $log.warn("剩余费用使用支付接口");
+                            $smartPay({
+                                "shop_id": baseInfo.parkingID.toString(),//string 店铺id
+                                "trade_type": Internal.isInWeiXin ? 1 : 3,//int  交易类型;1 微信公众号(H5支付),2 微信扫码,3 微信app(APP支付)
+                                "original_fee": parseInt(parseFloat($scope.finalPrice.toFixed(2)) * 100),//float 原始金额
+                                "total_fee": parseInt(parseFloat($scope.finalPrice).toFixed(2) * 100),//float 实付金额
+                                "openid": Internal.isInWeiXin ? $sessionStorage.userInfo.openid : "",//string 客户标示(微信)
+                                "pay_source": $scope.wxSelected ? 1 : ($scope.zfbSelected ? 3 : 9),//int 支付数据来源;1 微信支付, 3 阿里支付
+                            }).then(function (data) {
+                                //支付成功后写入后台并核销(这里是最后一步)
+                                //支付成功后,将支付信息传递到后台,统计及通知速宾
+                                whenPaied4Park();
+                            }, function (errText) {
+                                $ionicToast.show("支付失败," + errText);
+                            }).finally(function () {
+                                $ionicLoading.hide();
+                            })
+                        }
                     };
 
 
                     /**
                      * 将成功缴费的信息传导后台
-                     *  $scope.wxSelected = false;zfbSelected
+                     * //支付成功后写入后台并核销(这里是最后一步)
                      * */
                     function whenPaied4Park() {
+                        var defer = $q.defer();
                         $whenPaiedPark({
                             "paymentInfo": {
                                 "custid": parseInt($sessionStorage.userInfo.customerid),
                                 "seqNumber": payInfo.seqNumber.toString(),
                                 "ticketNumber": payInfo.ticketNumber.toString(),
-                                "couponid": parseInt($scope.couponID),//优惠券id,但是这里是code值,
-                                "couponno": $scope.couponCode.toString(),//优惠券 number
-                                "couponAmount": parseFloat($scope.coupon2money),// 优惠券支付金额
-                                "wechatAmount": parseFloat(0).toFixed(2),//微信支付金额
-                                "alipayAmount": parseFloat(0).toFixed(2),//支付宝支付金额
-                                "pointPayNum": parseInt($scope.integal2paied),//积分支付的积分数量
-                                "pointPayAmount": parseFloat($scope.intergal2money)//积分支付的抵扣金额
+                                "couponid": !!$scope.couponID ? parseInt($scope.couponID) : 0,//优惠券id,但是这里是code值,
+                                "couponno": !!$scope.couponCode ? $scope.couponCode.toString() : "",//优惠券 number
+                                "couponAmount": !!$scope.coupon2money ? parseFloat($scope.coupon2money) : 0,// 优惠券支付金额
+                                "wechatAmount": $scope.wxSelected ? parseFloat(parseFloat($scope.finalPrice).toFixed(2)) : 0,//微信支付金额
+                                "alipayAmount": $scope.zfbSelected ? parseFloat(parseFloat($scope.finalPrice).toFixed(2)) : 0,//支付宝支付金额
+                                "pointPayNum": !!$scope.integal2paied ? parseInt($scope.integal2paied) : 0,//积分支付的积分数量
+                                "pointPayAmount": !!$scope.intergal2money ? parseFloat($scope.intergal2money) : 0,//积分支付的抵扣金额
+                                "entryTime": $filter("yyyyMd_HHmmss_minus")(payInfo.entryTime),//进场时间
+                                "paytime": $filter("yyyyMd_HHmmss_minus")(new Date()),//支付时间
+                                "couponname": !!$scope.couponName ? $scope.couponName.toString() : ""//卡券名称
                             }
-                        }).then(function (data) {
+                        }).then(function () {
+                            $ionicToast.show("支付信息提交成功,即将跳转!");
                             $timeout(function () {
-                                $ionicToast.show("支付信息提交成功!")
-                                $timeout(function () {
-                                    if ($rootScope.HistoryArr.length > 2) {
-                                        $rootScope.goBack(2);
-                                    } else {
-                                        $rootScope.backToHome();
-                                    }
-                                }, 700, false);
-
-                            }, 1000, false);
-
+                                if ($rootScope.HistoryArr.length > 2) {
+                                    $rootScope.goBack(2);
+                                } else {
+                                    $rootScope.backToHome();
+                                }
+                            }, 1300, false);
+                            $log.warn("测试支付信息提交功能:状态->成功");
+                            defer.resolve()
                         }, function (errText) {
+                            defer.reject("errText" + errText);
                             $ionicToast.show("支付信息提交失败," + errText);
                         }).finally(function () {
-                            $timeout(function () {
-                                $ionicLoading.hide();
-                            }, 700);
-                        })
+                            $ionicLoading.hide();
+                        });
+                        return defer.promise;
                     }
 
                     /**
@@ -344,7 +352,7 @@
                                 "custid": $sessionStorage.userInfo.customerid
                             }
                         }).then(function (data) {
-                            $scope.integralCanUse = data.currenttotalnum;
+                            $scope.integralCanUse = data.currenttotalnum > 0 ? data.currenttotalnum : 0;
                         }, function (errText) {
                             $ionicToast.show("积分查询失败," + errText)
                         }).finally(function () {
@@ -362,22 +370,21 @@
                             angular.forEach(data, function (value) {
                                 if (value.keyname == "integralexchange_1") {
                                     $scope.needIntegral = parseInt(value.keycode);
-                                    $log.debug("停车抵扣所需积分数(整数倍):" + $scope.needIntegral);
+                                    $log.debug(`停车抵扣所需积分数(整数倍):${$scope.needIntegral}`);
                                 }
                                 if (value.keyname == "integralexchange_2") {
                                     $scope.relatedMoney = parseFloat(value.keycode).toFixed(2);
-                                    $log.debug("停车抵扣积分等效金额:" + $scope.relatedMoney);
+                                    $log.debug(`停车抵扣积分等效金额:${$scope.relatedMoney}`);
                                 }
                                 if (value.keyname == "integralexchange_3") {
                                     $scope.parkingHour2money = parseFloat(value.keycode);
-                                    $log.debug("每小时停车等效金额:" + $scope.parkingHour2money);
+                                    $log.debug(`每小时停车等效金额:${$scope.parkingHour2money}`);
                                 }
                                 if (value.keyname == "integralexchange_4") {
                                     $scope.limitIntegral = parseFloat(value.keycode);
-                                    $log.debug("会员停车最多可使用积分数:" + $scope.limitIntegral);
+                                    $log.debug(`会员停车最多可使用积分数:${$scope.limitIntegral}`);
                                 }
                             });
-                            $log.debug("获取积分抵扣信息(满" + $scope.needIntegral + "积分可抵扣" + $scope.relatedMoney + "元)");
                         }, function (errText) {
                             $ionicToast.show("获取积分抵扣信息失败," + errText)
                         })
@@ -406,6 +413,7 @@
                                 }
                             }
                         }).then(function (data) {
+                            console.log("停车券信息列表:")
                             console.log(data)
                             $scope.finnalCouponArr = data;
                         }, function (errText) {

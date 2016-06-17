@@ -23,8 +23,8 @@
             var showToast = function (argsArray) {
                 //1. 字符串,表示toast要显示的
                 //2. 配置参数options,表示需要对options进行配置
-                var _during = argsArray[1] || 1300;
-                var _interval = argsArray[2] || 300;
+                var _during = !!argsArray[1]?argsArray[1]:1300;
+                var _interval = !!argsArray[2]?argsArray[2]:300;
                 //拿牌
                 _token = false;
                 //取第一个

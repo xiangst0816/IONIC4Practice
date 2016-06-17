@@ -99,7 +99,8 @@
                 messageUrl: domain + "/message",
                 imgDomainUrl: baseUrl.resourceDomain,
                 //支付
-                reqPayUrl: domain + "/api/spay.server/req_pay"
+                reqPayUrl: domain + "/api/spay.server/req_pay",
+                reqQueryPayUrl: domain + "/api/spay.server/req_query_pay"
             }
         }
         ])

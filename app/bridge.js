@@ -121,24 +121,56 @@ var nativePlugin = {
         if (Internal.isInWeiXin) {
             wx.scanQRCode({
                 needResult: 1, // 扫描结果由微信处理，1则直接返回扫描结果，
-                scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                scanType: ['qrCode'], // 可以指定扫二维码还是一维码，默认二者都有
                 success: function (res) {
-                    // alert(JSON.stringify(res));
-                    // alert((res.resultStr.toString()));
+                    alert(JSON.stringify(res));
+                    alert((res.resultStr.toString()));
                     callback && callback(res.resultStr.toString());
                 }
             });
         } else if (Internal.isInApp && !!smartApp) {
             smartApp.scanBarCode({
-                scanType: ['qrCode', 'barCode'],
+                scanType: ['qrCode'],
                 success: function (res) {
-                    // alert(JSON.stringify(res));
-                    // alert((res.result.toString()));
+                    alert(JSON.stringify(res));
+                    alert((res.result.toString()));
                     callback && callback(res.result.toString());
                 }
             });
         }
     },
+
+    scanBARCode: function (callback) {
+        if (Internal.isInWeiXin) {
+            wx.scanQRCode({
+                needResult: 1, // 扫描结果由微信处理，1则直接返回扫描结果，
+                scanType: ['barCode'], // 可以指定扫二维码还是一维码，默认二者都有
+                success: function (res) {
+                    alert(JSON.stringify(res));
+                    var barCode = res.resultStr.toString().split(',')[1];
+                    alert(barCode);
+                    callback && callback(barCode);
+                }
+            });
+        } else if (Internal.isInApp && !!smartApp) {
+            smartApp.scanBarCode({
+                scanType: ['barCode'],
+                success: function (res) {
+                    alert(JSON.stringify(res));
+                    alert((res.result.toString()));
+                    callback && callback(res.result.toString());
+                }
+            });
+        }
+    },
+
+
+
+
+
+
+
+
     // scanBarCode: function (callback) {
     //     if (Internal.isInWeiXin) {
     //         wx.scanQRCode({
@@ -417,6 +449,7 @@ var nativePlugin = {
             _log.call(console, '%c' + [].slice.call(arguments).join(' '), 'color: red;')
         })('非法操作 \n当前环境不支持 \n请在微信中或smartApp中使用');
         Internal.isInApp = true;
+        Internal.isInDesktop = true;
     }
 
     // console.log('当前环境:')

@@ -250,8 +250,10 @@
                  * subNav.NavigateToFenshu
                  * */
                 .state('subNav.navigateToFenshu', {
+                    cache: true,
                     url: '/navigateToFenshu',
-                    templateUrl: 'tpl/navigateTo.tpl.html'
+                    templateUrl: 'tpl/navigateTo.tpl.html',
+                    controller: 'navigateToCtrl'
                 })
 
                 /**
@@ -311,6 +313,7 @@
                 // })
                 //自助缴费-支付
                 .state('subNav.selfPayToPay', {
+                    cache: false,
                     params: {
                         'data': null
                     },
