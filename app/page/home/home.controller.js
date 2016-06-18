@@ -181,7 +181,7 @@
                             $scope.nextIntegral = $scope.cardupgrade0;
                         } else if ($scope.vipLevel == 2) {
                             progress = $scope.userDisplayIntegral / $scope.cardupgrade1 * 50 + 50;
-                            (parseInt(progress) > 100) && (progress = 100);
+                            (Number.parseInt(progress) > 100) && (progress = 100);
                             $scope.nextIntegral = $scope.cardupgrade1;
                         } else if ($scope.vipLevel == 3) {
                             var duetime = userInfo.duetime;
@@ -194,7 +194,7 @@
                             }
                             $scope.nextIntegral = $scope.carddegrade0;
                             progress = $scope.userDisplayIntegral / $scope.carddegrade0 * 100;
-                            (parseInt(progress) > 100) && (progress = 100);
+                            (Number.parseInt(progress) > 100) && (progress = 100);
                         }
                         document.getElementById('vipState-lay2-progress').style.width = progress + "%";
                         $log.debug("当前等级进度progress:" + progress);

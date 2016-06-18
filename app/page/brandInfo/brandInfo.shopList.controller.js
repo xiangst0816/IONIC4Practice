@@ -4,12 +4,12 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('shopListCtrl', ['$rootScope', '$sessionStorage', '$scope', '$shopList', '$ionicLoading', '$shopCollect', '$filter', '$shopFloor', '$checkAuthorize', '$log','$debounce','$getUrlParams', function ($rootScope, $sessionStorage, $scope, $shopList, $ionicLoading, $shopCollect, $filter, $shopFloor, $checkAuthorize, $log,$debounce,$getUrlParams) {
+        .controller('shopListCtrl', ['$rootScope', '$sessionStorage', '$scope', '$shopList', '$ionicLoading', '$shopCollect', '$filter', '$shopFloor', '$checkAuthorize', '$log','$debounce', function ($rootScope, $sessionStorage, $scope, $shopList, $ionicLoading, $shopCollect, $filter, $shopFloor, $checkAuthorize, $log,$debounce) {
 
 
 
-            var search = $getUrlParams();
-            console.log(search);
+            // var search = $getUrlParams();
+            // console.log(search);
 
             //总数据
             $scope.dataToDisplay = [];
@@ -105,6 +105,7 @@
             $scope.$watch('searchFor', function () {
                 $scope.lenovoList = [];
                 if (!!$scope.searchFor) {
+
                     //进入联想状态
                     $scope.isHistoryStatus = false;
                     $debounce(lenovo,500);
@@ -197,6 +198,8 @@
                 //正在搜索?
                 $scope.isSearching = false;
                 // $ionicLoading.show();
+                //再次进入此页面时,加载动画不显示的bug修复
+                document.getElementById('infiniteScroll').classList.add("active");
                 //执行
                 return $scope.loadMore().finally(function () {
                     // $ionicLoading.hide();
@@ -219,8 +222,8 @@
                     "conditions": {
                         // "custid": custid,
                         "shopname": $scope.searchFor,
-                        "floor": parseInt($scope.levelCode),
-                        "industryid": parseInt($scope.typeCode),
+                        "floor": Number.parseInt($scope.levelCode),
+                        "industryid": Number.parseInt($scope.typeCode),
                         "page": {
                             "index": _start,
                             "num": _findNum

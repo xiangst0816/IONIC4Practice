@@ -40,7 +40,7 @@
                             defer.resolve(data.id);
                         } else {
                             var errText;
-                            switch (parseInt(data.code)) {
+                            switch (Number.parseInt(data.code)) {
                                 case 10002:
                                     errText = "系统异常!";
                                     break;

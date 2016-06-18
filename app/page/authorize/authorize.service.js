@@ -143,7 +143,7 @@
                             defer.resolve(data.content);
                         } else {
                             var errText;
-                            switch (parseInt(data.code)) {
+                            switch (Number.parseInt(data.code)) {
                                 case 8001:
                                     errText = "验证码错误!";
                                     break;
@@ -211,7 +211,7 @@
                             }
                         } else {
                             var errText;
-                            switch (parseInt(data.code)) {
+                            switch (Number.parseInt(data.code)) {
                                 case 8009:
                                     errText = "手机号码未注册";
                                     break;

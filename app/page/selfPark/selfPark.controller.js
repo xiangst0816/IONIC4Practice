@@ -105,9 +105,9 @@
                 }).then(function (data) {
                     angular.forEach(data, function (value) {
                         if (value.keyname == "parkpayprehour") {
-                            $scope.feePreHour = parseFloat(value.keycode).toFixed(2);
+                            $scope.feePreHour = Number.parseFloat(value.keycode).toFixed(2);
                         } else if (value.keyname == "parkintprehour") {
-                            $scope.intPreHour = parseFloat(value.keycode);
+                            $scope.intPreHour = Number.parseFloat(value.keycode);
                         }
                     });
                 })

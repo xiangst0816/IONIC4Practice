@@ -163,7 +163,7 @@
                         $getCode({
                             "keyname": "shareGetIntegral"
                         }).then(function (data) {
-                            addPoint(parseInt(data[0].keycode), sharedUserID);
+                            addPoint(Number.parseInt(data[0].keycode), sharedUserID);
                         }, function (err) {
                             $log.debug("分享获得积分值的规则获取失败,请检查code->shareGetIntegral," + err);
                         });
@@ -184,7 +184,7 @@
                          * */
                         if (Internal.isInWeiXin) {
                             $changePassword({
-                                "customerid": parseInt(data.customerid),
+                                "customerid": Number.parseInt(data.customerid),
                                 "newpassword": $scope.register.password,
                                 "validatecode": $scope.register.verificationCode
                             }).then(function (data) {
@@ -275,7 +275,7 @@
                 return $addIntegral({
                     "points": {
                         "addednum": pointValue,
-                        "custid": parseInt(customerid),
+                        "custid": Number.parseInt(customerid),
                         "typeid": 1,//积分增加
                         "channelcode": 11,//11奖赏引擎
                         "remark": "分享获得积分"

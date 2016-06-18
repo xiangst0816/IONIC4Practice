@@ -129,7 +129,7 @@
                      * 执行修改密码
                      * */
                     $changePassword({
-                        "customerid": parseInt(data),
+                        "customerid": Number.parseInt(data),
                         "newpassword": $scope.params.password.toString(),
                         "validatecode": $scope.params.verificationCode.toString()
                     }).then(function (data) {

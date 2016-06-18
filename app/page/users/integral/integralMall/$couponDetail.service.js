@@ -32,7 +32,7 @@
                             var result = data.content;
 
                             //判断兑换起始日期是否大于今天,如果大于今天意味着不能兑换(canConvert)
-                            if (parseInt(result.valid_type_code) != 2) {
+                            if (Number.parseInt(result.valid_type_code) != 2) {
                                 result.canConvert = !!($filter('isDateIn')(null, result.valid_start_time, result.valid_end_time));
                             } else {
                                 result.canConvert = true;

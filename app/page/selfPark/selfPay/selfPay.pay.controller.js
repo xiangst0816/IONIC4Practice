@@ -18,12 +18,22 @@
 
                     var payInfo = $stateParams.data;
 
+                    payInfo = {
+                        discount: 5,
+                        entryTime: "2016-04-22 08:50",
+                        paymentNumber: 1,
+                        price: 20,
+                        seqNumber: "123000678",
+                        ticketNumber: "1234.1234.ssss",
+                        time: 20//min
+                    }
 
                     //数据增补
                     var payInfo_otherInfo = {
                         entryTime: $filter('yyyyMMdd_HHmmss_minus')(payInfo.entryTime),
                         nowTime: $filter('yyyyMMdd_HHmmss_minus')(new Date()),
-                        price: parseFloat(payInfo.price) - parseFloat(payInfo.discount)
+                        price: Number.parseFloat(payInfo.price) - Number.parseFloat(payInfo.discount),
+                        originPrice: payInfo.price,
                     };
                     //对象更新
                     angular.extend(payInfo, payInfo_otherInfo);
@@ -36,7 +46,7 @@
                     $scope.needIntegral;
                     $scope.relatedMoney;
 
-                    //可用卡券列表
+                    //可用卡券列表(显示的)
                     $scope.finnalCouponArr = [];
 
                     //停车最多可兑换的积分数
@@ -48,7 +58,7 @@
                     $scope.intergal2money = 0;
                     //所使用的积分抵扣数
                     $scope.integal2paied = 0;
-                    //停车券抵扣钱数
+                    //停车券抵扣钱数(total)
                     $scope.coupon2money = 0;
 
                     //积分分组列表(让用户能选择的积分等级)
@@ -105,6 +115,14 @@
                         }
                     };
 
+                    // 定义卡券信息[{"id":0,"no":"01","amount":10,"name":"停车券"}]
+                    $scope.arrCoupon = [];
+                    let couponEach = {
+                        id: null,
+                        no: null,
+                        amount: null,
+                        name: null,
+                    };
 
                     /**
                      * 显示停车的卡券标题
@@ -122,37 +140,40 @@
                     //点击选择卡券
                     // $scope.selectedCouponValue = 0;
                     $scope.selectParkingCoupon = function (coupon, $event) {
+                        couponEach = {};
+                        couponEach.id = Number.parseInt(coupon.id);
+                        couponEach.no = coupon.code;
+                        couponEach.amount = Number.parseFloat(coupon.face_value) * $scope.parkingHour2money;
+                        couponEach.name = coupon.name;
 
-                        $scope.couponFaceValue = coupon.face_value;
-                        $scope.couponCode = coupon.code;
-                        $scope.couponID = coupon.id;
-                        $scope.couponName = coupon.name;
 
                         //添加标示
                         var target = $event.target;
-                        var all = target.parentNode.children;
                         if (target.classList.contains("active")) {
                             target.classList.remove("active");
                             $scope.coupon2money = 0;
-                            $scope.couponFaceValue = 0;
-                            $scope.couponCode = "";
-                            $scope.couponID = null;
-                            $scope.couponName = "";
-
+                            for(let i = 0;$scope.arrCoupon.length>i;i++){
+                                if($scope.arrCoupon[i].id == couponEach.id){
+                                    $scope.arrCoupon.splice(i, 1);
+                                }else{
+                                    $scope.coupon2money += $scope.arrCoupon[i].amount;
+                                }
+                            }
                             calculate();
                         } else {
-                            for (var i = 1, len = all.length; len > i; i++) {
-                                all[i].classList.remove("active")
-                            }
                             target.classList.add("active");
+                            $scope.arrCoupon.push(couponEach);
                             //停车券抵扣钱数
-                            $scope.coupon2money = $scope.parkingHour2money * $scope.couponFaceValue;
+                            $scope.coupon2money = 0;
+                            for (let coup of $scope.arrCoupon) {
+                                $scope.coupon2money += coup.amount;
+                            }
                             calculate();
-
                         }
-                        $scope.showCouponDetail = false;
-                        $ionicScrollDelegate.resize();
-                        $ionicScrollDelegate.scrollTop(true);
+                        // $scope.showCouponDetail = false;
+                        // $ionicScrollDelegate.resize();
+                        // $ionicScrollDelegate.scrollTop(true);
+                        // console.log($scope.arrCoupon);
                     };
 
                     /**
@@ -227,8 +248,8 @@
                             $smartPay({
                                 "shop_id": baseInfo.parkingID.toString(),//string 店铺id
                                 "trade_type": Internal.isInWeiXin ? 1 : 3,//int  交易类型;1 微信公众号(H5支付),2 微信扫码,3 微信app(APP支付)
-                                "original_fee": parseInt(parseFloat($scope.finalPrice.toFixed(2)) * 100),//float 原始金额
-                                "total_fee": parseInt(parseFloat($scope.finalPrice).toFixed(2) * 100),//float 实付金额
+                                "original_fee": Number.parseInt(Number.parseFloat($scope.finalPrice.toFixed(2)) * 100),//float 原始金额
+                                "total_fee": Number.parseInt(Number.parseFloat($scope.finalPrice).toFixed(2) * 100),//float 实付金额
                                 "openid": Internal.isInWeiXin ? $sessionStorage.userInfo.openid : "",//string 客户标示(微信)
                                 "pay_source": $scope.wxSelected ? 1 : ($scope.zfbSelected ? 3 : 9),//int 支付数据来源;1 微信支付, 3 阿里支付
                             }).then(function (data) {
@@ -252,19 +273,23 @@
                         var defer = $q.defer();
                         $whenPaiedPark({
                             "paymentInfo": {
-                                "custid": parseInt($sessionStorage.userInfo.customerid),
+                                "custid": Number.parseInt($sessionStorage.userInfo.customerid),
                                 "seqNumber": payInfo.seqNumber.toString(),
                                 "ticketNumber": payInfo.ticketNumber.toString(),
-                                "couponid": !!$scope.couponID ? parseInt($scope.couponID) : 0,//优惠券id,但是这里是code值,
-                                "couponno": !!$scope.couponCode ? $scope.couponCode.toString() : "",//优惠券 number
-                                "couponAmount": !!$scope.coupon2money ? parseFloat($scope.coupon2money) : 0,// 优惠券支付金额
-                                "wechatAmount": $scope.wxSelected ? parseFloat(parseFloat($scope.finalPrice).toFixed(2)) : 0,//微信支付金额
-                                "alipayAmount": $scope.zfbSelected ? parseFloat(parseFloat($scope.finalPrice).toFixed(2)) : 0,//支付宝支付金额
-                                "pointPayNum": !!$scope.integal2paied ? parseInt($scope.integal2paied) : 0,//积分支付的积分数量
-                                "pointPayAmount": !!$scope.intergal2money ? parseFloat($scope.intergal2money) : 0,//积分支付的抵扣金额
+                                "coupon": $scope.arrCoupon,
+                                // "couponid": !!$scope.couponID ? Number.parseInt($scope.couponID) : 0,//优惠券id,但是这里是code值,
+                                // "couponno": !!$scope.couponCode ? $scope.couponCode.toString() : "",//优惠券 number
+                                // "couponAmount": !!$scope.coupon2money ? Number.parseFloat($scope.coupon2money) : 0,// 优惠券支付金额
+                                //"couponname": !!$scope.couponName ? $scope.couponName.toString() : ""//卡券名称
+                                "wechatAmount": $scope.wxSelected ? Number.parseFloat(Number.parseFloat($scope.finalPrice).toFixed(2)) : 0,//微信支付金额
+                                "alipayAmount": $scope.zfbSelected ? Number.parseFloat(Number.parseFloat($scope.finalPrice).toFixed(2)) : 0,//支付宝支付金额
+                                "pointPayNum": !!$scope.integal2paied ? Number.parseInt($scope.integal2paied) : 0,//积分支付的积分数量
+                                "pointPayAmount": !!$scope.intergal2money ? Number.parseFloat($scope.intergal2money) : 0,//积分支付的抵扣金额
                                 "entryTime": $filter("yyyyMd_HHmmss_minus")(payInfo.entryTime),//进场时间
                                 "paytime": $filter("yyyyMd_HHmmss_minus")(new Date()),//支付时间
-                                "couponname": !!$scope.couponName ? $scope.couponName.toString() : ""//卡券名称
+                                "amount": payInfo.originPrice,//原实金额
+                                "disamount": payInfo.discount,
+                                "bepaidtime": payInfo.time,//停车时间支付有效期min
                             }
                         }).then(function () {
                             $ionicToast.show("支付信息提交成功,即将跳转!");
@@ -369,19 +394,19 @@
                         }).then(function (data) {
                             angular.forEach(data, function (value) {
                                 if (value.keyname == "integralexchange_1") {
-                                    $scope.needIntegral = parseInt(value.keycode);
+                                    $scope.needIntegral = Number.parseInt(value.keycode);
                                     $log.debug(`停车抵扣所需积分数(整数倍):${$scope.needIntegral}`);
                                 }
                                 if (value.keyname == "integralexchange_2") {
-                                    $scope.relatedMoney = parseFloat(value.keycode).toFixed(2);
+                                    $scope.relatedMoney = Number.parseFloat(value.keycode).toFixed(2);
                                     $log.debug(`停车抵扣积分等效金额:${$scope.relatedMoney}`);
                                 }
                                 if (value.keyname == "integralexchange_3") {
-                                    $scope.parkingHour2money = parseFloat(value.keycode);
+                                    $scope.parkingHour2money = Number.parseFloat(value.keycode);
                                     $log.debug(`每小时停车等效金额:${$scope.parkingHour2money}`);
                                 }
                                 if (value.keyname == "integralexchange_4") {
-                                    $scope.limitIntegral = parseFloat(value.keycode);
+                                    $scope.limitIntegral = Number.parseFloat(value.keycode);
                                     $log.debug(`会员停车最多可使用积分数:${$scope.limitIntegral}`);
                                 }
                             });
@@ -399,7 +424,7 @@
                         return $userCouponList({
                             "conditions": {
                                 "custid": $sessionStorage.userInfo.customerid.toString(),
-                                "categorycode": "5",//2,抵扣券;3,现金券,5停车券
+                                "categorycode": "",//2,抵扣券;3,现金券,5停车券
                                 "typecode": 1,//1 卡券 ;2 礼品
                                 "statuscode": 2,//1 已使用;2 未使用;3 已过期
                                 "querytype": "main",

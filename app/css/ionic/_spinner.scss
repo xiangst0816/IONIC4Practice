@@ -11,6 +11,8 @@
 
   stroke: $spinner-default-stroke;
   fill: $spinner-default-fill;
+  height:50px;
+  width:50px;
 
   &.spinner-light {
     stroke: $spinner-light-stroke;

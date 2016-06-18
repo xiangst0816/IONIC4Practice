@@ -328,8 +328,8 @@ gulp.task('browserSync:server', function () {
     gulp.watch([path.src + '/*.*'], ['move:basejs']);
     gulp.watch([path.src + '/index.html'], ['move:index']).on('change', browserSync.reload);
 
-    gulp.watch([path.src + '/common/**/*.js'], ['commonJS']);
-    gulp.watch([path.src + '/page/**/*.js'], ['pageJS']);
+    gulp.watch([path.src + '/common/**/*.js'], ['commonJS']).on('change', browserSync.reload);
+    gulp.watch([path.src + '/page/**/*.js'], ['pageJS']).on('change', browserSync.reload);
     gulp.watch([path.src + '/index.html', path.src + '/index/*.*'], ['move:index']).on('change', browserSync.reload);
 
 });

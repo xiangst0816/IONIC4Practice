@@ -16,11 +16,7 @@
      * params_2: order(asc升序/默认,desc降序)
      * */
         .factory("$quickSort",[function () {
-            return function () {
-                //params
-                var arr = arguments[0];
-                var order = arguments[1];
-                var key = arguments[2];
+            function sort({arr,order,key}) {
                 //isArray
                 if(!angular.isArray(arr)){return arr;}
                 //array length>1
@@ -57,8 +53,9 @@
                         }
                     }
                 }
-                return arguments.callee(left,order,key).concat([pivot], arguments.callee(right,order,key));
+                return  sort({arr:left,order:order,key:key}).concat([pivot], sort({arr:right,order:order,key:key}));
             }
+            return sort;
         }])
 
 })();

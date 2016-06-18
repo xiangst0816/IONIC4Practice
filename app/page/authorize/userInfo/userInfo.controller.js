@@ -36,11 +36,11 @@
                 };
                 $scope.month = $sessionStorage.userInfo.birthday.substr(5,2);
                 $scope.monthDisplayIndex = {
-                    "id":"" + parseInt($scope.month)-1 + ""
+                    "id":"" + Number.parseInt($scope.month)-1 + ""
                 };
                 $scope.day = $sessionStorage.userInfo.birthday.substr(8,2);
                 $scope.dayDisplayIndex = {
-                    "id":"" + parseInt($scope.day)-1 + ""
+                    "id":"" + Number.parseInt($scope.day)-1 + ""
                 };
             }
             else{
@@ -148,8 +148,8 @@
                 },
                 // 日的数组
                 getDayArr: function (year, month) {
-                    var _month = parseInt(month);
-                    var _year = parseInt(year);
+                    var _month = Number.parseInt(month);
+                    var _year = Number.parseInt(year);
                     var dayArr = [];
                     var lastDay;
                     var monthOf31Days = [1, 3, 5, 7, 8, 10, 12];
@@ -176,12 +176,12 @@
                 getBirthday:function () {
                     if($scope.year && $scope.month && $scope.day){
                         var month = $scope.month;
-                        if(parseInt(month) < 10){
-                            month = "0" + parseInt(month);
+                        if(Number.parseInt(month) < 10){
+                            month = "0" + Number.parseInt(month);
                         }
                         var day = $scope.day;
-                        if(parseInt(day) < 10){
-                            day = "0" + parseInt(day);
+                        if(Number.parseInt(day) < 10){
+                            day = "0" + Number.parseInt(day);
                         }
                         return $scope.year + "-" + month + "-" + day;
                     } else {
@@ -197,13 +197,13 @@
             };
             $scope.monthArr = date.getMonthArr();
             $scope.monthChange = function (index) {
-                $scope.month = parseInt(index) + 1;
+                $scope.month = Number.parseInt(index) + 1;
                 $scope.dayArr = date.getDayArr($scope.year,$scope.month);
                 // console.log($scope.month);
             };
             $scope.dayArr = date.getDayArr($scope.year,$scope.month);
             $scope.dayChange = function (index) {
-                $scope.day = parseInt(index) + 1;
+                $scope.day = Number.parseInt(index) + 1;
                 // console.log($scope.day);
             };
 
@@ -269,7 +269,7 @@
                         "citycode": $scope.params.citycode || '',
                         "address": $scope.params.address || '',
                         "birthday": date.getBirthday(),
-                        "haschildren": parseInt($scope.params.haschildren)
+                        "haschildren": Number.parseInt($scope.params.haschildren)
                     }
                 }).then(function () {
                     $ionicToast.show("保存成功");

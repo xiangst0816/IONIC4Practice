@@ -18,7 +18,7 @@
                     let baseFontSize = document.documentElement.style.fontSize;
                     //虚线轨迹直径(rem),
                     let circleWidth = 7.8;//rem
-                    circleWidth = parseFloat(circleWidth) * parseFloat(baseFontSize);//px
+                    circleWidth = Number.parseFloat(circleWidth) * Number.parseFloat(baseFontSize);//px
                     let circleRadius = Math.floor((circleWidth / 2) * 100) / 100;
                     //导航栏目个数
                     let itemCount = swiperInnerBox.length;
@@ -27,7 +27,7 @@
                     let reg = Math.PI;
                     //每个行星的宽度 = 设定的rem值 * html的font-size值
                     let swiperEachBoxWidth = 1.85;//rem
-                    swiperEachBoxWidth = parseFloat(swiperEachBoxWidth) * parseFloat(baseFontSize);
+                    swiperEachBoxWidth = Number.parseFloat(swiperEachBoxWidth) * Number.parseFloat(baseFontSize);
                     //确定每一个行星的位置
                     for (let i = 0; itemCount > i; i++) {
                         //如果特别小,在手机端会出现bug,保留2位小数
@@ -73,8 +73,8 @@
                     //当拖动时
                     $scope.onDrag = (e) => {
                         if (!isAnimate && Internal.isIOS) {
-                            percent = parseFloat(e.gesture.deltaX * 1 / circleWidth);
-                            rotateNow = parseFloat(rotateBefore + rotateEachDeg * percent);
+                            percent = Number.parseFloat(e.gesture.deltaX * 1 / circleWidth);
+                            rotateNow = Number.parseFloat(rotateBefore + rotateEachDeg * percent);
                             // requestAnimationFrame(move);
                             move(rotateNow)
                         } else {
@@ -91,7 +91,7 @@
                             //移动距离不会超过100%,大于50%就进入下一个
                             let min_velocityX = 0.2;
                             let max_velocityX = 1.4;
-                            if (parseInt(Math.abs(percent * 100)) < 50) {
+                            if (Number.parseInt(Math.abs(percent * 100)) < 50) {
                                 if (velocityX > min_velocityX && velocityX <= max_velocityX) {
                                     moveNext(1);
                                 } else if (velocityX > max_velocityX) {
@@ -275,7 +275,8 @@
                         }
 
                         //将NodeList转成真正数组
-                        let swiperInnerBoxArr = Array.prototype.slice.call(swiperInnerBox);
+
+                        let swiperInnerBoxArr = Array.from(swiperInnerBox);
 
                         //增加动画类
                         swiperInnerBoxArr.forEach((box, i) => {

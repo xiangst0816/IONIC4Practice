@@ -127,6 +127,7 @@
                 $scope.moreDataCanBeLoaded = true;
                 //正在搜索?
                 $scope.isSearching = false;
+                document.getElementById('infiniteScroll').classList.add("active");
                 // $ionicLoading.show();
                 //执行
                 return $scope.loadMore().finally(function () {
@@ -146,8 +147,8 @@
                 start++;
                 return $userCouponList({
                     "conditions": {
-                        "typecode": parseInt($scope.typeCode),
-                        "statuscode": parseInt($scope.statusCode),
+                        "typecode": Number.parseInt($scope.typeCode),
+                        "statuscode": Number.parseInt($scope.statusCode),
                         "page": {
                             "index": _start,
                             "num": _findNum

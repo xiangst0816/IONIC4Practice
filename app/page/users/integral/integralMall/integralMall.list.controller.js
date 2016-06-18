@@ -68,6 +68,7 @@
              * */
             $scope.$on("$stateChangeSuccess", function (event, toState) {
                 if (toState.name == 'subNav.memberIntegralMall') {
+
                     reloadMore();
                 }
             });
@@ -112,6 +113,8 @@
                 $scope.moreDataCanBeLoaded = true;
                 //正在搜索?
                 $scope.isSearching = false;
+                
+                document.getElementById('infiniteScroll').classList.add("active");
                 // $ionicLoading.show();
                 //执行
                 return $scope.loadMore().finally(function () {
@@ -138,7 +141,7 @@
                 start++;
                 return $couponList({
                     "conditions": {
-                        "typecode": parseInt(typeCode),
+                        "typecode": Number.parseInt(typeCode),
                         "page": {
                             "index": _start,
                             "num": _findNum

@@ -102,7 +102,7 @@
 
 
                     //时间验证
-                    if (isNaN(arr[3]) || arr[3].length != 13 || parseInt(arr[3]) > parseInt(timeNow)) {
+                    if (isNaN(arr[3]) || arr[3].length != 13 || Number.parseInt(arr[3]) > Number.parseInt(timeNow)) {
                         showNoticeInfo({
                             title: "积分失败",
                             template: "交易时间错误,请核对!"

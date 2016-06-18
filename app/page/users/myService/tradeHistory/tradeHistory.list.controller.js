@@ -93,6 +93,7 @@
                 $scope.moreDataCanBeLoaded = true;
                 //正在搜索?
                 $scope.isSearching = false;
+                document.getElementById('infiniteScroll').classList.add("active");
                 // $ionicLoading.show();
                 //执行
                 return $scope.loadMore().finally(function () {
@@ -115,7 +116,7 @@
                 start++;
                 return $getTradeHistory({
                     "condition": {
-                        "custid": parseInt($sessionStorage.userInfo.customerid),
+                        "custid": Number.parseInt($sessionStorage.userInfo.customerid),
                         "page": {
                             "index": _start,
                             "num": _findNum
