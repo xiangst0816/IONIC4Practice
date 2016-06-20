@@ -140,11 +140,34 @@
                 // })
 
                 //客服
+               
+                .state('subNav.chatCenter', {
+                    url: '/chatCenter',
+                    templateUrl: 'tpl/chatCenter.tpl.html',
+                    controller: 'chatCenterCtrl'
+                })
                 .state('subNav.chat', {
                     url: '/chat',
                     templateUrl: 'tpl/chat.tpl.html',
                     controller: 'chatCtrl'
                 })
+
+                .state('subNav.myChatList', {
+                    url: '/myChatList',
+                    templateUrl: 'tpl/myChatList.tpl.html',
+                    controller: 'myChatListCtrl'
+                })
+                .state('subNav.chatDetail', {
+                    params:{
+                        'detail':null
+                    },
+                    url: '/chatDetail',
+                    templateUrl: 'tpl/chatDetail.tpl.html',
+                    controller: 'chatDetailCtrl'
+                })
+
+
+
                 //消息
                 .state('subNav.notice', {
                     url: '/notice',

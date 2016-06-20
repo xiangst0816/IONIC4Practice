@@ -46,7 +46,7 @@
                 }, {
                     name: 'lazyLoadSocketIO',
                     files: [
-                        'lib/socket.io.min.js'
+                        'http://apps.bdimg.com/libs/socket.io/0.9.16/socket.io.min.js'
                     ]
                 }]
             });

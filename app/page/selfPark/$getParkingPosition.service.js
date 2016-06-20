@@ -39,7 +39,7 @@
                             defer.resolve(data.content)
                         } else {
                             var errText;
-                            switch (Number.parseInt(data.code)) {
+                            switch (parseInt(data.code)) {
                                 case 19001:
                                     errText = "停车场接口异常!";
                                     break;

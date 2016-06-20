@@ -14,6 +14,53 @@
              * 配置微信环境
              * */
             function setENV(data, CallBack) {
+                //设置config
+                wx.config({
+                    debug: false,
+                    // debug: true,
+                    appId: baseInfo.wxAppID,
+                    timestamp: data.timestamp,
+                    nonceStr: data.noncestr,
+                    signature: data.signature,
+                    jsApiList: [
+                        // 'checkJsApi',
+                        'onMenuShareTimeline',
+                        'onMenuShareAppMessage',
+                        'onMenuShareQQ',
+                        'onMenuShareWeibo',
+                        'onMenuShareQZone',
+                        'hideMenuItems',
+                        // 'showMenuItems',
+                        // 'hideAllNonBaseMenuItem',
+                        // 'showAllNonBaseMenuItem',
+                        // 'translateVoice',
+                        // 'startRecord',
+                        // 'stopRecord',
+                        // 'onVoiceRecordEnd',
+                        // 'playVoice',
+                        // 'onVoicePlayEnd',
+                        // 'pauseVoice',
+                        // 'stopVoice',
+                        // 'uploadVoice',
+                        // 'downloadVoice',
+                        // 'chooseImage',
+                        // 'previewImage',
+                        // 'uploadImage',
+                        // 'downloadImage',
+                        // 'getNetworkType',
+                        // 'openLocation',
+                        // 'getLocation',
+                        // 'hideOptionMenu',
+                        // 'showOptionMenu',
+                        // 'closeWindow',
+                        'scanQRCode',
+                        // 'chooseWXPay',
+                        // 'openProductSpecificView',
+                        // 'addCard',
+                        // 'chooseCard',
+                        // 'openCard'
+                    ]
+                });
                 wx.ready(function () {
 
                     //设置分享按钮显示
@@ -34,68 +81,21 @@
 
                 //如果错误
                 wx.error(function (res) {
-                    $ionicPopup.show({
-                        title: "错误提示",
-                        cssClass: 'noticePopup text-center',
-                        subTitle: '',
-                        template: "微信配置信息出错,请根据以下信息检查错误代码!<br>errMsg:" + res.errMsg,
-                        buttons: [{
-                            text: '确定',
-                            type: 'noticePopupBtn',
-                            onTap: function (e) {
-                            }
-                        }]
-                    });
+                    // $ionicPopup.show({
+                    //     title: "错误提示",
+                    //     cssClass: 'noticePopup text-center',
+                    //     subTitle: '',
+                    //     template: "微信配置信息出错,请根据以下信息检查错误代码!<br>errMsg:" + res.errMsg,
+                    //     buttons: [{
+                    //         text: '确定',
+                    //         type: 'noticePopupBtn',
+                    //         onTap: function (e) {
+                    //         }
+                    //     }]
+                    // });
+                    $ionicToast.show('微信JSSDK获取失败!');
                     $log.debug('微信JSSDK获取失败,' + res);
                     defer.reject(false);
-                });
-
-                //设置config
-                wx.config({
-                    debug: false,
-                    // debug: true,
-                    appId: baseInfo.wxAppID,
-                    timestamp: data.timestamp,
-                    nonceStr: data.noncestr,
-                    signature: data.signature,
-                    jsApiList: [
-                        'checkJsApi',
-                        'onMenuShareTimeline',
-                        'onMenuShareAppMessage',
-                        'onMenuShareQQ',
-                        'onMenuShareWeibo',
-                        'onMenuShareQZone',
-                        'hideMenuItems',
-                        'showMenuItems',
-                        'hideAllNonBaseMenuItem',
-                        'showAllNonBaseMenuItem',
-                        'translateVoice',
-                        'startRecord',
-                        'stopRecord',
-                        'onVoiceRecordEnd',
-                        'playVoice',
-                        'onVoicePlayEnd',
-                        'pauseVoice',
-                        'stopVoice',
-                        'uploadVoice',
-                        'downloadVoice',
-                        'chooseImage',
-                        'previewImage',
-                        'uploadImage',
-                        'downloadImage',
-                        'getNetworkType',
-                        'openLocation',
-                        'getLocation',
-                        'hideOptionMenu',
-                        'showOptionMenu',
-                        'closeWindow',
-                        'scanQRCode',
-                        'chooseWXPay',
-                        'openProductSpecificView',
-                        'addCard',
-                        'chooseCard',
-                        'openCard'
-                    ]
                 });
             }
 
@@ -141,47 +141,6 @@
                 }
             }
         }])
-
-    //    /**
-    //     * 由code和微信公众号id获取微信用户的信息
-    //     * 用于判断用户是否关注
-    //     * */
-    // .factory("$wxGetUserInfo", ['AJAX', 'api', '$q','$log','$ionicToast', function (AJAX, api, $q,$log,$ionicToast) {
-    //     return function (options) {
-    //         if (!angular.isObject(options)) {
-    //             options = {};
-    //         }
-    //         var defer = $q.defer();
-    //         var params = {
-    //             "method": "queryVivo",
-    //             "conditions": {
-    //                 "wechatcode":"",
-    //                 "accountid":""
-    //             }
-    //         };
-    //         //数据合并
-    //         angular.deepExtend(params, options);
-    //         AJAX({
-    //             url: api.customerUrl,
-    //             method: "post",
-    //             data: params,
-    //             success: function (data) {
-    //                 $log.debug("微信用户的信息结果:"+JSON.stringify(data));
-    //                 if (data.code == "7001") {
-    //                     defer.resolve(data.members[0]);
-    //                 } else {
-    //                     defer.reject(data.code);
-    //                 }
-    //             },
-    //             error: function (errText) {
-    //                 defer.reject(errText);
-    //             }
-    //         });
-    //         return defer.promise;
-    //     }
-    // }])
-
-
 })();
 
 

@@ -78,7 +78,7 @@
                 $ionicLoading.show();
                 $q.all([getIntegralDeadline(), totalIntegral()]).then(function () {
                     //预设时间,四个月前
-                    var datefrom = new Date((Number.parseInt((new Date().getTime() / 1000) - Number.parseInt(60 * 60 * 24 * 30 * 4))) * 1000);
+                    var datefrom = new Date((parseInt((new Date().getTime() / 1000) - parseInt(60 * 60 * 24 * 30 * 4))) * 1000);
                     var dateto = new Date();
                     $scope.params.datefrom = $toDayBegin(datefrom);
                     $scope.params.dateto = $toDayEnd(dateto);
@@ -187,7 +187,7 @@
             function getIntegralDeadline() {
                 return $getDuePoint().then(function (data) {
 
-                    $scope.duepoint = Number.parseInt(data.duepoint);
+                    $scope.duepoint = parseInt(data.duepoint);
                     $scope.duedate = data.duedate;
                     // $scope.deadline.year = data.duepoint;
                     // $scope.deadline.month = data.duepoint;
@@ -204,20 +204,20 @@
                     //     //处理月日
                     //     if (deadline.length == 3) {
                     //         //203的情况2月3日
-                    //         $scope.deadline.month = Number.parseInt(deadline.substr(0, 1));
-                    //         $scope.deadline.day = Number.parseInt(deadline.substr(1, 2));
+                    //         $scope.deadline.month = parseInt(deadline.substr(0, 1));
+                    //         $scope.deadline.day = parseInt(deadline.substr(1, 2));
                     //     } else {
                     //         //1203的情况12月3日
-                    //         $scope.deadline.month = Number.parseInt(deadline.substr(0, 2));
-                    //         $scope.deadline.day = Number.parseInt(deadline.substr(2, 2));
+                    //         $scope.deadline.month = parseInt(deadline.substr(0, 2));
+                    //         $scope.deadline.day = parseInt(deadline.substr(2, 2));
                     //     }
                     //     //处理年
-                    //     var monthNow = Number.parseInt(new Date().getMonth() + 1);
-                    //     var dayNow = Number.parseInt(new Date().getDate());
+                    //     var monthNow = parseInt(new Date().getMonth() + 1);
+                    //     var dayNow = parseInt(new Date().getDate());
                     //     if ($scope.deadline.month >= monthNow && $scope.deadline.day >= dayNow) {
-                    //         $scope.deadline.year = Number.parseInt(new Date().getFullYear());
+                    //         $scope.deadline.year = parseInt(new Date().getFullYear());
                     //     } else {
-                    //         $scope.deadline.year = Number.parseInt(new Date().getFullYear()) + 1;
+                    //         $scope.deadline.year = parseInt(new Date().getFullYear()) + 1;
                     //     }
                     //
                     // } else {

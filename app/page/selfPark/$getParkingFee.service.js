@@ -28,7 +28,7 @@
                             defer.resolve(data.content)
                         } else {
                             var errText;
-                            switch (Number.parseInt(data.code)) {
+                            switch (parseInt(data.code)) {
                                 case 19001:
                                     errText = "停车场接口异常!";
                                     break;
@@ -40,7 +40,7 @@
                                     break;
                             }
                             defer.reject(errText)
-                            $log.log("查询停车费用失败," + errText + "," + Number.parseInt(data.code));
+                            $log.log("查询停车费用失败," + errText + "," + parseInt(data.code));
                         }
                     },
                     error: function (errText) {

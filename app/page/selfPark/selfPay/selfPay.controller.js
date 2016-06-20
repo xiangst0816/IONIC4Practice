@@ -26,7 +26,7 @@
                         "ticketInfo": barCode//停车小票扫码出来的信息
                     }).then(function (result) {
                         // alert(JSON.stringify(result));
-                        if (Number.parseInt(result.price) === 0) {
+                        if (parseInt(result.price) === 0) {
                             $timeout(function () {
                                 $ionicToast.show("支付金额为0元,无需支付!",2000);
                             }, 700, false);

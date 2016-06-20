@@ -97,6 +97,7 @@
                 parkingUrl: domain + "/sbp",
                 tradeUrl: domain + "/trade",
                 messageUrl: domain + "/message",
+                feedbackUrl: domain + "/feedback",
                 imgDomainUrl: baseUrl.resourceDomain,
                 //支付
                 reqPayUrl: domain + "/api/spay.server/req_pay",

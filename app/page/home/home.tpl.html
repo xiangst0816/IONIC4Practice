@@ -1,7 +1,7 @@
 <!--
 首页文件
 -->
-<ion-view title="首页" class="home" first-in-guide on-touch="onTouch()" on-release="onRelease()"  scroll="false" locking="true">
+<ion-view title="VivoCity怡丰城" class="home" first-in-guide on-touch="onTouch()" on-release="onRelease()"  scroll="false" locking="true">
     <ion-slide-box
             class="index-top-swiper"
             does-continue="true"
@@ -24,7 +24,7 @@
 
 
     <!--<ion-planet on-swipe-left="swipeLeft()" on-swipe-right="swipeRight()" on-touch="onTouch()" on-release="onRelease()" on-drag="onDrag($event)"-->
-    <ion-planet on-touch="onTouchPlanet()" on-release="onReleasePlanet($event)" on-drag="onDrag($event)" on-swipe-left="swipeLeft()" on-swipe-right="swipeRight()"
+    <ion-planet on-release="onReleasePlanet($event)" on-drag="onDrag($event)" on-swipe-left="swipeLeft()" on-swipe-right="swipeRight()"
                 class="index-bottom-swiper"
                 id="index-bottom-swiper">
         <!--下部swiper-nav-->
@@ -89,7 +89,7 @@
 
         <!--第一部分-->
         <section class="section1">
-            <div class="chat ion-chat-notice ion-chat" ui-sref="subNav.chat"></div>
+            <div class="chat ion-chat-notice ion-chat" ui-sref="subNav.chatCenter"></div>
 
             <div class="headerImg">
                 <img id="headerImg" ng-src="{{photo | addImgPrefix}}" err-src="">

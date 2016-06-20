@@ -59,6 +59,15 @@
                     showToast();
                 }
             });
+            // $rootScope.$on("$locationChangeSuccess",function () {
+            //     console.log("$locationChangeSuccess");
+            //     console.log(_contentBox)
+            //
+            // });
+            //
+            // $rootScope.$on("toastAbandon",function () {
+            //
+            // });
 
             return {
                 show: function () {

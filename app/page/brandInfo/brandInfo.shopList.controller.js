@@ -222,8 +222,8 @@
                     "conditions": {
                         // "custid": custid,
                         "shopname": $scope.searchFor,
-                        "floor": Number.parseInt($scope.levelCode),
-                        "industryid": Number.parseInt($scope.typeCode),
+                        "floor": parseInt($scope.levelCode),
+                        "industryid": parseInt($scope.typeCode),
                         "page": {
                             "index": _start,
                             "num": _findNum

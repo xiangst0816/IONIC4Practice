@@ -58,7 +58,7 @@
              * */
             $scope.showNoticeInfo = function (item) {
                 //如果是卡券发放,则跳转到礼品卡券
-                if (Number.parseInt(item.typecode) == 8) {
+                if (parseInt(item.typecode) == 8) {
                     $state.go("subNav.memberCoupon")
 
                 } else {

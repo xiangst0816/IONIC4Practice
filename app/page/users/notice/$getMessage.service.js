@@ -16,7 +16,7 @@
                     "method": "query",
                     "querytype": "main",//count
                     "message": {
-                        "custid": Number.parseInt($sessionStorage.userInfo.customerid),
+                        "custid": parseInt($sessionStorage.userInfo.customerid),
                         "statuscode": null,//#状态：0未读/1已读/2删除
                     },
                     "dsc": {
@@ -46,7 +46,7 @@
                             }
                         } else {
                             var errText;
-                            switch (Number.parseInt(data.code)) {
+                            switch (parseInt(data.code)) {
                                 default:
                                     errText = "系统内部错误!";
                                     break;

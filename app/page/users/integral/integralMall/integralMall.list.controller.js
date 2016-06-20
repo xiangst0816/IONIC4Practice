@@ -141,7 +141,7 @@
                 start++;
                 return $couponList({
                     "conditions": {
-                        "typecode": Number.parseInt(typeCode),
+                        "typecode": parseInt(typeCode),
                         "page": {
                             "index": _start,
                             "num": _findNum

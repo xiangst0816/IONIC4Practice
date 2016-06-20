@@ -42,7 +42,7 @@
                             $log.debug("停车缴费记录获取成功,共" + result.length + "条记录");
                         } else {
                             var errText;
-                            switch (Number.parseInt(data.code)) {
+                            switch (parseInt(data.code)) {
                                 // case 10002:
                                 //     errText = "系统异常!";
                                 //     break;

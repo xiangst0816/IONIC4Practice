@@ -68,7 +68,7 @@
              * */
             $rootScope.goBack = function (step) {
                 !step && (step = 1);
-                step = Number.parseInt(step);
+                step = parseInt(step);
                 if (isNaN(step)) {
                     return "step must be a number";
                 }

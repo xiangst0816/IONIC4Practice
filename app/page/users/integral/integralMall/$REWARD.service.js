@@ -231,11 +231,11 @@
                     data: params,
                     success: function (data) {
                         // console.log(data);
-                        if (Number.parseInt(data.code) == 7001) {
+                        if (parseInt(data.code) == 7001) {
                             defer.resolve("您可在【会员中心】-【礼品卡券】中查看/更改订单详情。")
                         } else {
                             var errText;
-                            switch (Number.parseInt(data.code)) {
+                            switch (parseInt(data.code)) {
                                 case 11004:
                                     errText = "超过最大发放数!";
                                     break;
@@ -310,11 +310,11 @@
                     data: params,
                     success: function (data) {
                         // console.log(data);
-                        if (Number.parseInt(data.errcode) == 7001) {
+                        if (parseInt(data.errcode) == 7001) {
                             defer.resolve("您可在【会员中心】-【礼品卡券】中查看/更改订单详情。")
                         } else {
                             var errText;
-                            switch (Number.parseInt(data.errcode)) {
+                            switch (parseInt(data.errcode)) {
                                 case 30001:
                                     errText = "系统异常!";
                                     break;
