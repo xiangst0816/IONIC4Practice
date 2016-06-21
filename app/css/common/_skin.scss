@@ -1,11 +1,12 @@
-$stable:                          #a91f7f !default;
+$stable:                #a91f7f !default;
+$list-bg-color:         #e8ecf0 !default;
+$touched:               #fafafa;
 
-$touched: #fafafa;
-
-.touched{
-  background-color:$touched;
+.touched {
+  background-color: $touched;
 }
-.activated{
+
+.activated {
   //background-color:$touched!important;
   //transition: all ease 300ms;
 }

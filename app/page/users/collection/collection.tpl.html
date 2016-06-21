@@ -72,7 +72,7 @@
                 列表加载完毕!</p>
             <!--each end-->
             <section class="infiniteScrollBox" ng-show="moreDataCanBeLoaded">
-                <ion-infinite-scroll distance="1%" spinner="ripple" ng-show="moreDataCanBeLoaded" id="infiniteScroll" on-infinite=""></ion-infinite-scroll>
+                <ion-infinite-scroll distance="1%" spinner="ripple" ng-show="moreDataCanBeLoaded" id="infiniteScroll" on-infinite="loadMore()"></ion-infinite-scroll>
                 <p>正在加载</p>
             </section>
         </div>

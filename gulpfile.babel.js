@@ -1,35 +1,15 @@
 // var gulp = require('gulp');
 'use strict';
-import gulp from 'gulp';
-import gulpLoadPlugins from 'gulp-load-plugins';
+import gulp from "gulp";
+import gulpLoadPlugins from "gulp-load-plugins";
+import bs from "browser-sync";
 const $ = gulpLoadPlugins();
-import bs from 'browser-sync';
 const browserSync = bs.create();
-import merge from 'merge-stream';
-
-// var concat = require('gulp-concat');
-// var sass = require('gulp-sass');
-// // var minifyCss = require('gulp-minify-css');
-// var cleanCss = require('gulp-clean-css');
-// var autoprefixer = require('gulp-autoprefixer');
-// var uglify = require('gulp-uglify');
-// var cssmin = require('gulp-cssmin');
-// var px3rem = require('gulp-px3rem');
-// var rename = require('gulp-rename');
-// var clean = require('gulp-clean');
-// var sequence = require('gulp-sequence');
-// var md5Plus = require('gulp-md5-plus');
-// var imagemin = require('gulp-imagemin');
-// var inlineSource = require('gulp-inline-source');
-// //var cssBase64 = require('gulp-css-base64');
-// var base64 = require('gulp-base64');
-// // var obfuscate = require('gulp-obfuscate');
-// var htmlmin = require('gulp-htmlmin');
-//
 
 const path = {
     src: "app",
-    dist: "www"
+    tmp: "tmp",
+    dest: "www"
 };
 
 /**
@@ -45,8 +25,20 @@ var ENV = "DEV";
  * ---清理dist--------------------------------------------------------------
  * */
 gulp.task('clean:dist', function () {
-    return gulp.src(path.dist, {read: false})
-        .pipe($.clean({force: true}));
+    switch (ENV) {
+        case 'DEV':
+            return gulp.src(path.tmp, {read: false})
+                .pipe($.clean({force: true}));
+            break;
+        case 'TES':
+            return gulp.src(path.dest, {read: false})
+                .pipe($.clean({force: true}));
+            break;
+        case 'PRO':
+            return gulp.src(path.dest, {read: false})
+                .pipe($.clean({force: true}));
+            break;
+    }
 });
 
 
@@ -56,13 +48,13 @@ gulp.task('move:index', ['loadingCss'], function () {
     }));
     switch (ENV) {
         case 'DEV':
-            return stream.pipe(gulp.dest(path.dist));
+            return stream.pipe(gulp.dest(path.tmp));
             break;
         case 'TES':
-            return stream.pipe(gulp.dest(path.dist));
+            return stream.pipe(gulp.dest(path.dest));
             break;
         case 'PRO':
-            return stream.pipe($.htmlmin({collapseWhitespace: true})).pipe(gulp.dest(path.dist));
+            return stream.pipe($.htmlmin({collapseWhitespace: true})).pipe(gulp.dest(path.dest));
             break;
     }
 });
@@ -86,13 +78,13 @@ gulp.task('move:tpl', function () {
     var stream = gulp.src(`${path.src}/page/**/*.html`).pipe($.rename({dirname: ''}));
     switch (ENV) {
         case 'DEV':
-            return stream.pipe(gulp.dest(`${path.dist}/tpl`));
+            return stream.pipe(gulp.dest(`${path.tmp}/tpl`));
             break;
         case 'TES':
-            return stream.pipe(gulp.dest(`${path.dist}/tpl`));
+            return stream.pipe(gulp.dest(`${path.dest}/tpl`));
             break;
         case 'PRO':
-            return stream.pipe($.htmlmin({collapseWhitespace: true})).pipe(gulp.dest(`${path.dist}/tpl`));
+            return stream.pipe($.htmlmin({collapseWhitespace: true})).pipe(gulp.dest(`${path.dest}/tpl`));
             break;
     }
 });
@@ -105,19 +97,15 @@ gulp.task('move:basejs', function () {
     var stream = gulp.src(`${path.src}/*.js`);
     switch (ENV) {
         case 'DEV':
-            return stream.pipe(gulp.dest(path.dist));
+            return stream.pipe(gulp.dest(path.tmp));
             break;
         case 'TES':
-            return stream.pipe($.md5Plus(10, `${path.dist}/index.html`)).pipe(gulp.dest(path.dist));
+            return stream.pipe($.md5Plus(10, `${path.dest}/index.html`)).pipe(gulp.dest(path.dest));
             break;
         case 'PRO':
-            return stream.pipe($.md5Plus(10, `${path.dist}/index.html`)).pipe($.uglify()).pipe(gulp.dest(path.dist));
+            return stream.pipe($.md5Plus(10, `${path.dest}/index.html`)).pipe($.uglify()).pipe(gulp.dest(path.dest));
             break;
     }
-});
-
-gulp.task('move:ico', function () {
-    return gulp.src([`${path.src}/vivoCity.ico`, `${path.src}/vivoCity.png`]).pipe(gulp.dest(path.dist));
 });
 
 
@@ -139,13 +127,13 @@ gulp.task('move:lib', function () {
     ]).pipe($.concat('core.js'));
     switch (ENV) {
         case 'DEV':
-            return stream.pipe(gulp.dest(`${path.dist}/js`));
+            return stream.pipe(gulp.dest(`${path.tmp}/js`));
             break;
         case 'TES':
-            return stream.pipe($.md5Plus(10, `${path.dist}/index.html`)).pipe(gulp.dest(`${path.dist}/js`));
+            return stream.pipe($.md5Plus(10, `${path.dest}/index.html`)).pipe(gulp.dest(`${path.dest}/js`));
             break;
         case 'PRO':
-            return stream.pipe($.md5Plus(10, `${path.dist}/index.html`)).pipe($.uglify()).pipe(gulp.dest(`${path.dist}/js`));
+            return stream.pipe($.md5Plus(10, `${path.dest}/index.html`)).pipe($.uglify()).pipe(gulp.dest(`${path.dest}/js`));
             break;
     }
 });
@@ -175,15 +163,16 @@ var moveImg = {
     src: [
         `${path.src}/img/**/*.*`,
         `${path.src}/*.png`,
-        `${path.src}/*ico`,
+        `${path.src}/*.ico`,
     ],
-    dist: `${path.dist}/img`
+    tmp: `${path.tmp}/img`,
+    dist: `${path.dest}/img`
 };
 gulp.task('img:min', function () {
     var stream = gulp.src(moveImg.src);
     switch (ENV) {
         case 'DEV':
-            return stream.pipe(gulp.dest(moveImg.dist));
+            return stream.pipe(gulp.dest(moveImg.tmp));
             break;
         case 'TES':
             return stream.pipe(gulp.dest(moveImg.dist));
@@ -200,16 +189,17 @@ gulp.task('img:min', function () {
  * controller/filter/directives/utils/routers
  * */
 gulp.task('commonJS', function () {
-    var stream = gulp.src(`${path.src}/common/**/*.js`).pipe($.concat('commonJS.js')).pipe($.babel());
+    var stream = gulp.src(`${path.src}/common/**/*.js`).pipe($.concat('commonJS.js'))
+        .pipe($.babel({presets: ['es2015']}));
     switch (ENV) {
         case 'DEV':
-            return stream.pipe(gulp.dest(`${path.dist}/js`));
+            return stream.pipe(gulp.dest(`${path.tmp}/js`));
             break;
         case 'TES':
-            return stream.pipe($.md5Plus(10, `${path.dist}/index.html`)).pipe(gulp.dest(`${path.dist}/js`));
+            return stream.pipe($.md5Plus(10, `${path.dest}/index.html`)).pipe(gulp.dest(`${path.dest}/js`));
             break;
         case 'PRO':
-            return stream.pipe($.md5Plus(10, `${path.dist}/index.html`)).pipe($.uglify()).pipe(gulp.dest(`${path.dist}/js`));
+            return stream.pipe($.md5Plus(10, `${path.dest}/index.html`)).pipe($.uglify()).pipe(gulp.dest(`${path.dest}/js`));
             break;
     }
 });
@@ -218,16 +208,17 @@ gulp.task('commonJS', function () {
  * controller/filter/directives/utils/routers
  * */
 gulp.task('pageJS', function () {
-    var stream = gulp.src(`${path.src}/page/**/*.js`).pipe($.concat('pageJS.js')).pipe($.babel());
+    var stream = gulp.src(`${path.src}/page/**/*.js`).pipe($.concat('pageJS.js'))
+        .pipe($.babel({presets: ['es2015']}));
     switch (ENV) {
         case 'DEV':
-            return stream.pipe(gulp.dest(`${path.dist}/js`));
+            return stream.pipe(gulp.dest(`${path.tmp}/js`));
             break;
         case 'TES':
-            return stream.pipe($.md5Plus(10, `${path.dist}/index.html`)).pipe(gulp.dest(`${path.dist}/js`));
+            return stream.pipe($.md5Plus(10, `${path.dest}/index.html`)).pipe(gulp.dest(`${path.dest}/js`));
             break;
         case 'PRO':
-            return stream.pipe($.md5Plus(10, `${path.dist}/index.html`)).pipe($.uglify()).pipe(gulp.dest(`${path.dist}/js`));
+            return stream.pipe($.md5Plus(10, `${path.dest}/index.html`)).pipe($.uglify()).pipe(gulp.dest(`${path.dest}/js`));
             break;
     }
 });
@@ -265,13 +256,13 @@ gulp.task('pageCss', function () {
 
     switch (ENV) {
         case 'DEV':
-            return stream.pipe(gulp.dest(`${path.dist}/css`))
+            return stream.pipe(gulp.dest(`${path.tmp}/css`))
             break;
         case 'TES':
-            return stream.pipe($.md5Plus(10, path.dist + '/index.html')).pipe(gulp.dest(`${path.dist}/css`))
+            return stream.pipe($.md5Plus(10, path.dest + '/index.html')).pipe(gulp.dest(`${path.dest}/css`))
             break;
         case 'PRO':
-            return stream.pipe($.md5Plus(10, path.dist + '/index.html')).pipe($.cleanCss()).pipe(gulp.dest(`${path.dist}/css`));
+            return stream.pipe($.md5Plus(10, path.dest + '/index.html')).pipe($.cleanCss()).pipe(gulp.dest(`${path.dest}/css`));
             break;
     }
 });
@@ -294,13 +285,13 @@ gulp.task('ionicCss', function () {
 
     switch (ENV) {
         case 'DEV':
-            return stream.pipe(gulp.dest(`${path.dist}/css`))
+            return stream.pipe(gulp.dest(`${path.tmp}/css`))
             break;
         case 'TES':
-            return stream.pipe($.md5Plus(10, path.dist + '/index.html')).pipe(gulp.dest(`${path.dist}/css`))
+            return stream.pipe($.md5Plus(10, path.dest + '/index.html')).pipe(gulp.dest(`${path.dest}/css`))
             break;
         case 'PRO':
-            return stream.pipe($.md5Plus(10, path.dist + '/index.html')).pipe($.cleanCss()).pipe(gulp.dest(`${path.dist}/css`));
+            return stream.pipe($.md5Plus(10, path.dest + '/index.html')).pipe($.cleanCss()).pipe(gulp.dest(`${path.dest}/css`));
             break;
     }
 });
@@ -311,20 +302,20 @@ gulp.task('browserSync:server', function () {
         notify: false,
         server: {
             //开启的目录
-            baseDir: [path.dist]
+            baseDir: [path.tmp]
         },
         port: 3000,
         // files: [
-        //     `${path.dist}/**/*.*`
+        //     `${path.tmp}/**/*.*`
         // ]
     });
 
     //watch目录
-    gulp.watch(pageCssMap.src, ['pageCss']);
-    gulp.watch(ionicCssMap.src, ['ionicCss']);
-    gulp.watch(moveImg.src, ['img:min']);
+    gulp.watch(pageCssMap.src, ['pageCss']).on('change', browserSync.reload);
+    gulp.watch(ionicCssMap.src, ['ionicCss']).on('change', browserSync.reload);
+    gulp.watch(moveImg.src, ['img:min']).on('change', browserSync.reload);
 
-    gulp.watch([path.src + '/page/**/*.html'], ['move:tpl']);
+    gulp.watch([path.src + '/page/**/*.html'], ['move:tpl']).on('change', browserSync.reload);
     gulp.watch([path.src + '/*.*'], ['move:basejs']);
     gulp.watch([path.src + '/index.html'], ['move:index']).on('change', browserSync.reload);
 
@@ -349,7 +340,6 @@ gulp.task('default', $.sequence(
     ], [
         //移动根目录文件
         'move:basejs',
-        'move:ico',
         // 'move:font',
     ], [
         //移动准备必须的资源

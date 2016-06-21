@@ -117,19 +117,23 @@
     .userGuideBox {
       position: relative;
       top: 0;
+      width:100%;
       img {
         width: 3.7rem;
-        left: 3.11rem;
+        left: 50%;
         position: relative;
+        margin-left: -0.63rem;
       }
     }
     .planetGuideBox {
       position: absolute;
       bottom: 0;
+      width:100%;
       img {
         width: 2.9rem;
-        left: 2.1rem;
+        left: 50%;
         bottom: 1.3rem;
+        margin-left: -1.7rem;
         position: relative;
       }
     }

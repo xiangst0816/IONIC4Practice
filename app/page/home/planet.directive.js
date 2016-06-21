@@ -13,27 +13,27 @@
                     /**
                      * 每个行星定位
                      * */
-                    var swiperInnerBox = document.querySelectorAll('.index-bottom-swiper-eachBox');
+                    let swiperInnerBox = document.querySelectorAll('.index-bottom-swiper-eachBox');
                     //html的font-size值
-                    var baseFontSize = document.documentElement.style.fontSize;
+                    let baseFontSize = document.documentElement.style.fontSize;
                     //虚线轨迹直径(rem),
-                    var circleWidth = 7.8;//rem
+                    let circleWidth = 7.8;//rem
                     circleWidth = parseFloat(circleWidth) * parseFloat(baseFontSize);//px
-                    var circleRadius = Math.floor((circleWidth / 2) * 100) / 100;
+                    let circleRadius = Math.floor((circleWidth / 2) * 100) / 100;
                     //导航栏目个数
-                    var itemCount = swiperInnerBox.length;
+                    let itemCount = swiperInnerBox.length;
                     //每一个的角度
-                    var regEach = 2 * Math.PI / itemCount;
-                    var reg = Math.PI;
+                    let regEach = 2 * Math.PI / itemCount;
+                    let reg = Math.PI;
                     //每个行星的宽度 = 设定的rem值 * html的font-size值
-                    var swiperEachBoxWidth = 1.85;//rem
+                    let swiperEachBoxWidth = 1.85;//rem
                     swiperEachBoxWidth = parseFloat(swiperEachBoxWidth) * parseFloat(baseFontSize);
                     //确定每一个行星的位置
-                    for (var i = 0; itemCount > i; i++) {
+                    for (let i = 0; itemCount > i; i++) {
                         //如果特别小,在手机端会出现bug,保留2位小数
-                        var sinx = Math.floor(Math.sin(reg) * circleRadius * 100) / 100;
-                        var cosx = Math.floor(Math.cos(reg) * circleRadius * 100) / 100;
-                        var cssText =
+                        let sinx = Math.floor(Math.sin(reg) * circleRadius * 100) / 100;
+                        let cosx = Math.floor(Math.cos(reg) * circleRadius * 100) / 100;
+                        let cssText =
                             'left:' + (circleRadius + sinx - swiperEachBoxWidth / 2) + 'px;' +
                             'top:' + (circleRadius + cosx - swiperEachBoxWidth / 2) + 'px;';
                         swiperInnerBox[i].style.cssText = cssText;
@@ -44,23 +44,23 @@
                     /**
                      * 控制每个行星旋转
                      * */
-                    var swiperEachBoxi = document.querySelectorAll('.index-bottom-swiper-eachBox-i');
+                    let swiperEachBoxi = document.querySelectorAll('.index-bottom-swiper-eachBox-i');
 
                     //找到行星轨迹的虚线DOM
-                    var swiperInner = document.getElementById('index-bottom-swiper-inner');
+                    let swiperInner = document.getElementById('index-bottom-swiper-inner');
 
                     //转动之前的状态
-                    var rotateBefore = 0;
+                    let rotateBefore = 0;
                     //转动之后的状态
-                    var rotateNext = 0;
+                    let rotateNext = 0;
                     //正在转动的状态
-                    var rotateNow = 0;
+                    let rotateNow = 0;
                     //当前转动百分比
-                    var percent = 0;
+                    let percent = 0;
                     //每次转动的固定角度(6个行星60度)
-                    var rotateEachDeg = 360 / itemCount;
+                    let rotateEachDeg = 360 / itemCount;
                     //滑动速度
-                    var velocityX;
+                    let velocityX;
 
                     //动触摸时
                     document.ontouchmove = function (e) {
@@ -83,8 +83,8 @@
                         if (Internal.isIOS) {
                             velocityX = e.gesture.velocityX;
                             //移动距离不会超过100%,大于50%就进入下一个
-                            var MIN_VELOCITY_X = 0.3;
-                            var MAX_VELOCITY_X = 1.4;
+                            const MIN_VELOCITY_X = 0.3;
+                            const MAX_VELOCITY_X = 1.4;
                             if (parseInt(Math.abs(percent * 100)) < 50) {
                                 if (velocityX > MIN_VELOCITY_X && velocityX <= MAX_VELOCITY_X) {
                                     moveNext(1);
@@ -123,7 +123,7 @@
                     //转动输入的角度
                     function move(rotate) {
                         swiperInner.style.cssText = `transform: rotate(${rotate}deg);-webkit-transform: rotate(${rotate}deg);`;
-                        for (var i = 0; swiperEachBoxi.length > i; i++) {
+                        for (let i = 0; swiperEachBoxi.length > i; i++) {
                             swiperEachBoxi[i].style.cssText = `transform: rotate(${rotate * -1}deg);-webkit-transform: rotate(${rotate * -1}deg);`;
                         }
                     }
@@ -159,7 +159,7 @@
                         $timeout(function () {
                             // console.log(rotate)
                             swiperInner.style.cssText = `transform: rotate(${rotate}deg);-webkit-transform: rotate(${rotate}deg);transition-duration: 300ms;-webkit-transition-duration: 300ms;`;
-                            for (var i = 0; swiperEachBoxi.length > i; i++) {
+                            for (let i = 0; swiperEachBoxi.length > i; i++) {
                                 swiperEachBoxi[i].style.cssText = `transform: rotate(${rotate * -1}deg);-webkit-transform: rotate(${rotate * -1}deg);transition-duration: 300ms;-webkit-transition-duration: 300ms;`;
                             }
                             $timeout(function () {
@@ -179,8 +179,8 @@
                      * 隐藏底部的三个行星不显示
                      * */
                     function showORNot() {
-                        var rate = rotateBefore / rotateEachDeg;
-                        var whichTop;
+                        let rate = rotateBefore / rotateEachDeg;
+                        let whichTop;
 
                         //向右转,角度为正
                         if (rate > 0 || rate == 0) {
@@ -201,7 +201,7 @@
                             }
                         }
                         //隐藏底部的三个元素
-                        var a, b, c;
+                        let a, b, c;
                         //whichTop
                         switch (whichTop) {
                             case 0:
@@ -235,7 +235,7 @@
                                 c = 5;
                                 break;
                         }
-                        for (var i = 0; swiperInnerBox.length > i; i++) {
+                        for (let i = 0; swiperInnerBox.length > i; i++) {
                             swiperInnerBox[i].style.opacity = 1;
                         }
                         swiperInnerBox[a].style.cssText += 'opacity:0;transition-duration: 300ms;';
@@ -253,7 +253,7 @@
                      */
                     function applyAnimation(whichTop) {
 
-                        var which;
+                        let which;
 
                         //计算出顶上元素在数组中的位置
                         if (whichTop === 0) {
@@ -263,7 +263,8 @@
                         }
 
                         //将NodeList转成真正数组
-                        var swiperInnerBoxArr = Array.prototype.slice.call(swiperInnerBox);
+                        let swiperInnerBoxArr = Array.prototype.slice.call(swiperInnerBox);
+
 
                         //增加动画类
                         swiperInnerBoxArr.forEach(function(box, i)  {

@@ -38,7 +38,7 @@
                             </h2>
                             <p>序列号: <span ng-bind="::item.code"></span></p>
                         </div>
-                        <div class="layer1-right" ng-if="::item.type_code == 1">
+                        <div class="layer1-right" ng-if="item.type_code == 1 && item.type !== 5">
                             <!--折扣-->
                             <p ng-if="::item.category_value == 'coupon_category_1'">
                                 <span ng-bind="::item.face_value*10"></span>折</p>
@@ -78,7 +78,7 @@
             </section>
         </div>
         <section class="infiniteScrollBox" ng-show="moreDataCanBeLoaded">
-            <ion-infinite-scroll distance="1%" spinner="ripple" ng-show="moreDataCanBeLoaded" id="infiniteScroll" on-infinite=""></ion-infinite-scroll>
+            <ion-infinite-scroll distance="1%" spinner="ripple" ng-show="moreDataCanBeLoaded" id="infiniteScroll" on-infinite="loadMore()"></ion-infinite-scroll>
             <p>正在加载</p>
         </section>
     </ion-content>

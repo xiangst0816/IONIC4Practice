@@ -4,7 +4,7 @@
   .chatBox {
 
     padding-top: 0.702rem;
-    background-color: #eee;
+    background: $list-bg-color;
     color: #313131;
     padding-left: 0.38rem;
     padding-right: 0.38rem;
@@ -172,35 +172,37 @@
 }
 
 //客服中心
-.chatCenter{
-  .myQuestionBox{
+.chatCenter {
+  background: $list-bg-color;
+  .myQuestionBox {
 
-    .myQuestion{
+    .myQuestion {
       display: block;
-      width:100%;
+      width: 100%;
       text-align: center;
+      padding-left: 0.76rem;
     }
   }
 
-  .chatBtn{
-    width:1rem;
-    height:1rem;
+  .chatBtn {
+    width: 1rem;
+    height: 1rem;
     position: absolute;;
-    bottom:1rem;
-    right:1rem;
-    background-color:$stable;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: $stable;
     @include display-flex;
     @include justify-content(center);
     @include align-items(center);
     border-radius: 100%;
     //transition: all ease 150ms;
-    &.activated{
-      background-color:lighten($stable,10%);
+    &.activated {
+      background-color: lighten($stable, 10%);
     }
 
-    .chatBtnInner{
-      width:70%;
-      height:70%;
+    .chatBtnInner {
+      width: 70%;
+      height: 70%;
       display: block;
       background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAF0AAABXBAMAAACUxFSWAAAAKlBMVEVMaXH////////////////////////////////////////////////////m1kuZAAAADXRSTlMA36QH88ciS3e4X403QPkTIwAAApFJREFUWMPVV81rE1EQH1yzqWkOtsb6QR+YVCo9BDaFQj1aErXCgtH20EMgKf4BqR8HD4UW8a4gegoUhd6EFrEnC0H6B/jKBvrh73/xkN3NJnnZnQEvncvOm/d7b34z897sLtGQ2F/nVqsTq2uFXWKI/TMHX7zrB4nw9RzgTawVCnPVHOBN1mPR1nsX+tluwKsKVN7FwfeByVeR8UsF/WM0fBv6S78p/RF6pIcN6Nmh8PPQTTN83tUzBqd5LDkmeFZ5n40J/oRpk30bN8x+00pvGdhg2RkR1333eGjKqpk2CV0/HzQtjGLTZdRxhraPq3xj0MECpmIP4aCDlo4/WA18iA7H47cnstV5dPh6VM17Z8WLICz1OOlejLnXeoMr/eyM0jqN0nES8aUeIUs9Sb7XmR6hcQYdolaYoVJC8v0ShKQPjzmN5hL2AvpTrMak/AAyuMPBU+us+0x5bRb+qENERL9dRvaJiEpYahONAWDyB06INgGwHJQAoEm17iNZNgHgKQFAkNlYOQSAP108J6HFC4BfVDedPiU0mPHFQA2UYt/cID4D4CyqhAYzPgWgE1VCgxl/GYAXVULD/8FL+UjjleaTFnNBvXwlNFyM88bFC+5jDQB2GPjv3fsu7SfjAB6y+pULnBPRG3h1Vj9cV51mX2NPEmugsXOldSLDN5gNvfe63hPhbd4LLFLqjgxfwpYIn1XTQkLCDKWGPxjjK61OZQ4amBFGLHSwIYwgq3RdGMFtWYpqnizkeVfvCEOutEWM8lgWLciuoPJNsiC9An3PIXu/XC6XHxwwFlSBW79e+L+njILYeRde8D97ldXFqgEcf3lpehvgHzHTJNufLOXjuW3yyM8Pt3j2XQDwZk1z/wCSAPoGRY3ZAwAAAABJRU5ErkJggg==) no-repeat center center/100% auto;
 
@@ -210,20 +212,76 @@
 }
 
 //客服意见详情
-.chatDetail{
-  padding:0.5rem;
+.chatDetail {
+  padding: 0.5rem 0.2rem 0.2rem;
 
-  .title{
-    text-align:center;
+  .title {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; //显示的行数
+    -webkit-box-orient: vertical;
+    padding: 0 0.44rem;
   }
-  .contentBlock{
-    .sub_title{
+  .contentBlock {
+    padding: 0.2rem 0.2rem 0;
+    .sub_title {
 
     }
-    .sub_content{
+    .sub_content {
 
     }
   }
 
+}
+
+.myQuestionList {
+  .active {
+    color: $stable;
+  }
+  .contentBgColor {
+    background: $list-bg-color;
+  }
+  .newQuestion {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0.88rem;
+    background-color: $stable;
+    font-size: 0.32rem;
+    color: #fff;
+    @include display-flex;
+    @include justify-content(center);
+    @include align-items(center);
+    //border: 1px solid #eee;
+  }
+}
+
+.newQuestionModal {
+  .contentBgColor {
+    background: $list-bg-color;
+  }
+  .footerSubmitBtn {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    color: $stable;
+  }
+  .backBtn {
+    width: 1rem;
+    height: 100%;
+    @include display-flex;
+    @include justify-content(flex-start);
+    @include align-items(center);
+    i {
+      top: 0;
+      //left:0;
+    }
+  }
+  textarea{
+    text-indent: 0 !important;
+  }
 
 }

@@ -4,18 +4,18 @@
   background: url(../img/home/member-bg.png) no-repeat center center/cover;
 }
 
-.platform-ios {
-  .showMember.member {
-    transform: translatey(100%) !important;
-  }
+//.platform-ios {
+//  .showMember.member {
+//    transform: translatey(100%) !important;
+//  }
+//}
+//
+//.platform-android {
+//
+//}
+.showMember.member {
+  transform: translatey(100%) !important;
 }
-
-.platform-android {
-  .showMember.member {
-    transform: translatey(100%) !important;
-  }
-}
-
 .member {
   display: block;
   position: absolute;

@@ -13,7 +13,7 @@
             (clientWidth < clientHeight) ? (tmp = clientWidth) : (tmp = clientHeight);
             //
             if (tmp > 500) {
-                tmp = 500;
+                // tmp = 500;
             }
             //横屏时,高度为基准;竖屏时,宽度为基准
             docEl.dataset.width = tmp;

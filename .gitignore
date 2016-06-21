@@ -9,3 +9,4 @@ backup
 .gitignore
 app
 .svn
+tmp
