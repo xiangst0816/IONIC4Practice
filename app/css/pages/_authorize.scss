@@ -32,14 +32,17 @@
       margin-bottom:0.29rem;
       background:transparent;
       color:$stable;
+
       input{
         color:$stable;
         font-size:0.3rem;
         line-height: normal;
+        -webkit-appearance: none;
       }
       input::-webkit-input-placeholder{
         color:$stable;
         font-size:0.3rem;
+        line-height: normal;
       }
     }
 
@@ -98,6 +101,7 @@
       width:2.1rem;
       font-size:0.3rem;
       background: transparent;
+      line-height:normal;
     }
     label:nth-child(1){
       //width: 100px !important;

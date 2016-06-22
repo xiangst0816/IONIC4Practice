@@ -1,7 +1,7 @@
 <!--
 首页文件
 -->
-<ion-view title="VivoCity怡丰城" class="home" first-in-guide on-touch="onTouch()" on-release="onRelease()"  scroll="false" locking="true">
+<ion-view title="VivoCity怡丰城" class="home" first-in-guide on-touch="onTouch()" on-release="onRelease()" scroll="false" locking="true">
     <ion-slide-box
             class="index-top-swiper"
             does-continue="true"
@@ -20,7 +20,6 @@
             <img src="img/home/home_banner_4_hd.png" alt="">
         </ion-slide>
     </ion-slide-box>
-
 
 
     <!--<ion-planet on-swipe-left="swipeLeft()" on-swipe-right="swipeRight()" on-touch="onTouch()" on-release="onRelease()" on-drag="onDrag($event)"-->
@@ -82,11 +81,9 @@
 </ion-view>
 
 <!--member-->
-<div id="member" class="member red-bg ">
+<div id="member" class="member red-bg" on-touch="onTouch()" on-release="onRelease()" scroll="false" locking="true">
 
     <div class="memberBox">
-
-
         <!--第一部分-->
         <section class="section1">
             <div class="chat ion-chat-notice ion-chat" ui-sref="subNav.chatCenter"></div>
@@ -144,45 +141,49 @@
 
         <!--子栏目导航-->
         <!--<section class="section4">-->
-            <div class="row rowEach">
-                <div class="col col-33 colEach" ui-sref="subNav.memberIntegralQuery">
-                    <i class="icon-memberItems ion-jifen"></i>
-                    <div>我的积分</div>
-                </div>
-                <div class="col col-33 colEach" ui-sref="subNav.memberCoupon">
-                    <i class="icon-memberItems ion-lipin"></i>
-                    <div>礼品卡券</div>
-                </div>
-                <div class="col col-33 colEach" ui-sref="subNav.memberServices">
-                    <i class="icon-memberItems ion-fuwu"></i>
-                    <div>我的服务</div>
-                </div>
+        <div class="row rowEach">
+            <div class="col col-33 colEach" ui-sref="subNav.memberIntegralQuery">
+                <i class="icon-memberItems ion-jifen"></i>
+                <div>我的积分</div>
             </div>
-            <div class="row rowEach">
-                <div class="col col-33 colEach" ui-sref="subNav.memberCollection">
-                    <i class="icon-memberItems ion-shanghu"></i>
-                    <div>关注商户</div>
-                </div>
-                <div class="col col-33 colEach" ui-sref="subNav.memberInfo">
-                    <i class="icon-memberItems ion-perinfo"></i>
-                    <div>个人资料</div>
-                </div>
-                <div class="col col-33 colEach" ui-sref="subNav.memberChangePassword">
-                    <i class="icon-memberItems ion-chpsw"></i>
-                    <div>修改密码</div>
-                </div>
+            <div class="col col-33 colEach" ui-sref="subNav.memberCoupon">
+                <i class="icon-memberItems ion-lipin"></i>
+                <div>礼品卡券</div>
             </div>
+            <div class="col col-33 colEach" ui-sref="subNav.memberServices">
+                <i class="icon-memberItems ion-fuwu"></i>
+                <div>我的服务</div>
+            </div>
+        </div>
+        <div class="row rowEach">
+            <div class="col col-33 colEach" ui-sref="subNav.memberCollection">
+                <i class="icon-memberItems ion-shanghu"></i>
+                <div>关注商户</div>
+            </div>
+            <div class="col col-33 colEach" ui-sref="subNav.memberInfo">
+                <i class="icon-memberItems ion-perinfo"></i>
+                <div>个人资料</div>
+            </div>
+            <div class="col col-33 colEach" ui-sref="subNav.memberChangePassword">
+                <i class="icon-memberItems ion-chpsw"></i>
+                <div>修改密码</div>
+            </div>
+        </div>
 
-            <div class="row rowEach" ng-hide="::isInWeiXin">
-                <div  class="col col-33 colEach colEach-noDivider" ng-click="doLogout()">
-                    <i class="icon-memberItems ion-logout"></i>
-                    <div>退出登录</div>
-                </div>
+        <div class="row rowEach">
+            <div class="col col-33 colEach" ui-sref="subNav.memberAdvise">
+                <i class="icon-memberItems ion-yijian"></i>
+                <div>投诉建议</div>
             </div>
+            <div ng-hide="::isInWeiXin" class="col col-33 colEach colEach-noDivider" ng-click="doLogout()">
+                <i class="icon-memberItems ion-logout"></i>
+                <div>退出登录</div>
+            </div>
+        </div>
 
         <!--</section>-->
 
-        <section ng-click="showHome()" on-swipe-up="showHome()"  on-touch="onTouch()" on-release="onRelease()" class="section5 center-block text-center">
+        <section ng-click="showHome()" on-swipe-up="showHome()" on-touch="onTouch()" on-release="onRelease()" class="section5 center-block text-center">
             <i class="ion-fff-up"></i>
             <p>返回首页</p>
         </section>
@@ -191,8 +192,8 @@
     <!--member click-->
     <section class="home-member">
         <!--<span ng-click="checkAuthorize('member')">-->
-    <div ng-click="showMember()" on-swipe-down="showMember()"  on-touch="onTouch()" on-release="onRelease()">
-      <i class="ion-usercenter"></i>
-    </div>
+        <div ng-click="showMember()" on-swipe-down="showMember()" on-touch="onTouch()" on-release="onRelease()">
+            <i class="ion-usercenter"></i>
+        </div>
     </section>
 </div>

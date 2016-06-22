@@ -186,6 +186,11 @@
                     templateUrl: 'tpl/rights.tpl.html',
                     controller: 'rightsCtrl'
                 })
+                .state('subNav.memberAdvise', {
+                    url: '/memberAdvise',
+                    templateUrl: 'tpl/advise.tpl.html',
+                    controller: 'adviseCtrl'
+                })
 
                 /**
                  * 注册/登录/-子页面二级导航Nav

@@ -1,23 +1,25 @@
 <ion-view title="积分查询" class="">
     <ion-content class="integralQuery" overflow-scroll="true">
-        <div class="stateNow text-left">
-            <i class="icon-integralQuery ion-selfIntegral"></i>
-            <span>当前可用积分:</span>
-            <span ng-bind="totalIntegral"></span>
+        <div class="stateNow">
+            <!--<i class="icon-integralQuery ion-selfIntegral"></i>-->
+            <p class="stateNow_p_1">当前可用积分:</p>
+            <p class="stateNow_p_2" ng-bind="totalIntegral"></p>
+            <p class="stateNow_p_3" ui-sref="subNav.memberRights">如何获得积分</p>
+            <p class="stateNow_p_4" ng-show="duepoint">其中&ensp;<span ng-bind="duepoint"></span>&ensp;积分将在&ensp;<span ng-bind="duedate | yyyyMd_cn"></span>过期</p>
         </div>
-        <div class="stateInfo">
-            <div>
-            <p ng-show="duepoint">其中&ensp;<span ng-bind="duepoint"></span>&ensp;积分将在&ensp;
-                <span ng-bind="duedate | yyyyMd_cn"></span>
-                <!--<span ng-bind="deadline.year"></span>年<span ng-bind="deadline.month"></span>月<span ng-bind="deadline.day"></span>日-->
-                过期</p>
-            </div>
-            <p class="text-right" ui-sref="subNav.memberRights">如何获得积分</p>
-        </div>
+        <!--<div class="stateInfo">-->
+        <!--<div>-->
+        <!--<p ng-show="!duepoint">其中&ensp;<span ng-bind="duepoint"></span>&ensp;积分将在&ensp;<span ng-bind="duedate | yyyyMd_cn"></span>过期</p>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<p class="text-right" ui-sref="subNav.memberRights">如何获得积分</p>&ndash;&gt;-->
+        <!--</div>-->
         <div class="buttonGroup">
             <div class="selfIntegral" ui-sref="subNav.memberSelfIntegral"><span class="icon"></span><span>自助积分</span></div>
             <div class="integralMall" ui-sref="subNav.memberIntegralMall"><span class="icon"></span><span>积分商城</span></div>
         </div>
+        <!--<div>-->
+        <h3 class="text-center internalQuery_title">积分明细</h3>
+        <!--</div>-->
         <div class="queryBox">
             <div class="dateFrom">
                 <input type="date" name="datefrom" id="datefrom" placeholder="yyyy-MM-dd" ng-model="params.datefrom" required>
@@ -53,7 +55,7 @@
 
 
         <section class="infiniteScrollBox" ng-show="moreDataCanBeLoaded">
-            <ion-infinite-scroll distance="1%" spinner="ripple" ng-show="moreDataCanBeLoaded" id="infiniteScroll" on-infinite="loadMore()"></ion-infinite-scroll>
+            <ion-infinite-scroll distance="10%" spinner="ripple" ng-show="moreDataCanBeLoaded" id="infiniteScroll" on-infinite="loadMore()"></ion-infinite-scroll>
             <p>正在加载</p>
         </section>
     </ion-content>

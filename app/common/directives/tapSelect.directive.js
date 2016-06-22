@@ -11,6 +11,7 @@
                     //点击tap后,返回顶部,如果不这样做,点击背景会出现错误
                     ele.on('click', function () {
                         $ionicScrollDelegate.scrollTop(true);
+                        $ionicScrollDelegate.resize();
                     });
                     ele.addClass('tapBox');
                 }

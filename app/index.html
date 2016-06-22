@@ -26,17 +26,22 @@
 <body ng-controller="mainCtrl">
 <!--微信模式下,出现loading画面-->
 <div class="wx_loading" id="wx-loading-js">
-    <div class="loading_plane_box">
-        <div class="loading_plane_box_inner">
-            <div class="plane"></div>
-            <div class="plane_bg">
-                <div class="plane_bg_each plane_bg_1"></div>
-                <div class="plane_bg_each plane_bg_2"></div>
-                <div class="plane_bg_each plane_bg_3"></div>
-            </div>
-        </div>
+    <div class="wx_loading_waveBox" style="z-index:1">
+        <div class="wx_loading_wave" id="wave-js"></div>
     </div>
-    <div class="wx_loading_logo"></div>
+    <div class="wx_loading_bg" style="z-index:10"></div>
+
+    <!--<div class="loading_plane_box">-->
+        <!--<div class="loading_plane_box_inner">-->
+            <!--<div class="plane"></div>-->
+            <!--<div class="plane_bg">-->
+                <!--<div class="plane_bg_each plane_bg_1"></div>-->
+                <!--<div class="plane_bg_each plane_bg_2"></div>-->
+                <!--<div class="plane_bg_each plane_bg_3"></div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="wx_loading_logo"></div>-->
 </div>
 
 <!--js/css/img资源加载-->

@@ -39,6 +39,9 @@ select,
 textarea {
   font-family: $font-family-base; // And only set font-family here for those that need it (note the missing label element)
 }
+input{
+  line-height:normal;
+}
 
 
 // Input List

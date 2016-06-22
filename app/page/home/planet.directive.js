@@ -9,6 +9,22 @@
         .directive('ionPlanet', [function () {
             return {
                 restrict: 'E',
+                compile: function (ele, attr) {
+                    //点击tap后,返回顶部,如果不这样做,点击背景会出现错误
+                    ele.on('touchstart', function () {
+                        document.ontouchmove = function (e) {
+                            e.preventDefault();
+                        };
+                    });
+                    ele.on('touchmove', function () {
+                        document.ontouchmove = function (e) {
+                            e.preventDefault();
+                        };
+                    });
+                    ele.on('touchend', function () {
+                        document.ontouchmove = angular.noop;
+                    });
+                },
                 controller: ['$scope', '$log', '$timeout', function ($scope, $log, $timeout) {
                     /**
                      * 每个行星定位
@@ -61,14 +77,6 @@
                     let rotateEachDeg = 360 / itemCount;
                     //滑动速度
                     let velocityX;
-
-                    //动触摸时
-                    document.ontouchmove = function (e) {
-                        e.preventDefault();
-                    };
-                    $scope.$on("$destroy", function () {
-                        document.ontouchmove = angular.noop;
-                    });
 
                     //当拖动时
                     $scope.onDrag = function (e) {

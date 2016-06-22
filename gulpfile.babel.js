@@ -62,7 +62,7 @@ gulp.task('move:index', ['loadingCss'], function () {
 gulp.task('loadingCss', function () {
     return gulp.src(`${path.src}/index/loading.scss`)
         .pipe($.sass().on('error', $.sass.logError))
-        .pipe($.base64({maxImageSize: 100 * 1024}))
+        .pipe($.base64({maxImageSize: 100 * 100 * 1024}))
         .pipe($.autoprefixer({
             browsers: ['Android >=2.1', 'last 2 versions'],
             cascade: false

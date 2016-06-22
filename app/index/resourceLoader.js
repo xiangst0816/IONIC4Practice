@@ -37,21 +37,22 @@
     //loading的DOM位置id
     var loadingPosition = document.getElementById("wx-loading-js");
     //percent位置的id
-    var whereToNotice = document.getElementById("wx-loading-percent-js");
-    // var totalLoadedNum = core.length + resource.length + rest.length;
-    // var restNum = totalLoadedNum;
-
+    var whereToNotice = document.getElementById("wave-js");
+    var totalLoadedNum = core.length + resource.length + rest.length;
+    var restNum = totalLoadedNum;
+    var fontSize = parseFloat(document.documentElement.style.fontSize);
+    var size = parseFloat(fontSize * 0.8);
     /**
      * 执行
      * */
     $addTags(core, function () {
-        // refresher();
+        refresher();
     }, function () {
         $addTags(resource, function () {
-            // refresher();
+            refresher();
         }, function () {
             $addTags(rest, function () {
-                // refresher();
+                refresher();
             }, function () {
                 angular.element(document).ready(function () {
                     angular.bootstrap(document, [ngAppModule]);
@@ -59,9 +60,9 @@
                 setTimeout(function () {
                     loadingPosition.style.cssText = "opacity:0;";
                     setTimeout(function () {
-                        loadingPosition.style.cssText = "opacity:0;z-index:0;display:none;";
-                    }, 500);
-                }, 500);
+                        loadingPosition.style.cssText += "z-index:0;display:none;";
+                    }, 300);
+                }, 1000);
             })
         });
     });
@@ -70,8 +71,15 @@
      * 刷新loading percent
      * */
     function refresher() {
-        // restNum--;
+        restNum--;
+        var percent = Math.floor(((totalLoadedNum - restNum) / totalLoadedNum * 100));
+        var top = size * percent / (-100);
         // console.log(Math.floor(((totalLoadedNum - restNum) / totalLoadedNum * 100)) + "%");
+        // console.log(percent);
+        // console.log(top);
+        whereToNotice.style.cssText += 'transform: translateY(' + top + 'px);-webkit-transform: translateY(' + top + 'px);';
+        // console.log(whereToNotice.style.cssText)
+        // swiperInner.style.cssText = `transform: rotate(${rotate}deg);transform: translateY(0,-10px)
         // whereToNotice.innerHTML = Math.floor(((totalLoadedNum - restNum) / totalLoadedNum * 100)) + "%";
     }
 

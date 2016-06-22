@@ -354,14 +354,15 @@
     color: #fff;
     width: 100%;
     background-color: $stable;
-    height: 0.89rem;
-    line-height: 0.89rem;
+    height: 2.06rem;
+    //line-height: 0.89rem;
     font-size: 0.3rem;
     border-radius: 5px;
     padding: 0 0.17rem;
     @include display-flex;
-    @include justify-content(flex-start);
-    @include align-items(center);
+    @include justify-content(center);
+    @include align-items(flex-end);
+    @include flex-direction(column);
 
     //display: flex;
     //justify-content: flex-start;
@@ -370,13 +371,30 @@
     margin-right: auto;
     border: 1px solid transparent;
     margin-top: 0.4rem;
-    i {
-      margin-right: 0.32rem;
+    p{
+      margin-bottom:0.1rem;
+      line-height:100%;
     }
-    span {
-      font-size: 0.3rem;
-
+    .stateNow_p_1{
+      font-size:0.4rem;
     }
+    .stateNow_p_2{
+      font-size:0.3rem;
+    }
+    .stateNow_p_3{
+      font-size:0.3rem;
+      text-decoration: underline;
+    }
+    .stateNow_p_4{
+      font-size:0.22rem;
+    }
+    //i {
+    //  margin-right: 0.32rem;
+    //}
+    //span {
+    //  font-size: 0.3rem;
+    //
+    //}
 
   }
   .stateInfo {
@@ -428,6 +446,8 @@
       @include justify-content(center);
       @include align-items(center);
       padding: .05rem 0;
+      height:0.79rem;
+      font-size:0.32rem;
       .icon {
         display: inline-block;
         width: .35rem;
@@ -445,6 +465,10 @@
       background-size: cover;
     }
   }
+  .internalQuery_title{
+    color:$stable;
+    margin:0.2rem 0;
+  }
   .queryBox {
     @include display-flex;
     @include justify-content(space-between);
@@ -461,22 +485,30 @@
       display: inline-block;
       border-radius: 5px;
       border: 2px solid $stable;
-      height: 0.7rem;
+      height: 0.53rem;
+      width:2.25rem;
       text-align: center;
-      line-height: 0.7rem;
+      line-height: normal;
       box-sizing: content-box;
       input {
         width: 100%;
         text-align: center;
         padding: 0;
+        margin:0;
+        border:0;
         -webkit-appearance: none;
         font-size: 0.24rem;
-        line-height: 0.7rem;
+        //line-height: normal;
         height: 100%;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-
+        color:#000;
+        line-height: 0.53rem;
+      }
+      input::-webkit-input-placeholder {
+        background: transparent !important;
+        text-align: center;
       }
 
     }
@@ -499,7 +531,7 @@
       @include display-flex;
       @include justify-content(center);
       @include align-items(center);
-
+      border: none;
       //display: flex;
       //justify-content: center;
       //align-items: center;
@@ -515,9 +547,9 @@
 
   }
   .queryList {
-    margin-top: 0.48rem;
+    margin-top: 0.28rem;
     .queryListEach {
-      border: 2px solid #434343;
+      border-bottom: 1px solid #434343;
       padding: 0.13rem 0.17rem;
       margin-bottom: 0.234rem;
       p {
