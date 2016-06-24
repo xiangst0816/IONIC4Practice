@@ -41,7 +41,7 @@
     var totalLoadedNum = core.length + resource.length + rest.length;
     var restNum = totalLoadedNum;
     var fontSize = parseFloat(document.documentElement.style.fontSize);
-    var size = parseFloat(fontSize * 0.8);
+    var size = parseFloat(fontSize * 2.2);
     /**
      * 执行
      * */
@@ -74,13 +74,9 @@
         restNum--;
         var percent = Math.floor(((totalLoadedNum - restNum) / totalLoadedNum * 100));
         var top = size * percent / (-100);
-        // console.log(Math.floor(((totalLoadedNum - restNum) / totalLoadedNum * 100)) + "%");
-        // console.log(percent);
-        // console.log(top);
+
+
         whereToNotice.style.cssText += 'transform: translateY(' + top + 'px);-webkit-transform: translateY(' + top + 'px);';
-        // console.log(whereToNotice.style.cssText)
-        // swiperInner.style.cssText = `transform: rotate(${rotate}deg);transform: translateY(0,-10px)
-        // whereToNotice.innerHTML = Math.floor(((totalLoadedNum - restNum) / totalLoadedNum * 100)) + "%";
     }
 
     /**

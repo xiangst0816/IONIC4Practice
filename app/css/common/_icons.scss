@@ -19,7 +19,7 @@
   background: url(../img/icon/icon-back.png) no-repeat center center/100% auto;
 }
 
-.ion-fff-up{
+.ion-fff-up {
   width: 0.4rem;
   height: 0.4rem;
   position: relative;
@@ -238,12 +238,35 @@
   &.ion-selfQuery {
     background: url(../img/icon/icon-list.png) no-repeat center center/auto 100%;
   }
-  &.ion-selfMall {
-    background: url(../img/icon/icon-mall.png) no-repeat center center/auto 100%;
-  }
+
+  //我的服务
+  //线上缴费记录
   &.ion-searchCar {
     background: url(../img/icon/icon-searchCar.png) no-repeat center center/100% auto;
   }
+  //餐厅订位
+  &.ion-cantingdingwei {
+    background: url(../img/icon/icon-cantingdingwei.png) no-repeat center center/auto 100%;
+  }
+  //餐厅排队
+  &.ion-cantingpaidui {
+    background: url(../img/icon/ion-cantingpaidui.png) no-repeat center center/100% auto;
+  }
+  //活动预约
+  &.ion-huodongyuyue {
+    background: url(../img/icon/ion-huodongyuyue.png) no-repeat center center/100% auto;
+  }
+  //团购订单
+  &.ion-tungoudingdan {
+    background: url(../img/icon/ion-tungoudingdan.png) no-repeat center center/auto 100%;
+  }
+  //竞拍记录
+  &.ion-jingpaijilu {
+    background: url(../img/icon/ion-jingpaijilu.png) no-repeat center center/ auto 100%;
+  }
+  //
+  //
+
 }
 
 .icon-integralQuery {
@@ -355,11 +378,12 @@
   //  background: url(../img/icon/select.png) no-repeat center center/100% auto !important;
   //}
 }
+
 .payMethod.active,
-.couponListEach.active{
+.couponListEach.active {
   .icon-selfPark-select.icon-select {
     background: url(../img/icon/select.png) no-repeat center center/100% auto !important;
-    transform:none!important;
+    transform: none !important;
   }
 }
 
@@ -422,20 +446,22 @@
 }
 
 //自助积分左右箭头
-.left-selfpark-arrow{
+.left-selfpark-arrow {
   height: 0.6rem;
   width: 0.5rem;
   position: relative;
   background: url(../img/icon/left-arrow.png) no-repeat center center/auto 100% !important;
 }
-.right-selfpark-arrow{
+
+.right-selfpark-arrow {
   height: 0.6rem;
   width: 0.5rem;
   position: relative;
   background: url(../img/icon/up-eee-arrow.png) no-repeat center center/auto 100% !important;
 }
+
 //停车缴费向右箭头
-.right-payPark-arrow{
+.right-payPark-arrow {
   height: 0.35rem;
   width: 0.35rem !important;
   //top:0.03rem !important;

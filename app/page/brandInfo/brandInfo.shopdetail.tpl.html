@@ -43,7 +43,7 @@
         </div>
         <!--门店信息-->
         <div class="detailInfo">
-            <section>
+            <section class="contact_info">
                 <div>
                     <i class="icon ion-renjun"></i><span>&emsp;人均: <span ng-bind="::item.percapitaconsumption">0</span>元</span>
                 </div>
@@ -53,6 +53,10 @@
                 <div>
                     <a ng-href="tel:{{::item.telephone}}"><i class="icon ion-phone"></i><span>&emsp;<span class="phone"  ng-bind="::item.telephone"></span></span></a>
                 </div>
+            </section>
+            <section class="further_info">
+                <div class="further_info_each dingwei"></div>
+                <div class="further_info_each paidui"></div>
             </section>
         </div>
         <!--门店优惠信息-->

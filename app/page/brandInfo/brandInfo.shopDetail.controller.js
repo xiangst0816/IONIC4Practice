@@ -7,6 +7,8 @@
         .controller('shopDetailCtrl', ['$sessionStorage', '$scope', '$stateParams', '$ionicBackdrop', '$ionicLoading', 'AJAX', 'api', '$ionicToast', '$shopCollect', '$checkAuthorize', '$shopList', '$setShareContent', '$getUrlParams', '$timeout', function ($sessionStorage, $scope, $stateParams, $ionicBackdrop, $ionicLoading, AJAX, api, $ionicToast, $shopCollect, $checkAuthorize, $shopList, $setShareContent, $getUrlParams, $timeout) {
 
             var shopID = $stateParams.detail;
+            //
+            shopID = '44fbba54-2921-491a-a2d1-54ad5268ab7e';
             //如果不是从list中来的
             if (!shopID) {
                 //如果url中携带参数
@@ -21,10 +23,6 @@
                     return false;
                 }
             }
-
-
-
-
             /**
              * 获取店铺详情
              * */

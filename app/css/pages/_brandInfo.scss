@@ -1,13 +1,12 @@
 //品牌资讯
 
-
-.brandDetail{
-  .imgBox{
+.brandDetail {
+  .imgBox {
     display: block;
     position: relative;
-    height:3.53rem;
+    height: 3.53rem;
     overflow: hidden;
-    img{
+    img {
       display: block;
       position: relative;
       max-width: 100%;
@@ -15,32 +14,32 @@
       width: 100%;
       height: 100%;
     }
-    p{
+    p {
       display: block;
       position: absolute;
-      bottom:0;
-      margin-bottom:0;
-      height:0.65rem;
-      width:100%;
-      font-size:0.41rem;
-      color:#fff;
-      text-align:left;
-      background-color:rgba(0,0,0,0.6);
-      line-height:0.65rem;
-      padding:0 0.22rem;
+      bottom: 0;
+      margin-bottom: 0;
+      height: 0.65rem;
+      width: 100%;
+      font-size: 0.41rem;
+      color: #fff;
+      text-align: left;
+      background-color: rgba(0, 0, 0, 0.6);
+      line-height: 0.65rem;
+      padding: 0 0.22rem;
       font-weight: bold;
 
     }
-    .moreInfoBox{
+    .moreInfoBox {
       position: absolute;
       z-index: 1;
-      top:0;
-      right:0;
-      width:2.25rem;
-      height:2rem;
-      .moreInfo{
+      top: 0;
+      right: 0;
+      width: 2.25rem;
+      height: 2rem;
+      .moreInfo {
         //float: right;
-        width:100%;
+        width: 100%;
         height: 100%;
         @include display-flex;
         @include justify-content(space-between);
@@ -50,20 +49,20 @@
         //justify-content: space-between;
         //flex-wrap: wrap;
         //align-content: flex-start;
-        div{
+        div {
           //background-color:rgba(0,0,0,0.5);
           //border-radius: 4px;
           //display: flex;
           //justify-content: center;
           //align-items: center;
         }
-        .wow,.collection,.share{
-          background-color:rgba(0,0,0,0.6);
+        .wow, .collection, .share {
+          background-color: rgba(0, 0, 0, 0.6);
         }
-        .wowBox{
-          width:100%;
-          padding-top:0.3rem;
-          padding-right:0.3rem;
+        .wowBox {
+          width: 100%;
+          padding-top: 0.3rem;
+          padding-right: 0.3rem;
 
           @include display-flex;
           @include justify-content(flex-end);
@@ -72,32 +71,32 @@
           //justify-content: flex-end;
           //align-content: flex-start;
 
-          .wow{
+          .wow {
 
             border-radius: 4px;
-            width:1.30rem;
-            height:0.47rem;
+            width: 1.30rem;
+            height: 0.47rem;
             color: #fff;
-            padding:0 0.1rem;
-            margin-bottom:0.15rem;
+            padding: 0 0.1rem;
+            margin-bottom: 0.15rem;
             @include display-flex;
             @include justify-content(space-around);
             @include align-items(center);
             //display: flex;
             //justify-content: space-around;
             //align-items: center;
-            span{
-              font-size:0.3rem;
-              line-height:0.47rem;
+            span {
+              font-size: 0.3rem;
+              line-height: 0.47rem;
             }
-            i{
-              font-size:0.45rem;
+            i {
+              font-size: 0.45rem;
             }
           }
         }
-        .collectionBox{
-          width:50%;
-          height:50%;
+        .collectionBox {
+          width: 50%;
+          height: 50%;
           position: relative;
           @include display-flex;
           @include justify-content(flex-end);
@@ -105,46 +104,46 @@
           //display: flex;
           //justify-content: flex-end;
           //align-items: flex-start;
-          .collection{
+          .collection {
 
             border-radius: 4px;
-            height:0.47rem;
-            width:0.47rem;
+            height: 0.47rem;
+            width: 0.47rem;
             @include display-flex;
             @include justify-content(center);
             @include align-items(center);
             //display: flex;
             //justify-content: center;
             //align-items: center;
-            .star{
+            .star {
               width: 70%;
-              height:70%;
+              height: 70%;
             }
           }
         }
-        .collectionBox::after{
+        .collectionBox::after {
           content: '';
           position: absolute;
-          top:0;
-          left:0;
-          width:100%;
-          height:100%;
-          z-index:99;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 99;
         }
         //.collected{
         //
         //}
-        .shareBox{
-          width:50%;
-          height:50%;
+        .shareBox {
+          width: 50%;
+          height: 50%;
           @include display-flex;
           @include justify-content(flex-end);
           @include align-items(flex-start);
           //display: flex;
           //justify-content: flex-end;
           //align-items: flex-start;
-          padding-right:0.3rem;
-          .share{
+          padding-right: 0.3rem;
+          .share {
             @include display-flex;
             @include justify-content(center);
             @include align-items(center);
@@ -153,11 +152,12 @@
             //align-items: center;
 
             border-radius: 4px;
-            height:0.47rem;
-            width:0.47rem;flex-wrap: wrap;
-            i{
-              font-size:0.45rem;
-              color:#fff;
+            height: 0.47rem;
+            width: 0.47rem;
+            flex-wrap: wrap;
+            i {
+              font-size: 0.45rem;
+              color: #fff;
             }
           }
         }
@@ -166,68 +166,92 @@
 
   }
   //门店信息
-  .detailInfo{
-    padding:0 0.34rem;
+  .detailInfo {
+    padding: 0 0.34rem;
+    position: relative;
+    display: block;
 
-    section{
-      border-bottom:1px solid #8d8d8d;
+    .contact_info {
+      border-bottom: 1px solid #8d8d8d;
       padding: 0.1rem 0;
-      div{
-        font-size:0.25rem;
-        height:0.65rem;
+      div {
+        font-size: 0.25rem;
+        height: 0.65rem;
         width: 100%;
-        margin-bottom:0;
-        color:$stable;
-        text-align:left;
-        line-height:0.65rem;
-        &>span{
+        margin-bottom: 0;
+        color: $stable;
+        text-align: left;
+        line-height: 0.65rem;
+        & > span {
           float: left;
-          height:100%;
-          line-height:0.65rem;
+          height: 100%;
+          line-height: 0.65rem;
 
         }
-        i{
+        i {
           float: left;
           //padding-top:0.1rem;
           //line-height:0.5rem;
           //position: relative;
           //top:0.07rem;
         }
-        a{
-          color:inherit;
+        a {
+          color: inherit;
           text-decoration: none;
-          .phone{
+          .phone {
             text-decoration: underline;
           }
+        }
+      }
+    }
+    .further_info {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 3.3rem;
+      height: 100%;
+      @include display-flex;
+      @include justify-content(center);
+      @include align-items(center);
+      .further_info_each {
+        margin: 0 0.1rem;
+        height: 1.12rem;
+        width: 1.12rem;
+        cursor: pointer;
+        &.dingwei {
+          background: url(../img/icon/icon-dingwei.png) no-repeat center center/cover;
+        }
+        &.paidui {
+          background: url(../img/icon/icon-paidui.png) no-repeat center center/cover;
         }
       }
     }
 
   }
   //门店优惠信息
-  .shopDetail{
-    padding:0 0 0 0.34rem;
-    line-height:0.6rem;
+  .shopDetail {
+    padding: 0 0 0 0.34rem;
+    line-height: 0.6rem;
     list-style: disc;
-    margin-left:0.34rem;
-    margin-right:0.34rem;
-    font-size:0.3rem;
-    color:#676767;
+    margin-left: 0.34rem;
+    margin-right: 0.34rem;
+    font-size: 0.3rem;
+    color: #676767;
 
-    border-bottom:1px solid #8d8d8d;
-    li{
-      height:0.6rem;
+    border-bottom: 1px solid #8d8d8d;
+    li {
+      height: 0.6rem;
     }
 
   }
   //商户介绍
-  .shopIntroduction{
-    padding:0.3rem 0.34rem;
-    font-size:0.3rem;
-    line-height:120%;
-    color:#676767;
-    p{
-      margin:0;
+  .shopIntroduction {
+    padding: 0.3rem 0.34rem;
+    font-size: 0.3rem;
+    line-height: 120%;
+    color: #676767;
+    p {
+      margin: 0;
     }
 
   }
