@@ -75,6 +75,18 @@
     li {
 
     }
+    .couponTable{
+      width: 100%;
+      text-align: center;
+      border: 1px solid #eee;
+      th{
+        background-color: #999999;
+        color:#fff;
+      }
+      td{
+        border:1px solid #eee;
+      }
+    }
 
   }
 

@@ -18,15 +18,21 @@
 
                     var payInfo = $stateParams.data;
 
-                    // payInfo = {
-                    //     discount: 5,
-                    //     entryTime: "2016-04-22 08:50",
-                    //     paymentNumber: 1,
-                    //     price: 20,
-                    //     seqNumber: "123000678",
-                    //     ticketNumber: "1234.1234.ssss",
-                    //     time: 20//min
-                    // }
+                    /**
+                     * 测试
+                     * */
+                    if (Internal.isInDesktop) {
+                        // 假数据
+                        payInfo = {
+                            discount: 3,
+                            entryTime: "2016-04-22 08:50",
+                            paymentNumber: 1,
+                            price: 20,
+                            seqNumber: "123000678",
+                            ticketNumber: "1234.1234.ssss",
+                            time: 20//min
+                        }
+                    }
 
                     //数据增补
                     var payInfo_otherInfo = {
@@ -140,6 +146,7 @@
                     //点击选择卡券
                     // $scope.selectedCouponValue = 0;
                     $scope.selectParkingCoupon = function (coupon, $event) {
+
                         couponEach = {};
                         couponEach.id = parseInt(coupon.id);
                         couponEach.no = coupon.code;
@@ -151,16 +158,22 @@
                         var target = $event.target;
                         if (target.classList.contains("active")) {
                             target.classList.remove("active");
-                            $scope.coupon2money = 0;
-                            for(let i = 0;$scope.arrCoupon.length>i;i++){
-                                if($scope.arrCoupon[i].id == couponEach.id){
+                            //剔除
+                            for (let i = 0; $scope.arrCoupon.length > i; i++) {
+                                if ($scope.arrCoupon[i].id === couponEach.id) {
                                     $scope.arrCoupon.splice(i, 1);
-                                }else{
-                                    $scope.coupon2money += $scope.arrCoupon[i].amount;
+                                    break;
                                 }
                             }
+
+                            //金额计算
+                            $scope.coupon2money = 0;
+                            for (let coup of $scope.arrCoupon) {
+                                $scope.coupon2money += coup.amount;
+                            }
+
                             calculate();
-                        } else {
+                        } else if($scope.arrCoupon.length < 2){
                             target.classList.add("active");
                             $scope.arrCoupon.push(couponEach);
                             //停车券抵扣钱数
@@ -169,11 +182,12 @@
                                 $scope.coupon2money += coup.amount;
                             }
                             calculate();
+                        }else{
+                            $ionicToast.show("停车券最多只能使用两张");
+                            $scope.showCouponDetail = false;
+                            $ionicScrollDelegate.resize();
+                            $ionicScrollDelegate.scrollTop(true);
                         }
-                        // $scope.showCouponDetail = false;
-                        // $ionicScrollDelegate.resize();
-                        // $ionicScrollDelegate.scrollTop(true);
-                        // console.log($scope.arrCoupon);
                     };
 
                     /**
@@ -438,9 +452,9 @@
                                 }
                             }
                         }).then(function (data) {
-                            console.log(data)
-                            console.log("停车券信息列表:")
-                            console.log(data)
+                            // console.log(data)
+                            // console.log("停车券信息列表:")
+                            // console.log(data)
                             $scope.finnalCouponArr = data;
                         }, function (errText) {
 

@@ -82,8 +82,9 @@
                     $scope.onDrag = function (e) {
                         if (Internal.isIOS) {
                             percent = parseFloat(e.gesture.deltaX * 1 / circleWidth);
-                            rotateNow = parseFloat(rotateBefore + rotateEachDeg * percent);
-                            move(rotateNow)
+                            rotateNow = parseFloat(parseFloat(rotateBefore + rotateEachDeg * percent).toFixed(2));
+                            // console.log(rotateNow);
+                            move(rotateNow);
                         }
                     };
                     //当停止触控

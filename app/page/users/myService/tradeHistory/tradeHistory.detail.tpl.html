@@ -19,11 +19,29 @@
       </li>
     </ul>
     <ul class="info2">
-      <p>付款方式: </p>
-      <li ng-if="item.alipayAmount">支付宝支付<span ng-bind="item.alipayAmount"></span>元</li>
-      <li ng-if="item.wechatAmount">微信支付<span ng-bind="item.wechatAmount"></span>元</li>
-      <li ng-if="item.pointPayAmount">积分抵扣<span ng-bind="item.pointPayAmount"></span>元</li>
-      <li ng-if="item.couponAmount">优惠券抵扣<span ng-bind="item.couponAmount"></span>元</li>
+      <h5>付款方式: </h5>
+      <li ng-if="item.alipayAmount"><span>支付宝支付: </span><span ng-bind="item.alipayAmount"></span>元。</li>
+      <li ng-if="item.wechatAmount">微信支付: <span ng-bind="item.wechatAmount"></span>元。</li>
+      <li ng-if="item.pointPayAmount">
+        <span>积分抵扣:</span>
+        <span>使用积分<span ng-bind="item.pointPayNum"></span>, </span>
+        <span>抵扣金额<span ng-bind="item.pointPayAmount"></span>元。</span>
+      </li>
+      <li ng-if="!!couponList.length">
+        <span>停车券抵扣:</span>
+        <table class="couponTable">
+          <tr>
+            <th>停车券名称</th>
+            <th>停车券编号</th>
+            <th>抵扣金额(元)</th>
+          </tr>
+          <tr ng-repeat="item in couponList track by $index">
+            <td ng-bind="item.name"></td>
+            <td ng-bind="item.no"></td>
+            <td ng-bind="item.amount"></td>
+          </tr>
+        </table>
+      </li>
     </ul>
   </ion-content>
 </ion-view>
