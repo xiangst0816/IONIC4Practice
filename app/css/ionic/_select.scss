@@ -114,24 +114,24 @@
       color:$item-energized-text;
     }
   }
-  &.item-royal {
-    select{
-      background:$item-royal-bg;
-      color:$item-royal-text;
-    }
-    &:after, .input-label{
-      color:$item-royal-text;
-    }
-  }
-  &.item-dark  {
-    select{
-      background:$item-dark-bg;
-      color:$item-dark-text;
-    }
-    &:after, .input-label{
-      color:$item-dark-text;
-    }
-  }
+  //&.item-royal {
+  //  select{
+  //    background:$item-royal-bg;
+  //    color:$item-royal-text;
+  //  }
+  //  &:after, .input-label{
+  //    color:$item-royal-text;
+  //  }
+  //}
+  //&.item-dark  {
+  //  select{
+  //    background:$item-dark-bg;
+  //    color:$item-dark-text;
+  //  }
+  //  &:after, .input-label{
+  //    color:$item-dark-text;
+  //  }
+  //}
 }
 
 select {

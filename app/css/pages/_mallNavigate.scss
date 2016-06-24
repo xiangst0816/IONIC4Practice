@@ -4,11 +4,24 @@ $bottomBtnHeight: 1.6rem;
   .has-bottomBtn {
     bottom: $bottomBtnHeight;
   }
+
+  .demo_scroll{
+
+  }
   //demo
   //padding-top:0.34rem!important;
-
+  height: 100%;
+  width:100%;
+  .scroll{
+    height: 100%;
+    width:100%;
+  }
   .centerMap {
-
+    height: 100%;
+    width:100%;
+    @include display-flex;
+    @include justify-content(center);
+    @include align-items(center);
   }
   .bottomBtns {
     position: absolute;

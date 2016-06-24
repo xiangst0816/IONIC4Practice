@@ -34,12 +34,12 @@
 .checkbox-energized{
   @include checkbox-style($checkbox-off-border-energized, $checkbox-on-bg-energized, $checkbox-off-border-energized);
 }
-.checkbox-royal  {
-  @include checkbox-style($checkbox-off-border-royal, $checkbox-on-bg-royal, $checkbox-off-border-royal);
-}
-.checkbox-dark  {
-  @include checkbox-style($checkbox-off-border-dark, $checkbox-on-bg-dark, $checkbox-off-border-dark);
-}
+//.checkbox-royal  {
+//  @include checkbox-style($checkbox-off-border-royal, $checkbox-on-bg-royal, $checkbox-off-border-royal);
+//}
+//.checkbox-dark  {
+//  @include checkbox-style($checkbox-off-border-dark, $checkbox-on-bg-dark, $checkbox-off-border-dark);
+//}
 
 .checkbox input:disabled:before,
 .checkbox input:disabled + .checkbox-icon:before {

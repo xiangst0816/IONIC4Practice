@@ -115,12 +115,12 @@
   &.range-energized {
     input { @include range-style($range-energized-track-bg); }
   }
-  &.range-royal {
-    input { @include range-style($range-royal-track-bg); }
-  }
-  &.range-dark {
-    input { @include range-style($range-dark-track-bg); }
-  }
+  //&.range-royal {
+  //  input { @include range-style($range-royal-track-bg); }
+  //}
+  //&.range-dark {
+  //  input { @include range-style($range-dark-track-bg); }
+  //}
 }
 
 .range .icon {

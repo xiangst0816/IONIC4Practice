@@ -11,42 +11,16 @@
         <smart-search-btn class="searchBoxBtn">搜索</smart-search-btn>
     </smart-search-box>
     <!--smart-tap-box为通用控件-->
-    <ion-content class="has-tabs-top has-bottomBtn">
+    <ion-scroll class="has-header has-footer has-bottomBtn" zooming="true" direction="xy" style="height: 10rem;">
+
         <section class="centerMap">
-            <img width="100%" src="img/mallNavigate/detail-1.png" alt="">
-
+            <img id="demoImg" width="100%" src="img/mallNavigate/detail-1.png" alt="">
         </section>
-
-    </ion-content>
+    </ion-scroll>
     <section class="bottomBtns">
-        <!--<img ng-click="demo()" width="100%" src="img/mallNavigate/bottom-button.png" alt="">-->
-<!-- 地图导航下方暂时隐藏 用图片做mock by Yao Cheng 2016-05-25 -->
-<div class="btnGroup">
-    <img ng-click="demo()" height="100%" src="img/mallNavigate/bottom-button.png" alt="">
-</div>
-<!--         <div class="eachBtn res">
-            <i class="ion-select-left icon-heart"></i>
-            <span>优惠商户</span>
+        <div class="btnGroup">
+            <img ng-click="demo()" width="100%" src="img/mallNavigate/bottom-button.png" alt="">
         </div>
-        <div class="eachBtn">
-            <i class="ion-select-right ion-arrow-down"></i>
-            <select>
-                <option>公共设施1</option>
-                <option>公共设施2</option>
-                <option>公共设施3</option>
-            </select>
-
-        </div>
-        <div class="eachBtn reverse" ui-sref="subNav.mallNavigateLine">导航路径</div>
-        <div class="eachBtn">
-            <i class="ion-authorize ion-select-right ion-arrow-down"></i>
-            <select>
-                <option>1层</option>
-                <option>2层</option>
-                <option>3层</option>
-            </select>
-        </div> -->
-
     </section>
 </ion-view>
 

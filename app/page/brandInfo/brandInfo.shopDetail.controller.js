@@ -89,8 +89,5 @@
                     $ionicLoading.hide();
                 })
             }
-
-
         }]);
-
 })();

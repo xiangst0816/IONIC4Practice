@@ -140,7 +140,7 @@
                 // })
 
                 //客服
-               
+
                 .state('subNav.chatCenter', {
                     url: '/chatCenter',
                     templateUrl: 'tpl/chatCenter.tpl.html',
@@ -158,8 +158,8 @@
                     controller: 'myChatListCtrl'
                 })
                 .state('subNav.chatDetail', {
-                    params:{
-                        'detail':null
+                    params: {
+                        'detail': null
                     },
                     url: '/chatDetail',
                     templateUrl: 'tpl/chatDetail.tpl.html',
@@ -244,6 +244,24 @@
                     templateUrl: 'tpl/brandInfo.shopdetail.tpl.html'
                     , controller: 'shopDetailCtrl'
                 })
+
+                /**
+                 * 预定
+                 * */
+                .state('subNav.book', {
+                    url: '/book',
+                    templateUrl: 'tpl/book.tpl.html'
+                    , controller: 'bookCtrl'
+                })
+                .state('subNav.bookSuccess', {
+                    url: '/bookSuccess',
+                    templateUrl: 'tpl/bookSuccess.tpl.html'
+                    , controller: 'bookSuccessCtrl'
+                })
+
+
+
+
 
                 /**
                  * 丰树资讯

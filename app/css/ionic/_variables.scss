@@ -101,50 +101,50 @@ $button-light-active-border:      #ccc !default;
 $button-stable-bg:                $stable !default;
 $button-stable-text: #ffffff !default;
 $button-stable-border:            $stable !default;
-$button-stable-active-bg:         $stable !default;
+$button-stable-active-bg:         transparent !default;
 $button-stable-active-border:     $stable !default;
 
-$button-positive-bg:              $positive !default;
-$button-positive-text:            #fff !default;
-$button-positive-border:          darken($positive, 10%) !default;
-$button-positive-active-bg:       darken($positive, 10%) !default;
-$button-positive-active-border:   darken($positive, 10%) !default;
+//$button-positive-bg:              $positive !default;
+//$button-positive-text:            #fff !default;
+//$button-positive-border:          darken($positive, 10%) !default;
+//$button-positive-active-bg:       darken($positive, 10%) !default;
+//$button-positive-active-border:   darken($positive, 10%) !default;
 
-$button-calm-bg:                  $calm !default;
-$button-calm-text:                #fff !default;
-$button-calm-border:              darken($calm, 10%) !default;
-$button-calm-active-bg:           darken($calm, 10%) !default;
-$button-calm-active-border:       darken($calm, 10%) !default;
+//$button-calm-bg:                  $calm !default;
+//$button-calm-text:                #fff !default;
+//$button-calm-border:              darken($calm, 10%) !default;
+//$button-calm-active-bg:           darken($calm, 10%) !default;
+//$button-calm-active-border:       darken($calm, 10%) !default;
 
-$button-assertive-bg:             $assertive !default;
-$button-assertive-text:           #fff !default;
-$button-assertive-border:         darken($assertive, 10%) !default;
-$button-assertive-active-bg:      darken($assertive, 10%) !default;
-$button-assertive-active-border:  darken($assertive, 10%) !default;
+//$button-assertive-bg:             $assertive !default;
+//$button-assertive-text:           #fff !default;
+//$button-assertive-border:         darken($assertive, 10%) !default;
+//$button-assertive-active-bg:      darken($assertive, 10%) !default;
+//$button-assertive-active-border:  darken($assertive, 10%) !default;
 
-$button-balanced-bg:              $balanced !default;
-$button-balanced-text:            #fff !default;
-$button-balanced-border:          darken($balanced, 10%) !default;
-$button-balanced-active-bg:       darken($balanced, 10%) !default;
-$button-balanced-active-border:   darken($balanced, 10%) !default;
+//$button-balanced-bg:              $balanced !default;
+//$button-balanced-text:            #fff !default;
+//$button-balanced-border:          darken($balanced, 10%) !default;
+//$button-balanced-active-bg:       darken($balanced, 10%) !default;
+//$button-balanced-active-border:   darken($balanced, 10%) !default;
 
-$button-energized-bg:             $energized !default;
-$button-energized-text:           #fff !default;
-$button-energized-border:         darken($energized, 5%) !default;
-$button-energized-active-bg:      darken($energized, 5%) !default;
-$button-energized-active-border:  darken($energized, 5%) !default;
+//$button-energized-bg:             $energized !default;
+//$button-energized-text:           #fff !default;
+//$button-energized-border:         darken($energized, 5%) !default;
+//$button-energized-active-bg:      darken($energized, 5%) !default;
+//$button-energized-active-border:  darken($energized, 5%) !default;
 
-$button-royal-bg:                 $royal !default;
-$button-royal-text:               #fff !default;
-$button-royal-border:             darken($royal, 8%) !default;
-$button-royal-active-bg:          darken($royal, 8%) !default;
-$button-royal-active-border:      darken($royal, 8%) !default;
+//$button-royal-bg:                 $royal !default;
+//$button-royal-text:               #fff !default;
+//$button-royal-border:             darken($royal, 8%) !default;
+//$button-royal-active-bg:          darken($royal, 8%) !default;
+//$button-royal-active-border:      darken($royal, 8%) !default;
 
-$button-dark-bg:                  $dark !default;
-$button-dark-text:                #fff !default;
-$button-dark-border:              #111 !default;
-$button-dark-active-bg:           #262626 !default;
-$button-dark-active-border:       #000 !default;
+//$button-dark-bg:                  $dark !default;
+//$button-dark-text:                #fff !default;
+//$button-dark-border:              #111 !default;
+//$button-dark-active-bg:           #262626 !default;
+//$button-dark-active-border:       #000 !default;
 
 $button-default-bg:               $button-stable-bg !default;
 $button-default-text:             $button-stable-text !default;
@@ -178,47 +178,47 @@ $bar-stable-border:               $button-stable-border !default;
 $bar-stable-active-bg:            $button-stable-active-bg !default;
 $bar-stable-active-border:        $button-stable-active-border !default;
 
-$bar-positive-bg:                 rgba($button-positive-bg, $bar-transparency) !default;
-$bar-positive-text:               $button-positive-text !default;
-$bar-positive-border:             $button-positive-border !default;
-$bar-positive-active-bg:          $button-positive-active-bg !default;
-$bar-positive-active-border:      $button-positive-active-border !default;
+//$bar-positive-bg:                 rgba($button-positive-bg, $bar-transparency) !default;
+//$bar-positive-text:               $button-positive-text !default;
+//$bar-positive-border:             $button-positive-border !default;
+//$bar-positive-active-bg:          $button-positive-active-bg !default;
+//$bar-positive-active-border:      $button-positive-active-border !default;
+//
+//$bar-calm-bg:                     rgba($button-calm-bg, $bar-transparency) !default;
+//$bar-calm-text:                   $button-calm-text !default;
+//$bar-calm-border:                 $button-calm-border !default;
+//$bar-calm-active-bg:              $button-calm-active-bg !default;
+//$bar-calm-active-border:          $button-calm-active-border !default;
+//
+//$bar-assertive-bg:                rgba($button-assertive-bg, $bar-transparency) !default;
+//$bar-assertive-text:              $button-assertive-text !default;
+//$bar-assertive-border:            $button-assertive-border !default;
+//$bar-assertive-active-bg:         $button-assertive-active-bg !default;
+//$bar-assertive-active-border:     $button-assertive-active-border !default;
+//
+//$bar-balanced-bg:                 rgba($button-balanced-bg, $bar-transparency) !default;
+//$bar-balanced-text:               $button-balanced-text !default;
+//$bar-balanced-border:             $button-balanced-border !default;
+//$bar-balanced-active-bg:          $button-balanced-active-bg !default;
+//$bar-balanced-active-border:      $button-balanced-active-border !default;
+//
+//$bar-energized-bg:                rgba($button-energized-bg, $bar-transparency) !default;
+//$bar-energized-text:              $button-energized-text !default;
+//$bar-energized-border:            $button-energized-border !default;
+//$bar-energized-active-bg:         $button-energized-active-bg !default;
+//$bar-energized-active-border:     $button-energized-active-border !default;
 
-$bar-calm-bg:                     rgba($button-calm-bg, $bar-transparency) !default;
-$bar-calm-text:                   $button-calm-text !default;
-$bar-calm-border:                 $button-calm-border !default;
-$bar-calm-active-bg:              $button-calm-active-bg !default;
-$bar-calm-active-border:          $button-calm-active-border !default;
+//$bar-royal-bg:                    rgba($button-royal-bg, $bar-transparency) !default;
+//$bar-royal-text:                  $button-royal-text !default;
+//$bar-royal-border:                $button-royal-border !default;
+//$bar-royal-active-bg:             $button-royal-active-bg !default;
+//$bar-royal-active-border:         $button-royal-active-border !default;
 
-$bar-assertive-bg:                rgba($button-assertive-bg, $bar-transparency) !default;
-$bar-assertive-text:              $button-assertive-text !default;
-$bar-assertive-border:            $button-assertive-border !default;
-$bar-assertive-active-bg:         $button-assertive-active-bg !default;
-$bar-assertive-active-border:     $button-assertive-active-border !default;
-
-$bar-balanced-bg:                 rgba($button-balanced-bg, $bar-transparency) !default;
-$bar-balanced-text:               $button-balanced-text !default;
-$bar-balanced-border:             $button-balanced-border !default;
-$bar-balanced-active-bg:          $button-balanced-active-bg !default;
-$bar-balanced-active-border:      $button-balanced-active-border !default;
-
-$bar-energized-bg:                rgba($button-energized-bg, $bar-transparency) !default;
-$bar-energized-text:              $button-energized-text !default;
-$bar-energized-border:            $button-energized-border !default;
-$bar-energized-active-bg:         $button-energized-active-bg !default;
-$bar-energized-active-border:     $button-energized-active-border !default;
-
-$bar-royal-bg:                    rgba($button-royal-bg, $bar-transparency) !default;
-$bar-royal-text:                  $button-royal-text !default;
-$bar-royal-border:                $button-royal-border !default;
-$bar-royal-active-bg:             $button-royal-active-bg !default;
-$bar-royal-active-border:         $button-royal-active-border !default;
-
-$bar-dark-bg:                     rgba($button-dark-bg, $bar-transparency) !default;
-$bar-dark-text:                   $button-dark-text !default;
-$bar-dark-border:                 $button-dark-border !default;
-$bar-dark-active-bg:              $button-dark-active-bg !default;
-$bar-dark-active-border:          $button-dark-active-border !default;
+//$bar-dark-bg:                     rgba($button-dark-bg, $bar-transparency) !default;
+//$bar-dark-text:                   $button-dark-text !default;
+//$bar-dark-border:                 $button-dark-border !default;
+//$bar-dark-active-bg:              $button-dark-active-bg !default;
+//$bar-dark-active-border:          $button-dark-active-border !default;
 
 $bar-default-bg:                  $bar-light-bg !default;
 $bar-default-text:                $bar-light-text !default;
@@ -245,33 +245,33 @@ $tabs-stable-bg:                  $button-stable-bg !default;
 $tabs-stable-border:              $button-stable-border !default;
 $tabs-stable-text:                $button-stable-text !default;
 
-$tabs-positive-bg:                $button-positive-bg !default;
-$tabs-positive-border:            $button-positive-border !default;
-$tabs-positive-text:              $button-positive-text !default;
+//$tabs-positive-bg:                $button-positive-bg !default;
+//$tabs-positive-border:            $button-positive-border !default;
+//$tabs-positive-text:              $button-positive-text !default;
+//
+//$tabs-calm-bg:                    $button-calm-bg !default;
+//$tabs-calm-border:                $button-calm-border !default;
+//$tabs-calm-text:                  $button-calm-text !default;
+//
+//$tabs-assertive-bg:               $button-assertive-bg !default;
+//$tabs-assertive-border:           $button-assertive-border !default;
+//$tabs-assertive-text:             $button-assertive-text !default;
+//
+//$tabs-balanced-bg:                $button-balanced-bg !default;
+//$tabs-balanced-border:            $button-balanced-border !default;
+//$tabs-balanced-text:              $button-balanced-text !default;
+//
+//$tabs-energized-bg:               $button-energized-bg !default;
+//$tabs-energized-border:           $button-energized-border !default;
+//$tabs-energized-text:             $button-energized-text !default;
 
-$tabs-calm-bg:                    $button-calm-bg !default;
-$tabs-calm-border:                $button-calm-border !default;
-$tabs-calm-text:                  $button-calm-text !default;
+//$tabs-royal-bg:                   $button-royal-bg !default;
+//$tabs-royal-border:               $button-royal-border !default;
+//$tabs-royal-text:                 $button-royal-text !default;
 
-$tabs-assertive-bg:               $button-assertive-bg !default;
-$tabs-assertive-border:           $button-assertive-border !default;
-$tabs-assertive-text:             $button-assertive-text !default;
-
-$tabs-balanced-bg:                $button-balanced-bg !default;
-$tabs-balanced-border:            $button-balanced-border !default;
-$tabs-balanced-text:              $button-balanced-text !default;
-
-$tabs-energized-bg:               $button-energized-bg !default;
-$tabs-energized-border:           $button-energized-border !default;
-$tabs-energized-text:             $button-energized-text !default;
-
-$tabs-royal-bg:                   $button-royal-bg !default;
-$tabs-royal-border:               $button-royal-border !default;
-$tabs-royal-text:                 $button-royal-text !default;
-
-$tabs-dark-bg:                    $button-dark-bg !default;
-$tabs-dark-border:                $button-dark-border !default;
-$tabs-dark-text:                  $button-dark-text !default;
+//$tabs-dark-bg:                    $button-dark-bg !default;
+//$tabs-dark-border:                $button-dark-border !default;
+//$tabs-dark-text:                  $button-dark-text !default;
 
 $tabs-default-bg:                 $tabs-stable-bg !default;
 $tabs-default-border:             $tabs-stable-border !default;
@@ -324,47 +324,47 @@ $item-stable-text:                $button-stable-text !default;
 $item-stable-active-bg:           $button-stable-active-bg !default;
 $item-stable-active-border:       $button-stable-active-border !default;
 
-$item-positive-bg:                $button-positive-bg !default;
-$item-positive-border:            $button-positive-border !default;
-$item-positive-text:              $button-positive-text !default;
-$item-positive-active-bg:         $button-positive-active-bg !default;
-$item-positive-active-border:     $button-positive-active-border !default;
+//$item-positive-bg:                $button-positive-bg !default;
+//$item-positive-border:            $button-positive-border !default;
+//$item-positive-text:              $button-positive-text !default;
+//$item-positive-active-bg:         $button-positive-active-bg !default;
+//$item-positive-active-border:     $button-positive-active-border !default;
+//
+//$item-calm-bg:                    $button-calm-bg !default;
+//$item-calm-border:                $button-calm-border !default;
+//$item-calm-text:                  $button-calm-text !default;
+//$item-calm-active-bg:             $button-calm-active-bg !default;
+//$item-calm-active-border:         $button-calm-active-border !default;
+//
+//$item-assertive-bg:               $button-assertive-bg !default;
+//$item-assertive-border:           $button-assertive-border !default;
+//$item-assertive-text:             $button-assertive-text !default;
+//$item-assertive-active-bg:        $button-assertive-active-bg !default;
+//$item-assertive-active-border:    $button-assertive-active-border !default;
+//
+//$item-balanced-bg:                $button-balanced-bg !default;
+//$item-balanced-border:            $button-balanced-border !default;
+//$item-balanced-text:              $button-balanced-text !default;
+//$item-balanced-active-bg:         $button-balanced-active-bg !default;
+//$item-balanced-active-border:     $button-balanced-active-border !default;
+//
+//$item-energized-bg:               $button-energized-bg !default;
+//$item-energized-border:           $button-energized-border !default;
+//$item-energized-text:             $button-energized-text !default;
+//$item-energized-active-bg:        $button-energized-active-bg !default;
+//$item-energized-active-border:    $button-energized-active-border !default;
 
-$item-calm-bg:                    $button-calm-bg !default;
-$item-calm-border:                $button-calm-border !default;
-$item-calm-text:                  $button-calm-text !default;
-$item-calm-active-bg:             $button-calm-active-bg !default;
-$item-calm-active-border:         $button-calm-active-border !default;
+//$item-royal-bg:                   $button-royal-bg !default;
+//$item-royal-border:               $button-royal-border !default;
+//$item-royal-text:                 $button-royal-text !default;
+//$item-royal-active-bg:            $button-royal-active-bg !default;
+//$item-royal-active-border:        $button-royal-active-border !default;
 
-$item-assertive-bg:               $button-assertive-bg !default;
-$item-assertive-border:           $button-assertive-border !default;
-$item-assertive-text:             $button-assertive-text !default;
-$item-assertive-active-bg:        $button-assertive-active-bg !default;
-$item-assertive-active-border:    $button-assertive-active-border !default;
-
-$item-balanced-bg:                $button-balanced-bg !default;
-$item-balanced-border:            $button-balanced-border !default;
-$item-balanced-text:              $button-balanced-text !default;
-$item-balanced-active-bg:         $button-balanced-active-bg !default;
-$item-balanced-active-border:     $button-balanced-active-border !default;
-
-$item-energized-bg:               $button-energized-bg !default;
-$item-energized-border:           $button-energized-border !default;
-$item-energized-text:             $button-energized-text !default;
-$item-energized-active-bg:        $button-energized-active-bg !default;
-$item-energized-active-border:    $button-energized-active-border !default;
-
-$item-royal-bg:                   $button-royal-bg !default;
-$item-royal-border:               $button-royal-border !default;
-$item-royal-text:                 $button-royal-text !default;
-$item-royal-active-bg:            $button-royal-active-bg !default;
-$item-royal-active-border:        $button-royal-active-border !default;
-
-$item-dark-bg:                    $button-dark-bg !default;
-$item-dark-border:                $button-dark-border !default;
-$item-dark-text:                  $button-dark-text !default;
-$item-dark-active-bg:             $button-dark-active-bg !default;
-$item-dark-active-border:         $button-dark-active-border !default;
+//$item-dark-bg:                    $button-dark-bg !default;
+//$item-dark-border:                $button-dark-border !default;
+//$item-dark-text:                  $button-dark-text !default;
+//$item-dark-active-bg:             $button-dark-active-bg !default;
+//$item-dark-active-border:         $button-dark-active-border !default;
 
 $item-default-bg:                 $item-light-bg !default;
 $item-default-border:             $item-light-border !default;
@@ -463,20 +463,20 @@ $toggle-on-light-bg:              $button-light-border !default;
 $toggle-on-light-border:          $toggle-on-light-bg !default;
 $toggle-on-stable-bg:             $button-stable-border !default;
 $toggle-on-stable-border:         $toggle-on-stable-bg !default;
-$toggle-on-positive-bg:           $positive !default;
-$toggle-on-positive-border:       $toggle-on-positive-bg !default;
-$toggle-on-calm-bg:               $calm !default;
-$toggle-on-calm-border:           $toggle-on-calm-bg !default;
-$toggle-on-assertive-bg:          $assertive !default;
-$toggle-on-assertive-border:      $toggle-on-assertive-bg !default;
-$toggle-on-balanced-bg:           $balanced !default;
-$toggle-on-balanced-border:       $toggle-on-balanced-bg !default;
-$toggle-on-energized-bg:          $energized !default;
-$toggle-on-energized-border:      $toggle-on-energized-bg !default;
-$toggle-on-royal-bg:              $royal !default;
-$toggle-on-royal-border:          $toggle-on-royal-bg !default;
-$toggle-on-dark-bg:               $dark !default;
-$toggle-on-dark-border:           $toggle-on-dark-bg !default;
+//$toggle-on-positive-bg:           $positive !default;
+//$toggle-on-positive-border:       $toggle-on-positive-bg !default;
+//$toggle-on-calm-bg:               $calm !default;
+//$toggle-on-calm-border:           $toggle-on-calm-bg !default;
+//$toggle-on-assertive-bg:          $assertive !default;
+//$toggle-on-assertive-border:      $toggle-on-assertive-bg !default;
+//$toggle-on-balanced-bg:           $balanced !default;
+//$toggle-on-balanced-border:       $toggle-on-balanced-bg !default;
+//$toggle-on-energized-bg:          $energized !default;
+//$toggle-on-energized-border:      $toggle-on-energized-bg !default;
+//$toggle-on-royal-bg:              $royal !default;
+//$toggle-on-royal-border:          $toggle-on-royal-bg !default;
+//$toggle-on-dark-bg:               $dark !default;
+//$toggle-on-dark-border:           $toggle-on-dark-bg !default;
 $toggle-on-default-bg:            #4cd964 !default;
 $toggle-on-default-border:        $toggle-on-default-bg !default;
 
@@ -501,20 +501,20 @@ $checkbox-off-border-light:       $button-light-border !default;
 $checkbox-on-bg-light:            $button-light-border !default;
 $checkbox-off-border-stable:      $button-stable-border !default;
 $checkbox-on-bg-stable:           $button-stable-border !default;
-$checkbox-off-border-positive:    $positive !default;
-$checkbox-on-bg-positive:         $positive !default;
-$checkbox-off-border-calm:        $calm !default;
-$checkbox-on-bg-calm:             $calm !default;
-$checkbox-off-border-assertive:   $assertive !default;
-$checkbox-on-bg-assertive:        $assertive !default;
-$checkbox-off-border-balanced:    $balanced !default;
-$checkbox-on-bg-balanced:         $balanced !default;
-$checkbox-off-border-energized:   $energized !default;
-$checkbox-on-bg-energized:        $energized !default;
-$checkbox-off-border-royal:       $royal !default;
-$checkbox-on-bg-royal:            $royal !default;
-$checkbox-off-border-dark:        $dark !default;
-$checkbox-on-bg-dark:             $dark !default;
+//$checkbox-off-border-positive:    $positive !default;
+//$checkbox-on-bg-positive:         $positive !default;
+//$checkbox-off-border-calm:        $calm !default;
+//$checkbox-on-bg-calm:             $calm !default;
+//$checkbox-off-border-assertive:   $assertive !default;
+//$checkbox-on-bg-assertive:        $assertive !default;
+//$checkbox-off-border-balanced:    $balanced !default;
+//$checkbox-on-bg-balanced:         $balanced !default;
+//$checkbox-off-border-energized:   $energized !default;
+//$checkbox-on-bg-energized:        $energized !default;
+//$checkbox-off-border-royal:       $royal !default;
+//$checkbox-on-bg-royal:            $royal !default;
+//$checkbox-off-border-dark:        $dark !default;
+//$checkbox-on-bg-dark:             $dark !default;
 $checkbox-off-border-default:     $button-light-border !default;
 $checkbox-on-bg-default:          $positive !default;
 $checkbox-on-border-default:      $positive !default;
@@ -535,13 +535,13 @@ $range-slider-box-shadow:         0 0 2px rgba(0,0,0,.3), 0 3px 5px rgba(0,0,0,0
 
 $range-light-track-bg:            $button-light-border !default;
 $range-stable-track-bg:           $button-stable-border !default;
-$range-positive-track-bg:         $button-positive-bg !default;
-$range-calm-track-bg:             $button-calm-bg !default;
-$range-balanced-track-bg:         $button-balanced-bg !default;
-$range-assertive-track-bg:        $button-assertive-bg !default;
-$range-energized-track-bg:        $button-energized-bg !default;
-$range-royal-track-bg:            $button-royal-bg !default;
-$range-dark-track-bg:             $button-dark-bg !default;
+//$range-positive-track-bg:         $button-positive-bg !default;
+//$range-calm-track-bg:             $button-calm-bg !default;
+//$range-balanced-track-bg:         $button-balanced-bg !default;
+//$range-assertive-track-bg:        $button-assertive-bg !default;
+//$range-energized-track-bg:        $button-energized-bg !default;
+//$range-royal-track-bg:            $button-royal-bg !default;
+//$range-dark-track-bg:             $button-dark-bg !default;
 $range-default-track-bg:          #ccc !default;
 
 
@@ -655,26 +655,26 @@ $badge-light-text:                $button-light-text !default;
 $badge-stable-bg:                 $button-stable-bg !default;
 $badge-stable-text:               $button-stable-text !default;
 
-$badge-positive-bg:               $button-positive-bg !default;
-$badge-positive-text:             $button-positive-text !default;
+//$badge-positive-bg:               $button-positive-bg !default;
+//$badge-positive-text:             $button-positive-text !default;
+//
+//$badge-calm-bg:                   $button-calm-bg !default;
+//$badge-calm-text:                 $button-calm-text !default;
+//
+//$badge-balanced-bg:               $button-balanced-bg !default;
+//$badge-balanced-text:             $button-balanced-text !default;
+//
+//$badge-assertive-bg:              $button-assertive-bg !default;
+//$badge-assertive-text:            $button-assertive-text !default;
+//
+//$badge-energized-bg:              $button-energized-bg !default;
+//$badge-energized-text:            $button-energized-text !default;
+//
+//$badge-royal-bg:                  $button-royal-bg !default;
+//$badge-royal-text:                $button-royal-text !default;
 
-$badge-calm-bg:                   $button-calm-bg !default;
-$badge-calm-text:                 $button-calm-text !default;
-
-$badge-balanced-bg:               $button-balanced-bg !default;
-$badge-balanced-text:             $button-balanced-text !default;
-
-$badge-assertive-bg:              $button-assertive-bg !default;
-$badge-assertive-text:            $button-assertive-text !default;
-
-$badge-energized-bg:              $button-energized-bg !default;
-$badge-energized-text:            $button-energized-text !default;
-
-$badge-royal-bg:                  $button-royal-bg !default;
-$badge-royal-text:                $button-royal-text !default;
-
-$badge-dark-bg:                   $button-dark-bg !default;
-$badge-dark-text:                 $button-dark-text !default;
+//$badge-dark-bg:                   $button-dark-bg !default;
+//$badge-dark-text:                 $button-dark-text !default;
 
 $badge-default-bg:                transparent !default;
 $badge-default-text:              #AAAAAA !default;
@@ -692,26 +692,26 @@ $spinner-light-fill:              $light !default;
 $spinner-stable-stroke:           $stable !default;
 $spinner-stable-fill:             $stable !default;
 
-$spinner-positive-stroke:         $positive !default;
-$spinner-positive-fill:           $positive !default;
+//$spinner-positive-stroke:         $positive !default;
+//$spinner-positive-fill:           $positive !default;
 
-$spinner-calm-stroke:             $calm !default;
-$spinner-calm-fill:               $calm !default;
+//$spinner-calm-stroke:             $calm !default;
+//$spinner-calm-fill:               $calm !default;
 
-$spinner-balanced-stroke:         $balanced !default;
-$spinner-balanced-fill:           $balanced !default;
+//$spinner-balanced-stroke:         $balanced !default;
+//$spinner-balanced-fill:           $balanced !default;
 
-$spinner-assertive-stroke:        $assertive !default;
-$spinner-assertive-fill:          $assertive !default;
+//$spinner-assertive-stroke:        $assertive !default;
+//$spinner-assertive-fill:          $assertive !default;
 
-$spinner-energized-stroke:        $energized !default;
-$spinner-energized-fill:          $energized !default;
+//$spinner-energized-stroke:        $energized !default;
+//$spinner-energized-fill:          $energized !default;
 
-$spinner-royal-stroke:            $royal !default;
-$spinner-royal-fill:              $royal !default;
+//$spinner-royal-stroke:            $royal !default;
+//$spinner-royal-fill:              $royal !default;
 
-$spinner-dark-stroke:             $dark !default;
-$spinner-dark-fill:               $dark !default;
+//$spinner-dark-stroke:             $dark !default;
+//$spinner-dark-fill:               $dark !default;
 
 $spinner-default-stroke:          $dark !default;
 $spinner-default-fill:            $dark !default;
