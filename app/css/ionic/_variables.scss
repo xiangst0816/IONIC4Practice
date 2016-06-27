@@ -98,10 +98,18 @@ $button-light-border:             #ddd !default;
 $button-light-active-bg:          #fafafa !default;
 $button-light-active-border:      #ccc !default;
 
+$button-stable-outline-bg:                 $light !default;
+$button-stable-outline-text:               $stable !default;
+$button-stable-outline-border:             $stable !default;
+$button-stable-outline-active-bg:          $light !default;
+$button-stable-outline-active-border:      $stable !default;
+
+
 $button-stable-bg:                $stable !default;
 $button-stable-text: #ffffff !default;
 $button-stable-border:            $stable !default;
-$button-stable-active-bg:         transparent !default;
+//$button-stable-active-bg:         transparent !default;
+$button-stable-active-bg:         $light !default;
 $button-stable-active-border:     $stable !default;
 
 //$button-positive-bg:              $positive !default;

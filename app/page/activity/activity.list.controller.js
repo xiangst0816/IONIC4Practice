@@ -9,6 +9,10 @@
             // console.log("activitiesCtrl")
 
 
+            // $scope.test = {
+            //     "2016":"asdfasdfsd"
+            // }
+            // console.log( $scope.test)
 
 
         }]);

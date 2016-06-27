@@ -25,11 +25,11 @@
                         // 假数据
                         payInfo = {
                             discount: 3,
-                            entryTime: "2016-04-22 08:50",
+                            entryTime: "2016-06-27 08:50",
                             paymentNumber: 1,
-                            price: 20,
+                            price: 40,
                             seqNumber: "123000678",
-                            ticketNumber: "1234.1234.ssss",
+                            ticketNumber: "2333.221.1233",
                             time: 20//min
                         }
                     }
@@ -86,7 +86,8 @@
                     });
                     $q.all([
                         getRelatedCoupon(),
-                        getExchangeCode(),
+                        getExchangeCode1(),
+                        getExchangeCode2(),
                         integralInfo()
                     ]).then(function () {
                         //计算积分数
@@ -402,10 +403,27 @@
                     /**
                      * 获取积分抵扣信息(满XXX积分可抵扣XXX元)
                      * */
-                    function getExchangeCode() {
+                    function getExchangeCode1() {
                         return $getCode({
                             "keyname": "integralexchange4pk"
                         }).then(function (data) {
+                            angular.forEach(data, function (value) {
+                                if (value.keyname == "integralexchange_3") {
+                                    $scope.parkingHour2money = parseFloat(value.keycode);
+                                    $log.debug(`每小时停车等效金额:${$scope.parkingHour2money}`);
+                                }
+                            });
+                        }, function (errText) {
+                            $ionicToast.show("获取积分抵扣信息失败," + errText)
+                        })
+                    }
+
+
+                    function getExchangeCode2() {
+                        return $getCode({
+                            "keyname": "parkpriceprehour"
+                        }).then(function (data) {
+                            console.log(data)
                             angular.forEach(data, function (value) {
                                 if (value.keyname == "integralexchange_1") {
                                     $scope.needIntegral = parseInt(value.keycode);
@@ -414,10 +432,6 @@
                                 if (value.keyname == "integralexchange_2") {
                                     $scope.relatedMoney = parseFloat(value.keycode).toFixed(2);
                                     $log.debug(`停车抵扣积分等效金额:${$scope.relatedMoney}`);
-                                }
-                                if (value.keyname == "integralexchange_3") {
-                                    $scope.parkingHour2money = parseFloat(value.keycode);
-                                    $log.debug(`每小时停车等效金额:${$scope.parkingHour2money}`);
                                 }
                                 if (value.keyname == "integralexchange_4") {
                                     $scope.limitIntegral = parseFloat(value.keycode);
@@ -428,6 +442,9 @@
                             $ionicToast.show("获取积分抵扣信息失败," + errText)
                         })
                     }
+
+
+
 
                     /**
                      * 获取能抵扣的电子卡券(抵用券)

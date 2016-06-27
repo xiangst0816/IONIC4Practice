@@ -14,7 +14,7 @@
         .config(['$ionicConfigProvider', function ($ionicConfigProvider) {
             // $ionicConfigProvider.views.maxCache(5);
             $ionicConfigProvider.platform.android.views.maxCache(0);
-            $ionicConfigProvider.platform.ios.views.maxCache(10);
+            $ionicConfigProvider.platform.ios.views.maxCache(20);
 
             //用在非常卡的安卓机上
             //none: Do not perform  animated transitions.

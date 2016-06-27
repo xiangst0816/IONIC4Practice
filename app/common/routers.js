@@ -87,7 +87,7 @@
                     params: {
                         'detail': null
                     },
-                    url: '/memberCouponDetail',
+                    url: '/memberCouponDetail/:detail',
                     templateUrl: 'tpl/coupon.detail.tpl.html',
                     controller: 'couponDetailCtrl'
                 })
@@ -108,10 +108,11 @@
                 })
                 //会员中心-我的服务-详情
                 .state('subNav.memberServicesDetail', {
-                    url: '/memberServicesDetail',
                     params: {
                         'detail': null
                     },
+                    url: '/memberServicesDetail/:detail',
+
                     templateUrl: 'tpl/tradeHistory.detail.tpl.html',
                     controller: 'tradeDetailCtrl'
                 })
@@ -161,7 +162,7 @@
                     params: {
                         'detail': null
                     },
-                    url: '/chatDetail',
+                    url: '/chatDetail/:detail',
                     templateUrl: 'tpl/chatDetail.tpl.html',
                     controller: 'chatDetailCtrl'
                 })
@@ -240,7 +241,7 @@
                     params: {
                         'detail': null
                     },
-                    url: '/brandDetail',
+                    url: '/brandDetail/:detail',
                     templateUrl: 'tpl/brandInfo.shopdetail.tpl.html'
                     , controller: 'shopDetailCtrl'
                 })
@@ -250,13 +251,18 @@
                  * */
                 .state('subNav.book', {
                     url: '/book',
-                    templateUrl: 'tpl/book.tpl.html'
-                    , controller: 'bookCtrl'
+                    templateUrl: 'tpl/book.tpl.html', 
+                    controller: 'bookCtrl'
                 })
                 .state('subNav.bookSuccess', {
                     url: '/bookSuccess',
-                    templateUrl: 'tpl/bookSuccess.tpl.html'
-                    , controller: 'bookSuccessCtrl'
+                    templateUrl: 'tpl/bookSuccess.tpl.html', 
+                    controller: 'bookSuccessCtrl'
+                })
+                .state('subNav.book_time', {
+                    url: '/book_time',
+                    templateUrl: 'tpl/book_time.tpl.html',
+                    controller: 'bookTimeCtrl'
                 })
 
 

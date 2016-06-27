@@ -77,6 +77,14 @@
     @include button-outline($button-light-border);
   }
 
+  &.button-stable-outline {
+    @include button-style($button-stable-outline-bg, $button-stable-outline-border, $button-stable-outline-active-bg, $button-stable-outline-active-border, $button-stable-outline-text);
+    @include button-clear($button-stable-outline-border);
+    &.activated {
+      color: $button-stable-outline-border;
+    }
+  }
+
   &.button-stable {
     @include button-style($button-stable-bg, $button-stable-border, $button-stable-active-bg, $button-stable-active-border, $button-stable-text);
     @include button-clear($button-stable-border);
@@ -203,13 +211,13 @@
   box-shadow: none;
 }
 
-
-.button-outline {
-  @include button-outline($button-default-border);
-  @include transition(opacity .1s);
-  background: none;
-  box-shadow: none;
-}
+//
+//.button-outline {
+//  @include button-outline($button-default-border);
+//  @include transition(opacity .1s);
+//  background: none;
+//  box-shadow: none;
+//}
 
 .padding > .button.button-block:first-child {
   margin-top: 0;
