@@ -8,7 +8,7 @@
     /**
      * 用$ionicLoading改造出$ionicToast提示
      * */
-        .factory("$ionicToast", ['$timeout', '$rootScope','$log', function ($timeout, $rootScope,$log) {
+        .factory("$ionicToast", ['$timeout', '$rootScope', '$log', function ($timeout, $rootScope, $log) {
             //传入参数有两种情况
             var _contentBox = [];
             var _token = true;
@@ -20,11 +20,12 @@
             angular.element(document.body).append(_outerHtml);
             //定位
             var $toasterContainer = angular.element(document.getElementById('toaster-container'));
-            var showToast = function (argsArray) {
+
+            function showToast(argsArray) {
                 //1. 字符串,表示toast要显示的
                 //2. 配置参数options,表示需要对options进行配置
-                var _during = !!argsArray[1]?argsArray[1]:1300;
-                var _interval = !!argsArray[2]?argsArray[2]:300;
+                var _during = (angular.isArray(argsArray) && argsArray.length > 1 && !!argsArray[1]) ? argsArray[1] : 1300;
+                var _interval = (angular.isArray(argsArray) && argsArray.length > 2 && !!argsArray[2]) ? argsArray[2] : 300;
                 //拿牌
                 _token = false;
                 //取第一个
@@ -73,7 +74,7 @@
                 show: function () {
                     if (arguments[0] && angular.isString(arguments[0])) {
                         var argsArray = Array.prototype.slice.call(arguments);
-                        $log.debug("$ionicToast:"+argsArray);
+                        $log.debug("$ionicToast:" + argsArray);
                         //如果第一个参数是字符串,则显示
                         $rootScope.$broadcast("toastRequest", argsArray);
 

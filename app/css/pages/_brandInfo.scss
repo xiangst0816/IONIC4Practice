@@ -218,15 +218,57 @@
         height: 1.12rem;
         width: 1.12rem;
         cursor: pointer;
+        border-radius: 100%;
+        border: 1px solid $stable;
+        @include display-flex;
+        @include justify-content(center);
+        @include align-items(center);
+        @include flex-direction(column);
+        transition: all ease 100ms;
+        span {
+          color: $stable;
+          font-size: 0.2rem;
+          line-height: 135%;
+          transition: all ease 100ms;
+        }
+        i {
+          display: inline-block;
+          //transition: all ease 100ms;
+        }
+
         &.dingwei {
-          background: url(../img/icon/icon-dingwei.png) no-repeat center center/cover;
+          i {
+            width: 0.35rem;
+            height: 0.45rem;
+            background: url(../img/icon/ion-yuding.png) no-repeat center center/100% auto;
+          }
         }
         &.paidui {
-          background: url(../img/icon/icon-paidui.png) no-repeat center center/cover;
+          i {
+            width: 0.5rem;
+            height: 0.45rem;
+            background: url(../img/icon/icon-peoples.png) no-repeat center center/100% auto;
+          }
+        }
+        &.activated {
+          background:$stable;
+          span{
+            color: #fff;
+          }
+
+          &.dingwei {
+            i {
+              background: url(../img/icon/ion-yuding-active.png) no-repeat center center/100% auto;
+            }
+          }
+          &.paidui {
+            i {
+              background: url(../img/icon/icon-peoples-active.png) no-repeat center center/100% auto;
+            }
+          }
         }
       }
     }
-
   }
   //门店优惠信息
   .shopDetail {

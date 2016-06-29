@@ -49,7 +49,7 @@
         /**
          * 登录
          * */
-        .factory("$login", ['AJAX', 'api', '$q', '$log', '$ionicToast','$getUserInfo', function (AJAX, api, $q, $log, $ionicToast,$getUserInfo) {
+        .factory("$login", ['AJAX', 'api', '$q', '$log', '$getUserInfo', function (AJAX, api, $q, $log, $getUserInfo) {
             return function (options) {
                 if (!angular.isObject(options)) {
                     options = {};
@@ -89,17 +89,13 @@
                                 defer.reject("手机号或密码错误!");
                             }
                         } else {
-                            // $ionicToast.show("登录失败,请稍后再试!");
                             $log.debug("登录失败,返回code:" + data.code);
                             defer.reject("登录失败,请稍后再试!")
                         }
-
-
                     },
                     error: function (errText) {
-                        $ionicToast.show("登录失败,请稍后再试!");
                         $log.debug("登录失败,系统错误," + JSON.stringify(errText));
-                        defer.reject(errText);
+                        defer.reject("系统错误,请稍后再试!");
                     }
                 });
                 return defer.promise;
@@ -109,7 +105,7 @@
         /**
          * 注册
          * */
-        .factory("$register", ['AJAX', 'api', '$q', '$log', '$ionicToast', '$rootScope','$state', function (AJAX, api, $q, $log, $ionicToast, $rootScope,$state) {
+        .factory("$register", ['AJAX', 'api', '$q', '$log', '$ionicToast', function (AJAX, api, $q, $log, $ionicToast) {
             return function (options) {
                 if (!angular.isObject(options)) {
                     options = {};
@@ -127,7 +123,7 @@
                             "openid": "",//用户openid
                             "accountid": "",//cfid(和微信公众号还不太一样)
                             "mac": "",//mac地址
-                            "deviceid":""//设备id,获取设备推送的令牌
+                            "deviceid": ""//设备id,获取设备推送的令牌
                         }
                     }
                 };
@@ -179,7 +175,7 @@
         /**
          * 会员验证(修改密码时会用到)
          * */
-        .factory("$customerValidate", ['AJAX', 'api', '$q', '$log','$ionicToast', function (AJAX, api, $q, $log,$ionicToast) {
+        .factory("$customerValidate", ['AJAX', 'api', '$q', '$log', '$ionicToast', function (AJAX, api, $q, $log, $ionicToast) {
             return function (options) {
                 if (!angular.isObject(options)) {
                     options = {};
@@ -200,10 +196,10 @@
                     success: function (data) {
                         //成功返回
                         if (data.code == 7001) {
-                            if(!!data.content){
+                            if (!!data.content) {
                                 //返回用户custid
                                 defer.resolve(data.content);
-                            }else{
+                            } else {
                                 var errText = "验证码或手机号码错误,请检查";
                                 $ionicToast.show(errText);
                                 defer.reject(errText);
@@ -260,7 +256,7 @@
                             defer.resolve(data.content);
                         } else {
                             $ionicToast.show('密码修改失败!');
-                            $log.debug('密码修改失败:'+data.code);
+                            $log.debug('密码修改失败:' + data.code);
                             defer.reject(data.code)
                         }
                     },

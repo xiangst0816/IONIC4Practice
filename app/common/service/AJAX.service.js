@@ -7,8 +7,8 @@
      * AJAX方法
      * httpParams:为正常发送请求的参数对象($http)
      * */
-        .factory("AJAX", ['$q', '$http', '$sessionStorage', 'api', 'baseInfo',
-            function ($q, $http, $sessionStorage, api, baseInfo) {
+        .factory("AJAX", ['$q', '$http', '$sessionStorage', 'api', 'baseInfo','$log',
+            function ($q, $http, $sessionStorage, api, baseInfo,$log) {
 
                 /**
                  * OAuth2.0
@@ -49,7 +49,8 @@
                             defer.reject(errText);
                         }
                     }, function () {
-                        defer.reject("Token获取失败!");
+                        $log.debug("Token获取失败!");
+                        defer.reject("系统异常");
                     });
                     return defer.promise;
                 }

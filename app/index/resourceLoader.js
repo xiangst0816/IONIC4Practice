@@ -30,7 +30,8 @@
     var rest = [
         './config.js',
         'js/commonJS.js',
-        'js/pageJS.js'
+        'js/pageJS.js',
+        // 'js/pageJS.js1'
     ];
     var ngAppModule = 'smartac';
 
@@ -41,7 +42,7 @@
     var totalLoadedNum = core.length + resource.length + rest.length;
     var restNum = totalLoadedNum;
     var fontSize = parseFloat(document.documentElement.style.fontSize);
-    var size = parseFloat(fontSize * 2.2);
+    var size = parseFloat(fontSize * 2.6);
     /**
      * 执行
      * */

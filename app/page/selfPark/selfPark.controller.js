@@ -5,7 +5,7 @@
 (function () {
     // angular.module('selfPark.controllers', ['selfPark.service']);
     angular.module('smartac.page')
-        .controller('selfParkCtrl', ['$scope', '$ionicModal', '$getTotalSpaceNum', '$getFreeSpaceNum', '$getCode', '$q', '$ionicLoading', '$ionicToast', '$goBackWhenError','$checkAuthorize','$state', function ($scope, $ionicModal, $getTotalSpaceNum, $getFreeSpaceNum, $getCode, $q, $ionicLoading, $ionicToast, $goBackWhenError,$checkAuthorize,$state) {
+        .controller('selfParkCtrl', ['$scope', '$ionicModal', '$getTotalSpaceNum', '$getFreeSpaceNum', '$getCode', '$q', '$ionicLoading', '$ionicToast', '$goBackWhenError','$checkAuthorize','$state','$log', function ($scope, $ionicModal, $getTotalSpaceNum, $getFreeSpaceNum, $getCode, $q, $ionicLoading, $ionicToast, $goBackWhenError,$checkAuthorize,$state,$log) {
             // alert("selfParkCtrl")
 
             /**
@@ -52,7 +52,7 @@
                 getLimitIntInfo(),
                 getFeePreHour()
             ]).then(function (data) {
-
+                $scope.intPreHour = $scope.parkingHour2money *$scope.needIntegral/ $scope.relatedMoney;
             }, function (err) {
                 $ionicToast.show("服务器错误,请稍后再试!")
                 // $goBackWhenError();
@@ -62,38 +62,24 @@
 
 
             //////////////////////////////////////////////
-            /**
-             * 获得总车位
-             * */
-            function getTotalSpaceNum() {
-                return $getTotalSpaceNum().then(function (totalSpaceNum) {
-                    $scope.totalSpaceNum = totalSpaceNum;
-                });
-            }
-
-
-            /**
-             * 查询空余车位数量
-             * */
-            function getFreeSpaceNum() {
-                return $getFreeSpaceNum().then(function (freeSpaceNum) {
-                    $scope.freeSpaceNum = freeSpaceNum;
-                });
-            }
-
-
-            /**
-             * 获得会员停车最多可使用积分数
-             * */
-            function getLimitIntInfo() {
-                return $getCode({
-                    "keyname": "int4parkcanuse"
-                }).then(function (data) {
-                    $scope.limitIntegral = data[0].keycode
-                }, function (err) {
-
-                });
-            }
+            // /**
+            //  * 获得总车位
+            //  * */
+            // function getTotalSpaceNum() {
+            //     return $getTotalSpaceNum().then(function (totalSpaceNum) {
+            //         $scope.totalSpaceNum = totalSpaceNum;
+            //     });
+            // }
+            //
+            //
+            // /**
+            //  * 查询空余车位数量
+            //  * */
+            // function getFreeSpaceNum() {
+            //     return $getFreeSpaceNum().then(function (freeSpaceNum) {
+            //         $scope.freeSpaceNum = freeSpaceNum;
+            //     });
+            // }
 
 
             /**
@@ -101,18 +87,44 @@
              * */
             function getFeePreHour() {
                 return $getCode({
-                    "keyname": "parkpriceprehour"
+                    "keyname": "integralexchange4pk"
                 }).then(function (data) {
                     angular.forEach(data, function (value) {
-                        if (value.keyname == "parkpayprehour") {
-                            $scope.feePreHour = parseFloat(value.keycode).toFixed(2);
-                        } else if (value.keyname == "parkintprehour") {
-                            $scope.intPreHour = parseFloat(value.keycode);
+                        if (value.keyname == "integralexchange_3") {
+                            $scope.parkingHour2money = parseFloat(value.keycode);
+                            $log.debug(`每小时停车等效金额:${$scope.parkingHour2money}`);
                         }
                     });
+                }, function (errText) {
+                    $ionicToast.show("获取积分抵扣信息失败," + errText)
                 })
             }
-
+            /**
+             * 获得会员停车最多可使用积分数
+             * */
+            function getLimitIntInfo() {
+                return $getCode({
+                    "keyname": "parkpriceprehour"
+                }).then(function (data) {
+                    console.log(data)
+                    angular.forEach(data, function (value) {
+                        if (value.keyname == "integralexchange_1") {
+                            $scope.needIntegral = parseInt(value.keycode);
+                            $log.debug(`停车抵扣所需积分数(整数倍):${$scope.needIntegral}`);
+                        }
+                        if (value.keyname == "integralexchange_2") {
+                            $scope.relatedMoney = parseFloat(value.keycode).toFixed(2);
+                            $log.debug(`${$scope.needIntegral}积分等效金额为:${$scope.relatedMoney}`);
+                        }
+                        if (value.keyname == "integralexchange_4") {
+                            $scope.limitIntegral = parseFloat(value.keycode);
+                            $log.debug(`会员停车最多可使用积分数:${$scope.limitIntegral}`);
+                        }
+                    });
+                }, function (errText) {
+                    $ionicToast.show("获取积分抵扣信息失败," + errText)
+                })
+            }
         }]);
 
 

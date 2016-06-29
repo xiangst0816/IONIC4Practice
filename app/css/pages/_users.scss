@@ -16,6 +16,7 @@
 .showMember.member {
   transform: translatey(100%) !important;
 }
+
 .member {
   display: block;
   position: absolute;
@@ -89,7 +90,7 @@
           font-size: 0.35rem;
           right: -0.15rem;
           top: 0.05rem;
-          &.active{
+          &.active {
             background-color: yellow;
           }
         }
@@ -139,27 +140,20 @@
         height: 0.53rem;
         width: 2.19rem;
         border-radius: 0.117rem;
-        //line-height: 0.468rem;
         box-sizing: content-box;
         text-align: center;
-
-        margin:0 0.5rem;
-
+        margin: 0 0.5rem;
         @include display-flex;
         @include justify-content(center);
         @include align-items(center);
         @include flex-direction(row);
-
-        //display: flex;
-        //justify-content: center;
-        //align-items: center;
-
-        //&:active{
-        //  color:#fff;
-        //  background:$stable;
-        //  border:none;
-        //}
-        span{
+        transition: all ease 100ms;
+        &.activated {
+          color: $stable;
+          background: #fff;
+          border: 1px solid transparent;
+        }
+        span {
           line-height: 0.53rem;
         }
 
@@ -246,9 +240,9 @@
             border: 1px solid #fff;
             padding: 0 0.15rem;
             border-radius: 0.08rem;
-            &.activated{
-              color:$stable;
-              background:#fff;
+            &.activated {
+              color: $stable;
+              background: #fff;
             }
           }
 
@@ -325,11 +319,19 @@
       position: relative;
       //top: -0.45rem;
       //top: -0.65rem;
-      height: 0.7rem;
+      //height: 0.7rem;
+      padding-top: 0.5rem;
       //bottom: 0;
       width: 100%;
       font-size: 0.3rem;
       margin-bottom: 0.4rem;
+      i {
+        left: 50%;
+        margin-left: -0.2rem;
+      }
+      p{
+        margin:0;
+      }
     }
   }
 
@@ -342,7 +344,6 @@
     //@include display-flex;
     //@include justify-content(center);
     //@include align-items(center);
-
 
     //display: flex;
     //justify-content: center;

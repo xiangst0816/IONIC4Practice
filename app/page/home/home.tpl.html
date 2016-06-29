@@ -98,11 +98,11 @@
 
         <!--第二部分-->
         <section class="section2">
-            <div ui-sref="subNav.memberCard">
+            <div ui-sref="subNav.memberCard" ng-click="">
                 <i class="ion-memberCR ion-memmberCard"></i>&ensp;
                 <span>会员卡</span>
             </div>
-            <div ui-sref="subNav.memberRights">
+            <div ui-sref="subNav.memberRights" ng-click="">
                 <i class="ion-memberCR ion-memmberRight"></i>&ensp;
                 <span>会员权益</span>
             </div>
@@ -184,7 +184,7 @@
         <!--</section>-->
 
         <section ng-click="showHome()" on-swipe-up="showHome()" on-touch="onTouch()" on-release="onRelease()" class="section5 center-block text-center">
-            <i class="ion-fff-up"></i>
+            <i class="ion-fff-up arrow-top-animate"></i>
             <p>返回首页</p>
         </section>
     </div>

@@ -59,6 +59,7 @@ body {
   $wave_width:$wave_box_width/3;
   $wave_box_height:2.2rem;
 
+
   .wx_loading_waveBox {
     position: absolute;
     top: 50%;
@@ -70,22 +71,30 @@ body {
     padding: 0;
     z-index: 1;
 
-    .wx_loading_wave {
-      $wx_loading_wave_height:$wave_box_height*1.5;
-      $wx_loading_wave_top:$wave_box_height*0.85;
+    $wx_loading_wave_height:$wave_box_height*1.5;
+    $wx_loading_wave_top:$wave_box_height*1;
+
+    .wx_loading_waveBox_position{
       border:none;
       outline:none;
       position: absolute;
       width: 100%;
       height: $wx_loading_wave_height;
       opacity: 1;
-      background: url(img/wave.png) bottom center/$wave_width $wx_loading_wave_height;
-      background-repeat: repeat-x;
-      //background-repeat: no-repeat;
       top: $wx_loading_wave_top;
-      animation: wave-animation 1000ms infinite linear forwards;
-      transition: transform ease 1000ms;
+      &.whiteBlock{
+        background-color:#fff;
+        z-index:2;
+      }
+      &.wx_loading_wave {
+        background: url(img/wave.png) bottom center/$wave_width $wx_loading_wave_height;
+        background-repeat: repeat-x;
+        animation: wave-animation 1000ms infinite linear forwards;
+        transition: transform ease 1000ms;
+        z-index:1;
+      }
     }
+
   }
   @keyframes wave-animation {
     0% {

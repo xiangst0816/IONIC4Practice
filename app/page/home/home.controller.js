@@ -54,9 +54,9 @@
             function showMember() {
                 $checkAuthorize("wxLevel_Att&Reg").then(function () {
                     //具备授权
-                    $ionicLoading.show({
-                        during: 2000
-                    });
+                    // $ionicLoading.show({
+                    //     during: 2000
+                    // });
                     getBasicInfo().then(function () {
                         //成功处理
                         //显示用户中心
@@ -64,7 +64,7 @@
                         //头像
                         // $rootScope.photo = $filter('addImgPrefix')($sessionStorage.userInfo.photo);
                     }).finally(function () {
-                        $ionicLoading.hide();
+                        // $ionicLoading.hide();
                     });
                 });
             }
@@ -215,7 +215,7 @@
                 var defer = $q.defer();
                 $getCode({
                     "keyname": "cardupgrade"
-                }).then(function (data) {
+                },'cache').then(function (data) {
                     //cardupgrade0: 升普卡消费金额,200
                     $scope.cardupgrade0 = data[0].keycode;
                     //cardupgrade1:升为VIP卡消费金额,5000
@@ -238,7 +238,7 @@
                 var defer = $q.defer();
                 $getCode({
                     "keyname": "carddegrade"
-                }).then(function (data) {
+                },'cache').then(function (data) {
                     //cardupgrade0: vip降普卡消费金额,5000
                     $scope.carddegrade0 = data[0].keycode;
                     $log.debug("vip降普卡消费金额" + $scope.carddegrade0);

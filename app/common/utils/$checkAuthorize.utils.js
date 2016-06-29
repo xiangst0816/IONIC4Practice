@@ -64,7 +64,7 @@
                         wx_registerCheck();
                         $log.debug("wx_in");
                         defer.resolve("wx_in");
-                        $ionicLoading.hide();
+                        // $ionicLoading.hide();
                     }, function (errText) {
                         //查无此人的情况
                         $log.debug("wx_needLogin");
@@ -74,6 +74,8 @@
                         }, 1300, false);
                         $log.debug("wx_needLogin");
                         defer.reject("wx_needLogin");
+                        // $ionicLoading.hide();
+                    }).finally(function () {
                         $ionicLoading.hide();
                     });
 

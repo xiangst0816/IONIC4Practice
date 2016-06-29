@@ -64,10 +64,10 @@
                     });
 
                     /**
-                     * 设置背景颜色
+                     * 设置背景颜色  firstGuideBoxSlide
                      * */
                     $scope.onSlideChange = ()=> {
-                        let currentIndex = $ionicSlideBoxDelegate.currentIndex();
+                        let currentIndex = $ionicSlideBoxDelegate.$getByHandle('firstGuideBoxSlide').currentIndex();
                         var $userSilderBox = document.getElementById('userSilderBox');
                         if (parseInt(currentIndex) === 0) {
                             $userSilderBox.style.background = "#1898d2";

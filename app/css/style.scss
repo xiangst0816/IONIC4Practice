@@ -1,6 +1,6 @@
 @charset "UTF-8";
 * {
-   //outline:1px solid #998;
+   //outline:1px solid #eee;
 }
 
 //*:active{
@@ -10,6 +10,7 @@
 //common
 @import "ionic/mixins";
 @import "common/skin";
+@import "ionic/variables";
 
 //tools 排版相关
 @import "common/typography";
@@ -45,3 +46,4 @@
 @import "pages/_selfPark.scss";
 @import "pages/_chat.scss";
 @import "pages/_book.scss";
+@import "pages/_queue.scss";

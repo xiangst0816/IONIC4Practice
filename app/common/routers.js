@@ -87,35 +87,70 @@
                     params: {
                         'detail': null
                     },
-                    url: '/memberCouponDetail/:detail',
+                    url: '/memberCouponDetail',
                     templateUrl: 'tpl/coupon.detail.tpl.html',
                     controller: 'couponDetailCtrl'
                 })
 
 
 
-                //会员中心-我的服务
+                /**
+                 * 会员中心-我的服务
+                 * */
                 .state('subNav.memberServices', {
                     url: '/memberServices',
 
                     templateUrl: 'tpl/myServices.tpl.html'
                 })
-                //会员中心-我的服务-列表
+                //会员中心-我的服务-停车缴费
                 .state('subNav.memberServicesList', {
                     url: '/memberServicesList',
                     templateUrl: 'tpl/tradeHistory.list.tpl.html',
                     controller: 'tradeListCtrl'
                 })
-                //会员中心-我的服务-详情
+                //会员中心-我的服务-停车缴费详情
                 .state('subNav.memberServicesDetail', {
                     params: {
                         'detail': null
                     },
-                    url: '/memberServicesDetail/:detail',
-
+                    url: '/memberServicesDetail',
                     templateUrl: 'tpl/tradeHistory.detail.tpl.html',
                     controller: 'tradeDetailCtrl'
                 })
+
+                    //我的预定
+                .state('subNav.userBook', {
+                    url: '/userBook',
+                    templateUrl: 'tpl/userBook.tpl.html',
+                    controller: 'userBookCtrl'
+                })
+                .state('subNav.userBookDetail', {
+                    url: '/userBookDetail',
+                    templateUrl: 'tpl/userBookDetail.tpl.html',
+                    controller: 'userBookDetailCtrl'
+                })
+
+
+                //我的排队
+                .state('subNav.userQueue', {
+                    url: '/userQueue',
+                    templateUrl: 'tpl/userQueue.tpl.html',
+                    controller: 'userQueueCtrl'
+                })
+                .state('subNav.userQueueDetail', {
+                    url: '/userQueueDetail',
+                    templateUrl: 'tpl/userQueueDetail.tpl.html',
+                    controller: 'userQueueDetailCtrl'
+                })
+
+
+
+
+
+
+
+
+
                 //会员中心-关注商户
                 .state('subNav.memberCollection', {
                     url: '/memberCollection',
@@ -162,7 +197,7 @@
                     params: {
                         'detail': null
                     },
-                    url: '/chatDetail/:detail',
+                    url: '/chatDetail',
                     templateUrl: 'tpl/chatDetail.tpl.html',
                     controller: 'chatDetailCtrl'
                 })
@@ -251,18 +286,32 @@
                  * */
                 .state('subNav.book', {
                     url: '/book',
-                    templateUrl: 'tpl/book.tpl.html', 
+                    templateUrl: 'tpl/book.tpl.html',
                     controller: 'bookCtrl'
                 })
                 .state('subNav.bookSuccess', {
                     url: '/bookSuccess',
-                    templateUrl: 'tpl/bookSuccess.tpl.html', 
+                    templateUrl: 'tpl/bookSuccess.tpl.html',
                     controller: 'bookSuccessCtrl'
                 })
-                .state('subNav.book_time', {
-                    url: '/book_time',
-                    templateUrl: 'tpl/book_time.tpl.html',
-                    controller: 'bookTimeCtrl'
+                // .state('subNav.book_time', {
+                //     url: '/book_time',
+                //     templateUrl: 'tpl/book_time.tpl.html',
+                //     controller: 'bookTimeCtrl'
+                // })
+
+                /**
+                 * 排队取号
+                 * */
+                .state('subNav.queue', {
+                    url: '/queue',
+                    templateUrl: 'tpl/queue.tpl.html',
+                    controller: 'queueCtrl'
+                })
+                .state('subNav.queueSuccess', {
+                    url: '/queueSuccess',
+                    templateUrl: 'tpl/queueSuccess.tpl.html',
+                    controller: 'queueSuccessCtrl'
                 })
 
 

@@ -14,8 +14,6 @@
   .integralItemsRow {
     @include display-flex;
     @include justify-content(space-around);
-    //display: flex;
-    //justify-content: space-around;
     margin: 0 0 0.63rem;
     .each {
       width: 2.65rem;
@@ -26,14 +24,16 @@
       @include justify-content(center);
       @include align-content(center);
       @include flex-wrap(wrap);
-      //display: flex;
-      //justify-content: center;
-      //align-content: center;
-      //flex-wrap: wrap;
-
+      transition: all ease 100ms;
+      &.activated {
+        background: $stable;
+        color: #fff;
+        div {
+          color: #fff;
+        }
+      }
       i {
         color: $stable;
-        //font-size: 43px;
       }
       div {
         color: $stable;
@@ -159,7 +159,7 @@
     z-index: 9;
     top: 40%;
     font-size: 1rem;
-    height:1rem;
+    height: 1rem;
     margin-top: -0.5rem;
     width: 100%;
     @include display-flex;
@@ -172,7 +172,7 @@
     .arrow-left {
       //color: rgba(169, 31, 127, 0.3);
       transition: opacity ease 300ms;
-      padding-left:1.5rem;
+      padding-left: 1.5rem;
       opacity: 0;
     }
     .arrow-right {
@@ -371,22 +371,22 @@
     margin-right: auto;
     border: 1px solid transparent;
     margin-top: 0.4rem;
-    p{
-      margin-bottom:0.1rem;
-      line-height:100%;
+    p {
+      margin-bottom: 0.1rem;
+      line-height: 100%;
     }
-    .stateNow_p_1{
-      font-size:0.4rem;
+    .stateNow_p_1 {
+      font-size: 0.4rem;
     }
-    .stateNow_p_2{
-      font-size:0.3rem;
+    .stateNow_p_2 {
+      font-size: 0.3rem;
     }
-    .stateNow_p_3{
-      font-size:0.3rem;
+    .stateNow_p_3 {
+      font-size: 0.3rem;
       text-decoration: underline;
     }
-    .stateNow_p_4{
-      font-size:0.22rem;
+    .stateNow_p_4 {
+      font-size: 0.22rem;
     }
     //i {
     //  margin-right: 0.32rem;
@@ -446,8 +446,20 @@
       @include justify-content(center);
       @include align-items(center);
       padding: .05rem 0;
-      height:0.79rem;
-      font-size:0.32rem;
+      height: 0.79rem;
+      font-size: 0.32rem;
+      transition: all ease 100ms;
+      &:active,
+      &.activated {
+        background-color: $stable;
+        color: #fff;
+        &.selfIntegral > .icon {
+          background: url(../img/icon/icon-selfIntegral-active.png) no-repeat center center/auto 100%;
+        }
+        &.integralMall > .icon {
+          background: url(../img/icon/icon-mall-active.png) no-repeat center center/auto 100%;
+        }
+      }
       .icon {
         display: inline-block;
         width: .35rem;
@@ -465,9 +477,9 @@
       background-size: cover;
     }
   }
-  .internalQuery_title{
-    color:$stable;
-    margin:0.2rem 0;
+  .internalQuery_title {
+    color: $stable;
+    margin: 0.2rem 0;
   }
   .queryBox {
     @include display-flex;
@@ -486,7 +498,7 @@
       border-radius: 5px;
       border: 2px solid $stable;
       height: 0.53rem;
-      width:2.25rem;
+      width: 2.25rem;
       text-align: center;
       line-height: normal;
       box-sizing: content-box;
@@ -494,8 +506,8 @@
         width: 100%;
         text-align: center;
         padding: 0;
-        margin:0;
-        border:0;
+        margin: 0;
+        border: 0;
         -webkit-appearance: none;
         font-size: 0.24rem;
         //line-height: normal;
@@ -503,7 +515,7 @@
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        color:#000;
+        color: #000;
         line-height: 0.53rem;
       }
       input::-webkit-input-placeholder {
@@ -528,23 +540,27 @@
     }
     .dateBtn {
       width: 10%;
+      height: 0.53rem;
       @include display-flex;
       @include justify-content(center);
       @include align-items(center);
-      border: none;
-      //display: flex;
-      //justify-content: center;
-      //align-items: center;
+      border: 2px solid transparent;
+      box-sizing: content-box;
       font-size: 0.5rem;
       color: $stable;
+      //background:#fff;
+      transition:all ease 100ms;
+      &:active,
+      &.activated{
+        border-color:$stable;
+        background:$stable;
+      }
       i {
-        width: 0.38rem;
+        width: 0.45rem;
         height: 0.38rem;
         display: inline-block;
       }
-
     }
-
   }
   .queryList {
     margin-top: 0.28rem;
@@ -605,7 +621,7 @@
     .eachItems {
       position: relative;
       background-color: #fff;
-      &.activated{
+      &.activated {
         background-color: #d9d9d9;
       }
       .goodsEach {
@@ -619,7 +635,7 @@
         height: 2.43rem;
         padding: 0.22rem 0.22rem 0.22rem 3rem;
         box-sizing: border-box;
-        background-color:transparent;
+        background-color: transparent;
         .imgBox {
           position: absolute;
           width: 2.57rem;
@@ -736,9 +752,9 @@
           color: #fff;
           background-color: $stable;
           transition: all ease 300ms;
-          &.activated{
+          &.activated {
             background-color: transparent;
-            color:$stable;
+            color: $stable;
             border: 1px solid $stable;
           }
         }

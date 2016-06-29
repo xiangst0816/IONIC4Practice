@@ -22,6 +22,9 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    &.active{
+      color:$stable;
+    }
     .tapHeader {
       display: flex;
       justify-content: center;

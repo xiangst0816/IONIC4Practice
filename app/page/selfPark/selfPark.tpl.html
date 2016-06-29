@@ -6,7 +6,7 @@
                 <i class="icon-selfPark ion-car"></i>
                 <div>
                     <!-- <p>当前停车位: <span ng-bind="::freeSpaceNum"></span>／<span ng-bind="::totalSpaceNum"></span> ( 空车位／总车位）</p> -->
-                    <p>停车费: 每小时￥<span ng-bind="::feePreHour"></span>／<span ng-bind="::intPreHour"></span>积分</p>
+                    <p>停车费: 每小时<span ng-bind="::parkingHour2money | currency:'￥'"></span>／<span ng-bind="::intPreHour"></span>积分</p>
                     <span>会员单次停车最多可使用<span ng-bind="::limitIntegral"></span>积分，查看 <span class="parkLink" ng-click="parkBtn()">缴费细则</span></span>
                 </div>
             </div>
@@ -17,11 +17,11 @@
 
             <div class="parkSelectionItems">
                 <div class="row parkSelectionItemsRow">
-                    <div class="each text-center" ui-sref="subNav.findCar">
+                    <div class="each text-center" ng-click="" ui-sref="subNav.findCar">
                         <i class="icon-selfPark ion-findCar"></i>
                         <div>找回爱车</div>
                     </div>
-                    <div class="each text-center" ui-sref="subNav.findMap">
+                    <div class="each text-center" ng-click="" ui-sref="subNav.findMap">
                         <i class="icon-selfPark ion-findMap"></i>
                         <div>查看地图</div>
                     </div>

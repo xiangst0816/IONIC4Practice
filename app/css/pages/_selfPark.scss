@@ -76,15 +76,9 @@
       @include align-items(center);
       @include flex-wrap(wrap);
 
-      //display: flex;
-      //justify-content: space-around;
-      //align-items: center;
-      //flex-wrap: wrap;
       .parkSelectionItemsRow {
         @include display-flex;
         @include justify-content(space-around);
-        //display: flex;
-        //justify-content: space-around;
         margin: 0 0 0.63rem;
         .each {
           width: 2.65rem;
@@ -95,10 +89,7 @@
           @include justify-content(center);
           @include align-content(center);
           @include flex-wrap(wrap);
-          //display: flex;
-          //justify-content: center;
-          //align-content: center;
-          //flex-wrap: wrap;
+          transition: all ease 100ms;
 
           i {
             width: 0.76rem;
@@ -106,7 +97,6 @@
             color: $stable;
             display: inline-block;
             position: relative;
-            //font-size: 43px;
           }
           div {
             color: $stable;
@@ -114,6 +104,13 @@
             width: 100%;
             margin-top: 0.18rem;
             font-weight: bolder;
+          }
+          &:active,
+          &.activated{
+            background:$stable;
+            div{
+              color: #fff;
+            }
           }
         }
         .pleaseHolder {
