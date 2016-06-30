@@ -35,7 +35,7 @@
     .tapList {
       opacity: 0;
       height: 0;
-      overflow: hidden;
+      //overflow: hidden;
       position: absolute;
       //top: 40px;
       display: block;
@@ -45,8 +45,8 @@
       text-align: center;
       padding: 0 0.1rem;
       transition: opacity ease 200ms;
-      max-height:5rem;
-      overflow: scroll;
+      //max-height:5rem;
+      overflow-y: scroll;
       //box-shadow: 0 0.1872rem 0.234rem #d5d5d5;
       .tapItem {
         height: 0.88rem;
@@ -113,4 +113,23 @@
 .active#scroll-content::before {
   opacity: 1;
   z-index: 5;
+}
+
+.platform-ios{
+.tapBox{
+  .selectBox{
+    .tapList{
+      max-height:none;
+    }
+  }
+}
+}
+.platform-android{
+  .tapBox{
+    .selectBox{
+      .tapList{
+        max-height:5rem;
+      }
+    }
+  }
 }

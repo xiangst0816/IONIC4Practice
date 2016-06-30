@@ -27,8 +27,12 @@
                     value = value + "";
                 }
 
-                if (value.indexOf("-")) {
+                //这里是兼容ios的设置
+                if (value.indexOf("-") !== -1) {
                     value = value.replace(/-/g, "/");
+                }
+                if (value.indexOf(".") !== -1) {
+                    value = value.replace(/\./g, "/");
                 }
 
                 var t = /^\d+$/;

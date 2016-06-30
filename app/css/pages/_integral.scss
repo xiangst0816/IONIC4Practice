@@ -588,7 +588,6 @@
         font-size: 0.24rem;
         color: #434343;
       }
-
     }
   }
 }
@@ -621,9 +620,9 @@
     .eachItems {
       position: relative;
       background-color: #fff;
-      &.activated {
-        background-color: #d9d9d9;
-      }
+      //&.activated {
+      //  background-color: #d9d9d9;
+      //}
       .goodsEach {
         @include display-flex;
         @include flex-wrap(wrap);

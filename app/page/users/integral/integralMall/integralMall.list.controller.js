@@ -63,16 +63,6 @@
                 }
             ];
 
-            /**
-             * 每次页面进入刷新列表
-             * */
-            $scope.$on("$stateChangeSuccess", function (event, toState) {
-                if (toState.name == 'subNav.memberIntegralMall') {
-
-                    reloadMore();
-                }
-            });
-
 
             /**
              * loadMore
@@ -83,10 +73,10 @@
                     return getCouponList(start, findNum).then(function (data) {
                         if (!data.length) {
                             $scope.moreDataCanBeLoaded = false;
-                        } else if(data.length < findNum){
+                        } else if (data.length < findNum) {
                             $scope.moreDataCanBeLoaded = false;
                             $scope.dataToDisplay.extend(data);
-                        }else{
+                        } else {
                             $scope.dataToDisplay.extend(data);
                         }
 
@@ -102,6 +92,17 @@
             };
 
             /**
+             * 每次页面进入刷新列表
+             * */
+            reloadMore();
+            $scope.$on("$stateChangeSuccess", function (event, toState) {
+                if (toState.name == 'subNav.memberIntegralMall') {
+                    // reloadMore();
+                    getIntegralInfo();
+                }
+            });
+
+            /**
              * reloadMore,用再次调用
              * */
             function reloadMore() {
@@ -113,7 +114,7 @@
                 $scope.moreDataCanBeLoaded = true;
                 //正在搜索?
                 $scope.isSearching = false;
-                
+
                 document.getElementById('infiniteScroll').classList.add("active");
                 // $ionicLoading.show();
                 //执行
@@ -126,11 +127,15 @@
             /**
              * 获取我的积分值
              * */
-            $integralInfo().then(function (data) {
-                $scope.currenttotalnum = $sessionStorage.integralInfo.currenttotalnum;
-            }, function (errText) {
-                $ionicToast.show("积分信息获取失败,请稍后再试!");
-            });
+            getIntegralInfo();
+            function getIntegralInfo() {
+                return $integralInfo().then(function (data) {
+                    $scope.currenttotalnum = $sessionStorage.integralInfo.currenttotalnum;
+                }, function (errText) {
+                    $ionicToast.show("积分信息获取失败,请稍后再试!");
+                });
+            }
+
 
             /**
              * 获取卡券列表

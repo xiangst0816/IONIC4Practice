@@ -4,7 +4,7 @@
  * --------------------------------------------------
  * Platform specific tweaks
  */
-
+//platform-cordova 如果去除这个,则会在subNav上加一个statusBar,很管用的
 .platform-ios.platform-cordova {
   // iOS has a status bar which sits on top of the header.
   // Bump down everything to make room for it. However, if

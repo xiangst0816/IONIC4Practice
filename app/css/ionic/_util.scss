@@ -16,7 +16,7 @@
   display: none;
 }
 .show {
-  display: block;
+  display: block !important;
 }
 .opacity-show {
   opacity: 1;

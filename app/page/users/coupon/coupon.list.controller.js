@@ -77,14 +77,7 @@
             ];
 
 
-            /**
-             * 每次页面进入刷新列表
-             * */
-            $scope.$on("$stateChangeSuccess", function (event, toState) {
-                if (toState.name == 'subNav.memberCoupon') {
-                    reloadMore();
-                }
-            });
+
 
 
             /**
@@ -113,6 +106,18 @@
                     });
                 }
             };
+
+
+            /**
+             * 每次页面进入刷新列表
+             * */
+            reloadMore();
+            // $scope.$on("$stateChangeSuccess", function (event, toState) {
+            //     if (toState.name == 'subNav.memberCoupon') {
+            //         reloadMore();
+            //     }
+            // });
+
 
             /**
              * reloadMore,用再次调用

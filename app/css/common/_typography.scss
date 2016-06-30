@@ -20,11 +20,16 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.underline{
+
+.underline {
   text-decoration: underline;
 }
 
 .forbidden {
-  background-color: #636363!important;
-  color: #FFF!important;
+  background-color: #636363 !important;
+  color: #FFF !important;
+}
+
+.boxShadow {
+  box-shadow: 0 2px 4px 0 rgba(34, 36, 38, 0.12), 0 2px 10px 0 rgba(34, 36, 38, 0.08);
 }

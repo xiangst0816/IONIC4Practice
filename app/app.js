@@ -82,7 +82,7 @@
          * $log的debug方法显示开关
          * */
         .config(['$logProvider', function ($logProvider) {
-            $logProvider.debugEnabled(true);
+            $logProvider.debugEnabled(false);
 
             // $log.log("log")
             // $log.info("info")

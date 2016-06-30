@@ -156,12 +156,13 @@
             /**
              * 每次页面切换刷新列表
              * */
-            $scope.$on("$stateChangeSuccess", function (event, toState) {
-                if (toState.name == 'subNav.memberCollection') {
-
-                    reloadMore();
-                }
-            });
+            reloadMore();
+            // $scope.$on("$stateChangeSuccess", function (event, toState) {
+            //     if (toState.name == 'subNav.memberCollection') {
+            //
+            //         reloadMore();
+            //     }
+            // });
             // $scope.$on("destroy",function () {
             //     $scope.moreDataCanBeLoaded = true;
             //     $scope.dataToDisplay = [];
