@@ -8,7 +8,7 @@
     /**
      * 获取微信config
      * */
-        .factory("$wxGetConfig", ['AJAX', 'api', '$q', 'baseInfo', '$ionicToast', '$sessionStorage', '$log','$ionicPopup', function (AJAX, api, $q, baseInfo, $ionicToast, $sessionStorage, $log,$ionicPopup) {
+        .factory("$wxGetConfig", ['AJAX', 'api', '$q', 'baseInfo', '$ionicToast', '$sessionStorage', '$log', function (AJAX, api, $q, baseInfo, $ionicToast, $sessionStorage, $log) {
 
             /**
              * 配置微信环境

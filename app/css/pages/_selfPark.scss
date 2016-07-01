@@ -64,8 +64,8 @@
       font-size: 0.28rem;
       font-weight: bold;
     }
-    .parkBtn:active{
-      background-color:$touched;
+    .parkBtn:active {
+      background-color: $touched;
     }
     .parkSelectionItems {
       //padding-left: 0.5rem;
@@ -106,9 +106,9 @@
             font-weight: bolder;
           }
           &:active,
-          &.activated{
-            background:$stable;
-            div{
+          &.activated {
+            background: $stable;
+            div {
               color: #fff;
             }
           }
@@ -159,7 +159,16 @@
         padding-left: 0.25rem;
         border-radius: 5px;
         font-size: 0.3rem;
-        outline: none
+        outline: none;
+        box-shadow: none;
+        //border:0;
+        -webkit-appearance:none;
+        &::-webkit-input-placeholder {
+          padding: 0;
+          margin: 0;
+          line-height: normal;
+          //line-height: 0.92rem;
+        }
       }
 
     }
@@ -183,6 +192,11 @@
         margin-left: 0.23rem;
         border: 1px solid #313131;
         text-align: center;
+        &:active,
+        &.activated {
+          background: #313131;
+          color: #fff;
+        }
 
       }
     }
@@ -194,20 +208,20 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding-bottom:0.42rem;
-  padding-top:0.2rem;
-  background:rgba(256,256,256,0.6);
+  padding-bottom: 0.42rem;
+  padding-top: 0.2rem;
+  background: rgba(256, 256, 256, 0.6);
   p {
     text-align: center;
     color: $stable;
     font-size: 0.3rem;
     margin-bottom: 0.4rem;
   }
-  .hasChoose{
-    color:#535353;
-    font-size:0.3rem;
+  .hasChoose {
+    color: #535353;
+    font-size: 0.3rem;
     text-align: center;
-    margin-bottom:0.23rem;
+    margin-bottom: 0.23rem;
 
   }
 
@@ -222,7 +236,6 @@
     color: #fff;
     font-weight: bold;
     border-radius: 5px;
-
 
   }
 }
@@ -239,7 +252,7 @@
     @include justify-content(center);
     @include align-items(center);
 
-    background:url(../img/selfpark/code.png) no-repeat center center/100% auto;
+    background: url(../img/selfpark/code.png) no-repeat center center/100% auto;
 
     //display: flex;
     //justify-content: center;
@@ -298,18 +311,16 @@
 }
 
 //自助缴费-paylist
-.selfParkToPay{
+.selfParkToPay {
   padding-left: 0.45rem;
-  padding-right:0.45rem;
+  padding-right: 0.45rem;
 
+  .parkInfo {
+    margin-top: 0.38rem;
+    border-bottom: 1px solid #c9c9c9;
 
-
-  .parkInfo{
-    margin-top:0.38rem;
-    border-bottom:1px solid #c9c9c9;
-
-    li{
-      height:0.9rem;
+    li {
+      height: 0.9rem;
       @include display-flex;
       @include justify-content(space-between);
       @include align-items(center);
@@ -319,15 +330,15 @@
       //justify-content: space-between;
       //align-items: center;
       //flex-wrap: nowrap;
-      font-size:0.36rem;
-      color:#535353;
-      span{
+      font-size: 0.36rem;
+      color: #535353;
+      span {
       }
     }
   }
-  .payList{
+  .payList {
     padding-bottom: 2rem;
-    .payItem{
+    .payItem {
       @include display-flex;
       @include justify-content(space-between);
       @include align-items(center);
@@ -339,25 +350,23 @@
       //justify-content: space-between;
       //align-items: center;
       //flex-wrap: nowrap;
-      height:1.23rem;
-      font-size:0.36rem;
-      color:#535353;
-      border-bottom:1px solid #c9c9c9;
-      i{
-        font-size:0.5rem;
+      height: 1.23rem;
+      font-size: 0.36rem;
+      color: #535353;
+      border-bottom: 1px solid #c9c9c9;
+      i {
+        font-size: 0.5rem;
         width: 0.5rem;
         @include display-flex;
         @include justify-content(center);
         @include align-items(center);
 
-
-
         //display: flex;
         //justify-content:center;
         //align-items: center;
       }
-      .jifendikou{
-        color:#535353;
+      .jifendikou {
+        color: #535353;
         @include display-flex;
         @include justify-content(center);
         @include flex-direction(column);
@@ -367,43 +376,43 @@
         //justify-content: center;
         //flex-direction: column;
         //align-items: flex-end;
-        .canUse{
-          border:1px solid #535353;
-          padding-left:0.2rem;
-          padding-right:0.2rem;
+        .canUse {
+          border: 1px solid #535353;
+          padding-left: 0.2rem;
+          padding-right: 0.2rem;
           display: block;
         }
-        .useInfo{
-          font-size:0.22rem;
-          line-height:140%;
+        .useInfo {
+          font-size: 0.22rem;
+          line-height: 140%;
         }
       }
 
-      i{
+      i {
         transition: -webkit-transform ease 200ms;
       }
-      &.active{
-        i{
-          transform:rotate(90deg);
+      &.active {
+        i {
+          transform: rotate(90deg);
         }
       }
 
-      .inter_title{
+      .inter_title {
         @include display-flex;
         @include justify-content(center);
         @include flex-direction(row);
         @include align-items(center);
-        font-size:0.25rem;
-        padding-right:0.7rem;
+        font-size: 0.25rem;
+        padding-right: 0.7rem;
         position: relative;
-        &>i{
+        & > i {
           position: absolute;
-          right:0;
-          top:0rem;
+          right: 0;
+          top: 0rem;
         }
       }
     }
-    .itemInner{
+    .itemInner {
       @include display-flex;
       @include justify-content(space-between);
       @include align-items(center);
@@ -416,91 +425,90 @@
 
       background: #F9F9F9;
 
-      font-size:0.3rem;
-      color:#535353;
-      border-bottom:1px solid #c9c9c9;
-      height:auto;
-      padding:0.1rem;
-      .interInfo_1{
-        padding:0.1rem;
+      font-size: 0.3rem;
+      color: #535353;
+      border-bottom: 1px solid #c9c9c9;
+      height: auto;
+      padding: 0.1rem;
+      .interInfo_1 {
+        padding: 0.1rem;
 
-        font-size:0.36rem;
+        font-size: 0.36rem;
       }
-      .interInfo_2{
-        font-size:0.22rem;
+      .interInfo_2 {
+        font-size: 0.22rem;
         //padding:0rem;
       }
-      .interEg{
+      .interEg {
         @include display-flex;
         @include justify-content(center);
         @include flex-direction(row);
         @include flex-wrap(wrap);
-        width:100%;
+        width: 100%;
         text-align: center;
-        padding:0.1rem;
-        font-size:0.36rem;
-        &>span{
-          width:30%;
-          margin:0.1rem;
-          border:1px solid #c9c9c9;
-          &.activated{
-            background:$stable;
-            color:#fff;
-            border:1px solid $stable;
+        padding: 0.1rem;
+        font-size: 0.36rem;
+        & > span {
+          width: 30%;
+          margin: 0.1rem;
+          border: 1px solid #c9c9c9;
+          &.activated {
+            background: $stable;
+            color: #fff;
+            border: 1px solid $stable;
           }
-          &.active{
-            background:$stable;
-            color:#fff;
-            border:1px solid $stable;
+          &.active {
+            background: $stable;
+            color: #fff;
+            border: 1px solid $stable;
           }
         }
       }
 
-      .couponListInner{
-        width:100%;
-        padding:0.1rem ;
-        p{
-          margin-bottom:0.2rem;
+      .couponListInner {
+        width: 100%;
+        padding: 0.1rem;
+        p {
+          margin-bottom: 0.2rem;
         }
 
-        .couponListEach{
+        .couponListEach {
           @include display-flex;
           @include justify-content(space-between);
           @include align-items(center);
           position: relative;
-          padding:0.1rem;
-          .couponListEach_title{
+          padding: 0.1rem;
+          .couponListEach_title {
             @include display-flex;
             @include justify-content(center);
             @include flex-direction(column);
             @include align-items(flex-start);
             width: 5.5rem;
 
-            .couponListEach_title_1{
-              font-size:0.36rem;
-              line-height:170%;
-              width:100%;
+            .couponListEach_title_1 {
+              font-size: 0.36rem;
+              line-height: 170%;
+              width: 100%;
             }
-            .couponListEach_title_2{
-              font-size:0.22rem;
-              line-height:110%;
+            .couponListEach_title_2 {
+              font-size: 0.22rem;
+              line-height: 110%;
             }
           }
-          &::after{
+          &::after {
             content: '';
-            width:100%;
+            width: 100%;
             position: absolute;
-            height:100%;
-            border-top:1px solid #ddd;
+            height: 100%;
+            border-top: 1px solid #ddd;
             //border-bottom:1px solid #ddd;
-            left:0;
-            top:0;
+            left: 0;
+            top: 0;
           }
           //&::after{
           //
           //}
         }
-
 
       }
 

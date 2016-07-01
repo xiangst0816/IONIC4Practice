@@ -322,9 +322,9 @@
       font-size: 0.3rem;
       line-height: normal;
       background: transparent;
-      text-indent:0;
+      text-indent: 0;
       //-webkit-appearance: none;
-      padding:0.2rem;
+      padding: 0.2rem;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
@@ -352,11 +352,13 @@
     @include justify-content(center);
     @include align-items(center);
     @include display-flex;
+    @include flex-direction(column);
+
     .bottomBtn {
       position: relative;
       width: 6.6rem;
-      //margin-left:-3.3rem;
-      //left:50%;
+      line-height: 0.94rem;
+      margin: 0 0.5rem 0.3rem;
     }
   }
 }
