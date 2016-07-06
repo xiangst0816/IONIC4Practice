@@ -423,7 +423,7 @@
                         return $getCode({
                             "keyname": "parkpriceprehour"
                         }).then(function (data) {
-                            console.log(data)
+                            // console.log(data)
                             angular.forEach(data, function (value) {
                                 if (value.keyname == "integralexchange_1") {
                                     $scope.needIntegral = parseInt(value.keycode);

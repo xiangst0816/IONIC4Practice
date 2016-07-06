@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('registerCtrl', ['$scope', 'verification', '$ionicLoading', '$state', '$sessionStorage', 'Countdown', '$ionicToast', '$q', '$getVerifyCode', '$addIntegral', '$getCode', '$getUrlParams', '$getUserInfo', '$register', 'baseInfo', '$changePassword', '$log', '$timeout', '$rootScope', '$ionicModal', '$checkAuthorize','$localStorage', function ($scope, verification, $ionicLoading, $state, $sessionStorage, Countdown, $ionicToast, $q, $getVerifyCode, $addIntegral, $getCode, $getUrlParams, $getUserInfo, $register, baseInfo, $changePassword, $log, $timeout, $rootScope, $ionicModal, $checkAuthorize,$localStorage) {
+        .controller('registerCtrl', ['$scope', 'verification', '$ionicLoading', '$state', '$sessionStorage', 'Countdown', '$ionicToast', '$q', '$getVerifyCode', '$addIntegral', '$getCode', '$getUrlParams', '$getUserInfo', '$register', 'baseInfo', '$changePassword', '$log', '$timeout', '$rootScope', '$ionicModal', '$checkAuthorize','$localStorage','$zeroize', function ($scope, verification, $ionicLoading, $state, $sessionStorage, Countdown, $ionicToast, $q, $getVerifyCode, $addIntegral, $getCode, $getUrlParams, $getUserInfo, $register, baseInfo, $changePassword, $log, $timeout, $rootScope, $ionicModal, $checkAuthorize,$localStorage,$zeroize) {
 
             //点击用户协议
             $scope.ischecked = true;
@@ -127,7 +127,7 @@
                         "customer": {
                             "channelcode": "1",  // channelcode 代表来源，目前5：app，  1：微信，  2：Portal
                             "channel": {
-                                "validatecode": $scope.register.verificationCode.toString(),
+                                "validatecode": $zeroize($scope.register.verificationCode,6).toString(),
                                 "mobile": $scope.register.telephone.toString(),
                                 // 微信用户的密码之后添加
                                 "password": $scope.register.password.toString(),
@@ -142,7 +142,7 @@
                         "customer": {
                             "channelcode": "5",  // channelcode 代表来源，目前5：app，  1：微信，  2：Portal
                             "channel": {
-                                "validatecode": $scope.register.verificationCode.toString(),
+                                "validatecode": $zeroize($scope.register.verificationCode,6).toString(),
                                 "mobile": $scope.register.telephone.toString(),
                                 "password": $scope.register.password.toString(),
                                 "orgid": baseInfo.orgid,
@@ -151,6 +151,7 @@
                         }
                     }
                 }
+                // console.log(params)
                 // alert(JSON.stringify(params))
                 $register(params).then(function (customerid) {
                     //data.content == 会员的id

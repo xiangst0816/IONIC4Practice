@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('changePasswordCtrl', ['$scope', 'verification', '$ionicLoading', '$state', '$sessionStorage', 'Countdown', '$ionicToast', '$timeout', '$getVerifyCode', '$customerValidate', '$changePassword', '$rootScope','$log','$login', function ($scope, verification, $ionicLoading, $state, $sessionStorage, Countdown, $ionicToast, $timeout, $getVerifyCode, $customerValidate, $changePassword, $rootScope,$log,$login) {
+        .controller('changePasswordCtrl', ['$scope', 'verification', '$ionicLoading', '$state', '$sessionStorage', 'Countdown', '$ionicToast', '$timeout', '$getVerifyCode', '$customerValidate', '$changePassword', '$rootScope','$log','$login','$zeroize', function ($scope, verification, $ionicLoading, $state, $sessionStorage, Countdown, $ionicToast, $timeout, $getVerifyCode, $customerValidate, $changePassword, $rootScope,$log,$login,$zeroize) {
             /**
              * params
              * */
@@ -120,7 +120,7 @@
                 //显示loading
                 $ionicLoading.show();
                 $customerValidate({
-                    "validatecode": $scope.params.verificationCode.toString(),
+                    "validatecode": $zeroize($scope.params.verificationCode,6).toString(),
                     "mobile": $scope.params.telephone.toString(),
                     "typecode": "1"//修改密码
                 }).then(function (data) {
@@ -131,7 +131,7 @@
                     $changePassword({
                         "customerid": parseInt(data),
                         "newpassword": $scope.params.password.toString(),
-                        "validatecode": $scope.params.verificationCode.toString()
+                        "validatecode": $zeroize($scope.params.verificationCode,6).toString()
                     }).then(function (data) {
                         if ($state.is("subNav.forgotPassword")) {
                             $ionicToast.show("密码找回成功,即将自动登录!");

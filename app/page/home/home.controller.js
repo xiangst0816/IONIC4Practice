@@ -117,8 +117,8 @@
                     }, 800, false);
                 }
                 //清楚缓存,开发阶段测试
-                delete $sessionStorage.$reset();
-                delete $localStorage.$reset();
+                // delete $sessionStorage.$reset();
+                // delete $localStorage.$reset();
             }
 
 

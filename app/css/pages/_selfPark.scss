@@ -162,7 +162,7 @@
         outline: none;
         box-shadow: none;
         //border:0;
-        -webkit-appearance:none;
+        -webkit-appearance: none;
         &::-webkit-input-placeholder {
           padding: 0;
           margin: 0;
@@ -549,5 +549,17 @@
     //  }
     //}
 
+  }
+}
+
+.findMap {
+  .scroll {
+    height: 100%;
+    .centerMap {
+      height: 100%;
+      @include display-flex;
+      @include justify-content(center);
+      @include align-items(center);
+    }
   }
 }

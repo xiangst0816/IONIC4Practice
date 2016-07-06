@@ -28,7 +28,9 @@
                         //必须放到异步队列中
                         $timeout(function () {
                             var guideInfo = $localStorage.guideInfo;
+
                             //只在主页显示
+
                             if ($state.is("home") && (!guideInfo || guideInfo.isFirstTime)) {
                                 //满足显示条件
                                 $element.addClass("beforeActive active");

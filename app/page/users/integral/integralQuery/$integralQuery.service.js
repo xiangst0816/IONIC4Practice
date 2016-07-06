@@ -38,7 +38,6 @@
                     method: 'post',
                     data: params,
                     success: function (data) {
-                        console.log(data)
                         if (data.code == 7001) {
                             //标志执行成功
                             defer.resolve(data.content.data);

@@ -313,10 +313,7 @@
                     templateUrl: 'tpl/queueSuccess.tpl.html',
                     controller: 'queueSuccessCtrl'
                 })
-
-
-
-
+                    
 
                 /**
                  * 丰树资讯

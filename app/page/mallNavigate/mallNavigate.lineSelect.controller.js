@@ -18,7 +18,7 @@
                     return
                 }
                 $scope.status = data;
-                console.log("当前选择:"+$scope.status)
+                // console.log("当前选择:"+$scope.status)
             }
 
         }]);

@@ -21,7 +21,7 @@
                 };
                 //数据合并
                 angular.deepExtend(params, options);
-                console.log(params)
+                // console.log(params)
                 AJAX({
                     url: api.messageUrl,
                     method: "post",

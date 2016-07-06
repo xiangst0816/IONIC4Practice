@@ -5,13 +5,13 @@
 (function () {
     angular.module('smartac.page')
         .controller('findCarCtrl', ['$getParkingPosition',function ($getParkingPosition) {
-            console.log("findCarCtrl")
+            // console.log("findCarCtrl")
 
             /**
              * 查询车辆停放位置
              * */
             $getParkingPosition().then(function (data) {
-                console.log(data)
+                // console.log(data)
             })
 
 

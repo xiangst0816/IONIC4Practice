@@ -114,7 +114,7 @@
                 });
                 $imgUpload(file).then(function (data) {
                     imgArr.push(data);
-                    console.log(imgArr)
+                    // console.log(imgArr)
                 }, function (errText) {
                     $ionicToast.show(errText);
                 }).finally(function () {
