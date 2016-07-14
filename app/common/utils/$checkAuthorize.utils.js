@@ -82,6 +82,7 @@
                 }
             } else if (Internal.isInApp) {
                 //app用户
+                //app用户自动登录
                 var userInfo = $localStorage.userInfo;
                 if (userInfo && userInfo.customerid) {
                     $getUserInfo({
