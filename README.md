@@ -76,7 +76,7 @@ ionic使用的导航方式永远都是在新增历史记录,而浏览器原生�
 
 ### bridge作为不同设备的中间层
 
-主要是调用同一个接口方法实现功能，具体的使用哪个方法由当时的设备环境判断。保证接口一致！
+这里说明下，因为公司使用的不是主要是调用同一个接口方法实现功能，具体的使用哪个方法由当时的设备环境判断。保证接口一致！
 
 ### [移动端最佳CSS实践(SCSS)](https://github.com/xiangsongtao/IONIC4Practice/blob/master/doc/CSS4Mobile.md)
 
