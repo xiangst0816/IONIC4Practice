@@ -14,7 +14,9 @@ flex-wrap
 flex-flow
 ```
 
-时，发现旧版的flex没有这样的属性可以对应。当然方法是能解决的```flex-wrap: wrap;```的问题，可通过```flex-direction：column```解决。
+时，发现旧版的flex没有这样的属性可以对应。当然方法是能解决的
+
+- ```flex-wrap: wrap;```的问题，可通过```flex-direction：column```解决。
 
 -  ```justify-content: space-around;```的问题需要手动设置他们之间的margin。
 

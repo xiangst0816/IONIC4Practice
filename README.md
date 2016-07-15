@@ -56,6 +56,98 @@ page目录根据页面进行层级划分,将与当前页面相关的且独有的
 
 ![vivo-Structure](https://github.com/xiangsongtao/IONIC4Practice/blob/master/doc/vivo-structure.png "vivo-structure")
 
+- 因为项目采用了token验证，故需要对$http进行一次封装
+- $factory为数据层，通过api访问特定的接口返回特定的数据，$factory处理返回的信息，如果成功则返回数据(resolve(data))，如果不成功则返回错误状态(reject(errCode))。一般返回数据有两类：
+	- 状态类，比如用户信息、积分状态、代码配置数值等，这些在$factory中**返回对象**；状态类信息随时间的变化可能非常小，这个会设置过期时间，在时间内则使用缓存数据。
+	- list列表类，比如积分记录、卡券列表等，这些在$factory中**返回数组**，每次访问返回实时数据。
+
+**$factory的设计如下：**
+
+```
+(function () {
+    angular.module('smartac.page')
+    /**
+     * 获取code通用方法
+     * */
+        .factory("$getCode", ['AJAX', 'api', '$q','$log','$sessionStorage', function (AJAX, api, $q,$log,$sessionStorage) {
+            return function (options,cache) {
+                if (!angular.isObject(options)) {
+                    options = {};
+                }
+                var defer = $q.defer();
+                var params = {
+                    "method": "search",
+                    "keyname": ""
+                };
+
+                //数据合并
+                angular.deepExtend(params, options);
+                if(cache === 'cache' && !!$sessionStorage[params.keyname]){
+                    $log.debug(`codeKeyName: ${params.keyname} 使用缓存数据!该字段缓存状态为: ${!!cache}`);
+                    defer.resolve($sessionStorage[params.keyname]);
+                    return defer.promise;
+                }
+                $log.debug(`codeKeyName: ${params.keyname} 使用数据库的数据! 该字段缓存状态为: ${!!cache}`);
+                AJAX({
+                    url: api.codeUrl,
+                    method: "post",
+                    data: params,
+                    success: function (data) {
+                        if (data.code == "9200" && data.content.codeList.length > 0) {
+                            //标志执行成功
+                            $log.debug("查询:"+params.keyname+",返回正确结果");
+                            //如果缓存字段为true,则缓存到session中
+                            if(cache === 'cache'){
+                                $sessionStorage[params.keyname] = data.content.codeList;
+                            }
+                            defer.resolve(data.content.codeList);
+                        } else {
+                            var errText;
+                            switch(parseInt(data.code)){
+                                case 9001:
+                                    errText = "系统间通信异常!";
+                                    break;
+                                default:
+                                    errText = "系统错误!";
+                                    break;
+                            }
+                            $log.debug("查询:"+params.keyname+",失败");
+                            defer.reject(errText);
+                        }
+                    },
+                    error: function (errText) {
+                        $log.debug("查询:"+params.keyname+",失败");
+                        defer.reject(errText);
+                    }
+                });
+                return defer.promise;
+            }
+        }])
+})();
+```
+
+**使用方法：**
+
+
+```
+$getCode({
+    "keyname": "integralexchange4pk"
+ }).then(function (data) {
+       angular.forEach(data, function (value) {
+           if (value.keyname == "integralexchange_3") {
+                 $scope.parkingHour2money = parseFloat(value.keycode);
+                 $log.debug(`每小时停车等效金额:${$scope.parkingHour2money}`);
+           }
+       });
+     }, function (errText) {
+        $ionicToast.show("获取积分抵扣信息失败," + errText)
+})
+```
+
+
+
+
+
 
 
 ## 功能说明
