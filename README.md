@@ -147,6 +147,7 @@ $getCode({
 })
 ```
 
+> $getCode可以实现在别的controller中复用，且调用简单，思路清晰！
 
 
 
