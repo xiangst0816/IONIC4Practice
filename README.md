@@ -54,7 +54,10 @@ page目录根据页面进行层级划分,将与当前页面相关的且独有的
 
 ## MVC结构说明
 
+**MVC结构如下：**
+
 ![vivo-Structure](https://github.com/xiangsongtao/IONIC4Practice/blob/master/doc/vivo-structure.png "vivo-structure")
+
 
 - 因为项目采用了token验证，故需要对$http进行一次封装
 - $factory为数据层，通过api访问特定的接口返回特定的数据，$factory处理返回的信息，如果成功则返回数据(resolve(data))，如果不成功则返回错误状态(reject(errCode))。一般返回数据有两类：
