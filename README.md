@@ -52,6 +52,11 @@ Ionic4Practice
 
 page目录根据页面进行层级划分,将与当前页面相关的且独有的tpl、scss、controller、service、directive、filter等放在一起。
 
+## MVC结构说明
+
+![vivo-Structure](https://github.com/xiangsongtao/IONIC4Practice/blob/master/doc/vivo-structure.png "vivo-structure")
+
+
 
 ## 功能说明
 以下功能是我在开发过程中遇到的坑及总结，内容会不断更新，可以star一下，以便持续关注。
