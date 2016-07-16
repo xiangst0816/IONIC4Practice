@@ -250,7 +250,12 @@ gulp.task('pageCss', function () {
     var stream = gulp.src(pageCssMap.main).pipe($.sass().on('error', $.sass.logError)).pipe($.base64())
         .pipe($.autoprefixer({
             // browsers: ['IE 7'],
-            browsers: ['Android >=2.1', 'last 2 versions'],
+            browsers: [
+                'last 2 versions',
+                'iOS >= 7',
+                'Android >= 4',
+                'Explorer >= 10',
+                'ExplorerMobile >= 11'],
             cascade: false
         }));
 
@@ -272,7 +277,12 @@ gulp.task('ionicCss', function () {
     var stream = gulp.src(ionicCssMap.main).pipe($.sass().on('error', $.sass.logError))
         .pipe($.autoprefixer({
             // browsers: ['IE 7'],
-            browsers: ['Android >=2.1', 'last 2 versions'],
+            browsers: [
+                'last 2 versions',
+                'iOS >= 7',
+                'Android >= 4',
+                'Explorer >= 10',
+                'ExplorerMobile >= 11'],
             cascade: false
         }))
         .pipe($.px3rem({
