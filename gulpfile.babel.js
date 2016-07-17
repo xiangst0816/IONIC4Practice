@@ -60,14 +60,19 @@ gulp.task('move:index', ['loadingCss'], function () {
 });
 //loading的scss转化为css
 gulp.task('loadingCss', function () {
-    return gulp.src(`${path.src}/index/loading.scss`)
+    return gulp.src(`${path.src}/loading/loading.scss`)
         .pipe($.sass().on('error', $.sass.logError))
         .pipe($.base64({maxImageSize: 100 * 100 * 1024}))
         .pipe($.autoprefixer({
-            browsers: ['Android >=2.1', 'last 2 versions'],
+            browsers: [
+                'last 2 versions',
+                'iOS >= 7',
+                'Android >= 4',
+                'Explorer >= 10',
+                'ExplorerMobile >= 11'],
             cascade: false
         }))
-        .pipe($.rename('loading.css')).pipe(gulp.dest(`${path.src}/index`));
+        .pipe($.rename('loading.css')).pipe(gulp.dest(`${path.src}/loading`));
 });
 
 
@@ -75,7 +80,7 @@ gulp.task('loadingCss', function () {
  * ---tpl模板转移--------------------------------------------------------------
  * */
 gulp.task('move:tpl', function () {
-    var stream = gulp.src(`${path.src}/page/**/*.html`).pipe($.rename({dirname: ''}));
+    var stream = gulp.src(`${path.src}/pages/**/*.html`).pipe($.rename({dirname: ''}));
     switch (ENV) {
         case 'DEV':
             return stream.pipe(gulp.dest(`${path.tmp}/tpl`));
@@ -91,7 +96,7 @@ gulp.task('move:tpl', function () {
 
 /**
  * ---根路径文件--------------------------------------------------------------
- * (app,config,bridge,index)
+ * (config,bridge)
  * */
 gulp.task('move:basejs', function () {
     var stream = gulp.src(`${path.src}/*.js`);
@@ -109,51 +114,10 @@ gulp.task('move:basejs', function () {
 });
 
 
-/**
- * ---其余资源转移--------------------------------------------------------------
- * */
-/*!
- * ionic.bundle.js is a concatenation of:
- * ionic.js, angular.js, angular-animate.js,
- * angular-sanitize.js, angular-ui-router.js,
- * and ionic-angular.js
- */
-gulp.task('move:lib', function () {
-    var stream = gulp.src([
-        path.src + '/lib/ionic.bundle.min.js',
-        path.src + '/lib/ngStorage.min.js',
-        path.src + '/lib/ocLazyLoad.min.js',
-        path.src + '/lib/socket.min.js',
-    ]).pipe($.concat('core.js'));
-    switch (ENV) {
-        case 'DEV':
-            return stream.pipe(gulp.dest(`${path.tmp}/js`));
-            break;
-        case 'TES':
-            return stream.pipe($.md5Plus(10, `${path.dest}/index.html`)).pipe(gulp.dest(`${path.dest}/js`));
-            break;
-        case 'PRO':
-            return stream.pipe($.md5Plus(10, `${path.dest}/index.html`)).pipe($.uglify()).pipe(gulp.dest(`${path.dest}/js`));
-            break;
-    }
-});
 
 
-//打包ionic.bundle.min.js,用于对此模块精简
-gulp.task('create:ionic.bundle', function () {
-    var stream = gulp.src([
-        path.src + '/lib/ionic.js',
-        path.src + '/lib/angular.js',
-        path.src + '/lib/angular-animate.js',
-        path.src + '/lib/angular-sanitize.js',
-        path.src + '/lib/angular-ui-router.js',
-        path.src + '/lib/ionic-angular.js',
-        path.src + '/lib/ngStorage.min.js',
-        path.src + '/lib/ocLazyLoad.min.js',
-        path.src + '/lib/socket.min.js',
-    ]).pipe($.concat('ionic.bundle.min.js'));
-    return stream.pipe($.uglify()).pipe(gulp.dest(`${path.src}/lib`));
-});
+
+
 
 
 /**
@@ -184,12 +148,69 @@ gulp.task('img:min', function () {
 });
 
 
+
+/**
+ * ---其余资源转移--------------------------------------------------------------
+ * */
+/*!
+ * ionic.bundle.js is a concatenation of:
+ * ionic.js, angular.js, angular-animate.js,
+ * angular-sanitize.js, angular-ui-router.js,
+ * and ionic-angular.js
+ * app.bundle.js
+ */
+gulp.task('move:lib', function () {
+    var stream = gulp.src([
+        // path.src + '/lib/ionic/js/ionic.bundle.min.js',
+        // path.src + '/lib/ionic/js/ionic.bundle.js',
+        path.src + '/lib/ionic.bundle.min_1.1.1_.js',
+        // path.src + '/lib/ionic.bundle_1.3.1_.js',
+        path.src + '/lib/ngStorage.min.js',
+        path.src + '/lib/ocLazyLoad.min.js',
+        path.src + '/lib/socket.min.js',
+    ]).pipe($.concat('core.js'));
+    switch (ENV) {
+        case 'DEV':
+            return stream.pipe(gulp.dest(`${path.tmp}/js`));
+            break;
+        case 'TES':
+            return stream.pipe($.md5Plus(10, `${path.dest}/index.html`)).pipe(gulp.dest(`${path.dest}/js`));
+            break;
+        case 'PRO':
+            return stream.pipe($.md5Plus(10, `${path.dest}/index.html`)).pipe($.uglify()).pipe(gulp.dest(`${path.dest}/js`));
+            break;
+    }
+});
+//打包ionic.bundle.min.js,用于对此模块精简
+// gulp.task('create:ionic.bundle', function () {
+//     var stream = gulp.src([
+//         path.src + '/lib/ionic.js',
+//         path.src + '/lib/angular.js',
+//         path.src + '/lib/angular-animate.js',
+//         path.src + '/lib/angular-sanitize.js',
+//         path.src + '/lib/angular-ui-router.js',
+//         path.src + '/lib/ionic-angular.js',
+//         path.src + '/lib/ngStorage.min.js',
+//         path.src + '/lib/ocLazyLoad.min.js',
+//         path.src + '/lib/socket.min.js',
+//     ]).pipe($.concat('ionic.bundle.min.js'));
+//     return stream.pipe($.uglify()).pipe(gulp.dest(`${path.src}/lib`));
+// });
+
 /**
  * ---2. 公共模块--------------------------------------------------------------
  * controller/filter/directives/utils/routers
  * */
-gulp.task('commonJS', function () {
-    var stream = gulp.src(`${path.src}/common/**/*.js`).pipe($.concat('commonJS.js'))
+gulp.task('common.js', function () {
+    var stream = gulp.src([
+        `${path.src}/js/app.js`,
+        `${path.src}/js/routers.js`,
+        `${path.src}/js/bridge.js`,
+        `${path.src}/js/directives/*.js`,
+        `${path.src}/js/filters/*.js`,
+        `${path.src}/js/service/*.js`,
+        `${path.src}/js/utils/*.js`,
+    ]).pipe($.concat('common.js'))
         .pipe($.babel({presets: ['es2015']}));
     switch (ENV) {
         case 'DEV':
@@ -207,8 +228,8 @@ gulp.task('commonJS', function () {
  * ---3. 页面模块--------------------------------------------------------------
  * controller/filter/directives/utils/routers
  * */
-gulp.task('pageJS', function () {
-    var stream = gulp.src(`${path.src}/page/**/*.js`).pipe($.concat('pageJS.js'))
+gulp.task('page.js', function () {
+    var stream = gulp.src(`${path.src}/pages/**/*.js`).pipe($.concat('page.js'))
         .pipe($.babel({presets: ['es2015']}));
     switch (ENV) {
         case 'DEV':
@@ -232,19 +253,12 @@ gulp.task('pageJS', function () {
  * */
 var pageCssMap = {
     src: [
-        path.src + '/css/style.scss',
-        path.src + '/css/pages/**/*.scss',
-        path.src + '/css/common/**/*.scss'
+        path.src + '/pages/**/*.scss',
+        path.src + '/theme/common/**/*.scss'
     ],
-    main: path.src + '/css/style.scss'
+    main: path.src + '/theme/app.pages.scss'
 };
-var ionicCssMap = {
-    src: [
-        path.src + '/css/ionic.scss',
-        path.src + '/css/ionic/**/*.scss'
-    ],
-    main: path.src + '/css/ionic.scss'
-};
+
 //编译sass文件,将raw文件转到dist中
 gulp.task('pageCss', function () {
     var stream = gulp.src(pageCssMap.main).pipe($.sass().on('error', $.sass.logError)).pipe($.base64())
@@ -272,7 +286,12 @@ gulp.task('pageCss', function () {
     }
 });
 
-
+var ionicCssMap = {
+    src: [
+        path.src + '/theme/app.ionic.scss'
+    ],
+    main: path.src + '/theme/app.ionic.scss'
+};
 gulp.task('ionicCss', function () {
     var stream = gulp.src(ionicCssMap.main).pipe($.sass().on('error', $.sass.logError))
         .pipe($.autoprefixer({
@@ -323,14 +342,14 @@ gulp.task('browserSync:server', function () {
     //watch目录
     gulp.watch(pageCssMap.src, ['pageCss']).on('change', browserSync.reload);
     gulp.watch(ionicCssMap.src, ['ionicCss']).on('change', browserSync.reload);
-    gulp.watch(moveImg.src, ['img:min']).on('change', browserSync.reload);
+    // gulp.watch(moveImg.src, ['img:min']).on('change', browserSync.reload);
 
-    gulp.watch([path.src + '/page/**/*.html'], ['move:tpl']).on('change', browserSync.reload);
+    gulp.watch([path.src + '/pages/**/*.html'], ['move:tpl']).on('change', browserSync.reload);
     gulp.watch([path.src + '/*.*'], ['move:basejs']);
     gulp.watch([path.src + '/index.html'], ['move:index']).on('change', browserSync.reload);
 
-    gulp.watch([path.src + '/common/**/*.js'], ['commonJS']).on('change', browserSync.reload);
-    gulp.watch([path.src + '/page/**/*.js'], ['pageJS']).on('change', browserSync.reload);
+    gulp.watch([path.src + '/common/**/*.js'], ['common.js']).on('change', browserSync.reload);
+    gulp.watch([path.src + '/pages/**/*.js'], ['page.js']).on('change', browserSync.reload);
     gulp.watch([path.src + '/index.html', path.src + '/index/*.*'], ['move:index']).on('change', browserSync.reload);
 
 });
@@ -358,9 +377,9 @@ gulp.task('default', $.sequence(
         'pageCss',
         'ionicCss',
         //首次加载的js资源(service/routers/filters/utils/dierctives)
-        'commonJS',
+        'common.js',
         //延迟加载部分
-        'pageJS',
+        'page.js',
         'img:min'
     ]
 ));
@@ -381,6 +400,7 @@ gulp.task("SetProEnv", function () {
     ENV = "PRO";
 });
 
+// gulp.task("DEVELOPMENT", $.sequence('SetDevEnv', 'default'));
 gulp.task("DEVELOPMENT", $.sequence('SetDevEnv', 'default', 'browserSync:server'));
 gulp.task("TESTONLINE", $.sequence('SetTesEnv', 'default'));
 gulp.task("PRODUCTION", $.sequence('SetProEnv', 'default'));

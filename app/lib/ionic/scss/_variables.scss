@@ -1,9 +1,10 @@
 
 // Colors
 // -------------------------------
+// 颜色的修改在外层
 
 $light:                           #fff !default;
-$stable:                          #b71488 !default;
+$stable:                          #f8f8f8 !default;
 $positive:                        #387ef5 !default;
 $calm:                            #11c1f3 !default;
 $balanced:                        #33cd5f !default;
@@ -92,16 +93,27 @@ $button-bar-button-height:        32px !default;
 $button-bar-button-padding:       8px !default;
 $button-bar-button-icon-size:     20px !default;
 
+//$button-default-border:       transparent;
+//$button-default-active-border:null;
+
 $button-light-bg:                 $light !default;
 $button-light-text:               #444 !default;
 $button-light-border:             #ddd !default;
 $button-light-active-bg:          #fafafa !default;
 $button-light-active-border:      #ccc !default;
 
+$button-stable-outline-bg:                 $light !default;
+$button-stable-outline-text:               $stable !default;
+$button-stable-outline-border:             $stable !default;
+$button-stable-outline-active-bg:          $stable !default;
+$button-stable-outline-active-border:      $light !default;
+
+
 $button-stable-bg:                $stable !default;
-$button-stable-text: #ffffff !default;
+$button-stable-text:              #ffffff !default;
 $button-stable-border:            $stable !default;
-$button-stable-active-bg:         $stable !default;
+//$button-stable-active-bg:         transparent !default;
+$button-stable-active-bg:         $light !default;
 $button-stable-active-border:     $stable !default;
 
 $button-positive-bg:              $positive !default;
@@ -426,8 +438,8 @@ $input-height-base:               ($line-height-computed + ($padding-base-vertic
 $input-height-large:              (floor($font-size-large * $line-height-large) + ($padding-large-vertical * 2) + 2) !default;
 $input-height-small:              (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2) !default;
 
-$input-bg:                        $light !default;
-$input-bg-disabled:               $stable !default;
+$input-bg:                        transparent !default;
+$input-bg-disabled:               transparent !default;
 
 $input-color:                     #111 !default;
 $input-border:                    $item-default-border !default;
@@ -683,7 +695,7 @@ $badge-default-text:              #AAAAAA !default;
 // Spinners
 // -------------------------------
 
-$spinner-width:                   28px !default;
+$spinner-width:                   28px !default;//28
 $spinner-height:                  28px !default;
 
 $spinner-light-stroke:            $light !default;
