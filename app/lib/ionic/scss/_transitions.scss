@@ -75,8 +75,10 @@ $ios-transition-container-bg-color:    #000 !default;
 // Android View Transitions
 // -------------------------------
 
-$android-transition-duration:             200ms !default;
-$android-transition-timing-function:      cubic-bezier(0.4, 0.6, 0.2, 1) !default;
+//$android-transition-duration:             200ms !default;
+$android-transition-duration:             500ms !default;
+$android-transition-timing-function:      ease !default;
+//$android-transition-timing-function:      cubic-bezier(0.4, 0.6, 0.2, 1) !default;
 
 
 [nav-view-transition="android"] {
@@ -85,18 +87,20 @@ $android-transition-timing-function:      cubic-bezier(0.4, 0.6, 0.2, 1) !defaul
   [nav-view="leaving"] {
     @include transition-duration( $android-transition-duration );
     @include transition-timing-function( $android-transition-timing-function );
-    -webkit-transition-property: -webkit-transform;
-            transition-property: transform;
+    -webkit-transition-property: -webkit-opacity;
+            transition-property: opacity;
   }
 
   [nav-view="active"],
   &[nav-view-direction="forward"] [nav-view="entering"],
   &[nav-view-direction="back"] [nav-view="leaving"] {
+    opacity: 1;
     z-index: $z-index-view-above;
   }
 
   &[nav-view-direction="back"] [nav-view="entering"],
   &[nav-view-direction="forward"] [nav-view="leaving"] {
+    opacity: 1;
     z-index: $z-index-view-below;
   }
 

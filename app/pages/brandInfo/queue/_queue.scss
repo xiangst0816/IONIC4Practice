@@ -1,0 +1,171 @@
+//排队  和  我的排队详情 使用的是一个样式表
+.userQueueDetail,
+.queue {
+  background: $background-grey;
+  .queue_content {
+    .imgBox {
+      display: block;
+      position: relative;
+      height: 3.53rem;
+      overflow: hidden;
+      img {
+        display: block;
+        position: relative;
+        max-width: 100%;
+        max-height: 100%;
+        width: 100%;
+        height: 100%;
+      }
+      p {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 0;
+        height: 0.65rem;
+        width: 100%;
+        font-size: 0.41rem;
+        color: #fff;
+        text-align: left;
+        background-color: rgba(0, 0, 0, 0.6);
+        line-height: 0.65rem;
+        padding: 0 0.22rem;
+        font-weight: bold;
+      }
+    }
+
+
+    //userQueueDetail中的排队状态
+    .queueState {
+      margin-bottom: 0.24rem;
+      border-top:1px solid $border-grey;
+      border-bottom:1px solid $border-grey;
+      &.queueing{
+        .state{
+          color:$assertive;
+        }
+      }
+      .queueState__myinfo {
+        height: 1.06rem;
+        color: #666;
+        font-size: 0.33rem;
+        background: #fff;
+        padding:0 0.66rem;
+        @include display-flex;
+        @include justify-content(space-between);
+        @include align-items(center);
+        border:1px solid $border-grey;
+        .num{
+          color:$stable;
+        }
+        .state{
+        }
+
+      }
+      .queueState__statenow {
+        @include display-flex;
+        @include justify-content(space-between);
+        @include align-items(center);
+        background: #fff;
+        padding:0 0.66rem;
+        height:1.44rem;
+        .queueState__statenow--div {
+          p {
+            margin-bottom: 0.12rem;
+            text-align: center;
+            font-size: 0.33rem;
+            &:nth-child(1) {
+
+              color: #666;
+            }
+            &:nth-child(2) {
+              color: #333;
+            }
+          }
+        }
+      }
+
+    }
+
+    //输入用餐人数
+    .queueNum {
+      .queueNum__input {
+        position: relative;
+        margin-bottom: 0.24rem;
+        .queueNum__input--num {
+          &::-webkit-input-placeholder {
+            font-size: 0.33rem;
+            color: #ccc;
+          }
+        }
+        .queueNum__input--btn {
+          position: absolute;
+          right: 0.2rem;
+          top: 0.05rem;
+          width: 1.85rem;
+          line-height: 0.68rem;
+          font-size: 0.33rem;
+        }
+      }
+    }
+    //餐桌类型
+    .queueType {
+      background: #fff;
+      border-top:1px solid $border-grey;
+      border-bottom:1px solid $border-grey;
+      .queueType__header {
+        height: 1.06rem;
+        border-bottom: 1px solid $border-grey;
+        @include display-flex;
+        @include justify-content(space-between);
+        @include align-items(center);
+        width: 100%;
+
+        span {
+          text-align: center;
+          color: #666;
+          font-size: 0.33rem;
+          display: inline-block;
+          flex: 1;
+
+        }
+      }
+      .queueType__content {
+        height: 1.04rem;
+        @include display-flex;
+        @include justify-content(space-between);
+        @include align-items(center);
+        border-bottom: 1px dashed $border-grey;
+        font-size: 0.33rem;
+        &:nth-last-child(1) {
+          border-bottom: 1px dashed transparent;
+        }
+        .queueType__content--table {
+          flex: 1;
+          text-align: center;
+
+          p {
+            margin: 0;
+          }
+          .queueType__content--table-name {
+            color: #333;
+          }
+          .queueType__content--table-num {
+            color: #989898;
+          }
+        }
+        .queueType__content--queuenum {
+          flex: 1;
+          text-align: center;
+          color: $stable;
+          font-size: 0.37rem;
+        }
+        .queueType__content--waitnum {
+          flex: 1;
+          text-align: center;
+        }
+      }
+
+    }
+  }
+}
+

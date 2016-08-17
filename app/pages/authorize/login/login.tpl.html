@@ -1,0 +1,22 @@
+<ion-view title="怡丰城" class="white-bg">
+  <ion-content class="login">
+    <div class="logo-vivoCtiy"></div>
+    <div class="list login-list">
+      <label for="telephone" class="item item-input">
+        <i class="ion-authorize ion-phone"></i>
+        <input type="tel" name="telephone" id="telephone" ng-model="login.telephone" placeholder="手机号" maxlength="11">
+      </label>
+      <label for="password" class="item item-input">
+        <i class="ion-authorize ion-psw"></i>
+        <input type="password" name="password" id="password" placeholder="密码" ng-model="login.password">
+      </label>
+
+      <div ui-sref="subNav.forgotPassword" class="forgetPsw">忘记密码</div>
+
+      <!--<div ui-sref="home" class="loginButton" >登录</div>-->
+      <div class="loginButton" ng-click="submitForm()">登录</div>
+      <div ui-sref="subNav.register" class="loginButton" ng-click="false">注册</div>
+
+    </div>
+  </ion-content>
+</ion-view>

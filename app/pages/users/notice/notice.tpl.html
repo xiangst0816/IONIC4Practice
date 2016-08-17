@@ -1,0 +1,25 @@
+<ion-view title="消息">
+    <ion-content class="notice" overflow-scroll="false">
+
+        <ion-list show-delete="data.showDelete" show-reorder="data.showReorder">
+
+            <ion-item ng-repeat="item in items track by item.id" item="item"
+                      class="item-remove-animate noticeItems"
+                      ng-class="{true:'unread',false:'read'}[!!item.statuscode]"
+                      ng-click="showNoticeInfo(item)">
+                <!--内容-->
+                <h2 ng-bind="item.title"></h2>
+                <h4 ng-bind="item.content"></h4>
+                <p ng-bind="item.createdtime | yyyyMd_HHmmss_cn"></p>
+                <!--内容 end-->
+                <ion-option-button class="button-assertive" ng-click="delete(item)">
+                    删除
+                </ion-option-button>
+            </ion-item>
+
+            <div class="noDataToDisplay" ng-if="items.length == 0">
+                <p>暂无消息!</p>
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>

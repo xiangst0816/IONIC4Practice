@@ -1,0 +1,24 @@
+<ion-view title="客服中心" class="chatCenter">
+    <ion-content>
+        <div class="list myQuestionBox">
+            <div class="item item-icon-right" ng-click="" ui-sref="subNav.myChatList">
+                <span class="myQuestion">我的反馈</span>
+                <i class="icon-arrow-right"></i>
+            </div>
+            <div class="item item-divider">常见问题</div>
+            <!--具体内容列表-->
+            <section>
+                <div class="item item-icon-right" ng-repeat="item in dataList track by $index" ng-click="" ui-sref="subNav.chatDetail({detail:item})">
+                    <span ng-bind="item.name">怎么注册?</span>
+                    <i class="icon-arrow-right"></i>
+                </div>
+            </section>
+
+        </div>
+
+
+    </ion-content>
+    <div class="chatBtn" ui-sref="subNav.chat" ng-click="">
+        <div class="chatBtnInner"></div>
+    </div>
+</ion-view>

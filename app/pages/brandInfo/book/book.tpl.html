@@ -1,0 +1,76 @@
+<ion-view title="预订" class="book">
+    <ion-content class="book_content">
+        <!--图片Box-->
+        <div class="imgBox placeholder_178_2">
+            <img class="" src="img/shop_demo.png" err-src="">
+            <p class="wordLine">多伦多海鲜自助</p>
+        </div>
+        <div class="list bookInfo">
+            <div class="item item-divider bookInfo__header">输入用餐信息</div>
+            <!--具体内容列表-->
+            <section>
+                <div class="item item-input item-icon-right">
+                    <span class="input-label bookInfo__label">人数</span>
+                    <input class="bookInfo__input bookInfo__input--right" type="number" placeholder="请输入用餐人数">
+                </div>
+                <div class="item item-input item-icon-right">
+                    <span class="input-label bookInfo__label">时间</span>
+                    <p class="bookInfo__input bookInfo__input--right input-static" ng-click="openModal()" ng-bind="chooseDate">用餐时间</p>
+                </div>
+                <div class="item item-input item-icon-right">
+                    <span class="input-label bookInfo__label">姓名</span>
+                    <input class="bookInfo__input bookInfo__input--right" type="text" placeholder="姓名">
+                </div>
+                <div class="item item-input item-icon-right">
+                    <span class="input-label bookInfo__label">号码</span>
+                    <input class="bookInfo__input bookInfo__input--right" type="tel" placeholder="手机号码">
+                </div>
+            </section>
+            <div class="item item-divider bookInfo__header">附加说明</div>
+            <div class="item item-input item-icon-right">
+                <input class="bookInfo__input" type="text" placeholder="如附加要求、可填写,我会尽量安排">
+            </div>
+        </div>
+    </ion-content>
+    <div class="bottomBtn_box">
+        <button class="button button-block button-stable" ui-sref="subNav.bookSuccess" ng-click="">立即预订</button>
+    </div>
+</ion-view>
+
+<script id="my-modal.html" type="text/ng-template">
+    <ion-modal-view class="bookTime">
+        <ion-header-bar class="bar bar-header bar-stable">
+            <h1 class="title">选择预订时间</h1>
+            <button class="button button-clear button-primary" ng-click="modal.hide()">取消</button>
+        </ion-header-bar>
+        <ion-content class="padding book_cotent">
+            <section class="chooseDate">
+                <div class="chooseDate__header">选择日期</div>
+                <div class="chooseDate__dateBox">
+                    <span class="chooseDate__dateBox-each active" ng-click="chooseThisDate($event)">今天</span>
+                    <span class="chooseDate__dateBox-each" ng-click="chooseThisDate($event)">11.13</span>
+                    <span class="chooseDate__dateBox-each" ng-click="chooseThisDate($event)">11.14</span>
+                    <span class="chooseDate__dateBox-each" ng-click="chooseThisDate($event)">11.15</span>
+                </div>
+            </section>
+
+            <section class="chooseTime">
+                <div class="chooseTime__header">选择时间</div>
+                <div class="chooseTime__timeBox">
+                    <div class="row" ng-repeat="arr in dateArr track by $index">
+                    <span class="timeBox" ng-repeat="date in arr track by $index">
+                        <!--不能点击-->
+                        <span class="timeBox__span can_not_use" ng-if="!date.isActivated"><span ng-bind="date.hours"></span>:<span ng-bind="date.minutes"></span></span>
+                        <!--能点击-->
+                        <span class="timeBox__span can_use" ng-if="date.isActivated" ng-click="chooseThisTime(date.this_time,$event)"><span ng-bind="date.hours"></span>:<span
+                                ng-bind="date.minutes"></span></span>
+                    </span>
+                    </div>
+                </div>
+            </section>
+        </ion-content>
+        <div class="bottomBtn_box">
+            <button class="button button-block button-stable" ng-click="dateConfirm()">确定</button>
+        </div>
+    </ion-modal-view>
+</script>

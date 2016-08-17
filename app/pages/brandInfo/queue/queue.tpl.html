@@ -1,0 +1,60 @@
+<ion-view title="排队取号" class="queue">
+    <ion-content class="queue_content">
+        <!--图片Box-->
+        <div class="imgBox placeholder_178_2">
+            <img class="" src="img/shop_demo.png" err-src="">
+            <p class="wordLine">多伦多海鲜自助</p>
+        </div>
+        <div class="queueNum">
+            <div class="list queueNum__input">
+                <div class="item item-input item-icon-right">
+                    <input class="queueNum__input--num" type="number" placeholder="请输入用餐人数">
+                    <!--disabled 使用这个-->
+                    <div ui-sref="subNav.queueSuccess" class="queueNum__input--btn button button-stable button-small">立即取号</div>
+                </div>
+            </div>
+        </div>
+        <div class="queueType">
+            <div class="queueType__header">
+                <span>餐桌类型</span>
+                <span>当前叫号</span>
+                <span>等待桌数</span>
+            </div>
+            <!--每一个content-->
+            <div class="queueType__content">
+                <div class="queueType__content--table">
+                    <p class="queueType__content--table-name">小桌</p>
+                    <p class="queueType__content--table-num">1-4人</p>
+                </div>
+                <div class="queueType__content--queuenum">ff24</div>
+                <div class="queueType__content--waitnum">24</div>
+            </div>
+            <div class="queueType__content">
+                <div class="queueType__content--table">
+                    <p class="queueType__content--table-name">中桌</p>
+                    <p class="queueType__content--table-num">4-6人</p>
+                </div>
+                <div class="queueType__content--queuenum">B231</div>
+                <div class="queueType__content--waitnum">1</div>
+            </div>
+            <div class="queueType__content">
+                <div class="queueType__content--table">
+                    <p class="queueType__content--table-name">小桌</p>
+                    <p class="queueType__content--table-num">6-10人</p>
+                </div>
+                <div class="queueType__content--queuenum">g223</div>
+                <div class="queueType__content--waitnum">2</div>
+            </div>
+            <div class="queueType__content">
+                <div class="queueType__content--table">
+                    <p class="queueType__content--table-name">包厢</p>
+                    <p class="queueType__content--table-num">10-12人</p>
+                </div>
+                <div class="queueType__content--queuenum">d3</div>
+                <div class="queueType__content--waitnum">1</div>
+            </div>
+
+
+        </div>
+    </ion-content>
+</ion-view>

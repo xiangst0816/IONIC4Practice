@@ -1,0 +1,42 @@
+<ion-view title="积分商城">
+    <ion-content class="integralMallDetail">
+        <!--礼券详情-->
+        <section>
+            <div class="shopImg placeholder_43_2">
+                <img ng-src="{{item.image_url | addImgPrefix}}" err-src="">
+            </div>
+            <div class="cardDetails" ng-switch="item.category_name" ng-if="item.type_code == 1">
+                <strong ng-bind="::item.name"></strong>
+                <p ng-switch-when="coupon_category_1"><span ng-bind="::item.coupon_value"></span>折<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
+                <p ng-switch-when="coupon_category_2"><span ng-bind="::item.coupon_value"></span>元<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
+                <p ng-switch-when="coupon_category_3"><span ng-bind="::item.coupon_value"></span>元<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
+                <p ng-switch-when="coupon_category_4"><span ng-bind="::item.coupon_value"></span>元<span ng-bind="::item.category_name | couponCategoryToName"></span></p>
+            </div>
+            <div class="cardDetails" ng-if="item.type_code == 2">
+                <strong ng-bind="::item.name"></strong>
+                <p>礼品</p>
+            </div>
+            <div class="detailInfo">
+                <div class="detailBox" ng-if="item.type_code == 1">
+                    <div class="detailTitle"><span>使用时间:</span></div>
+                    <span ng-if="::item.valid_type_code == 2">有效天数: <span ng-bind="::item.valid_days"></span>天</span>
+                    <span ng-if="::item.valid_type_code == 1"><span ng-bind="::item.valid_start_time | yyyyMd_cn"></span> 至 <span ng-bind="::item.valid_end_time | yyyyMd_cn"></span></span>
+                </div>
+                <div class="detailBox" ng-if="item.type_code == 2">
+                    <div class="detailTitle"><span>使用时间:</span></div>
+                    <span><span ng-bind="::item.valid_start_time | yyyyMd_cn"></span> 至 <span ng-bind="::item.valid_end_time | yyyyMd_cn"></span></span>
+                </div>
+                <div class="detailBox">
+                    <div class="detailTitle"><span>使用规则: </span></div>
+                    <!--<div class="innerBox" ng-bind-html="::item.detail_rule | withoutStyle"></div>-->
+                    <div ng-if="item.type_code == 1" class="innerBox" ng-bind-html="::item.detail_rule"></div>
+                    <div ng-if="item.type_code == 2" class="innerBox" ng-bind-html="::item.detail_rule"></div>
+                </div>
+            </div>
+        </section>
+    </ion-content>
+    <div class="convertNowBtn">
+        <div ng-if="item.canConvert" ng-click="" class="convertBtn" click-to-reward reward-detail="item" >立即兑换</div>
+        <div ng-if="!item.canConvert" class="convertBtn forbidden">立即兑换</div>
+    </div>
+</ion-view>

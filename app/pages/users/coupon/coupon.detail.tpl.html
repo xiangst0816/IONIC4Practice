@@ -1,0 +1,59 @@
+<ion-view title="礼品卡券">
+    <ion-content class="gouponDetail">
+        <!--礼券详情-->
+        <section>
+            <div class="shopImg placeholder_43_2">
+                <img class="placeholder_43_2" ng-src="{{item.image_url | addImgPrefix}}" err-src="">
+            </div>
+            <div class="cardDetails" ng-switch="item.category_value" ng-if="item.type_code == 1">
+                <strong ng-bind="item.name"></strong>
+                <p ng-switch-when="coupon_category_1">
+                    <span ng-bind="item.face_value*10"></span>折
+                    <span ng-bind="item.category_value | couponCategoryToName"></span>
+                </p>
+                <p ng-switch-when="coupon_category_2">
+                    <span ng-bind="item.face_value"></span>元
+                    <span ng-bind="item.category_value | couponCategoryToName"></span>
+                </p>
+                <p ng-switch-when="coupon_category_3">
+                    <span ng-bind="item.face_value"></span>元
+                    <span ng-bind="item.category_value | couponCategoryToName"></span>
+                </p>
+                <p ng-switch-when="coupon_category_4">
+                    <span ng-bind="item.face_value"></span>元
+                    <span ng-bind="item.category_value | couponCategoryToName"></span>
+                </p>
+            </div>
+            <div class="cardDetails" ng-if="item.type_code == 2">
+                <strong ng-bind="item.name"></strong>
+                <p>礼品</p>
+            </div>
+            <div class="detailInfo">
+                <div class="detailBox">
+                    <div class="detailTitle"><span>使用时间:</span></div>
+                    <span>{{item.limit_time_begin.low | yyyyMd_cn}}至{{item.limit_time_end.low | yyyyMd_cn}}</span>
+                </div>
+                <div class="detailBox">
+                    <div class="detailTitle"><span>使用规则: </span></div>
+                    <div class="innerBox" ng-bind-html="item.detailrule | withoutStyle"></div>
+                </div>
+                <div class="detailBox">
+                    <div class="detailTitle"><span>使用状态: </span></div>
+                    <!--未使用未过期-->
+                    <span ng-if="item.status_code == 2">未使用</span>
+                    <!--未使用已过期-->
+                    <span ng-if="item.status_code == 3">已过期</span>
+                    <!--已使用-->
+                    <span ng-if="item.status_code == 1">已使用</span>
+                </div>
+            </div>
+        </section>
+
+    </ion-content>
+    <div class="convertNowBtn" ng-if="item.status_code == 2">
+        <!--礼券的-->
+        <div ng-click="" click-to-use-coupon item="item">
+            立即使用
+        </div>
+    </div>
+</ion-view>

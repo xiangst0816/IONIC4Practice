@@ -1,0 +1,26 @@
+<!--
+  二级导航页面
+  具有导航栏的子页面
+-->
+<ion-nav-bar class="bar-stable color-fff" style="z-index:999;">
+  <!--左侧返回按钮-->
+  <ion-nav-back-button ng-click="goBack()" class="button button-outline">
+    <!--保证足够大的点按空间-->
+    <i class="icon-nav-back"></i>
+    &emsp;&emsp;
+
+  </ion-nav-back-button>
+
+
+  <!--右侧返回home按钮-->
+  <ion-nav-buttons side="right">
+    <button class="button button-clear" ng-click="backToHome()">
+      &emsp;
+      <!--<i class="icon ion-ios-home-outline"></i>-->
+      <i class="icon-nav-home"></i>
+    </button>
+  </ion-nav-buttons>
+</ion-nav-bar>
+
+<!--子页面的page-->
+<ion-nav-view can-swipe-back="false"></ion-nav-view>

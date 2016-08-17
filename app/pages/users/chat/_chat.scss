@@ -1,0 +1,364 @@
+//聊天
+.chat {
+  font-size: 0.3rem;
+  .chatBox {
+
+    padding-top: 0.702rem;
+    background: $list-bg-color;
+    color: #313131;
+    padding-left: 0.38rem;
+    padding-right: 0.38rem;
+    .chat-connect {
+      font-size: 0.34rem;
+    }
+    .chat-wrap {
+      //padding-bottom: 0.7rem;
+      .robot, .visitor {
+        margin-bottom: 0.268rem;
+        @include display-flex;
+        @include justify-content(flex-start);
+        @include align-items(flex-start);
+        //display: flex;
+        //justify-content: flex-start;
+        //align-items: flex-start;
+        .chat-head {
+          width: 1.53rem;
+          height: 1.53rem;
+          border-radius: 100%;
+          overflow: hidden;
+          background: url(../img/icon/icon-headerimg.png) no-repeat center center/cover;
+          img {
+            max-width: 100%;
+            max-height: 100%;
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .message {
+          position: relative;
+          border-radius: 0.351rem;
+
+          -webkit-box-shadow: inset 0 0 1px #fff;
+          box-shadow: inset 0 0 1px #fff;
+          max-width: 4.8rem;
+          .answer-wrap {
+            padding: 0.2106rem;
+            word-wrap: break-word;
+            -webkit-user-select: text;
+            user-select: text;
+          }
+          .ask-wrap {
+            padding: 0.2106rem;
+            word-wrap: break-word;
+            -webkit-user-select: text;
+            user-select: text;
+          }
+        }
+        .message::after {
+          width: 0.585rem;
+          height: 0.585rem;
+          content: '';
+          position: absolute;
+          bottom: 0;
+        }
+      }
+      //robot
+      .robot {
+        flex-direction: row;
+        .message {
+          margin-left: 0.468rem;
+          background-color: #fff;
+          color: #000;
+        }
+        .message::after {
+          left: -0.234rem;
+          background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjIycHgiIGhlaWdodD0iMTVweCIgdmlld0JveD0iMCAwIDIyIDE1IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4KICAgIDx0aXRsZT7lrqLmnI3msJTms6HlsJYtMDE8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZGVmcz48L2RlZnM+CiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBza2V0Y2g6dHlwZT0iTVNQYWdlIj4KICAgICAgICA8ZyBpZD0i5a6i5pyN5rCU5rOh5bCWLTAxIiBza2V0Y2g6dHlwZT0iTVNMYXllckdyb3VwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLjAwMDAwMCwgLTIuMDAwMDAwKSIgZmlsbD0iI0ZGRkZGRiI+CiAgICAgICAgICAgIDxwYXRoIGQ9Ik0wLjM2NiwxNi41IEMxNC40MDksMTYuNSAyMS4zNjYsNy41IDIxLjM2Niw3LjUgTDguMzY2LDIuNSBDOC4zNjYsNy45NTggNS40MDYsMTMuOTk4IDAuMzY2LDE2LjUgWiIgaWQ9IlNoYXBlIiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj48L3BhdGg+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=) no-repeat left bottom/100% auto;
+        }
+      }
+      //visitor
+      .visitor {
+        flex-direction: row-reverse;
+        .message {
+          margin-right: 0.468rem;
+          background-color: #00A9FC;
+          color: #fff;
+        }
+        .message::after {
+          right: -0.234rem;
+          background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjIycHgiIGhlaWdodD0iMTVweCIgdmlld0JveD0iMCAwIDIyIDE1IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnNrZXRjaD0iaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoL25zIj4KICAgIDx0aXRsZT5TaGFwZTwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHNrZXRjaDp0eXBlPSJNU1BhZ2UiPgogICAgICAgIDxnIGlkPSLnlKjmiLfmsJTms6HlsJYtMDEiIHNrZXRjaDp0eXBlPSJNU0xheWVyR3JvdXAiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDAuMDAwMDAwLCAtMi4wMDAwMDApIiBmaWxsPSIjMDBBQUZGIj4KICAgICAgICAgICAgPHBhdGggZD0iTTIxLjM2NiwxNi41IEM3LjMyMywxNi41IDAuMzY2LDcuNSAwLjM2Niw3LjUgTDEzLjM2NiwyLjUgQzEzLjM2Niw3Ljk1OCAxNi4zMjYsMTMuOTk4IDIxLjM2NiwxNi41IFoiIGlkPSJTaGFwZSIgc2tldGNoOnR5cGU9Ik1TU2hhcGVHcm91cCI+PC9wYXRoPgogICAgICAgIDwvZz4KICAgIDwvZz4KPC9zdmc+) no-repeat right bottom/100% auto;
+        }
+      }
+    }
+  }
+  .chatInputBox {
+    background-color: #fff;
+    position: absolute;
+    @include display-flex;
+    @include justify-content(space-between);
+    @include flex-wrap(nowrap);
+    @include align-items(center);
+    //display: flex;
+    //justify-content: space-between;
+    //flex-wrap: nowrap;
+    //align-items: center;
+    padding: 0.1rem 0.12rem;
+    box-sizing: border-box;
+    bottom: 0;
+    //height:100%;
+    width: 100%;
+    height: 0.88rem;
+    font-size: 0.3rem;
+    div {
+      width: 0.8rem;
+      box-sizing: border-box;
+      height: 100%;
+      border: 1px solid #959595;
+      border-radius: 0.117rem;
+      @include display-flex;
+      @include justify-content(center);
+      @include align-items(center);
+      //display: flex;
+      //justify-content:center;
+      //align-items: center;
+      a,
+      i {
+        width: 0.5rem;
+        height: 0.5rem;
+        display: block;
+        font-size: 0.5rem;
+      }
+
+    }
+    div:active {
+      background-color: $touched;
+    }
+    input {
+      outline: none;
+      -webkit-appearance: none;
+      font-size: 0.35rem;
+      padding: 0;
+      margin: 0;
+      width: 3.8rem;
+      height: 100%;
+      //line-height:100%;
+      border: 1px solid #959595;
+      border-radius: 0.117rem;
+      padding-left: 0.15rem;
+    }
+    input::-webkit-input-placeholder {
+      line-height: 140%;
+    }
+
+    .submit {
+      @include display-flex;
+      @include justify-content(center);
+      @include align-items(center);
+      //display: flex;
+      //justify-content: center;
+      //align-items: center;
+      font-size: 0.35rem;
+      width: 1.5rem;
+      height: 100%;
+      text-align: center;
+      border: 1px solid #959595;
+      border-radius: 0.117rem;
+      line-height: 0.57rem;
+      color: #959595;
+    }
+    .submit:active {
+      background-color: $touched;
+    }
+  }
+}
+
+//客服中心
+.chatCenter {
+  background: $list-bg-color;
+  .myQuestionBox {
+
+    .myQuestion {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding-left: 0.76rem;
+    }
+  }
+
+  .chatBtn {
+    width: 1rem;
+    height: 1rem;
+    position: absolute;;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: $stable;
+    @include display-flex;
+    @include justify-content(center);
+    @include align-items(center);
+    border-radius: 100%;
+    //transition: all ease 150ms;
+    &.activated {
+      background-color: lighten($stable, 10%);
+    }
+
+    .chatBtnInner {
+      width: 70%;
+      height: 70%;
+      display: block;
+      background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAF0AAABXBAMAAACUxFSWAAAAKlBMVEVMaXH////////////////////////////////////////////////////m1kuZAAAADXRSTlMA36QH88ciS3e4X403QPkTIwAAApFJREFUWMPVV81rE1EQH1yzqWkOtsb6QR+YVCo9BDaFQj1aErXCgtH20EMgKf4BqR8HD4UW8a4gegoUhd6EFrEnC0H6B/jKBvrh73/xkN3NJnnZnQEvncvOm/d7b34z897sLtGQ2F/nVqsTq2uFXWKI/TMHX7zrB4nw9RzgTawVCnPVHOBN1mPR1nsX+tluwKsKVN7FwfeByVeR8UsF/WM0fBv6S78p/RF6pIcN6Nmh8PPQTTN83tUzBqd5LDkmeFZ5n40J/oRpk30bN8x+00pvGdhg2RkR1333eGjKqpk2CV0/HzQtjGLTZdRxhraPq3xj0MECpmIP4aCDlo4/WA18iA7H47cnstV5dPh6VM17Z8WLICz1OOlejLnXeoMr/eyM0jqN0nES8aUeIUs9Sb7XmR6hcQYdolaYoVJC8v0ShKQPjzmN5hL2AvpTrMak/AAyuMPBU+us+0x5bRb+qENERL9dRvaJiEpYahONAWDyB06INgGwHJQAoEm17iNZNgHgKQFAkNlYOQSAP108J6HFC4BfVDedPiU0mPHFQA2UYt/cID4D4CyqhAYzPgWgE1VCgxl/GYAXVULD/8FL+UjjleaTFnNBvXwlNFyM88bFC+5jDQB2GPjv3fsu7SfjAB6y+pULnBPRG3h1Vj9cV51mX2NPEmugsXOldSLDN5gNvfe63hPhbd4LLFLqjgxfwpYIn1XTQkLCDKWGPxjjK61OZQ4amBFGLHSwIYwgq3RdGMFtWYpqnizkeVfvCEOutEWM8lgWLciuoPJNsiC9An3PIXu/XC6XHxwwFlSBW79e+L+njILYeRde8D97ldXFqgEcf3lpehvgHzHTJNufLOXjuW3yyM8Pt3j2XQDwZk1z/wCSAPoGRY3ZAwAAAABJRU5ErkJggg==) no-repeat center center/100% auto;
+
+    }
+  }
+
+}
+
+//客服意见详情
+.chatDetail {
+  padding: 0.5rem 0.2rem 0.2rem;
+
+  .title {
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; //显示的行数
+    -webkit-box-orient: vertical;
+    padding: 0 0.44rem;
+  }
+  .contentBlock {
+    padding: 0.2rem 0.2rem 0;
+    .sub_title {
+
+    }
+    .sub_content {
+
+    }
+  }
+
+}
+
+.myQuestionList {
+  .active {
+    color: $stable;
+  }
+  .contentBgColor {
+    background: $list-bg-color;
+  }
+  .newQuestion {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 0.88rem;
+    background-color: $stable;
+    font-size: 0.32rem;
+    color: #fff;
+    @include display-flex;
+    @include justify-content(center);
+    @include align-items(center);
+    //border: 1px solid #eee;
+  }
+}
+
+.newQuestionModal {
+  //.contentBgColor {
+  //  background: $list-bg-color;
+  //}
+  //.footerSubmitBtn {
+  //  position: absolute;
+  //  bottom: 0;
+  //  width: 100%;
+  //  background-color: #fff;
+  //  color: $stable;
+  //}
+  //.backBtn {
+  //  width: 1rem;
+  //  height: 100%;
+  //  @include display-flex;
+  //  @include justify-content(flex-start);
+  //  @include align-items(center);
+  //  i {
+  //    top: 0;
+  //    //left:0;
+  //  }
+  //}
+  .inputBox {
+    margin-top: 1.17rem;
+    height: 0.84rem;
+    border: 1px solid $stable;
+    border-radius: 3px;
+    margin-bottom: 0.29rem;
+    background: transparent;
+    color: $stable;
+    width: 5.66rem;
+    margin-left: auto;
+    margin-right: auto;
+    input {
+      padding-left: 0.2rem;
+      color: $stable;
+      height: 100%;
+      font-size: 0.3rem;
+      line-height: normal;
+      background: transparent;
+    }
+    input::-webkit-input-placeholder {
+      color: $stable;
+      font-size: 0.3rem;
+    }
+  }
+
+  .textareaBox {
+    height: 5rem;
+    border: 1px solid $stable;
+    border-radius: 3px;
+    margin-bottom: 0.29rem;
+    background: transparent;
+    color: $stable;
+    width: 5.66rem;
+    margin-left: auto;
+    margin-right: auto;
+    textarea {
+      width: 100%;
+      height: 100%;
+      color: $stable;
+      font-size: 0.3rem;
+      line-height: normal;
+      background: transparent;
+      text-indent: 0;
+      //-webkit-appearance: none;
+      padding: 0.2rem;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    textarea::-webkit-input-placeholder {
+      color: $stable;
+      font-size: 0.3rem;
+      line-height: normal;
+
+    }
+  }
+
+  //textarea {
+  //  text-indent: 0 !important;
+  //}
+  //
+  //input {
+  //
+  //}
+
+  .btnBox {
+    //bottom: 0.5rem;
+    position: absolute;
+    width: 100%;
+    @include justify-content(center);
+    @include align-items(center);
+    @include display-flex;
+    @include flex-direction(column);
+
+    .bottomBtn {
+      position: relative;
+      width: 6.6rem;
+      line-height: 0.94rem;
+      margin: 0 0.5rem 0.3rem;
+    }
+  }
+}

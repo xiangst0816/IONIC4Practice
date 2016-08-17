@@ -114,12 +114,6 @@ gulp.task('move:basejs', function () {
 });
 
 
-
-
-
-
-
-
 /**
  * imgMin
  * */
@@ -148,7 +142,6 @@ gulp.task('img:min', function () {
 });
 
 
-
 /**
  * ---其余资源转移--------------------------------------------------------------
  * */
@@ -159,7 +152,7 @@ gulp.task('img:min', function () {
  * and ionic-angular.js
  * app.bundle.js
  */
-gulp.task('move:lib', function () {
+gulp.task('move:core', function () {
     var stream = gulp.src([
         // path.src + '/lib/ionic/js/ionic.bundle.min.js',
         // path.src + '/lib/ionic/js/ionic.bundle.js',
@@ -168,6 +161,7 @@ gulp.task('move:lib', function () {
         path.src + '/lib/ngStorage.min.js',
         path.src + '/lib/ocLazyLoad.min.js',
         path.src + '/lib/socket.min.js',
+        // path.src + '/lib/socket.io.js',
     ]).pipe($.concat('core.js'));
     switch (ENV) {
         case 'DEV':
@@ -181,6 +175,24 @@ gulp.task('move:lib', function () {
             break;
     }
 });
+gulp.task('move:lib', function () {
+    var stream = gulp.src([
+        path.src + '/lib/socket.io.js',
+    ]);
+    switch (ENV) {
+        case 'DEV':
+            return stream.pipe(gulp.dest(`${path.tmp}/js`));
+            break;
+        case 'TES':
+            return stream.pipe(gulp.dest(`${path.dest}/js`));
+            break;
+        case 'PRO':
+            return stream.pipe($.uglify()).pipe(gulp.dest(`${path.dest}/js`));
+            break;
+    }
+});
+
+
 //打包ionic.bundle.min.js,用于对此模块精简
 // gulp.task('create:ionic.bundle', function () {
 //     var stream = gulp.src([
@@ -261,7 +273,8 @@ var pageCssMap = {
 
 //编译sass文件,将raw文件转到dist中
 gulp.task('pageCss', function () {
-    var stream = gulp.src(pageCssMap.main).pipe($.sass().on('error', $.sass.logError)).pipe($.base64())
+    var stream = gulp.src(pageCssMap.main).pipe($.sass().on('error', $.sass.logError))
+        .pipe($.base64())
         .pipe($.autoprefixer({
             // browsers: ['IE 7'],
             browsers: [
@@ -271,7 +284,26 @@ gulp.task('pageCss', function () {
                 'Explorer >= 10',
                 'ExplorerMobile >= 11'],
             cascade: false
-        }));
+        }))
+        // .pipe($.cssSpriter({
+        //     // The path and file name of where we will save the sprite sheet
+        //     'spriteSheet': `${path.tmp}/img/spritesheet.png`,
+        //     // Because we don't know where you will end up saving the CSS file at this point in the pipe,
+        //     // we need a litle help identifying where it will be.
+        //     'pathToSpriteSheetFromCSS': '../img/spritesheet.png',
+        //     'spritesmithOptions':{
+        //         padding:10,
+        //         algorithm:'top-down'
+        //
+        //     }
+        // }))
+        // .pipe($.px3rem({
+        //     baseDpr: 2,             // base device pixel ratio (default: 2)
+        //     threeVersion: false,    // whether to generate @1x, @2x and @3x version (default: false)
+        //     remVersion: true,       // whether to generate rem version (default: true)
+        //     remUnit: 75,            // rem unit value (default: 75; 1rem==50px)
+        //     remPrecision: 6         // rem precision (default: 6)
+        // }));
 
     switch (ENV) {
         case 'DEV':
@@ -293,7 +325,8 @@ var ionicCssMap = {
     main: path.src + '/theme/app.ionic.scss'
 };
 gulp.task('ionicCss', function () {
-    var stream = gulp.src(ionicCssMap.main).pipe($.sass().on('error', $.sass.logError))
+    var stream = gulp.src(ionicCssMap.main)
+        .pipe($.sass().on('error', $.sass.logError))
         .pipe($.autoprefixer({
             // browsers: ['IE 7'],
             browsers: [
@@ -372,6 +405,7 @@ gulp.task('default', $.sequence(
         // 'move:font',
     ], [
         //移动准备必须的资源
+        'move:core',
         'move:lib',
         //css合并
         'pageCss',
@@ -405,3 +439,26 @@ gulp.task("DEVELOPMENT", $.sequence('SetDevEnv', 'default', 'browserSync:server'
 gulp.task("TESTONLINE", $.sequence('SetTesEnv', 'default'));
 gulp.task("PRODUCTION", $.sequence('SetProEnv', 'default'));
 
+// gulp.task("xuebi", function () {
+//     let stream =  gulp.src("app/demo/scss/_icons.scss")
+//         // .pipe($.sass().on('error', $.sass.logError))
+//         // .pipe($.autoprefixer({
+//         //     // browsers: ['IE 7'],
+//         //     browsers: [
+//         //         'last 2 versions',
+//         //         'iOS >= 7',
+//         //         'Android >= 4',
+//         //         'Explorer >= 10',
+//         //         'ExplorerMobile >= 11'],
+//         //     cascade: false
+//         // }))
+//     console.log(stream)
+//     return stream.pipe($.rename('cssSpriter.css')).pipe(gulp.dest('app/demo'))
+//         // .pipe($.cssSpriter({
+//         //         spriteSheet: "test.png",
+//         //         pathToSpriteSheetFromCSS: "./app/img/icon"
+//         //     }))
+//
+//
+//
+// })

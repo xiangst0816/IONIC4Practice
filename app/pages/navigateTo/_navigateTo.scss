@@ -1,0 +1,49 @@
+//导航至怡丰城
+.navigateToFenshu {
+  padding-top: 0.88rem;
+  height: 100%;
+  top: 0 !important;
+  background: #f2f2f2;
+  .scroll {
+    height: 100%;
+    position: relative;
+    background: #f2f2f2;
+    .ifreamMapBox {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      background: #f2f2f2;
+    }
+  }
+
+  //掩盖掉百度地图左边上交的返回按钮,这个无法修改iframe内部的css,只能这样了
+  #block_map_left_btn {
+    position: absolute;
+    top: 0;
+    left:0;
+    background: #f2f2f2;
+    width: 40px;
+    height: 49px;
+    z-index: 999;
+    opacity: 1;
+    transition: all ease 300ms;
+  }
+  #block_map_right_btn {
+    position: absolute;
+    top: 0;
+    right:0;
+    background: #f2f2f2;
+    width: 80px;
+    height: 49px;
+    z-index: 999;
+    opacity: 1;
+  }
+
+}
+
+#wrapper {
+  display: none !important;
+  .needsclick.back-btn {
+    display: none !important;
+  }
+}

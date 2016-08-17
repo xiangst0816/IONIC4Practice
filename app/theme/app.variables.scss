@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+// Ionic Shared Functions
+// --------------------------------------------------
+// IONIC 的公共方法
+@import '../lib/ionic/scss/_mixins.scss';
+
+
+// App Shared Color Variables
+// --------------------------------------------------
+// To customize the look and feel of Ionic, you can override the variables
+// 修改默认颜色
+$light:                           #fff;
+$stable:                          #b71488;
+$positive:                        #387ef5;
+$calm:                            #11c1f3;
+$balanced:                        #33cd5f;
+$energized:                       #ffc900;
+$assertive:                       #ef473a;
+$royal:                           #886aea;
+$dark:                            #444;
+
+
+$spinner-width:                   50px;//28
+$spinner-height:                  50px;
+
+
+// The path for our ionicons font files, relative to the built CSS in www/css
+$ionicons-font-path: "../lib/ionic/fonts";
+
+

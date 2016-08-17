@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+// Include variables
+@import "app.variables";
+
+//列表的背景颜色,稍微灰点,默认是#FFF
+$list-bg-color: #e8ecf0;
+$touched: #fafafa;
+$background-grey: #e8ecf0;
+$border-grey: #e5e5e5;
+
+
+// 页面公共scss/component
+// --------------------------------------------------
+//
+@import "common/component/_infiniteScroll.scss";
+@import "common/component/_ionicToast.scss";
+@import "common/component/_smartSearchBox.scss";
+@import "common/component/_smartTapBox.scss";
+
+@import "common/_animation.scss";
+@import "common/_component.scss";
+@import "common/_firstInGuide.scss";
+@import "common/_icons.scss";
+@import "common/_mobile.scss";
+@import "common/_placeholdImg.scss";
+@import "common/_skin.scss";
+@import "common/_typography.scss";
+
+
+
+// 根据页面将页面下面的scss放在此处
+// --------------------------------------------------
+
+@import "../pages/activity/activity";
+@import "../pages/authorize/authorize";
+@import "../pages/brandInfo/book/book";
+@import "../pages/brandInfo/queue/queue";
+@import "../pages/brandInfo/brandInfo";
+@import "../pages/home/home";
+@import "../pages/mallNavigate/mallNavigate";
+@import "../pages/mallNews/mallNews";
+@import "../pages/navigateTo/navigateTo";
+@import "../pages/selfPark/selfPark";
+
+
+@import "../pages/users/users";
+@import "../pages/users/card/card";
+@import "../pages/users/chat/chat";
+@import "../pages/users/collection/collection";
+@import "../pages/users/coupon/coupon";
+@import "../pages/users/integral/integral";
+@import "../pages/users/myService/myService";
+@import "../pages/users/notice/notice";
+@import "../pages/users/rights/rights";
