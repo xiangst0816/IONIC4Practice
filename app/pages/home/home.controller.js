@@ -9,16 +9,6 @@
 
 
 
-
-            setInterval(function () {
-                localStorage.setItem('ngStorage-sdfsdf','12121212121212')
-                $localStorage.hello='hello'
-                // console.log($localStorage)
-                // console.log($rootScope.$watch(function () {
-
-                // }))
-            },3000)
-
             /**
              * 微信用户将退出隐藏
              * */

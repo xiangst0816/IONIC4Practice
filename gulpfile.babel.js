@@ -18,7 +18,7 @@ const path = {
  * TES;文件名打码
  * PRO;文件打码压缩
  * */
-var ENV = "DEV";
+var ENV = "PRO";
 
 
 /**
@@ -80,7 +80,7 @@ gulp.task('loadingCss', function () {
  * ---tpl模板转移--------------------------------------------------------------
  * */
 gulp.task('move:tpl', function () {
-    var stream = gulp.src(`${path.src}/pages/**/*.html`).pipe($.rename({dirname: ''}));
+    var stream = gulp.src(`${path.src}/pages/**/*.html`).pipe($.cached('move:tpl')).pipe($.rename({dirname: ''}));
     switch (ENV) {
         case 'DEV':
             return stream.pipe(gulp.dest(`${path.tmp}/tpl`));
@@ -178,6 +178,7 @@ gulp.task('move:core', function () {
 gulp.task('move:lib', function () {
     var stream = gulp.src([
         path.src + '/lib/socket.io.js',
+        path.src + '/lib/imageFixBeforeUpload.js',
     ]);
     switch (ENV) {
         case 'DEV':
@@ -285,25 +286,25 @@ gulp.task('pageCss', function () {
                 'ExplorerMobile >= 11'],
             cascade: false
         }))
-        // .pipe($.cssSpriter({
-        //     // The path and file name of where we will save the sprite sheet
-        //     'spriteSheet': `${path.tmp}/img/spritesheet.png`,
-        //     // Because we don't know where you will end up saving the CSS file at this point in the pipe,
-        //     // we need a litle help identifying where it will be.
-        //     'pathToSpriteSheetFromCSS': '../img/spritesheet.png',
-        //     'spritesmithOptions':{
-        //         padding:10,
-        //         algorithm:'top-down'
-        //
-        //     }
-        // }))
-        // .pipe($.px3rem({
-        //     baseDpr: 2,             // base device pixel ratio (default: 2)
-        //     threeVersion: false,    // whether to generate @1x, @2x and @3x version (default: false)
-        //     remVersion: true,       // whether to generate rem version (default: true)
-        //     remUnit: 75,            // rem unit value (default: 75; 1rem==50px)
-        //     remPrecision: 6         // rem precision (default: 6)
-        // }));
+    // .pipe($.cssSpriter({
+    //     // The path and file name of where we will save the sprite sheet
+    //     'spriteSheet': `${path.tmp}/img/spritesheet.png`,
+    //     // Because we don't know where you will end up saving the CSS file at this point in the pipe,
+    //     // we need a litle help identifying where it will be.
+    //     'pathToSpriteSheetFromCSS': '../img/spritesheet.png',
+    //     'spritesmithOptions':{
+    //         padding:10,
+    //         algorithm:'top-down'
+    //
+    //     }
+    // }))
+    // .pipe($.px3rem({
+    //     baseDpr: 2,             // base device pixel ratio (default: 2)
+    //     threeVersion: false,    // whether to generate @1x, @2x and @3x version (default: false)
+    //     remVersion: true,       // whether to generate rem version (default: true)
+    //     remUnit: 75,            // rem unit value (default: 75; 1rem==50px)
+    //     remPrecision: 6         // rem precision (default: 6)
+    // }));
 
     switch (ENV) {
         case 'DEV':
@@ -372,6 +373,10 @@ gulp.task('browserSync:server', function () {
         // ]
     });
 
+
+});
+
+gulp.task("watch", function () {
     //watch目录
     gulp.watch(pageCssMap.src, ['pageCss']).on('change', browserSync.reload);
     gulp.watch(ionicCssMap.src, ['ionicCss']).on('change', browserSync.reload);
@@ -384,8 +389,7 @@ gulp.task('browserSync:server', function () {
     gulp.watch([path.src + '/common/**/*.js'], ['common.js']).on('change', browserSync.reload);
     gulp.watch([path.src + '/pages/**/*.js'], ['page.js']).on('change', browserSync.reload);
     gulp.watch([path.src + '/index.html', path.src + '/index/*.*'], ['move:index']).on('change', browserSync.reload);
-
-});
+})
 
 
 /**
@@ -435,7 +439,7 @@ gulp.task("SetProEnv", function () {
 });
 
 // gulp.task("DEVELOPMENT", $.sequence('SetDevEnv', 'default'));
-gulp.task("DEVELOPMENT", $.sequence('SetDevEnv', 'default', 'browserSync:server'));
+gulp.task("DEVELOPMENT", $.sequence('SetDevEnv', 'default', 'browserSync:server', 'watch'));
 gulp.task("TESTONLINE", $.sequence('SetTesEnv', 'default'));
 gulp.task("PRODUCTION", $.sequence('SetProEnv', 'default'));
 

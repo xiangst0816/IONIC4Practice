@@ -36,8 +36,8 @@
 
                     //数据增补
                     var payInfo_otherInfo = {
-                        entryTime: $filter('yyyyMMdd_HHmmss_minus')(payInfo.entryTime),
-                        nowTime: $filter('yyyyMMdd_HHmmss_minus')(new Date()),
+                        entryTime: $filter('date')((new Date(payInfo.entryTime)),'yyyy-MM-dd HH:mm:ss'),
+                        nowTime: $filter('date')((new Date()),'yyyy-MM-dd HH:mm:ss'),
                         price: parseFloat(payInfo.price) - parseFloat(payInfo.discount),
                         originPrice: payInfo.price,
                     };
@@ -300,8 +300,10 @@
                                 "alipayAmount": $scope.zfbSelected ? parseFloat(parseFloat($scope.finalPrice).toFixed(2)) : 0,//支付宝支付金额
                                 "pointPayNum": !!$scope.integal2paied ? parseInt($scope.integal2paied) : 0,//积分支付的积分数量
                                 "pointPayAmount": !!$scope.intergal2money ? parseFloat($scope.intergal2money) : 0,//积分支付的抵扣金额
-                                "entryTime": $filter("yyyyMd_HHmmss_minus")(payInfo.entryTime),//进场时间
-                                "paytime": $filter("yyyyMd_HHmmss_minus")(new Date()),//支付时间
+                                // "entryTime": $filter("yyyyMd_HHmmss_minus")(payInfo.entryTime),//进场时间
+                                "entryTime": $filter('date')((new Date(payInfo.entryTime)),'yyyy-M-d HH:mm:ss'),//进场时间
+                                // "paytime": $filter("yyyyMd_HHmmss_minus")(new Date()),//支付时间
+                                "paytime": $filter('date')((new Date()),'yyyy-M-d HH:mm:ss'),//支付时间
                                 "amount": payInfo.originPrice,//原实金额
                                 "disamount": payInfo.discount,
                                 "bepaidtime": payInfo.time,//停车时间支付有效期min

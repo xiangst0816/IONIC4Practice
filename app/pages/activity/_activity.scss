@@ -1,19 +1,138 @@
-//丰树资讯
-.activities{
-  .activitiesTabs{
-    .active{
-      color:$stable;
+//活动
+.activities {
+  .activitiesTabs {
+    .active {
+      color: $stable;
     }
   }
-  .activitiesContent{
-    padding:0.17rem 0.2rem;
-    background-color:$list-bg-color;
-    img{
-      width:100%;
-      margin-bottom:0.35rem;
-      box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);
+  .activitiesContent {
+    padding: 0.17rem 0;
+    background-color: $list-bg-color;
+
+    //商场活动
+    .mallActive {
+      padding: 0 0.2rem;
+      .mallActive--item {
+        position: relative;
+        height: 4.1rem;
+        background: #fff;
+        margin-bottom: 0.35rem;
+        .mallActive--imgBox {
+          overflow: hidden;
+          height: 2.8rem;
+          width: 100%;
+          img {
+            width: 100%;
+          }
+        }
+        .mallActive--detail {
+          height: 1.3rem;
+          background: #fff;
+          padding: 0.2rem;
+          box-sizing: border-box;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 100%;
+          h3 {
+            font-size: 0.33rem;
+            color: #333;
+            margin: 0 0 0.15rem 0;
+            line-height: 120%;
+            //font-weight: 100;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+          }
+          p {
+            font-size: 0.28rem;
+            color: #666;
+            margin: 0;
+            line-height: 120%;
+          }
+          .mallActive--detail__tagsBox {
+            color: #ff735c;
+            font-size: 0.24rem;
+            border: 1px solid #ff735c;
+            position: absolute;
+            bottom: 0.2rem;
+            right: 0.2rem;
+            border-radius: 4px;
+            padding: 0 0.1rem;
+            box-sizing: content-box;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+      }
     }
 
   }
 
+}
+
+//活动详情
+.activeDetail {
+
+  .imgBox {
+    height: 3.2rem;
+    width: 100%;
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+  }
+
+  .titleBox {
+    padding: 0.25rem;
+    border-bottom: 1px solid #e5e5e5;
+    h3 {
+      margin: 0 0 0.1rem 0;
+      font-size: 0.42rem;
+      color: #333;
+      line-height: 120%;
+    }
+    p {
+      font-size: 0.23rem;
+      color: #999;
+      margin: 0;
+      line-height: 120%;
+    }
+  }
+
+  .antivityInfo {
+    padding: 0 0.35rem 0.35rem;
+
+    .antivityInfo--title {
+      font-size: 0.33rem;
+      border-bottom: 1px solid #e5e5e5;
+      color: #333;
+      padding:0.25rem 0;
+    }
+    .antivityInfo--detailBox {
+      margin-bottom:0.2rem;
+
+      .antivityInfo--detailBox__header {
+        color: #999;
+        font-size: 0.33rem;
+        margin:0;
+        padding:0.2rem 0;
+      }
+      .antivityInfo--detailBox__content {
+        color: #333;
+        font-size: 0.33rem;
+        line-height: 140%;
+        p{
+          margin-bottom:0.1rem;
+
+        }
+        img{
+          width:100%;
+        }
+      }
+    }
+  }
 }

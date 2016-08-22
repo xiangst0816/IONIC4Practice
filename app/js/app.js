@@ -47,7 +47,11 @@
                     name: 'lazyLoadSocketIO',
                     files: [
                         'js/socket.io.js'
-                        // 'http://apps.bdimg.com/libs/socket.io/0.9.16/socket.io.min.js'
+                    ]
+                }, {
+                    name: 'FixImage',
+                    files: [
+                        'js/imageFixBeforeUpload.js'
                     ]
                 }]
             });
@@ -83,7 +87,7 @@
          * $log的debug方法显示开关
          * */
         .config(['$logProvider', function ($logProvider) {
-            $logProvider.debugEnabled(true);
+            $logProvider.debugEnabled(false);
 
             // $log.log("log")
             // $log.info("info")

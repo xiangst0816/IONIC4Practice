@@ -456,12 +456,11 @@ var nativePlugin = {
     } else if (ua.match(/smartapp/i) == 'smartapp') {     //在smartApp环境中（注：未提供ua判端）
         Internal.isInApp = true;
         Internal.isInWeiXin = false;
-
     } else {
         (function () {
             var _log = console.log;
             _log.call(console, '%c' + [].slice.call(arguments).join(' '), 'color: red;')
-        })('非法操作 \n当前环境不支持 \n请在微信中或smartApp中使用');
+        })('非法操作 \n当前环境不支持 \n请在微信中或smartApp中使用 \n如果修改设备环境,请在console中输入Internal查看及修改');
         // Internal.isInApp = true;
         Internal.isInDesktop = true;
     }

@@ -99,158 +99,136 @@
         /**
          * 时间->2016.04.01
          * */
-        .filter("yyyyMMdd_dot", ['$toDateFormat', '$zeroize', function ($toDateFormat, $zeroize) {
+        .filter("yyyyMMdd_dot", ['$toDateFormat','$filter', function ($toDateFormat, $filter) {
             return function (value) {
                 var date = $toDateFormat(value);
-                return date.getFullYear() + "." +
-                    $zeroize(date.getMonth() + 1) + "." +
-                    $zeroize(date.getDate());
+                return $filter('date')(date,'yyyy.MM.dd');
             }
         }])
-        /**
-         * 时间->2016.04.01 23:12:01
-         * */
-        .filter("yyyyMMdd_HHmmss_dot", ['$toDateFormat', '$zeroize', function ($toDateFormat, $zeroize) {
-            return function (value) {
-                var date = $toDateFormat(value);
-                return date.getFullYear() + "." +
-                    $zeroize(date.getMonth() + 1) + "." +
-                    $zeroize(date.getDate()) + " " +
-                    $zeroize(date.getHours()) + ":" +
-                    $zeroize(date.getMinutes()) + ":" +
-                    $zeroize(date.getSeconds());
-            }
-        }])
-        /**
-         * 时间->2016.4.1
-         * */
-        .filter("yyyyMd_dot", ['$toDateFormat', function ($toDateFormat) {
-            return function (value) {
-                var date = $toDateFormat(value);
-                return date.getFullYear() + "." +
-                    (date.getMonth() + 1) + "." +
-                    date.getDate();
-            }
-        }])
-
-
-        /**
-         * 时间->2016-04-01
-         * */
-        .filter("yyyyMMdd_minus", ['$toDateFormat', '$zeroize', function ($toDateFormat, $zeroize) {
-            return function (value) {
-                var date = $toDateFormat(value);
-                return date.getFullYear() + "-" +
-                    $zeroize(date.getMonth() + 1) + "-" +
-                    $zeroize(date.getDate());
-            }
-        }])
-        /**
-         * 时间->2016-04-01 06:12:01
-         * */
-        .filter("yyyyMMdd_HHmmss_minus", ['$toDateFormat', '$zeroize', function ($toDateFormat, $zeroize) {
-            return function (value) {
-                var date = $toDateFormat(value);
-                return date.getFullYear() + "-" +
-                    $zeroize(date.getMonth() + 1) + "-" +
-                    $zeroize(date.getDate()) + " " +
-                    $zeroize(date.getHours()) + ":" +
-                    $zeroize(date.getMinutes()) + ":" +
-                    $zeroize(date.getSeconds());
-            }
-        }])
-        /**
-         * 时间->2016-4-1 06:12:01
-         * */
-        .filter("yyyyMd_HHmmss_minus", ['$toDateFormat', function ($toDateFormat) {
-            return function (value) {
-                var date = $toDateFormat(value);
-                return date.getFullYear() + "-" +
-                    (date.getMonth() + 1) + "-" +
-                    (date.getDate()) + " " +
-                    (date.getHours()) + ":" +
-                    (date.getMinutes()) + ":" +
-                    (date.getSeconds());
-            }
-        }])
-        /**
-         * 时间->2016-4-1
-         * */
-        .filter("yyyyMd_minus", ['$toDateFormat', function ($toDateFormat) {
-            return function (value) {
-                var date = $toDateFormat(value);
-                return date.getFullYear() + "-" +
-                    (date.getMonth() + 1) + "-" +
-                    date.getDate();
-            }
-        }])
-
-
+        // /**
+        //  * 时间->2016.04.01 23:12:01
+        //  * */
+        // .filter("yyyyMMdd_HHmmss_dot", ['$toDateFormat', '$filter', function ($toDateFormat, $filter) {
+        //     return function (value) {
+        //         var date = $toDateFormat(value);
+        //         return $filter('date')(date,'yyyy.MM.dd HH:mm:ss');
+        //     }
+        // }])
+        // /**
+        //  * 时间->2016.4.1
+        //  * */
+        // .filter("yyyyMd_dot", ['$toDateFormat', function ($toDateFormat) {
+        //     return function (value) {
+        //         var date = $toDateFormat(value);
+        //         return date.getFullYear() + "." +
+        //             (date.getMonth() + 1) + "." +
+        //             date.getDate();
+        //     }
+        // }])
+        // /**
+        //  * 时间->2016-04-01
+        //  * */
+        // .filter("yyyyMMdd_minus", ['$toDateFormat', '$zeroize', function ($toDateFormat, $zeroize) {
+        //     return function (value) {
+        //         var date = $toDateFormat(value);
+        //         return date.getFullYear() + "-" +
+        //             $zeroize(date.getMonth() + 1) + "-" +
+        //             $zeroize(date.getDate());
+        //     }
+        // }])
+        // /**
+        //  * 时间->2016-04-01 06:12:01
+        //  * */
+        // .filter("yyyyMMdd_HHmmss_minus", ['$toDateFormat', '$zeroize', function ($toDateFormat, $zeroize) {
+        //     return function (value) {
+        //         var date = $toDateFormat(value);
+        //         return date.getFullYear() + "-" +
+        //             $zeroize(date.getMonth() + 1) + "-" +
+        //             $zeroize(date.getDate()) + " " +
+        //             $zeroize(date.getHours()) + ":" +
+        //             $zeroize(date.getMinutes()) + ":" +
+        //             $zeroize(date.getSeconds());
+        //     }
+        // }])
+        // /**
+        //  * 时间->2016-4-1 06:12:01
+        //  * */
+        // .filter("yyyyMd_HHmmss_minus", ['$toDateFormat', function ($toDateFormat) {
+        //     return function (value) {
+        //         var date = $toDateFormat(value);
+        //         return date.getFullYear() + "-" +
+        //             (date.getMonth() + 1) + "-" +
+        //             (date.getDate()) + " " +
+        //             (date.getHours()) + ":" +
+        //             (date.getMinutes()) + ":" +
+        //             (date.getSeconds());
+        //     }
+        // }])
+        // /**
+        //  * 时间->2016-4-1
+        //  * */
+        // .filter("yyyyMd_minus", ['$toDateFormat', function ($toDateFormat) {
+        //     return function (value) {
+        //         var date = $toDateFormat(value);
+        //         return date.getFullYear() + "-" +
+        //             (date.getMonth() + 1) + "-" +
+        //             date.getDate();
+        //     }
+        // }])
         /**
          * 时间->2016/04/01
          * */
-        .filter("yyyyMMdd_slash", ['$toDateFormat', '$zeroize', function ($toDateFormat, $zeroize) {
+        .filter("yyyyMMdd_slash", ['$toDateFormat', '$filter', function ($toDateFormat, $filter) {
             return function (value) {
                 var date = $toDateFormat(value);
-                return date.getFullYear() + "/" +
-                    $zeroize(date.getMonth() + 1) + "/" +
-                    $zeroize(date.getDate());
+                return $filter('date')(date,'yyyy/MM/dd')
             }
         }])
-        /**
-         * 时间->2016/04/01 06:12:01
-         * */
-        .filter("yyyyMMdd_HHmmss_slash", ['$toDateFormat', '$zeroize', function ($toDateFormat, $zeroize) {
-            return function (value) {
-                var date = $toDateFormat(value);
-                return date.getFullYear() + "/" +
-                    $zeroize(date.getMonth() + 1) + "/" +
-                    $zeroize(date.getDate()) + " " +
-                    $zeroize(date.getHours()) + ":" +
-                    $zeroize(date.getMinutes()) + ":" +
-                    $zeroize(date.getSeconds());
-            }
-        }])
-        /**
-         * 时间->2016/4/1
-         * */
-        .filter("yyyyMd_slash", ['$toDateFormat', function ($toDateFormat) {
-            return function (value) {
-                var date = $toDateFormat(value);
-                return date.getFullYear() + "/" +
-                    (date.getMonth() + 1) + "/" +
-                    date.getDate();
-            }
-        }])
-
-
-
+        // /**
+        //  * 时间->2016/04/01 06:12:01
+        //  * */
+        // .filter("yyyyMMdd_HHmmss_slash", ['$toDateFormat', '$zeroize', function ($toDateFormat, $zeroize) {
+        //     return function (value) {
+        //         var date = $toDateFormat(value);
+        //         return date.getFullYear() + "/" +
+        //             $zeroize(date.getMonth() + 1) + "/" +
+        //             $zeroize(date.getDate()) + " " +
+        //             $zeroize(date.getHours()) + ":" +
+        //             $zeroize(date.getMinutes()) + ":" +
+        //             $zeroize(date.getSeconds());
+        //     }
+        // }])
+        // /**
+        //  * 时间->2016/4/1
+        //  * */
+        // .filter("yyyyMd_slash", ['$toDateFormat', function ($toDateFormat) {
+        //     return function (value) {
+        //         var date = $toDateFormat(value);
+        //         return date.getFullYear() + "/" +
+        //             (date.getMonth() + 1) + "/" +
+        //             date.getDate();
+        //     }
+        // }])
         /**
          * 时间->2016年4月1日
          * */
-        .filter("yyyyMd_cn", ['$toDateFormat', function ($toDateFormat) {
+        .filter("yyyyMd_cn", ['$toDateFormat','$filter', function ($toDateFormat,$filter) {
             return function (value) {
                 var date = $toDateFormat(value);
-                // alert((date))
-                // alert(JSON.stringify(date))
-                return date.getFullYear() + "年" +
-                    (date.getMonth() + 1) + "月" +
-                    date.getDate() + "日";
+                return $filter('date')(date, 'yyyy年M月d日');
+                // return date.getFullYear() + "年" +
+                //     (date.getMonth() + 1) + "月" +
+                //     date.getDate() + "日";
             }
         }])
 
         /**
          * 时间->2016年4月1日 12:30:23
          * */
-        .filter("yyyyMd_HHmmss_cn", ['$toDateFormat', '$zeroize', function ($toDateFormat, $zeroize) {
+        .filter("yyyyMd_HHmmss_cn", ['$toDateFormat', '$filter', function ($toDateFormat, $filter) {
             return function (value) {
                 var date = $toDateFormat(value);
-                return date.getFullYear() + "年" +
-                    (date.getMonth() + 1) + "月" +
-                    date.getDate() + "日" + " " +
-                    $zeroize(date.getHours()) + ":" +
-                    $zeroize(date.getMinutes()) + ":" +
-                    $zeroize(date.getSeconds());
+                return $filter('date')(date, 'yyyy年M月d日 HH:mm:ss');
             }
         }])
 
@@ -341,10 +319,10 @@
         }])
 
 
-    /**
-     * 时间转换-时间戳转化成显示时间
-     * 时间->2016.04.01
-     * */
+    // /**
+    //  * 时间转换-时间戳转化成显示时间
+    //  * 时间->2016.04.01
+    //  * */
     // .filter("timestamp2yyyymmddDot", ['$toDateFormat', function ($toDateFormat) {
     //     return function (timestamp) {
     //
@@ -392,11 +370,10 @@
     //         return date;
     //     };
     // }])
-
-    /**
-     * 时间转换-时间戳转化成显示时间
-     * 1459481906->2016-4-1 12:12:12
-     * */
+    // /**
+    //  * 时间转换-时间戳转化成显示时间
+    //  * 1459481906->2016-4-1 12:12:12
+    //  * */
     // .filter("timestamp2yyyymmddhhmmss", [function () {
     //     return function (timestamp) {
     //         var d = new Date(timestamp * 1000);    //根据时间戳生成的时间对象

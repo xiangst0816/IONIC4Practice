@@ -4,7 +4,8 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('photoIntegral', ['$rootScope', '$scope', '$ionicPopup',  '$ionicLoading', '$http', '$filter', '$sessionStorage', 'AJAX', '$ionicToast', '$log', '$q', '$imgUpload', '$imgChoose', '$submitTradeImg', function ($rootScope, $scope, $ionicPopup,  $ionicLoading, $http, $filter, $sessionStorage, AJAX, $ionicToast, $log, $q, $imgUpload, $imgChoose, $submitTradeImg) {
+        .controller('photoIntegral', ['$rootScope', '$scope', '$ionicPopup',  '$ionicLoading', '$http', '$filter', '$sessionStorage', 'AJAX', '$ionicToast', '$log', '$q', '$imgUpload', '$imgChoose', '$submitTradeImg',function ($rootScope, $scope, $ionicPopup,  $ionicLoading, $http, $filter, $sessionStorage, AJAX, $ionicToast, $log, $q, $imgUpload, $imgChoose, $submitTradeImg) {
+
 
             /**
              * imgData存放每次的图片uuid数据,如果为空则说明未进行上传操作
@@ -55,7 +56,8 @@
                     "detail": {
                         "custid": $sessionStorage.userInfo.customerid,
                         "sourceid": sourceid,
-                        "createdtime": "" + $filter('yyyyMMdd_HHmmss_minus')(new Date()) + ""
+                        // "createdtime": "" + $filter('yyyyMMdd_HHmmss_minus')(new Date()) + ""
+                        "createdtime": "" + $filter('date')((new Date()),'yyyy-MM-dd HH:mm:ss') + ""
                     }
                 }).then(function () {
                     if (!!imgArr.length) {

@@ -115,13 +115,15 @@
                         "cardno": $base64.encode(arr[0]),//是
                         "tradeno": arr[1],//是
                         "shopid": arr[2],
-                        "tradetime": $filter('yyyyMMdd_HHmmss_minus')(arr[3]),
+                        // "tradetime": $filter('yyyyMMdd_HHmmss_minus')(arr[3]),
+                        "tradetime": $filter('date')((new Date(arr[3])),'yyyy-MM-dd HH:mm:ss'),
                         "tradeamount": $base64.encode(arr[4]),//是
                         "typeid": 1,//1 交易 ，2 退货  	Int32	是
                         "orgid": BASE.orgid,
                         "remark": "来自APP【扫码积分】的交易补录信息",
                         "createid": $sessionStorage.userInfo.customerid.toString(),//创建人	String 否
-                        "createdtime": $filter('yyyyMMdd_HHmmss_minus')(new Date())//创建时间	String	否
+                        // "createdtime": $filter('yyyyMMdd_HHmmss_minus')(new Date())//创建时间	String	否
+                        "createdtime": $filter('date')((new Date()),'yyyy-MM-dd HH:mm:ss'),
                     };
                     // alert("发送到数据:"+JSON.stringify(params));
                     //交易消息补录 数据操作

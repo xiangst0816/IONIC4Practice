@@ -154,8 +154,8 @@
                 $integralQuery({
                     "conditions": {
                         "custid": $sessionStorage.userInfo.customerid,
-                        "begindate": $filter('yyyyMMdd_HHmmss_minus')($scope.params.datefrom),
-                        "enddate": $filter('yyyyMMdd_HHmmss_minus')($scope.params.dateto),
+                        "begindate": $filter('date')((new Date($scope.params.datefrom)),'yyyy-MM-dd HH:mm:ss'),
+                        "enddate": $filter('date')((new Date($scope.params.dateto)),'yyyy-MM-dd HH:mm:ss'),
                         "querytype": "main",
                         "page": {
                             "index": _start,

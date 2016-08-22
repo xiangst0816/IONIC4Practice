@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('memberInfoCtrl', ['$rootScope', '$scope', '$sessionStorage', '$http', 'verification', '$ionicLoading', 'AJAX', '$ionicToast',  '$updateUserInfo', '$log', '$ionicNavBarDelegate', '$getCode','$q','$getUserInfo', function ($rootScope, $scope, $sessionStorage, $http, verification, $ionicLoading, AJAX, $ionicToast, $updateUserInfo, $log, $ionicNavBarDelegate, $getCode,$q,$getUserInfo) {
+        .controller('memberInfoCtrl', ['$rootScope', '$scope', '$sessionStorage', '$http', 'verification', '$ionicLoading', 'AJAX', '$ionicToast', '$updateUserInfo', '$log', '$ionicNavBarDelegate', '$getCode', '$q', '$getUserInfo', function ($rootScope, $scope, $sessionStorage, $http, verification, $ionicLoading, AJAX, $ionicToast, $updateUserInfo, $log, $ionicNavBarDelegate, $getCode, $q, $getUserInfo) {
 
             /**
              * 完善个人信息显示返回按钮
@@ -80,23 +80,23 @@
                 getCityArray($sessionStorage.userInfo.countrycode).then(function (arr) {
                     $scope.cBox.provinceArr = arr;
 
-                    $scope.province={
+                    $scope.province = {
                         name: $sessionStorage.userInfo.provincecode
                     }
 
-                    if(!!$sessionStorage.userInfo.provincecode){
+                    if (!!$sessionStorage.userInfo.provincecode) {
                         getCityArray($sessionStorage.userInfo.provincecode).then(function (arr) {
-                            $scope.cBox.cityArr=arr;
-                            $scope.city={
+                            $scope.cBox.cityArr = arr;
+                            $scope.city = {
                                 name: $sessionStorage.userInfo.citycode
                             }
-                        },function () {
-                            $scope.city={name: ''};
-                            $scope.cBox.cityArr=[];
+                        }, function () {
+                            $scope.city = {name: ''};
+                            $scope.cBox.cityArr = [];
                         });
-                    }else{
-                        $scope.city={name: ''};
-                        $scope.cBox.cityArr=[];
+                    } else {
+                        $scope.city = {name: ''};
+                        $scope.cBox.cityArr = [];
                     }
                 });
 
@@ -104,10 +104,10 @@
                     $scope.params.provincecode = value;
                     $scope.params.citycode = '请选择';
                     getCityArray(value).then(function (data) {
-                        $scope.cBox.cityArr=data;
-                    },function () {
-                        $scope.cBox.cityArr=[];
-                        $scope.city={name: ''};
+                        $scope.cBox.cityArr = data;
+                    }, function () {
+                        $scope.cBox.cityArr = [];
+                        $scope.city = {name: ''};
                     })
                 };
                 $scope.cityChange = function (value) {
@@ -130,12 +130,12 @@
                         for (let item of data) {
 
                             arr.push({
-                                key:item.keyvalue,
-                                value:item.keyvalue,
+                                key: item.keyvalue,
+                                value: item.keyvalue,
                             })
                         }
                         defer.resolve(arr)
-                    },function (err) {
+                    }, function (err) {
                         defer.reject(err)
                     });
                     return defer.promise;
@@ -227,14 +227,18 @@
             });
 
 
-
             /**
              * 上传头像到服务器
              */
             $scope.uploadHeader = function (file) {
+                var name = '';
+                (!!file && !!file.name) ? (name = file.name) : (name =='');
+                if (name.length > 20) {
+                    name = name.substr(-10);
+                }
                 var formdata = new FormData();
                 formdata.append('upload', file);
-                var url = API.imgDomainUrl + 'upload?type=2&filename=' + file.name + '&program_type=webapp';
+                var url = API.imgDomainUrl + 'upload?type=2&filename=' + name + '&program_type=webapp';
                 //loading
                 $ionicLoading.show({
                     template: '正在上传请稍等...'
@@ -279,7 +283,7 @@
                 }
 
                 $ionicLoading.show();
-                console.log( $scope.params)
+                console.log($scope.params)
                 $updateUserInfo({
                     "customer": {
                         "customerid": $sessionStorage.userInfo.customerid,
