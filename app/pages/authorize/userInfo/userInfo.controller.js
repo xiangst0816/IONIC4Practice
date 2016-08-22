@@ -15,7 +15,7 @@
              * API.imgDomainUrl + data.uuid
              * */
 
-
+            var birthday;
             $sessionStorage.userInfo.time = 0;
             $getUserInfo({
                 "conditions": {
@@ -34,6 +34,13 @@
                     address: $sessionStorage.userInfo.address || '',
                     haschildren: "" + $sessionStorage.userInfo.haschildren + "" || '0'
                 };
+
+
+                /**
+                 * 如果用户已经填写了生日,则此项不能修改,需要携带身份证到客服修改
+                 * */
+
+
                 //生日,$scope.year为得到的年2016,$scope.yearDisplayIndex为options的index
                 if ($sessionStorage.userInfo.birthday) {
                     $scope.year = $sessionStorage.userInfo.birthday.substr(0, 4);
@@ -144,28 +151,28 @@
                 /**
                  * 录入生日-年-月-日,000-00-00
                  * */
-                var date = {
+                function Birthday() {
                     // 初始化年,因为是生日,故从今天向后70年;
                     // 返回年的数组
-                    getYearArr: function () {
+                    this.getYearArr = function () {
                         var yearArr = [];
                         var year = new Date().getFullYear();
                         for (var i = 0; 70 > i; i++, year--) {
                             yearArr.push(year);
                         }
                         return yearArr;
-                    },
+                    };
                     // 初始化月,一共12个月
                     // 返回月的数组
-                    getMonthArr: function () {
+                    this.getMonthArr = function () {
                         var monthArr = [];
                         for (var i = 0; 12 > i; i++) {
                             monthArr.push(i + 1);
                         }
                         return monthArr;
-                    },
+                    };
                     // 日的数组
-                    getDayArr: function (year, month) {
+                    this.getDayArr = function (year, month) {
                         var _month = parseInt(month);
                         var _year = parseInt(year);
                         var dayArr = [];
@@ -187,11 +194,12 @@
                             dayArr.push(i + 1);
                         }
                         return dayArr;
-                    },
+                    };
+
                     //更新生日
                     //$scope.year,$scope.month,$scope.day,有值才更新
                     //格式 0000-00-00
-                    getBirthday: function () {
+                    this.getBirthday = function () {
                         if ($scope.year && $scope.month && $scope.day) {
                             var month = $scope.month;
                             if (parseInt(month) < 10) {
@@ -208,21 +216,22 @@
                         }
                     }
                 }
-                $scope.yearArr = date.getYearArr();
+
+
+                birthday = new Birthday();
+
+                $scope.yearArr = birthday.getYearArr();
                 $scope.yearChange = function (index) {
-                    $scope.year = new Date().getFullYear() - index;
-                    // console.log($scope.year);
+                    $scope.year = !!index?(new Date().getFullYear() - index):('0');
                 };
-                $scope.monthArr = date.getMonthArr();
+                $scope.monthArr = birthday.getMonthArr();
                 $scope.monthChange = function (index) {
-                    $scope.month = parseInt(index) + 1;
-                    $scope.dayArr = date.getDayArr($scope.year, $scope.month);
-                    // console.log($scope.month);
+                    $scope.month = !!index?(parseInt(index) + 1):('0');
+                    $scope.dayArr = birthday.getDayArr($scope.year, $scope.month);
                 };
-                $scope.dayArr = date.getDayArr($scope.year, $scope.month);
+                $scope.dayArr = birthday.getDayArr($scope.year, $scope.month);
                 $scope.dayChange = function (index) {
-                    $scope.day = parseInt(index) + 1;
-                    // console.log($scope.day);
+                    $scope.day = !!index?(parseInt(index) + 1):('0');
                 };
             });
 
@@ -232,7 +241,7 @@
              */
             $scope.uploadHeader = function (file) {
                 var name = '';
-                (!!file && !!file.name) ? (name = file.name) : (name =='');
+                (!!file && !!file.name) ? (name = file.name) : (name == '');
                 if (name.length > 20) {
                     name = name.substr(-10);
                 }
@@ -283,7 +292,6 @@
                 }
 
                 $ionicLoading.show();
-                console.log($scope.params)
                 $updateUserInfo({
                     "customer": {
                         "customerid": $sessionStorage.userInfo.customerid,
@@ -293,7 +301,7 @@
                         "provincecode": $scope.params.provincecode || '',
                         "citycode": $scope.params.citycode || '',
                         "address": $scope.params.address || '',
-                        "birthday": date.getBirthday(),
+                        "birthday": birthday.getBirthday(),
                         "haschildren": parseInt($scope.params.haschildren)
                     }
                 }).then(function () {
