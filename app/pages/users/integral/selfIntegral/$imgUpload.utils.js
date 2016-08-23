@@ -12,9 +12,17 @@
                 var defer = $q.defer();
                 var formdata = new FormData();
                 formdata.append('upload', file);
+
+                var name = '';
+                (!!file && !!file.name) ? (name = file.name) : (name == '');
+                if (name.length > 20) {
+                    name = name.substr(-10);
+                }
+
+
                 $http({
                     method: "POST",
-                    url: API.imgDomainUrl + 'upload?type=2&filename=' + file.name + '&program_type=webapp',
+                    url: API.imgDomainUrl + 'upload?type=2&filename=' + name + '&program_type=webapp',
                     // url: API.imgDomainUrl + 'upload?type=2&filename=' + file.name + '&program_type=BASE',
                     headers: {
                         'Content-Type': undefined

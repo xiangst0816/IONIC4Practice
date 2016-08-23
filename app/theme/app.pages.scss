@@ -26,20 +26,19 @@
 
 // 根据页面将页面下面的scss放在此处
 // --------------------------------------------------
+@import "../pages/home/users";
+@import "../pages/home/home";
+
 
 @import "../pages/activity/activity";
 @import "../pages/authorize/authorize";
-@import "../pages/brandInfo/book/book";
-@import "../pages/brandInfo/queue/queue";
 @import "../pages/brandInfo/brandInfo";
-@import "../pages/home/home";
 @import "../pages/mallNavigate/mallNavigate";
 @import "../pages/mallNews/mallNews";
 @import "../pages/navigateTo/navigateTo";
 @import "../pages/selfPark/selfPark";
 
 
-@import "../pages/users/users";
 @import "../pages/users/card/card";
 @import "../pages/users/chat/chat";
 @import "../pages/users/collection/collection";

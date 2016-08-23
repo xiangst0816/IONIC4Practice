@@ -4,7 +4,7 @@
  */
 (function () {
     angular.module('smartac.page')
-        .controller('memberInfoCtrl', ['$rootScope', '$scope', '$sessionStorage', '$http', 'verification', '$ionicLoading', 'AJAX', '$ionicToast', '$updateUserInfo', '$log', '$ionicNavBarDelegate', '$getCode', '$q', '$getUserInfo', function ($rootScope, $scope, $sessionStorage, $http, verification, $ionicLoading, AJAX, $ionicToast, $updateUserInfo, $log, $ionicNavBarDelegate, $getCode, $q, $getUserInfo) {
+        .controller('memberInfoCtrl', ['$rootScope', '$scope', '$sessionStorage', '$http', 'verification', '$ionicLoading', 'AJAX', '$ionicToast', '$updateUserInfo', '$log', '$ionicNavBarDelegate', '$getCode', '$q', '$getUserInfo','$toDateFormat','$timeout', function ($rootScope, $scope, $sessionStorage, $http, verification, $ionicLoading, AJAX, $ionicToast, $updateUserInfo, $log, $ionicNavBarDelegate, $getCode, $q, $getUserInfo,$toDateFormat,$timeout) {
 
             /**
              * 完善个人信息显示返回按钮
@@ -29,6 +29,7 @@
                     photoToShow: API.imgDomainUrl + $sessionStorage.userInfo.photo,
                     fullname: $sessionStorage.userInfo.fullname,
                     mobile: $sessionStorage.userInfo.mobile,
+                    countrycode: $sessionStorage.userInfo.countrycode || '中国',
                     provincecode: $sessionStorage.userInfo.provincecode || '',
                     citycode: $sessionStorage.userInfo.citycode || '',
                     address: $sessionStorage.userInfo.address || '',
@@ -36,22 +37,21 @@
                 };
 
 
-                /**
-                 * 如果用户已经填写了生日,则此项不能修改,需要携带身份证到客服修改
-                 * */
-
-
                 //生日,$scope.year为得到的年2016,$scope.yearDisplayIndex为options的index
                 if ($sessionStorage.userInfo.birthday) {
-                    $scope.year = $sessionStorage.userInfo.birthday.substr(0, 4);
+                    let _date = $toDateFormat($sessionStorage.userInfo.birthday)
+                    console.log(_date)
+
+                    // $scope.year = $sessionStorage.userInfo.birthday.substr(0, 4);
+                    $scope.year = _date.getFullYear();
                     $scope.yearDisplayIndex = {
                         "id": "" + new Date().getFullYear() - $scope.year + ""
                     };
-                    $scope.month = $sessionStorage.userInfo.birthday.substr(5, 2);
+                    $scope.month = _date.getMonth() + 1;
                     $scope.monthDisplayIndex = {
                         "id": "" + parseInt($scope.month) - 1 + ""
                     };
-                    $scope.day = $sessionStorage.userInfo.birthday.substr(8, 2);
+                    $scope.day = _date.getDate();
                     $scope.dayDisplayIndex = {
                         "id": "" + parseInt($scope.day) - 1 + ""
                     };
@@ -69,6 +69,38 @@
                     $scope.dayDisplayIndex = {
                         "id": ""
                     };
+                }
+
+
+                /**
+                 * 如果用户已经填写了生日,则此项不能修改,需要携带身份证到客服修改
+                 * */
+                let $year = angular.element(document.getElementById('year'));
+                $year.bind("touchstart",function () {
+                    if(!!$sessionStorage.userInfo.birthday){
+                        $year.attr("disabled", "disabled")
+                        $ionicToast.show("请到客服台修改出生日期");
+                    }
+                });
+                let $month = angular.element(document.getElementById('month'));
+                $month.bind("touchstart",function () {
+                    if(!!$sessionStorage.userInfo.birthday){
+                        $month.attr("disabled", "disabled")
+                        $ionicToast.show("请到客服台修改出生日期");
+                    }
+                });
+                let $day = angular.element(document.getElementById('day'));
+                $day.bind("touchstart",function () {
+                    if(!!$sessionStorage.userInfo.birthday){
+                        $day.attr("disabled", "disabled")
+                        $ionicToast.show("请到客服台修改出生日期");
+                    }
+                });
+
+                if(!!$sessionStorage.userInfo.birthday){
+                    $year.attr("disabled", "disabled");
+                    $month.attr("disabled", "disabled");
+                    $day.attr("disabled", "disabled");
                 }
 
                 /**
@@ -109,7 +141,7 @@
 
                 $scope.provinceChange = function (value) {
                     $scope.params.provincecode = value;
-                    $scope.params.citycode = '请选择';
+                    // $scope.params.citycode = '请选择';
                     getCityArray(value).then(function (data) {
                         $scope.cBox.cityArr = data;
                     }, function () {
@@ -127,18 +159,21 @@
                  * */
                 function getCityArray(value) {
                     let defer = $q.defer();
-                    if (value !== '中国') {
-                        value = '中国_' + value;
+                    if(!value){
+                        value = $scope.params.countrycode;
+                    }
+                    if (value !== $scope.params.countrycode) {
+                        value = $scope.params.countrycode + '_' + value;
                     }
                     $getCode({
                         "keyname": value
                     }).then(function (data) {
                         let arr = [];
-                        for (let item of data) {
-
+                        for (var i = 0,len = data.length;len>i;i++) {
+                        // for (let item of data) {
                             arr.push({
-                                key: item.keyvalue,
-                                value: item.keyvalue,
+                                key: data[i].keyvalue,
+                                value: data[i].keyvalue,
                             })
                         }
                         defer.resolve(arr)
@@ -200,7 +235,8 @@
                     //$scope.year,$scope.month,$scope.day,有值才更新
                     //格式 0000-00-00
                     this.getBirthday = function () {
-                        if ($scope.year && $scope.month && $scope.day) {
+
+                        if (!!$scope.year && !!$scope.month && !!$scope.day) {
                             var month = $scope.month;
                             if (parseInt(month) < 10) {
                                 month = "0" + parseInt(month);
@@ -222,16 +258,16 @@
 
                 $scope.yearArr = birthday.getYearArr();
                 $scope.yearChange = function (index) {
-                    $scope.year = !!index?(new Date().getFullYear() - index):('0');
+                    $scope.year = !!index ? (new Date().getFullYear() - index) : ('0');
                 };
                 $scope.monthArr = birthday.getMonthArr();
                 $scope.monthChange = function (index) {
-                    $scope.month = !!index?(parseInt(index) + 1):('0');
+                    $scope.month = !!index ? (parseInt(index) + 1) : ('0');
                     $scope.dayArr = birthday.getDayArr($scope.year, $scope.month);
                 };
                 $scope.dayArr = birthday.getDayArr($scope.year, $scope.month);
                 $scope.dayChange = function (index) {
-                    $scope.day = !!index?(parseInt(index) + 1):('0');
+                    $scope.day = !!index ? (parseInt(index) + 1) : ('0');
                 };
             });
 
@@ -291,6 +327,13 @@
                     return;
                 }
 
+                let _birthday = birthday.getBirthday();
+                console.log(_birthday)
+                if (!_birthday) {
+                    $ionicToast.show('出生日期请填写完整');
+                    return;
+                }
+
                 $ionicLoading.show();
                 $updateUserInfo({
                     "customer": {
@@ -298,14 +341,18 @@
                         "photo": $scope.params.photo || '',
                         "fullname": $scope.params.fullname,
                         "mobile": $scope.params.mobile,
+                        "countrycode": $scope.params.countrycode || '中国',
                         "provincecode": $scope.params.provincecode || '',
                         "citycode": $scope.params.citycode || '',
                         "address": $scope.params.address || '',
-                        "birthday": birthday.getBirthday(),
+                        "birthday": _birthday,
                         "haschildren": parseInt($scope.params.haschildren)
                     }
                 }).then(function () {
                     $ionicToast.show("保存成功");
+                    $timeout(function () {
+                        $rootScope.goBack();
+                    },1300,true);
                     // $rootScope.photo =$scope.params.photo;
 
                 }, function (errCode) {

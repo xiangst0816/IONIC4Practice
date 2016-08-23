@@ -26,6 +26,7 @@
                             ng-model="province.name"
                             ng-change="provinceChange(province.name)"
                             ng-options="item.value as item.key for item in cBox.provinceArr">
+                        <option value="">省份</option>
                     </select>
                     <i class="ion-authorize ion-select-right ion-arrow-down"></i>
                 </div>
@@ -36,6 +37,7 @@
                             ng-model="city.name"
                             ng-change="cityChange(city.name);"
                             ng-options="item.value as item.key for item in cBox.cityArr">
+                        <option value="">地区</option>
                     </select>
                     <i class="ion-authorize ion-select-right ion-arrow-down"></i>
                 </div>

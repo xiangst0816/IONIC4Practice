@@ -89,7 +89,68 @@
                 document.ontouchmove = angular.noop();
             };
 
-          
+            /**
+             * 用户操作记录,
+             * */
+            function Set() {
+                this.dataStore = [];
+                this.size = function () {
+                    return this.dataStore.length;
+                };
+                // add传入菜单的名称,内部维护其数量
+                this.add = function (menuName) {
+                    var index = this.isExist(menuName);
+                    if (index !== -1) {
+                        this.dataStore[index].count++;
+                    } else {
+                        this.dataStore.push({
+                            'menuName': menuName,
+                            'count': 1
+                        })
+                    }
+                    this.send();
+                };
+                // this.remove = function (menuName) {
+                //     var index = this.isExist(menuName);
+                //     if (index !== -1) {
+                //         this.dataStore.splice(index, 1);
+                //         return true
+                //     } else {
+                //         return false
+                //     }
+                //     this.send();
+                // };
+                this.show = function () {
+                    return this.dataStore;
+                };
+                this.isExist = function (menuName) {
+                    for (var i = 0, len = this.size(); len > i; i++) {
+                        if (this.dataStore[i].menuName === menuName) {
+                            return i
+                        }
+                    }
+                    return -1
+                };
+                this.backup = function () {
+                    // 备份数据到sessionStorage中
+                    $sessionStorage.dataStore = this.dataStore;
+
+                };
+                this.send = function () {
+                    console.log('send')
+                };
+
+
+
+            }
+
+
+            window.actionRecord = new Set();
+            //
+            // actionRecord.add('用户中心')
+            // actionRecord.add('用户中心')
+            // actionRecord.add('用户中心')
+            // console.log(actionRecord.show());
         }]);
 })();
 

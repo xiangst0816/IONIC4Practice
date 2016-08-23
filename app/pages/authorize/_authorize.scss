@@ -339,6 +339,9 @@
           color:$stable;
           font-size:0.3rem;
         }
+        //select:disabled{
+        //  color:lighten($stable,30%);
+        //}
         .insert-icon{
           padding-left: 0.725rem;
           -webkit-appearance: initial;

@@ -18,7 +18,6 @@
                     value = new Date();
                     return value;
                 }
-
                 if (angular.isDate(value)) {
                     return value;
                 }
