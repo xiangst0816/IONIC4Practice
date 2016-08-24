@@ -217,7 +217,7 @@
                         "quantity": "",
                         "activityname": "",
                         "sendchannelcode": 6,
-                        "applicablechannelcode": 1,
+                        "applicablechannelcode": 5,//1 积分商城,5 app渠道
                         "isexchangedbypoint": 1,
                         "point": ""
                     }
@@ -297,7 +297,7 @@
                         "quantity": "",
                         "activityname": "",
                         "sendchannelcode": 6,//1注册 2.积分 3.交易 4.打标签 5.围栏活动 6.兑换 7.大屏 8.海报 9.活动 10.SR后台
-                        "applicablechannelcode": 1,
+                        "applicablechannelcode": 5,//1 积分渠道 5 app渠道
                         "isexchangedbypoint": 1,
                         "point": ""
                     }

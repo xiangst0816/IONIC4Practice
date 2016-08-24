@@ -6,9 +6,8 @@
 (function () {
     var core = ['js/core.js'];
     var resource = [
-        "css/app.ionic.debug.css",
-        "css/app.pages.css",
-        // "css/style1.css",
+        "css/common.css",
+        "css/page.css",
         'js/common.js',
         "img/home/home_banner_1_hd.png",
         "img/home/home_banner_2_hd.png",
@@ -28,7 +27,6 @@
     var rest = [
         './config.js',
         './jweixin-1.0.0.js',
-
         'js/page.js'
     ];
     var ngAppModule = 'smartac';
@@ -56,15 +54,16 @@
                 angular.element(document).ready(function () {
                     angular.bootstrap(document, [ngAppModule]);
                 });
-
-                setTimeout(function () {
-                    loadingPosition.style.cssText = "opacity:0;";
+                if(!!BASE.debug){
+                    loadingPosition.style.cssText = "opacity:0;z-index:0;display:none;";
+                }else{
                     setTimeout(function () {
-                        loadingPosition.style.cssText += "z-index:0;display:none;";
-                    }, 300);
-                    // }, 0);
-                // }, 0);
-                }, 1000);
+                        loadingPosition.style.cssText = "opacity:0;";
+                        setTimeout(function () {
+                            loadingPosition.style.cssText += "z-index:0;display:none;";
+                        }, 300);
+                    }, 1000);
+                }
             })
         });
     });

@@ -4,6 +4,7 @@
  */
 //基础
 var BASE = {
+    debug:false,
     //AppID
     appid: "1",
     appsecret: "123",

@@ -3,19 +3,19 @@
  * Description:
  */
 
-export const ENV = function () {
-    return "DEV"
-}
-
-export const pageCssMap = function () {
-    return {
-        src: [
-            path.src + '/pages/**/*.scss',
-            path.src + '/theme/common/**/*.scss'
-        ],
-        main: path.src + '/theme/app.pages.scss'
-    }
-}
+/**
+ * 设置自动构建环境(默认)
+ * DEV;源码
+ * TES;文件名打码
+ * PRO;文件打码压缩
+ * */
+let _env = "PRO";
+export let env = function () {
+    return _env
+};
+export const SetEnv = function (str) {
+    _env = str;
+};
 
 
 export const path = {
@@ -23,3 +23,6 @@ export const path = {
     tmp: "tmp",
     dest: "www"
 };
+
+
+
