@@ -12,7 +12,9 @@ const $ = gulpLoadPlugins();
 
 //编译sass文件,将raw文件转到dist中
 export const pageCss = function () {
-    var stream = gulp.src(`${path.src}/theme/app.pages.scss`).pipe($.sass().on('error', $.sass.logError))
+    var stream = gulp.src([
+        `${path.src}/theme/app.pages.scss`,
+    ]).pipe($.sass().on('error', $.sass.logError))
         .pipe($.base64())
         .pipe($.autoprefixer({
             browsers: [
@@ -23,7 +25,7 @@ export const pageCss = function () {
                 'ExplorerMobile >= 11'],
             cascade: false
         }))
-        .pipe($.rename('page.css'));
+        .pipe($.rename('users.css'));
     switch (ENV) {
         case 'DEV':
             return stream.pipe(gulp.dest(`${path.tmp}/css`))
@@ -40,8 +42,10 @@ export const pageCss = function () {
 
 
 export const commonCss = function () {
-    var stream = gulp.src(`${path.src}/theme/app.ionic.scss`)
-        .pipe($.sass().on('error', $.sass.logError))
+    var stream = gulp.src([
+        `${path.src}/theme/app.ionic.scss`,
+    ])
+        .pipe($.sass().on('error', $.sass.logError)).pipe($.base64())
         .pipe($.autoprefixer({
             // browsers: ['IE 7'],
             browsers: [

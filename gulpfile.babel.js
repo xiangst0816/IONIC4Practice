@@ -24,9 +24,11 @@ const browserSync = bs.create();
  * TES;文件名打码
  * PRO;文件打码压缩
  * */
-// let ENV = "PRO";
+// let _env = "PRO1";
 
 
+// console.log('gulpfile.babel.js')
+// console.log(_env)
 /**
  * ---清理dist--------------------------------------------------------------
  * */
