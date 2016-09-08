@@ -8,6 +8,15 @@ import {env, path} from "./config";
 let ENV = env();
 const $ = gulpLoadPlugins();
 var merge = require('merge-stream');
+
+
+
+
+
+// import {_ENV} from "../abc.js";
+// console.log('other')
+// console.log(_ENV())
+
 /**
  * 清理dist
  * */

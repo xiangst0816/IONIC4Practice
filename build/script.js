@@ -45,9 +45,9 @@ export const coreJs = function () {
 // });
 
 
-
 export const commonJs = function () {
     var stream = gulp.src([
+        //公共核心资源
         `${path.src}/js/app.js`,
         `${path.src}/js/routers.js`,
         `${path.src}/js/bridge.js`,
@@ -55,6 +55,18 @@ export const commonJs = function () {
         `${path.src}/js/filters/*.js`,
         `${path.src}/js/service/*.js`,
         `${path.src}/js/utils/*.js`,
+        //公共页面
+        `${path.src}/pages/activity/**/*.js`,
+        `${path.src}/pages/authorize/**/*.js`,
+        `${path.src}/pages/brandInfo/**/*.js`,
+        `${path.src}/pages/home/**/*.js`,
+        `${path.src}/pages/mallNavigate/**/*.js`,
+        `${path.src}/pages/mallNews/**/*.js`,
+        `${path.src}/pages/navigateTo/**/*.js`,
+        `${path.src}/pages/selfPark/**/*.js`,
+        `${path.src}/pages/*.js`,
+
+
     ]).pipe($.concat('common.js'))
         .pipe($.babel({presets: ['es2015']}));
     switch (ENV) {
@@ -71,8 +83,10 @@ export const commonJs = function () {
 }
 
 export const pageJs = function () {
-    var stream = gulp.src(`${path.src}/pages/**/*.js`).pipe($.concat('page.js'))
-        // .pipe($.babel({presets: ['es2015']}));
+    var stream = gulp.src([
+        `${path.src}/pages/users/**/*.js`,
+    ]).pipe($.concat('users.js'))
+    // .pipe($.babel({presets: ['es2015']}));
     switch (ENV) {
         case 'DEV':
             return stream.pipe(gulp.dest(`${path.tmp}/js`));
