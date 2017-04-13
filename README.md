@@ -224,7 +224,7 @@ ionic使用的导航方式永远都是在新增历史记录,而浏览器原生�
 只是对meta标签进行的加工，参照内文的代码即可，或者网上找找，这部分很简单。
 
 ```
-<link rel="apple-touch-icon-precomposed" href="img/vivoCity.png">
+<link rel="apple-touch-icon-precomposed" href="img/city.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
